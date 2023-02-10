@@ -3,9 +3,10 @@ const { Sequelize } = require("sequelize");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 const fs = require("fs");
 const path = require("path");
+const {PORT}= require('../index')
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/pf`
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${PORT}/pf`
 );
 
 const basename = path.basename(__filename);
