@@ -7,5 +7,9 @@ module.exports = (sequelize) => {
       primaryKey: true,
       defaultValue: DataTypes.UUIDV4,
     },
+    status:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: false
+    }
   });
 };
