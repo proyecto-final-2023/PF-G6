@@ -6,7 +6,8 @@ const path = require("path");
 
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
+  {logging:false}
 );
 
 const basename = path.basename(__filename);
