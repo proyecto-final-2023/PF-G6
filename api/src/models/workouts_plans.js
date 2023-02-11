@@ -2,7 +2,7 @@ const { DataTypes, UUIDV4 } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "activity",
+    "workouts_plans",
     {
       id: {
         type: DataTypes.UUID,
