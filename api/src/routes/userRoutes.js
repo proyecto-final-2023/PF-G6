@@ -3,7 +3,7 @@ const {Router} = require('express');
 
 const userRoutes = Router();
 
-baseRouter.get("/", (req, res)=>{
+userRouter.get("/", (req, res)=>{
     try {
         res.status(200).send("Devuelvo el usuario");
     } catch (error) {
