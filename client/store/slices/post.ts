@@ -6,8 +6,9 @@ const createPostSlice: PostCreator = (set) => ({
 
   fetchPost: async () => {
     const { data } = await axios(
-      "https://jsonplaceholder.typicode.com/posts/1"
+      "https://api-fp-server.onrender.com/activity"
     );
+    console.log(data)
     set({ post: data });
   },
 });
