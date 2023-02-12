@@ -22,10 +22,6 @@ export default function App() {
 
       <div>
         {post.id}
-        <hr />
-        {post.title}
-        <hr />
-        {post.body}
       </div>
     </main>
   );
