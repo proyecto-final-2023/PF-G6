@@ -2,6 +2,7 @@ const { Router } = require("express");
 // Importar todos los routers;
 const baseRouter = require("./baseRouter");
 const activityRouter = require("./activityRoutes");
+const userRoutes = require("./userRoutes");
 
 const indexRouter = Router();
 
