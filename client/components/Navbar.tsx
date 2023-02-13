@@ -1,39 +1,31 @@
-import Image from "next/image";
 import { useRef, useState } from "react";
+
 import userImg from "../images/user.png";
 import logoImg from "../images/placeholder-logo.png";
+import HoverLi from "./HoverLi";
+import { NavbarStates } from "@/types/components";
 
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
 
-  const userEnterHandler = (key: "tools" | "user") => {
-    setHovers((prev) => {
-      const copy = { ...prev };
-      copy[key] = true;
-      return copy;
-    });
-  };
-
-  const userLeaveHandler = (key: "tools" | "user") => {
-    setHovers((prev) => {
-      const copy = { ...prev };
-      copy[key] = false;
-      return copy;
-    });
+  const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
+    // if mouse enter then hover state of key => true
+    if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
+    // else => hover state of key => false
+    else setHovers((prev) => ({ ...prev, [key]: false }));
   };
 
   return (
     <nav className="w-full bg-red-900">
       <ul className="flex">
-        <li
-          onMouseEnter={() => userEnterHandler("tools")}
-          onMouseLeave={() => userLeaveHandler("tools")}
-        >
-          <a href="#">
-            <Image src={logoImg} width={45} alt="logo img" />
-          </a>
-        </li>
+        {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
+        <HoverLi
+          text="tools"
+          imgUrl={logoImg}
+          isHover={hovers.tools}
+          {...{ hoverEventHandler }}
+        />
 
         <li>
           <a href="#">Home</a>
@@ -51,12 +43,12 @@ export default function Navbar() {
           <input type="text" ref={searchRef} />
         </li>
 
-        <li
-          onMouseEnter={() => userEnterHandler("user")}
-          onMouseLeave={() => userLeaveHandler("user")}
-        >
-          <Image src={userImg} width={45} alt="logo img" />
-        </li>
+        <HoverLi
+          text="user"
+          imgUrl={userImg}
+          isHover={hovers.user}
+          {...{ hoverEventHandler }}
+        />
       </ul>
     </nav>
   );
