@@ -1,14 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  remotePatterns: [
-    {
-      protocol: "https",
-      hostname: "example.com",
-      port: "",
-      pathname: "/account123/**",
-    },
-  ],
+  images: {
+    remotePatterns: [{
+      protocol: 'https',
+      hostname: 'lh3.googleusercontent.com'
+    }]
+  }
 };
 
 module.exports = nextConfig;
