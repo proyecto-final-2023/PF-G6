@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function plans() {
+export default function Plans() {
   return <div>plans</div>;
 }
