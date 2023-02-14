@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function routines() {
+export default function Routines() {
   return <div>routines</div>;
 }

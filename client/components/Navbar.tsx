@@ -24,51 +24,51 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="w-full bg-red-900 h-7 ">
+    <nav className="w-full bg-red-900">
       <ul className="flex justify-around align-middle">
         <li>
-          <Link href={"#"}>
+          <Link replace href="/" scroll>
             <Image src={logoImg} alt={`link of the whole app`} width={34} />
           </Link>
         </li>
 
         {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
         <HoverLi
+          href="trainee/tools"
           text="tools"
           isHover={hovers.tools}
-          optionsList={["IMC", "Diets Planning"]}
+          optionsList={["IMC", "Diet Planning"]}
           {...{ hoverEventHandler }}
         />
 
         <li>
-          <a href="#">Home</a>
+          <Link replace href="/">
+            Home
+          </Link>
         </li>
 
         <li>
-          <a href="#">Trainnings</a>
+          <Link replace href="#">
+            Trainnings
+          </Link>
         </li>
 
         <li>
           <input type="text" ref={searchRef} />
         </li>
 
-        {isLoggedIn ? (
-          <HoverLi
-            imgUrl={userImg}
-            text="user"
-            isHover={hovers.user}
-            optionsList={["Diets", "Trainer", "Programs", "Log out"]}
-            {...{ hoverEventHandler }}
-          />
-        ) : (
-          <HoverLi
-            imgUrl={userImg}
-            text="user"
-            isHover={hovers.user}
-            optionsList={["Sign in", "Login"]}
-            {...{ hoverEventHandler }}
-          />
-        )}
+        <HoverLi
+          imgUrl={userImg}
+          text="user"
+          href="/"
+          isHover={hovers.user}
+          optionsList={
+            isLoggedIn
+              ? ["Diets", "Trainer", "Programs", "Log out"]
+              : ["Register", "Log In"]
+          }
+          {...{ hoverEventHandler }}
+        />
       </ul>
     </nav>
   );
