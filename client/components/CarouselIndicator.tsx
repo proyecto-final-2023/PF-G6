@@ -7,9 +7,15 @@ interface CarouselIndicatorProps {
 }
 
 export default function CarouselIndicator(props: CarouselIndicatorProps) {
-  const { current, total } = props;
-  const { COOL_IT } = process.env;
-  console.log(COOL_IT);
+  const anz = process.env.NEXT_PUBLIC_ANALYTICS_ID;
 
   return <div>CarouselIndicator</div>;
 }
+
+// export async function getStaticProps() {
+//   return {
+//     props: {
+//       test: process.env.COOL_IT,
+//     },
+//   };
+// }
