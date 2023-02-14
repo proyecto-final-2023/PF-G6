@@ -1,33 +1,27 @@
-import { HoverLiProps } from "@/types/components";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { HoverLiProps } from "@/types/components";
+import SubNavMenu from "./SubNavMenu";
 
 export default function HoverLi(props: HoverLiProps) {
-  const { imgUrl, text, isHover, hoverEventHandler } = props;
+  const { imgUrl, text, isHover, hoverEventHandler, optionsList } = props;
 
-  // if it has imgUrl then render an LI with Image
-  if (imgUrl)
-    return (
-      <li
-        onMouseEnter={() => hoverEventHandler({ type: "enter", key: text })}
-        onMouseLeave={() => hoverEventHandler({ type: "leave", key: text })}
-      >
-        <Link href="#">
-          <Image src={imgUrl} width={45} alt="logo img" />
-        </Link>
-        {isHover && "KEKW"}
-      </li>
-    );
-
-  // otherwise render an LI only with text
   return (
     <li
       onMouseEnter={() => hoverEventHandler({ type: "enter", key: text })}
       onMouseLeave={() => hoverEventHandler({ type: "leave", key: text })}
     >
-      <Link href="#">{text}</Link>
-      {isHover && "KEKW"}
+      <Link href="#">
+        {/* if imgUrl render Image: else render text */}
+        {/* text stuff to make it upper case, needs to be done because of hoverState's key */}
+        {imgUrl ? (
+          <Image src={imgUrl} alt={`link of ${text}`} width={34} />
+        ) : (
+          text[0].toUpperCase() + text.slice(1)
+        )}
+
+        {isHover && <SubNavMenu {...{ optionsList }} />}
+      </Link>
     </li>
   );
 }

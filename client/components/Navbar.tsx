@@ -1,10 +1,14 @@
+import Link from "next/link";
+import Image from "next/image";
 import { useRef, useState } from "react";
 
-import userImg from "../images/user.png";
-import logoImg from "../images/placeholder-logo.png";
 import HoverLi from "./HoverLi";
 import { NavbarStates } from "@/types/components";
 
+import userImg from "../images/user.png";
+import logoImg from "../images/placeholder-logo.png";
+
+// * uwu *//
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
@@ -16,23 +20,28 @@ export default function Navbar() {
     else setHovers((prev) => ({ ...prev, [key]: false }));
   };
 
+  // TODO: change it to the real value
+  const isLoggedIn = false;
+
   return (
-    <nav className="w-full bg-red-900">
-      <ul className="flex">
+    <nav className="w-full bg-red-900 h-7 ">
+      <ul className="flex justify-around align-middle">
+        <li>
+          <Link href={"#"}>
+            <Image src={logoImg} alt={`link of the whole app`} width={34} />
+          </Link>
+        </li>
+
         {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
         <HoverLi
           text="tools"
-          imgUrl={logoImg}
           isHover={hovers.tools}
+          optionsList={["IMC", "Diets Planning"]}
           {...{ hoverEventHandler }}
         />
 
         <li>
           <a href="#">Home</a>
-        </li>
-
-        <li>
-          <a href="#">Tools</a>
         </li>
 
         <li>
@@ -43,12 +52,23 @@ export default function Navbar() {
           <input type="text" ref={searchRef} />
         </li>
 
-        <HoverLi
-          text="user"
-          imgUrl={userImg}
-          isHover={hovers.user}
-          {...{ hoverEventHandler }}
-        />
+        {isLoggedIn ? (
+          <HoverLi
+            imgUrl={userImg}
+            text="user"
+            isHover={hovers.user}
+            optionsList={["Diets", "Trainer", "Programs", "Log out"]}
+            {...{ hoverEventHandler }}
+          />
+        ) : (
+          <HoverLi
+            imgUrl={userImg}
+            text="user"
+            isHover={hovers.user}
+            optionsList={["Sign in", "Login"]}
+            {...{ hoverEventHandler }}
+          />
+        )}
       </ul>
     </nav>
   );
