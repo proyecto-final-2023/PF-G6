@@ -4,7 +4,7 @@ import { ImInstagram } from "react-icons/im";
 import { ImWhatsapp } from "react-icons/im";
 import { ImFacebook2} from "react-icons/im";
 import { ImTwitter} from "react-icons/im";
-
+//instalar npm install react-icons --save
 export default function Footer() {
   return(
   <div className="w-full bg-red-900">
