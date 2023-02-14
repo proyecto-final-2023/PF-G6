@@ -7,9 +7,9 @@ import { ImTwitter} from "react-icons/im";
 //instalar npm install react-icons --save
 export default function Footer() {
   return(
-  <div className="w-full bg-red-900">
+  <div className="mt-20 flex items-center text-sm text-black-400 bg-red-900">
   <h5>Contactos</h5>
-  <div className="flex" >
+  <div className="min-w-0 flex-1">
   <Link href="https://www.instagram.com/">
   <ImInstagram className='flex-auto w-7 ...' />
   </Link>

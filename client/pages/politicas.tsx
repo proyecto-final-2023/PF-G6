@@ -3,7 +3,7 @@ import React from 'react'
 export default function politicas() {
   return (
     <div>
-     <h3>TÉRMINOS Y CONDICIONES DE USO</h3>
+    <h3>TÉRMINOS Y CONDICIONES DE USO</h3>
     <p>Bienvenido a Fit-U, una aplicación móvil que ofrece información y recursos para ayudar a los usuarios a mejorar su salud y forma física. Al utilizar esta aplicación, acepta cumplir con estos Términos y Condiciones de Uso.</p>
     <h5> 1. Uso de la aplicación</h5>
     <p>Fit-U se pone a disposición de los usuarios con el objetivo de proporcionar información y recursos para ayudar a mejorar la salud y forma física. El uso de la aplicación es completamente voluntario y el usuario acepta que la información proporcionada en Fit-U es solo para fines informativos y no debe ser utilizada como un sustituto de asesoramiento médico o profesional. Fit-U no se hace responsable de cualquier lesión o daño resultante del uso de la aplicación.</p>
