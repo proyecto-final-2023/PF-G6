@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const CalculateFatPercentage = () => {
   const [neck, setNeck] = useState("");
@@ -13,10 +13,14 @@ const CalculateFatPercentage = () => {
 
     if (gender === "male") {
       bodyFatPercentage =
-        86.01 * Math.log10(waist - neck) - 70.041 * Math.log10(height) + 36.76;
+        86.01 * Math.log10(+waist - +neck) -
+        70.041 * Math.log10(+height) +
+        36.76;
     } else {
       bodyFatPercentage =
-        163.205 * Math.log10(waist + hip - neck) - 97.684 * Math.log10(height) - 78.387;
+        163.205 * Math.log10(+waist + +hip - +neck) -
+        97.684 * Math.log10(+height) -
+        78.387;
     }
 
     setResult(bodyFatPercentage);
@@ -42,7 +46,11 @@ const CalculateFatPercentage = () => {
       </div>
       <div>
         <label>Hip circumference (cm):</label>
-        <input type="text" value={hip} onChange={(e) => setHip(e.target.value)} />
+        <input
+          type="text"
+          value={hip}
+          onChange={(e) => setHip(e.target.value)}
+        />
       </div>
       <div>
         <label>Height (cm):</label>
@@ -60,9 +68,7 @@ const CalculateFatPercentage = () => {
         </select>
       </div>
       <button onClick={calculate}>Calculate</button>
-      <div>
-        Result: {result} %
-      </div>
+      <div>Result: {result} %</div>
     </div>
   );
 };

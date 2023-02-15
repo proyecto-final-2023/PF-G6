@@ -1,4 +1,3 @@
-import React from "react";
 import { BsCircle, BsCircleFill } from "react-icons/bs";
 
 interface CarouselIndicatorProps {
