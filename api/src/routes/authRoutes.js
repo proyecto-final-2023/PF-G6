@@ -3,6 +3,7 @@ const {signIn} = require('../controllers/authControlers')
 
 
 const authRouter = Router();
+//Ruta para loguear un usuario y devuelve el token
 
 authRouter.get("/", async (req, res)=>{
     const obj= req.body;
