@@ -4,6 +4,7 @@ const baseRouter = require("./baseRouter");
 const activityRouter = require("./activityRoutes");
 const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
+const createUserRoutes= require("./createUserRoutes")
 
 const indexRouter = Router();
 
@@ -12,5 +13,6 @@ indexRouter.use("/base", baseRouter);
 indexRouter.use("/activity", activityRouter);
 indexRouter.use("/user", userRoutes);
 indexRouter.use("/auth", authRoutes);
+indexRouter.use("/createuser", createUserRoutes);
 
 module.exports = indexRouter;

@@ -1,3 +1,3 @@
-export default {
-    SECRET: 'oscar-llorando'
+module.exports = {
+    SECRET: 'oscar-llorando',
 }
