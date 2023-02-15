@@ -1,4 +1,4 @@
-import { BearCreator } from "../zustand-types";
+import { BearCreator } from "@/types/zustand-types";
 
 const createBearSlice: BearCreator = (set) => ({
   bears: 0,

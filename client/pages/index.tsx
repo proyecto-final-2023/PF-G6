@@ -1,6 +1,6 @@
 import CarouselIndicator from "@/components/CarouselIndicator";
 import CarouselItem from "@/components/CarouselItem";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import landindSlides from "../assets/landing-slides";
 //! THIS IS LANDING
@@ -22,15 +22,18 @@ export default function index() {
   };
 
   return (
-    <div className="flex ">
-      <button className="" onClick={nextImgHandler}>
+    <div className="flex justify-center align-middle gap-3 m-3">
+      <button className="" onClick={prevImgHandler}>
         <FaArrowLeft />
       </button>
 
-      <CarouselItem isModalOpen={true} imgData={landindSlides[slideNum]} />
-      <CarouselIndicator current={0} total={10} />
+      <CarouselItem
+        isModalOpen={true}
+        imgData={landindSlides[slideNum]}
+        indicators={{ current: slideNum + 1, total: landindSlides.length }}
+      />
 
-      <button className="" onClick={prevImgHandler}>
+      <button className="" onClick={nextImgHandler}>
         <FaArrowRight />
       </button>
     </div>

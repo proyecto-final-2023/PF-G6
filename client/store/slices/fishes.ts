@@ -1,4 +1,4 @@
-import { FishCreator } from "../zustand-types";
+import { FishCreator } from "@/types/zustand-types";
 
 const createFishSlice: FishCreator = (set) => ({
   fishes: 0,
