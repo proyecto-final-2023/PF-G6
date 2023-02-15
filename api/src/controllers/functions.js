@@ -1,4 +1,5 @@
 const { exercices } = require("./exercices");
+
 //Esta funcion extrae los datos de la api
 const extractData = async () => {
   try {
@@ -17,5 +18,7 @@ const extractData = async () => {
     return error;
   }
 };
+
+
 
 module.exports = { extractData };
