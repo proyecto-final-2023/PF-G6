@@ -25,7 +25,7 @@
     "**/*.tsx",
     "pages/footer/Footer.tsx",
     "components/Footer.js",
-    "pages/index.jsx",
+    "pages/index.tsx",
     "pages/login/index.jsx",
     "components/Footer.tsx"
   ],
