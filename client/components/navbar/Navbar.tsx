@@ -42,13 +42,13 @@ export default function Navbar() {
         />
 
         <li>
-          <Link replace href="/">
+          <Link replace href="/home">
             Home
           </Link>
         </li>
 
         <li>
-          <Link replace href="#">
+          <Link replace href="/guest/trainning-list">
             Trainnings
           </Link>
         </li>
