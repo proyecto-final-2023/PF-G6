@@ -1,5 +1,7 @@
 const { Activity } = require("../db");
 const { extractData } = require("./functions");
+
+//devuelve todas las actividades
 const getListActivities = async () => {
   try {
     let listActivities = await Activity.findAll(); //Trae los datos de la base a una varible
@@ -18,6 +20,14 @@ const getListActivities = async () => {
   }
 };
 
+const getId = async(id)=>{
+  if(!id)throw new Error("debe enviar un id valido")
+  const {dataValues}= await Activity.findOne({ where: { id: id } });
+  console.log(dataValues)
+  return dataValues;
+}
+
 module.exports = {
   getListActivities,
+  getId
 };
