@@ -1,9 +1,8 @@
 import CarouselIndicator from "@/components/CarouselIndicator";
 import CarouselItem from "@/components/CarouselItem";
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import landindSlides from "../assets/landing-slides";
-
 //! THIS IS LANDING
 
 // ? Loops over them instead of stop working when we reach the end
@@ -23,7 +22,7 @@ export default function index() {
   };
 
   return (
-    <div className="galleryWrap">
+    <div className="flex ">
       <button className="" onClick={nextImgHandler}>
         <FaArrowLeft />
       </button>
@@ -37,4 +36,3 @@ export default function index() {
     </div>
   );
 }
-
