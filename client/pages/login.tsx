@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import blankProfile from "../assets/img/blankProfile.png";
 import Image from "next/dist/client/image";
 
-export default function login() {
+export default function Login() {
   const [user, setUser] = useAuthState(auth);
   const googleAuth = new GoogleAuthProvider();
   const login = async () => {

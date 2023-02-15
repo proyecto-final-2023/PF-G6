@@ -1,9 +1,10 @@
-import React from "react";
 import Link from "next/link";
-import { ImInstagram } from "react-icons/im";
-import { ImWhatsapp } from "react-icons/im";
-import { ImFacebook2 } from "react-icons/im";
-import { ImTwitter } from "react-icons/im";
+import {
+  ImInstagram,
+  ImWhatsapp,
+  ImFacebook2,
+  ImTwitter,
+} from "react-icons/im";
 
 export default function Footer() {
   return (
