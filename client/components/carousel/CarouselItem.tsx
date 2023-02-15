@@ -8,12 +8,7 @@ export default function CarouselItem(props: CarouselItemProps) {
   return (
     <div>
       <div onClick={imgClickHandler}>
-        <Image
-          src={imgData.image}
-          alt=""
-          height={330}
-          className="rounded-md w-80"
-        />
+        <Image src={imgData.image} alt={`some cool thing`} height={330} className="rounded-md w-80 h-80" />
       </div>
 
       <CarouselIndicator
