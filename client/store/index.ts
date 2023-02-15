@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { Bear, Fish, Post } from "./zustand-types";
+import { Bear, Fish, Post } from "../types/zustand-types";
 import createBearSlice from "./slices/bears";
 import createFishSlice from "./slices/fishes";
 import createPostSlice from "./slices/post";
