@@ -1,8 +1,8 @@
 import { StaticImageData } from "next/image";
 import React from "react";
 
-// ? types for almost everything
 // ? interfaces only for components states
+// ? types for almost everything
 
 // @ HoverLi
 export type HoverLiProps = {
@@ -39,4 +39,12 @@ export type ReturnVoidOrJsx = null | React.ReactElement;
 // @ Navbar
 export interface NavbarStates {
   hovers: { type: "enter" | "leave"; key: "tools" | "user" };
+}
+
+// @ CarouselItem
+export interface CarouselItemProps {
+  imgData: { title: string; image: StaticImageData };
+  isModalOpen: boolean;
+  imgClickHandler?: () => void;
+  indicators: { current: number; total: number };
 }
