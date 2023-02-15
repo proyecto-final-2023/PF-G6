@@ -10,23 +10,25 @@ export default function CalculateCalories() {
   const [result, setResult] = useState(0);
 
   const calculate = () => {
-    let BMR = 0;
+    // amountt of energy needed to survive (BMR)
+    let BasalMetabR = 0;
 
     if (gender === "male") {
-      BMR = 66 + 6.23 * +weight + 12.7 * +height - 6.8 * +age;
+      BasalMetabR = 66 + 6.23 * +weight + 12.7 * +height - 6.8 * +age;
     } else {
-      BMR = 655 + 4.35 * +weight + 4.7 * +height - 4.7 * +age;
+      BasalMetabR = 655 + 4.35 * +weight + 4.7 * +height - 4.7 * +age;
     }
 
-    let TDEE = BMR * parseFloat(activityLevel);
+    // extra daily eenergy use (TDEE)
+    let PlusEnergyEx = BasalMetabR * parseFloat(activityLevel);
 
     if (goal === "lose") {
-      TDEE -= 500;
+      PlusEnergyEx -= 500;
     } else {
-      TDEE += 500;
+      PlusEnergyEx += 500;
     }
 
-    setResult(TDEE);
+    setResult(PlusEnergyEx);
   };
 
   return (
