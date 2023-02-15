@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-const CalculateCalories = () => {
+export default function CalculateCalories() {
   const [age, setAge] = useState("");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
@@ -13,9 +13,9 @@ const CalculateCalories = () => {
     let BMR = 0;
 
     if (gender === "male") {
-      BMR = 66 + 6.23 * weight + 12.7 * height - 6.8 * age;
+      BMR = 66 + 6.23 * +weight + 12.7 * +height - 6.8 * +age;
     } else {
-      BMR = 655 + 4.35 * weight + 4.7 * height - 4.7 * age;
+      BMR = 655 + 4.35 * +weight + 4.7 * +height - 4.7 * +age;
     }
 
     let TDEE = BMR * parseFloat(activityLevel);
@@ -33,7 +33,11 @@ const CalculateCalories = () => {
     <div>
       <div>
         <label>Age:</label>
-        <input type="text" value={age} onChange={(e) => setAge(e.target.value)} />
+        <input
+          type="text"
+          value={age}
+          onChange={(e) => setAge(e.target.value)}
+        />
       </div>
       <div>
         <label>Weight (kg):</label>
@@ -79,13 +83,7 @@ const CalculateCalories = () => {
         </select>
       </div>
       <button onClick={calculate}>Calculate</button>
-      <div>
-        Result: {result} calories/day
-      </div>
+      <div>Result: {result} calories/day</div>
     </div>
   );
-};
-
-export default CalculateCalories;
-
-
+}
