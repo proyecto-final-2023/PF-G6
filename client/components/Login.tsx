@@ -9,7 +9,12 @@ export const Login = () => {
   const [user, setUser] = useAuthState(auth);
   const googleAuth = new GoogleAuthProvider();
   const login = async () => {
-    const result = await signInWithPopup(auth, googleAuth);
+    try {
+      const result = await signInWithPopup(auth, googleAuth);
+      console.log("logge in Success :D");
+    } catch (error) {
+      console.log("USER CLOSED POP UP");
+    }
   };
 
   const loginimg = (): string | StaticImageData => {
@@ -25,7 +30,7 @@ export const Login = () => {
     <div>
       <p className="text-sm">LOGIN WITH GOOGLE</p>
       <button className="text-green-400 rounded-md bg-white" onClick={login}>
-        LOGIN
+        Google Login
       </button>
       {user ? "Welcome, " + user.displayName + " e-mail : " + user.email : ""}
       <Image src={loginimg()} width={50} height={50} alt="a" />
@@ -34,7 +39,7 @@ export const Login = () => {
         className="text-green-400 rounded-md bg-white"
         onClick={() => auth.signOut()}
       >
-        LOG OUT
+        Google Log out
       </button>
     </div>
   );
