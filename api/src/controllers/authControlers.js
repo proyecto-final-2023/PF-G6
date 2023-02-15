@@ -18,7 +18,6 @@ async function signUP(obj) {
   //se usa para crear un nuevo usuario
   //el objeto requiere los siguientes datos
   //   first_name, last_name, nick_name, email, password, rol, imgURL
-  console.log(obj)
   const user = await User.findOne({ where: { email: email } });
   if (user) throw new Error("El usuario ya existe");
   const pass = encPassword(obj.password);
