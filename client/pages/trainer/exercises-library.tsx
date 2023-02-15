@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export default function exercises-library() {
-  return (
-    <div>exercises-library</div>
-  )
+export default function ExercisesLibrary() {
+  return <div>exercises-library</div>;
 }

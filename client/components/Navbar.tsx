@@ -1,62 +1,74 @@
+import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
+
+import HoverLi from "./HoverLi";
+import { NavbarStates } from "@/types/components";
+
 import userImg from "../images/user.png";
 import logoImg from "../images/placeholder-logo.png";
 
+// * uwu *//
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
 
-  const userEnterHandler = (key: "tools" | "user") => {
-    setHovers((prev) => {
-      const copy = { ...prev };
-      copy[key] = true;
-      return copy;
-    });
+  const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
+    // if mouse enter then hover state of key => true
+    if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
+    // else => hover state of key => false
+    else setHovers((prev) => ({ ...prev, [key]: false }));
   };
 
-  const userLeaveHandler = (key: "tools" | "user") => {
-    setHovers((prev) => {
-      const copy = { ...prev };
-      copy[key] = false;
-      return copy;
-    });
-  };
+  // TODO: change it to the real value
+  const isLoggedIn = false;
 
   return (
     <nav className="w-full bg-red-900">
-      <ul className="flex">
-        <li
-          onMouseEnter={() => userEnterHandler("tools")}
-          onMouseLeave={() => userLeaveHandler("tools")}
-        >
-          <a href="#">
-            <Image src={logoImg} width={45} alt="logo img" />
-          </a>
+      <ul className="flex justify-around align-middle">
+        <li>
+          <Link replace href="/" scroll>
+            <Image src={logoImg} alt={`link of the whole app`} width={34} />
+          </Link>
+        </li>
+
+        {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
+        <HoverLi
+          href="trainee/tools"
+          text="tools"
+          isHover={hovers.tools}
+          optionsList={["IMC", "Diet Planning"]}
+          {...{ hoverEventHandler }}
+        />
+
+        <li>
+          <Link replace href="/">
+            Home
+          </Link>
         </li>
 
         <li>
-          <a href="#">Home</a>
-        </li>
-
-        <li>
-          <a href="#">Tools</a>
-        </li>
-
-        <li>
-          <a href="#">Trainnings</a>
+          <Link replace href="#">
+            Trainnings
+          </Link>
         </li>
 
         <li>
           <input type="text" ref={searchRef} />
         </li>
 
-        <li
-          onMouseEnter={() => userEnterHandler("user")}
-          onMouseLeave={() => userLeaveHandler("user")}
-        >
-          <Image src={userImg} width={45} alt="logo img" />
-        </li>
+        <HoverLi
+          imgUrl={userImg}
+          text="user"
+          href="/"
+          isHover={hovers.user}
+          optionsList={
+            isLoggedIn
+              ? ["Diets", "Trainer", "Programs", "Log out"]
+              : ["Register", "Log In"]
+          }
+          {...{ hoverEventHandler }}
+        />
       </ul>
     </nav>
   );
