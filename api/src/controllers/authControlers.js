@@ -44,8 +44,9 @@ async function signIn(email, password) {
 
 function token(id) {
     //genera el token 
+    if(!id) throw new Error({message: 'Debe enviar un id'})
   const tok = jwt.sign({ id: id }, config.SECRET, { expiresIn: 604800 }); //expira en 7 dias
-  return tok;
+  return {token:tok};
 }
 
 module.exports = { signIn, signUP };
