@@ -1,6 +1,6 @@
 import CarouselIndicator from "@/components/CarouselIndicator";
 import CarouselItem from "@/components/CarouselItem";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import landindSlides from "../assets/landing-slides";
 //! THIS IS LANDING
