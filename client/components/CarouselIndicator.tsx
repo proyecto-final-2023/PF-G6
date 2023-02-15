@@ -13,8 +13,8 @@ export default function CarouselIndicator(props: CarouselIndicatorProps) {
       {Array(total)
         .fill(0)
         .map((e, i) => {
-          if (i + 1 === current) return <BsCircleFill />;
-          else return <BsCircle />;
+          if (i + 1 === current) return <BsCircleFill key={i} />;
+          else return <BsCircle key={i} />;
         })}
     </div>
   );
