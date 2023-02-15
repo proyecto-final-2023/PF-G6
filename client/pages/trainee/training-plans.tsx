@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export default function training-plans() {
-  return (
-    <div>training-plans</div>
-  )
+export default function TrainingPlans() {
+  return <div>training-plans</div>;
 }

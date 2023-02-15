@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export default function trainer-blog() {
-  return (
-    <div>trainer-blog</div>
-  )
+export default function TrainerBlog() {
+  return <div>trainer-blog</div>;
 }

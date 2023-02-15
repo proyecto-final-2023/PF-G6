@@ -1,31 +1,38 @@
-import React, { useEffect } from "react";
-import { auth } from './firebase';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
-import { useAuthState } from 'react-firebase-hooks/auth'
-import blankProfile from '../assets/img/blankProfile.png'
-import Image from "next/dist/client/image";
-
+import CarouselIndicator from "@/components/CarouselIndicator";
+import CarouselItem from "@/components/CarouselItem";
+import React, { useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import landindSlides from "../assets/landing-slides";
 //! THIS IS LANDING
 
+// ? Loops over them instead of stop working when we reach the end
 export default function index() {
-  const [user, setUser] = useAuthState(auth);
-  const googleAuth = new GoogleAuthProvider();
-  const login = async () => {
-    const result = await signInWithPopup(auth, googleAuth);
-  }
+  const [slideNum, setSlideNum] = useState(0);
 
-  useEffect(()=> {
-    console.log(user)
-  }, [user])
+  const nextImgHandler = () => {
+    const willBeGreater = slideNum + 1 >= landindSlides.length;
+    const newIndex = willBeGreater ? 0 : slideNum + 1;
+    setSlideNum(newIndex);
+  };
 
-  return <div>
-      <p className= 'text-sm'>LOGIN WITH GOOGLE</p>
-      <button className="text-green-400 rounded-md bg-white" onClick={login}>LOGIN</button>
-      {user? 'Welcome, ' + user.displayName + ' e-mail : ' + user.email :""}
-      <Image src = {user?.photoURL || blankProfile} width={50} height={50} alt='a' /> 
-      <br></br>
-      <button className="text-green-400 rounded-md bg-white" onClick={()=>auth.signOut()}>LOG OUT</button>
+  const prevImgHandler = () => {
+    const willBeLower = slideNum - 1 < 0;
+    const newIndex = willBeLower ? landindSlides.length - 1 : slideNum - 1;
+    setSlideNum(newIndex);
+  };
+
+  return (
+    <div className="flex ">
+      <button className="" onClick={nextImgHandler}>
+        <FaArrowLeft />
+      </button>
+
+      <CarouselItem isModalOpen={true} imgData={landindSlides[slideNum]} />
+      <CarouselIndicator current={0} total={10} />
+
+      <button className="" onClick={prevImgHandler}>
+        <FaArrowRight />
+      </button>
     </div>
-
+  );
 }
-
