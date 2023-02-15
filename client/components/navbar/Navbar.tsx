@@ -5,8 +5,8 @@ import { useRef, useState } from "react";
 import HoverLi from "./HoverLi";
 import { NavbarStates } from "@/types/components";
 
-import userImg from "../images/user.png";
-import logoImg from "../images/placeholder-logo.png";
+import userImg from "@/assets/images/user.png";
+import logoImg from "@/assets/images/placeholder-logo.png";
 
 // * uwu *//
 export default function Navbar() {
@@ -48,7 +48,7 @@ export default function Navbar() {
         </li>
 
         <li>
-          <Link replace href="#">
+          <Link replace href="/guest/trainning-list">
             Trainnings
           </Link>
         </li>
