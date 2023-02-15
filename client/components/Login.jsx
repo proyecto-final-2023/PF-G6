@@ -1,6 +1,6 @@
 
     import React, { useEffect } from "react";
-    import { auth } from '../pages/firebase';
+    import { auth } from '../firebase';
     import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth'
     import { useAuthState } from 'react-firebase-hooks/auth'
     import blankProfile from '../assets/img/blankProfile.png'

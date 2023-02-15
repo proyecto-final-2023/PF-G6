@@ -21,18 +21,11 @@
     "next": "13.1.6",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-<<<<<<< HEAD
-=======
-    "react-icons": "^4.7.1",
->>>>>>> 1470d3612af66f61c6363c43dfd20e2cc85376fb
     "react-firebase-hooks": "^5.1.1",
     "react-icons": "^4.7.1",
     "react-user-provider": "^1.0.1",
-<<<<<<< HEAD
     "redux-thunk": "^2.4.2",
     "sequelize": "^6.28.0",
-=======
->>>>>>> 1470d3612af66f61c6363c43dfd20e2cc85376fb
     "typescript": "4.9.5",
     "zustand": "^4.3.3"
   },
