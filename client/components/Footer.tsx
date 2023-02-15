@@ -32,7 +32,7 @@ export default function Footer() {
  <li className='flex-auto w-40 ...' >Sobre nosotros</li>
  </Link>
  <Link  href="/planesPrecios">
- <li className='flex-auto w-30 ...'>Planes-Precio</li>
+ <li className='flex-auto w-30 ...'>Planes</li>
  </Link>
  </ul>
  </div>
