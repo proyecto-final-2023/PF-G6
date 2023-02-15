@@ -1,27 +1,20 @@
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import { AiOutlineCloseCircle } from "react-icons/ai";
-import Image, { StaticImageData } from "next/image";
-
-interface CarouselItemProps {
-  imgData: { title: string; image: StaticImageData };
-  isModalOpen: boolean;
-  imgClickHandler?: () => void;
-}
+import Image from "next/image";
+import { CarouselItemProps } from "@/types/components";
+import CarouselIndicator from "./CarouselIndicator";
 
 export default function CarouselItem(props: CarouselItemProps) {
-  const { imgData, imgClickHandler } = props;
+  const { imgData, imgClickHandler, indicators } = props;
 
   return (
     <div>
-      <div className="sliderWrap">
-        {/* <button className="" onClick={}>
-            <AiOutlineCloseCircle />
-          </button> */}
-        <div className="" onClick={imgClickHandler}>
-          <Image src={imgData.image} alt="" height={330} />
-          title: {imgData.title}
-        </div>
+      <div onClick={imgClickHandler}>
+        <Image src={imgData.image} alt="" height={330} className="rounded-md" />
       </div>
+
+      <CarouselIndicator
+        current={indicators.current}
+        total={indicators.total}
+      />
     </div>
   );
 }

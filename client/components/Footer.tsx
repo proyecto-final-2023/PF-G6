@@ -1,4 +1,3 @@
-import React from 'react'
 import Link from 'next/link'
 import { ImInstagram } from "react-icons/im";
 import { ImWhatsapp } from "react-icons/im";

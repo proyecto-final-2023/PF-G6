@@ -1,16 +1,8 @@
-import React from "react";
+import { ReactNode } from "react";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
 
-// const Navbar = () => {
-//   return <h3>This is Header</h3>;
-// };
-
-// const Footer = () => {
-//   return <h3>This is Footer</h3>;
-// };
-
-const Layout = ({ children }: typeof React.Children) => {
+export default function Layout({ children }: { children: ReactNode }) {
   return (
     <>
       <Navbar />
@@ -18,6 +10,4 @@ const Layout = ({ children }: typeof React.Children) => {
       <Footer />
     </>
   );
-};
-
-export default Layout;
+}

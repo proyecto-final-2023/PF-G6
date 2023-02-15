@@ -19,6 +19,15 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/footer/Footer.tsx"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/footer/Footer.tsx",
+    "components/Footer.js",
+    "pages/index.tsx",
+    "pages/login/index.jsx",
+    "components/Footer.tsx"
+  ],
   "exclude": ["node_modules"]
 }
