@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { useState } from "react";
+import { GrClose } from "react-icons/gr";
 
 const CalculateFatPercentage = () => {
   const [neck, setNeck] = useState("");
@@ -27,7 +29,8 @@ const CalculateFatPercentage = () => {
   };
 
   return (
-    <div>
+    <div className="grid grid-cols-1 gap-1 justify-items-center">
+      <h1>Fat-Calculator</h1>
       <div>
         <label>Neck circumference (cm):</label>
         <input
@@ -69,6 +72,9 @@ const CalculateFatPercentage = () => {
       </div>
       <button onClick={calculate}>Calculate</button>
       <div>Result: {result} %</div>
+      <Link className="bg-[#f10303] " href="/trainee/tool/tools">
+        <GrClose />
+      </Link>
     </div>
   );
 };
