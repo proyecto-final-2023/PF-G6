@@ -1,5 +1,6 @@
 const { User } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
+const { Op } = require("sequelize");
 
 const botUserAdd = async () => {
   try {
@@ -11,6 +12,39 @@ const botUserAdd = async () => {
   }
 };
 
+const getId = async (id) => {
+  if (!id) throw new Error("Debe ingresar una ID válida");
+
+  const dataValues = await User.findByPk(id);
+  if (!dataValues) throw new Error("Usuario inexistente");
+
+  return dataValues;
+};
+const getListUser = async () => {
+  try {
+    let listUser = await User.findAll();
+    if (!listUser) {
+      throw Error("No existen Usuarios Registrados");
+    }
+    return listUser;
+  } catch (error) {
+    return error;
+  }
+};
+
+const userByName = async (name) => {
+  const user = await User.findAll({
+    where: {
+      first_name: { [Op.iLike]: `%${name}%` },
+    },
+  });
+
+  if (!user.length) throw Error("No se encuentran coincidencias");
+  return user;
+};
 module.exports = {
   botUserAdd,
+  getId,
+  getListUser,
+  userByName,
 };
