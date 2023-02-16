@@ -4,10 +4,9 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_NAME, DB_PORT } = process.env;
 const fs = require("fs");
 const path = require("path");
 
-
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-  {logging:false}
+  { logging: false }
 );
 
 const basename = path.basename(__filename);

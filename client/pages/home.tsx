@@ -1,9 +1,11 @@
+import CarouselComp from "@/components/carousel/CarouselComp";
 import ssrProtection from "@/utils/ssrProtection";
+import homeSlides from "@/assets/home-slides";
 
-export default function home() {
+export default function Home() {
   return (
     <div>
-      <h1>BEANS</h1>
+      <CarouselComp slidesArr={homeSlides} />
     </div>
   );
 }
