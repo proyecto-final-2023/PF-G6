@@ -33,11 +33,14 @@ async function signUP(obj) {
     rol,
     imgURL,
   });
+  //aqui va para enviar el mail y esperar que verifique
+  //aun sin implementar
   return token(create.id);
 }
 
 async function signIn(email, password) {
   //se usa para enviar un token a los usuarios que se loguean via login local
+  //se debe implementar una funcion para saber si el usuario es verificado
   const user = await User.findOne({ where: { email: email } });
   if (!user) throw new Error("Usuario no existe");
   const exist = await comparePassword(user.dataValues.password, password);
