@@ -28,6 +28,6 @@
     "pages/index.tsx",
     "pages/login/index.jsx",
     "components/Footer.tsx"
-, "pages/trainee/payments.jsx"  ],
+, "pages/trainee/payments.jsx", "components/Signup.jsx"  ],
   "exclude": ["node_modules"]
 }
