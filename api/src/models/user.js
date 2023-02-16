@@ -50,10 +50,10 @@ module.exports = (sequelize) => {
       imgURL: {
         type: DataTypes.STRING(255),
       },
-      verify: {
+      verify:{
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
-      },
+        defaultValue:false
+      }
     },
     { timestamps: false }
   );

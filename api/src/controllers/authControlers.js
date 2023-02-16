@@ -4,12 +4,15 @@ const jwt = require("jsonwebtoken");
 const config = require("../../config");
 
 async function encPassword(password) {
+  //hashea la contraseña
   const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
+  const hash= await bcrypt.hash(password, salt);
+  return hash;
 }
 
 async function comparePassword(password, receivedPassword) {
-  return await bcrypt.compare(password, receivedPassword);
+  //compara la contraseña enviada con la hasheada
+  return await bcrypt.compare(receivedPassword, password);
 }
 
 async function signUP(obj) {
@@ -36,10 +39,14 @@ async function signUP(obj) {
 async function signIn(email, password) {
   //se usa para enviar un token a los usuarios que se loguean via login local
   const user = await User.findOne({ where: { email: email } });
-  if (!user.id) throw new Error("Usuario no existe");
-  const exist = comparePassword(user.password, password);
-  const tkn = token(user.dataValues.id);
-  return tkn;
+  if (!user) throw new Error("Usuario no existe");
+  const exist = await comparePassword(user.dataValues.password, password);
+  console.log(exist, user.dataValues.password, password)
+  if(!exist)throw new Error('usuario no existe o password incorrecto');
+  else{
+    const tkn = token(user.dataValues.id);
+    return tkn;
+  }
 }
 
 function token(id) {

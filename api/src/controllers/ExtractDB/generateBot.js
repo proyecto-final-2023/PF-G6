@@ -6,7 +6,7 @@ const generateBot = async () => {
   const bot = await axios.get(API);
   try {
     const userBot = bot.data.results[0];
-
+    console.log(`-${userBot.login.password}-`)
     const result = {
       first_name: userBot.name.first,
       last_name: userBot.name.last,
