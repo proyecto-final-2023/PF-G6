@@ -41,16 +41,3 @@ const data: InputData[] = [
 ];
 
 export default data;
-
-// first_name: userBot.name.first,
-// last_name: userBot.name.last,
-// nick_name: userBot.login.username,
-// email: userBot.email,
-// password: await encPassword(userBot.login.password),
-// phone: userBot.phone,
-// cell: userBot.cell,
-
-// ? cannot add these here
-// imgURL: userBot.picture.large,
-// gender: userBot.gender,
-// rol: "bot",
