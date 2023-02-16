@@ -1,8 +1,8 @@
 // will dynamically get the chnage handler with the name
 // every input has the same changeHandler (since we use event to handle changes)
-import { InputsData } from "@/types/components";
+import { InputData } from "@/types/components";
 
-const data: InputsData = [
+const data: InputData[] = [
   {
     label: "First Name",
     name: "first_name",

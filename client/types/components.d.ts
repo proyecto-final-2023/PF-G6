@@ -50,21 +50,8 @@ export interface CarouselItemProps {
 }
 
 // @ register-inputs-data
-export type InputsData = {
+export type InputData = {
   label: string;
   name: string;
   type: "text" | "password" | "number";
-}[];
-
-// @ Register
-export interface RegisterFormState {
-  formData: {
-    first_name: string;
-    last_name: string;
-    nick_name: string;
-    password: string;
-    email: string;
-    phone: string;
-    cell: string;
-  };
-}
+};
