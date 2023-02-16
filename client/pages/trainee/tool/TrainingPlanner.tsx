@@ -50,23 +50,23 @@ export default function TrainingPlanner() {
               <h4>Session{
                   index + 1
               }</h4>
-              <label className='bg-gray-500 rounded content-center '>
+              <label>
                   Day:
-                  <select className=' justify-items-center rounded  ' name="select"
+                  <select className='text-black bg-gray-700 ' name="select"
                       onChange={
                           (e) => actualizarSesion(index, 'dia', e.target.value)
                   }>
                       {
-                      day.map(e =>< option value = {
+                      day.map(e =>< option className='text-black' value = {
                           e
                       } > {
                           e
                       } < /option>)
                   } </select>
               </label>
-              <label className='bg-gray-500 rounded justify-items-center '>
+              <label>
                   Exercises:
-                  <input className='bg-gray-200 rounded ' type="text"
+                  <input className='bg-gray-700 rounded ' type="text"
                       value={
                           sesion.ejercicio
                       }
@@ -74,9 +74,9 @@ export default function TrainingPlanner() {
                           (e) => actualizarSesion(index, 'ejercicio', e.target.value)
                       }/>
               </label>
-              <label className='bg-gray-500 rounded '>
+              <label >
                   Series:
-                  <input className='bg-gray-200 rounded ' type="text"
+                  <input className='bg-gray-700  rounded ' type="text"
                       value={
                           sesion.series
                       }
@@ -84,9 +84,9 @@ export default function TrainingPlanner() {
                           (e) => actualizarSesion(index, 'series', e.target.value)
                       }/>
               </label>
-              <label className='bg-gray-500  rounded  '>
+              <label >
                   Repetition:
-                  <input className='bg-gray-200 rounded ' type="text"
+                  <input className='bg-gray-700 rounded ' type="text"
                       value={
                           sesion.repeticiones
                       }
@@ -97,7 +97,7 @@ export default function TrainingPlanner() {
           </div>
       ))
       }
-          <button className='bg-gray-500 rounded  '
+          <button className='bg-gray-600 rounded  '
               onClick={agregarSesion}>Add</button>
 
           <Link className="bg-[#f10303] " href="/trainee/tool/tools"><GrClose /></Link> 

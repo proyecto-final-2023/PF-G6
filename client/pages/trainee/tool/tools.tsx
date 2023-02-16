@@ -15,6 +15,9 @@ export default function Example() {
           <Link className="" href="/trainee/tool/TrainingPlanner">
             Training Planner
           </Link>
+          <Link className="" href="/trainee/tool/Chronometer">
+           Chronometer
+          </Link>
         </div>
         <div />
       </div>
