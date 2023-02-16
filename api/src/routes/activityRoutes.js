@@ -1,5 +1,8 @@
 const { Router } = require("express");
-const { getListActivities, getId } = require("../controllers/activityController");
+const {
+  getListActivities,
+  getId,
+} = require("../controllers/activityController");
 
 const activityRouter = Router();
 
@@ -12,9 +15,9 @@ activityRouter.get("/", async (req, res) => {
   }
 });
 
-activityRouter.get("/:id", async (req, res)=>{
-  const {id}= req.params;
+activityRouter.get("/:id", async (req, res) => {
+  const { id } = req.params;
   res.status(200).json(await getId(id));
-})
+});
 
 module.exports = activityRouter;

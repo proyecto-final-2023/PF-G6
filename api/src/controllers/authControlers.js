@@ -4,11 +4,14 @@ const jwt = require("jsonwebtoken");
 const config = require("../../config");
 
 async function encPassword(password) {
+  //hashea la contraseña
   const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
+  const hash= await bcrypt.hash(password, salt);
+  return hash;
 }
 
 async function comparePassword(password, receivedPassword) {
+  //compara la contraseña enviada con la hasheada
   return await bcrypt.compare(password, receivedPassword);
 }
 
@@ -37,16 +40,20 @@ async function signIn(email, password) {
   //se usa para enviar un token a los usuarios que se loguean via login local
   const user = await User.findOne({ where: { email: email } });
   if (!user.id) throw new Error("Usuario no existe");
-  const exist = comparePassword(user.password, password);
-  const tkn = token(user.dataValues.id);
-  return tkn;
+  const exist = await comparePassword(user.dataValues.password, password);
+  console.log(exist)
+  if(!exist)throw new Error('usuario no existe o password incorrecto');
+  else{
+    const tkn = token(user.dataValues.id);
+    return tkn;
+  }
 }
 
 function token(id) {
-    //genera el token 
-    if(!id) throw new Error({message: 'Debe enviar un id'})
+  //genera el token
+  if (!id) throw new Error({ message: "Debe enviar un id" });
   const tok = jwt.sign({ id: id }, config.SECRET, { expiresIn: 604800 }); //expira en 7 dias
-  return {token:tok};
+  return { token: tok };
 }
 
-module.exports = { signIn, signUP };
+module.exports = { signIn, signUP, encPassword };
