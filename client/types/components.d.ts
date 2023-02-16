@@ -48,3 +48,23 @@ export interface CarouselItemProps {
   imgClickHandler?: () => void;
   indicators: { current: number; total: number };
 }
+
+// @ register-inputs-data
+export type InputsData = {
+  label: string;
+  name: string;
+  type: "text" | "password" | "number";
+}[];
+
+// @ Register
+export interface RegisterFormState {
+  formData: {
+    first_name: string;
+    last_name: string;
+    nick_name: string;
+    password: string;
+    email: string;
+    phone: string;
+    cell: string;
+  };
+}
