@@ -16,14 +16,16 @@ const getListActivities = async () => {
   }
 };
 
-const getId = async(id)=>{
-  if(!id)throw new Error("debe enviar un id valido")
-  const {dataValues}= await Activity.findOne({ where: { id: id } });
-  console.log(dataValues)
+const getId = async (id) => {
+  if (!id) throw new Error("Debe ingresar una ID válida");
+
+  const dataValues = await Activity.findByPk(id);
+  if (!dataValues) throw new Error("Ejercicio inexistente");
+
   return dataValues;
-}
+};
 
 module.exports = {
   getListActivities,
-  getId
+  getId,
 };

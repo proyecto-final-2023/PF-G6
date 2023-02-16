@@ -7,11 +7,14 @@ const createUserRoutes = require("./createUserRoutes");
 //----------------------------------------------------------
 const activityRouter = require("./activityRoutes");
 const alimentRouter = require("./alimentsRoutes");
+//------------------------------------------------------------------
+const errorHandler = require("../middlewares/errorHandler ");
 const { verifyToken } = require("../middlewares/verifySignUp.js");
 
 const indexRouter = Router();
 
 // Configurar los routers
+indexRouter.use(errorHandler);
 indexRouter.use("/base", verifyToken, baseRouter);
 indexRouter.use("/activity", activityRouter);
 indexRouter.use("/aliment", alimentRouter);

@@ -1,4 +1,5 @@
 const axios = require("axios");
+const { encPassword } = require("../authControlers");
 API = "https://randomuser.me/api/";
 
 const generateBot = async () => {
@@ -11,7 +12,7 @@ const generateBot = async () => {
       last_name: userBot.name.last,
       nick_name: userBot.login.username,
       email: userBot.email,
-      password: userBot.login.password,
+      password: await encPassword(userBot.login.password),
       imgURL: userBot.picture.large,
       gender: userBot.gender,
       phone: userBot.phone,
