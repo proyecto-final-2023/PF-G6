@@ -4,9 +4,9 @@ API = "https://randomuser.me/api/";
 
 const generateBot = async () => {
   const bot = await axios.get(API);
-  console.log(await bot.data.results)
   try {
     const userBot = bot.data.results[0];
+    console.log(`-${userBot.login.password}-`)
     const result = {
       first_name: userBot.name.first,
       last_name: userBot.name.last,
