@@ -5,7 +5,7 @@ function Chronometer() {
   const [running, setRunning] = useState(false);
   const [stoppedTimes, setStoppedTimes] = useState([]);
 
-  const intervalRef = useRef(null);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
   function handleStart() {
     if (running) return;
