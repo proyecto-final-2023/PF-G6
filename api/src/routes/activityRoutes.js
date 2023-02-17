@@ -1,32 +1,48 @@
 const { Router } = require("express");
 const {
+  exercicesFilter,
   getListActivities,
   getId,
+  activityByName,
 } = require("../controllers/activityController");
 
 const activityRouter = Router();
 
 activityRouter.get("/", async (req, res) => {
+  const { name } = req.query;
   try {
-    const listActivities = await getListActivities();
-    res.status(200).json(listActivities);
-  } catch (err) {
-    next(err);
+    if (name) {
+      activitiesQuery = await activityByName(name);
+      res.status(200).json(activitiesQuery);
+    } else {
+      const listActivities = await getListActivities();
+      res.status(200).json(listActivities);
+    }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 });
 
 activityRouter.get("/:id", async (req, res, next) => {
-  const { id } = req.params;
   try {
-    const activity = await Activity.findByPk(id);
-    if (!activity) {
-      const error = new Error("Ejercicio inexistente");
-      error.statusCode = 404;
-      throw error;
-    }
+    const { id } = req.params;
+    const activity = await getId(id);
     res.status(200).json(activity);
   } catch (error) {
-    next(error);
+    res.status(400).json({ error: error.message });
+  }
+  // } catch (err) {
+  //   next(err);
+  // }
+});
+
+activityRouter.get("/filter/:type/:parameter", async (req, res, next) => {
+  try {
+    const { type, parameter } = req.params;
+    const exerFilter = await exercicesFilter(type, parameter);
+    res.status(200).json(exerFilter);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
   }
 });
 
