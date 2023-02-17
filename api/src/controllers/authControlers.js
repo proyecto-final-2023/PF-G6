@@ -25,19 +25,18 @@ async function signUP(obj) {
   const user = await User.findOne({ where: { email: email } });
   if (user) throw new Error("El usuario ya existe");
   const pass = await encPassword(obj.password);
-  console.log()
   const create = await User.create({
     first_name,
     last_name,
     nick_name,
     email,
-    password:pass,
+    password: pass,
     rol,
     imgURL,
   });
   //aqui va para enviar el mail y esperar que verifique
   try {
-    console.log(create)
+    console.log(create);
     const template = getTemplate(first_name, token(create.id));
     const send = sendEmail(email, template);
     return send;
@@ -51,6 +50,7 @@ async function signIn(email, password) {
   //se debe implementar una funcion para saber si el usuario es verificado
   const user = await User.findOne({ where: { email: email } });
   if (!user) throw new Error("Usuario no existe");
+  if (!user.verify) throw new Error("Usuario no verificado"); //si el usuario no esta verificado no puede loguear
   const exist = await comparePassword(user.dataValues.password, password);
   if (!exist) throw new Error("usuario no existe o password incorrecto");
   else {
@@ -61,7 +61,6 @@ async function signIn(email, password) {
 
 function token(id) {
   //genera el token
-  console.log(id);
   if (!id) throw new Error({ message: "Debe enviar un id" });
   const tok = jwt.sign({ id: id }, config.SECRET, { expiresIn: 604800 }); //expira en 7 dias
   return { token: tok };
