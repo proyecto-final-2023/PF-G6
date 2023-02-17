@@ -2,6 +2,7 @@
 
 const nextConfig = {
   reactStrictMode: true,
+
   images: {
     remotePatterns: [
       {
@@ -17,6 +18,11 @@ const nextConfig = {
         hostname: "*.cloudfront.net",
       },
     ],
+  },
+
+  i18n: {
+    locales: ["en-US", "es-ES"],
+    defaultLocale: "en-US",
   },
 };
 
