@@ -48,3 +48,10 @@ export interface CarouselItemProps {
   imgClickHandler?: () => void;
   indicators: { current: number; total: number };
 }
+
+// @ register-inputs-data
+export type InputData = {
+  label: string;
+  name: string;
+  type: "text" | "password" | "number";
+};
