@@ -7,6 +7,10 @@ html {
   color: #fff;
 }
 
-button{
+input{
+  color: black;
+}
 
+select{
+  color: black;
 }

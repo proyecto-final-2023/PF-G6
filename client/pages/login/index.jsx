@@ -1,12 +1,14 @@
 import React from "react";
-import {Login} from '../../components/Login';
-import {Login2} from '../../components/Login2'
+import { Login } from "@/components/Login";
+import { Login2 } from "@/components/Login2";
+import FormularioLogin from "@/components/LoginForm"
 
 export default function Index() {
   return (
     <>
-    <Login></Login>
-    <Login2></Login2>
+      <FormularioLogin />
+      <Login />
+      <Login2 />
     </>
   );
 }
