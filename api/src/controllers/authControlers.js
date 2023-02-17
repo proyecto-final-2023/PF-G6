@@ -30,13 +30,13 @@ async function signUP(obj) {
     last_name,
     nick_name,
     email,
-    password:pass,
+    password: pass,
     rol,
     imgURL,
   });
   //aqui va para enviar el mail y esperar que verifique
   try {
-    console.log(create)
+    console.log(create);
     const template = getTemplate(first_name, token(create.id));
     const send = sendEmail(email, template);
     return send;
@@ -50,6 +50,7 @@ async function signIn(email, password) {
   //se debe implementar una funcion para saber si el usuario es verificado
   const user = await User.findOne({ where: { email: email } });
   if (!user) throw new Error("Usuario no existe");
+  if (!user.verify) throw new Error("Usuario no verificado"); //si el usuario no esta verificado no puede loguear
   const exist = await comparePassword(user.dataValues.password, password);
   if (!exist) throw new Error("usuario no existe o password incorrecto");
   else {

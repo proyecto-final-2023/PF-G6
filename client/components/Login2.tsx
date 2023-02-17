@@ -1,6 +1,6 @@
 import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase.js";
+import { auth } from "../firebase";
 import Image from "next/dist/client/image";
 import blankProfile from "../assets/img/blankProfile.png";
 import { useEffect } from "react";
