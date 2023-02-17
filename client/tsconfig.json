@@ -27,7 +27,10 @@
     "components/Footer.js",
     "pages/index.tsx",
     "pages/login/index.jsx",
-    "components/Footer.tsx"
-, "pages/trainee/payments.jsx", "components/Signup.jsx", "pages/trainee/index.jsx"  ],
+    "components/Footer.tsx",
+    "pages/trainee/payments.jsx",
+    "components/Signup.jsx",
+    "pages/trainee/tool/stop-watch.tsx"
+  ],
   "exclude": ["node_modules"]
 }
