@@ -5,7 +5,7 @@ const {signIn} = require('../controllers/authControlers')
 const authRouter = Router();
 //Ruta para loguear un usuario y devuelve el token
 
-authRouter.get("/", async (req, res)=>{
+authRouter.post("/", async (req, res)=>{
     const obj= req.body;
     try {
         res.status(200).send(await signIn(obj.email, obj.password));
