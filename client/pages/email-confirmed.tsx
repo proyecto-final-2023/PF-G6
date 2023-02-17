@@ -13,7 +13,7 @@ export default function EmailConfirmed() {
     try {
       (async () => {
         const { data } = await axios(
-          `https//:localhost:3001/confirm${router.query.hash}`
+          `https//:localhost:3001/confirm${router.query.token}`
         );
         setConfirmation("ok");
       })();
