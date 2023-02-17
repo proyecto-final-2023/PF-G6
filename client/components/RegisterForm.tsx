@@ -26,7 +26,7 @@ export default function RegisterForm() {
     )
     // TODO:
     // handle coudlinary upload
-    // add extra prop to object externalLogin: false
+    // add extra prop to object authExtern: false
     // add headers to auth
   };
 
