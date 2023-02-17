@@ -1,5 +1,7 @@
 const { User } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
+const jwt = require("jsonwebtoken");
+const config = require("../../config");
 const { Op } = require("sequelize");
 
 const botUserAdd = async () => {
@@ -42,9 +44,28 @@ const userByName = async (name) => {
   if (!user.length) throw Error("No se encuentran coincidencias");
   return user;
 };
+
+const setVerify = async (token) => {
+  const decoded = jwt.verify(token, config.SECRET);
+  const user = await User.findByPk(decoded.id);
+
+  if (user) {
+    const result = User.update(
+      { verify: true },
+      {
+        where: {
+          email: mail,
+        },
+      }
+    );
+    console.log(result);
+    return result;
+  }
+};
 module.exports = {
   botUserAdd,
   getId,
   getListUser,
   userByName,
+  setVerify
 };

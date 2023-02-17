@@ -4,6 +4,7 @@ const {
   getId,
   getListUser,
   userByName,
+  setVerify,
 } = require("../controllers/userController");
 
 const userRoutes = Router();
