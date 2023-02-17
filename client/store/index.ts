@@ -1,13 +1,10 @@
 import { create } from "zustand";
-import { Bear, Fish, Post } from "../types/zustand-types";
-import createBearSlice from "./slices/bears";
-import createFishSlice from "./slices/fishes";
+import { Post, User } from "../types/zustand-types";
 import createPostSlice from "./slices/post";
+import createUserSlice from "./slices/user";
 
-// const useBoundStore = create<BearSlice & FishSlice>()((...all) => ({
-const useStore = create<Bear & Fish & Post>()((...all) => ({
-  ...createBearSlice(...all),
-  ...createFishSlice(...all),
+const useStore = create<User & Post>()((...all) => ({
+  ...createUserSlice(...all),
   ...createPostSlice(...all),
 }));
 
