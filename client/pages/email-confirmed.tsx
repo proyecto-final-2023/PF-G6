@@ -1,8 +1,14 @@
 import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useStore } from "zustand";
 
 export default function EmailConfirmed() {
+  const { post, fetchPost } = useStore((state) => ({
+    post: state.post,
+    fetchPost: state.fetchPost,
+  }));
+
   const router = useRouter();
   const [confirmation, setConfirmation] = useState<"ok" | "error" | "loading">(
     "loading"
