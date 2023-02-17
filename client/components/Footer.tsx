@@ -26,7 +26,7 @@ export default function Footer() {
       </div>
 
       <ul className="flex">
-        <Link href="/politicas">
+        <Link href="/policies">
           <li className="flex-auto w-60">Terms & Conditions</li>
         </Link>
         <Link href="/about">
