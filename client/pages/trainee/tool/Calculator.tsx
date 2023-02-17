@@ -1,4 +1,6 @@
 import { useState } from "react";
+import Link from "next/link";
+import { GrClose } from "react-icons/gr";
 
 export default function CalculateCalories() {
   const [age, setAge] = useState("");
@@ -32,7 +34,8 @@ export default function CalculateCalories() {
   };
 
   return (
-    <div>
+    <div className="grid grid-cols-1 gap-1 justify-items-center">
+      <h1>Calories-Calculator</h1>
       <div>
         <label>Age:</label>
         <input
@@ -86,6 +89,9 @@ export default function CalculateCalories() {
       </div>
       <button onClick={calculate}>Calculate</button>
       <div>Result: {result} calories/day</div>
+      <Link className="bg-[#f10303] " href="/trainee/tool/tools">
+        <GrClose />
+      </Link>
     </div>
   );
 }
