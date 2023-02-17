@@ -34,7 +34,7 @@ export default function Navbar() {
 
         {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
         <HoverLi
-          href="trainee/tools"
+          href="trainee/tool/tools"
           text="tools"
           isHover={hovers.tools}
           optionsList={["IMC", "Diet Planning"]}
