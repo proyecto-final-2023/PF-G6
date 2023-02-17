@@ -25,7 +25,6 @@ async function signUP(obj) {
   const user = await User.findOne({ where: { email: email } });
   if (user) throw new Error("El usuario ya existe");
   const pass = await encPassword(obj.password);
-  console.log()
   const create = await User.create({
     first_name,
     last_name,
@@ -61,7 +60,6 @@ async function signIn(email, password) {
 
 function token(id) {
   //genera el token
-  console.log(id);
   if (!id) throw new Error({ message: "Debe enviar un id" });
   const tok = jwt.sign({ id: id }, config.SECRET, { expiresIn: 604800 }); //expira en 7 dias
   return { token: tok };

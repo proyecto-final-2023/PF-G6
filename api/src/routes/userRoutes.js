@@ -1,4 +1,5 @@
 const { Router } = require("express");
+
 const {
   botUserAdd,
   getId,
@@ -21,6 +22,17 @@ userRoutes.get("/", async (req, res) => {
     }
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+//ruta para confirmar el mail
+userRoutes.get("/confirm/:token", async (req, res) => {
+  const {token}= req.params;
+  const result=setVerify(token)
+  try {
+    res.status(200).send('E mail confirmado');
+  } catch (error) {
+    res.status(400).send({ error: error.message });
   }
 });
 

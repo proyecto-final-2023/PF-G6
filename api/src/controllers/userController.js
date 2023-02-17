@@ -49,16 +49,15 @@ const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
   const user = await User.findByPk(decoded.id);
 
-  if (user) {
-    const result = User.update(
+  if (user.email.length) {
+    const result = await User.update(
       { verify: true },
       {
         where: {
-          email: mail,
+          email: user.email,
         },
       }
     );
-    console.log(result);
     return result;
   }
 };
@@ -67,5 +66,5 @@ module.exports = {
   getId,
   getListUser,
   userByName,
-  setVerify
+  setVerify,
 };

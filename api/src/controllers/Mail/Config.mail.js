@@ -37,6 +37,7 @@ const sendEmail = async (email, html)=>{
 };
 
 const getTemplate = (name, token) => {
+  
     return `
       <head>
           <link rel="stylesheet" href="./style.css">
@@ -47,7 +48,7 @@ const getTemplate = (name, token) => {
           <h2>Hola ${ name }</h2>
           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
           <a
-              href="http://localhost:3001/user/confirm/${ token }"
+              href="http://localhost:3001/user/confirm/${ token.token }"
               target="_blank"
           >Confirmar Cuenta</a>
       </div>
