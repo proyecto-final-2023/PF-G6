@@ -1,16 +1,5 @@
 import { StateCreator } from "zustand";
 
-export interface Bear {
-  bears: number;
-  addBear: () => void;
-  eatFish: () => void;
-}
-
-export interface Fish {
-  fishes: number;
-  addFish: () => void;
-}
-
 export interface Post {
   post: {
     id: number;
@@ -20,8 +9,17 @@ export interface Post {
   fetchPost: () => void;
 }
 
-export type FishCreator = StateCreator<Bear & Fish & Post, [], [], Fish>;
+export interface User {
+  userData: {
+    confirmed: boolean;
+    imgURL: string;
+    rol: "admin" | "trainee" | "trainer";
+    name: string;
+  };
+  updateConfirmed: (state: boolean) => void;
+  updateData: (imgURL: string, rol: string, fullName: string) => void;
+}
 
-export type BearCreator = StateCreator<Bear & Fish & Post, [], [], Bear>;
+export type PostCreator = StateCreator<Post & User, [], [], Post>;
 
-export type PostCreator = StateCreator<Bear & Fish & Post, [], [], Post>;
+export type UserCreator = StateCreator<Post & User, [], [], User>;

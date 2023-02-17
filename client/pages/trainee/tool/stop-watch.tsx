@@ -1,23 +1,26 @@
 import React, { useState, useRef } from "react";
 
-function Chronometer() {
-  const [timeElapsed, setTimeElapsed] = useState(0);
-  const [running, setRunning] = useState(false);
-  const [stoppedTimes, setStoppedTimes] = useState([]);
+type StoppedTimes = { time: number; timestamp: number };
 
-  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+export default function StopWatch() {
+  const [timeElapsed, setTimeElapsed] = useState(0);
+  const [isRunning, setIsRunning] = useState(false);
+  const [stoppedTimes, setStoppedTimes] = useState<StoppedTimes[]>([]);
+  const intervalRef = useRef<number>(0);
 
   function handleStart() {
-    if (running) return;
-    setRunning(true);
-    intervalRef.current = setInterval(() => {
-      setTimeElapsed((prevTime) => prevTime + 10);
-    }, 10);
+    if (isRunning) return;
+
+    setIsRunning(true);
+
+    intervalRef.current = window.setInterval(() => {
+      setTimeElapsed((prevTime) => prevTime + 100);
+    }, 100);
   }
 
   function handleStop() {
     clearInterval(intervalRef.current);
-    intervalRef.current = null;
+    intervalRef.current = 0;
     setStoppedTimes((prevTimes) => [
       ...prevTimes,
       {
@@ -26,30 +29,30 @@ function Chronometer() {
       },
     ]);
     setTimeElapsed(0);
-    setRunning(false);
+    setIsRunning(false);
   }
 
   function handlePause() {
     clearInterval(intervalRef.current);
-    intervalRef.current = null;
-    setRunning(false);
+    intervalRef.current = 0;
+    setIsRunning(false);
   }
 
   return (
     <div>
       <h1>Cronómetro</h1>
       <p>Tiempo transcurrido: {timeElapsed / 1000}Segundo</p>
-      {!running && timeElapsed === 0 && (
+      {!isRunning && timeElapsed === 0 && (
         <button onClick={handleStart}>Iniciar</button>
       )}
-      {running && <button onClick={handlePause}>Pausa</button>}
-      {!running && timeElapsed > 0 && (
+      {isRunning && <button onClick={handlePause}>Pausa</button>}
+      {!isRunning && timeElapsed > 0 && (
         <button onClick={handleStart}>Continuar</button>
       )}
-      {!running && timeElapsed > 0 && (
+      {!isRunning && timeElapsed > 0 && (
         <button onClick={handleStop}>Detener</button>
       )}
-      {!running && timeElapsed > 0 && (
+      {!isRunning && timeElapsed > 0 && (
         <button onClick={() => setTimeElapsed(0)}>Reiniciar</button>
       )}
       <h2>Tiempos detenidos:</h2>
@@ -61,5 +64,3 @@ function Chronometer() {
     </div>
   );
 }
-
-export default Chronometer;
