@@ -21,7 +21,7 @@ export default function Navbar() {
   };
 
   // TODO: change it to the real value
-  const isLoggedIn = true;
+  const isLoggedIn = false;
 
   return (
     <nav className="w-full bg-red-900">
