@@ -21,7 +21,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      nick_name: {
+      nickname: {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
