@@ -4,12 +4,14 @@ module.exports = (sequelize) => {
   sequelize.define(
     "certificates",
     {
-      id_certificates:{
+      id_certificates: {
         type: DataTypes.UUID,
-        allowNull:false,
+        allowNull: false,
+        default: DataTypes.UUIDV4,
+        primaryKey: true,
       },
       type: {
-        type: DataTypes.ENUM ('title', 'certificate'),
+        type: DataTypes.ENUM("title", "certificate"),
         allowNull: false,
       },
       name: {
@@ -23,7 +25,7 @@ module.exports = (sequelize) => {
       description: {
         type: DataTypes.STRING,
         allowNull: false,
-      },      
+      },
     },
     { timestamps: false }
   );

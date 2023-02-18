@@ -1,12 +1,14 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("PlanTrainer",
+  sequelize.define(
+    "PlanTrainer",
     {
-      id_planTrainer:{
+      id_planTrainer: {
         type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey:true,
+        allowNull: false,
+        default: DataTypes.UUIDV4,
+        primaryKey: true,
       },
       name: {
         type: DataTypes.STRING,
