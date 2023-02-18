@@ -7,6 +7,7 @@ interface CarouselIndicatorProps {
 
 export default function CarouselIndicator(props: CarouselIndicatorProps) {
   const { current, total } = props;
+
   return (
     <div className="flex m-5 justify-center">
       {Array(total)

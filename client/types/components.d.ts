@@ -1,5 +1,4 @@
 import { StaticImageData } from "next/image";
-import React from "react";
 
 // ? interfaces only for components states
 // ? types for almost everything
@@ -23,14 +22,16 @@ export type SubNavMenuProps = {
 
 // @ SubNavMenu
 export type UrlMapping = {
-  imc: string;
-  dietplanning: string;
+  caloriescalculator: string;
+  fatcalculator: string;
+  stopwatch: string;
+
   register: string;
   login: string;
+
   diets: string;
-  trainer: string;
-  programs: string;
-  logout: string;
+  trainerprograms: string;
+  logout: () => void;
 };
 
 // @ SubNavMenu
@@ -41,17 +42,62 @@ export interface NavbarStates {
   hovers: { type: "enter" | "leave"; key: "tools" | "user" };
 }
 
+// @ CarouselComp
+export interface CarouselCompProps {
+  slidesArr: Array<{
+    title: string;
+    image: StaticImageData;
+    hoverText: string;
+  }>;
+}
+
+// @ CarouselItem
+export type CarouselImg = {
+  title: string;
+  image: StaticImageData;
+  hoverText: string;
+};
+
+// @ SingleImageCarousel
+export interface SingleImageCarouselProps {
+  currImg: CarouselImg;
+  indicators: { current: number; total: number };
+}
+
+// @ TripleImageCarousel
+export interface TripleImageCarouselProps {
+  prevImg: CarouselImg;
+  currImg: CarouselImg;
+  nextImg: CarouselImg;
+}
+
 // @ CarouselItem
 export interface CarouselItemProps {
-  imgData: { title: string; image: StaticImageData };
+  prevImg: CarouselImg;
+  currImg: CarouselImg;
+  nextImg: CarouselImg;
   isModalOpen: boolean;
-  imgClickHandler?: () => void;
+  imgClickHandler: () => void;
+  isTriple: boolean;
+  indicators: { current: number; total: number };
+}
+
+// @ SingleImageCarousel
+export interface SingleImageCarouselProps {
+  currImg: CarouselImg;
   indicators: { current: number; total: number };
 }
 
 // @ register-inputs-data
 export type InputData = {
-  label: string;
-  name: string;
-  type: "text" | "password" | "number";
+  first_name: string;
+  last_name: string;
+  nick_name: string;
+  password: string;
+  email: string;
+  phone: string;
+  cell: string;
+  imgFile: File;
+  gender: "male" | "female" | "other";
+  role: "admin" | "trainee" | "trainer";
 };

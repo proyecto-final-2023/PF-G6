@@ -7,10 +7,20 @@ html {
   color: #fff;
 }
 
-input{
+input {
   color: black;
+  width: 20vw;
+  
 }
 
-select{
+select {
   color: black;
-}
+  }
+
+/* .home__dark__bg {
+  background-image: url("/tail-imgs/gym-bg.jpg");
+  background-color: rgb(124, 124, 124);
+  background-blend-mode: multiply;
+  background-position: 20% center;
+  background-size: cover;
+} */

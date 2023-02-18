@@ -6,8 +6,9 @@ module.exports = (sequelize) => {
     {
       id: {
         type: DataTypes.UUID,
+        allowNull: false,
+        default: DataTypes.UUIDV4,
         primaryKey: true,
-        defaultValue: DataTypes.UUIDV4,
       },
       status: {
         type: DataTypes.BOOLEAN,
@@ -26,14 +27,6 @@ module.exports = (sequelize) => {
         unique: true,
         allowNull: false,
       },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
       rol: {
         type: DataTypes.STRING,
       },
@@ -50,10 +43,10 @@ module.exports = (sequelize) => {
       imgURL: {
         type: DataTypes.STRING(255),
       },
-      verify:{
+      verify: {
         type: DataTypes.BOOLEAN,
-        defaultValue:false
-      }
+        defaultValue: false,
+      },
     },
     { timestamps: false }
   );

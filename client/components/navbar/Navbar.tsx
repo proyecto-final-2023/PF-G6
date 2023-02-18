@@ -24,38 +24,42 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="w-full bg-red-900">
+    <nav className="w-full bg-gray-600 p-0 h-[72px] border-x-none border-b-[2px] border-orange-500" >
       <ul className="flex justify-around align-middle">
-        <li>
-          <Link replace href="/" scroll>
-            <Image src={logoImg} alt={`link of the whole app`} width={34} />
-          </Link>
+        <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
+        <Link replace href="/" scroll>
+        <Image src={logoImg} alt={`link of the whole app`} className="inline-block align-bottom mt-[3px] w-[75px] h-[65px]" />
+        </Link>
+        </li>
+        <li  className="inline-block align-bottom text-center pt-5">
+          {/* <input type="text" ref={searchRef} /> */}
+          <input type="search"  ref={searchRef} id="default-search" className="inline-block w-[150px] p-1 bg-gray-600 focus:bg-gray-500 focus:outline-none focus:w-[300px] duration-300 border-[2px] border-gray-400 rounded-l-lg  placeholder-white text-white" placeholder="Search..." required/>
+          <button type="submit" className='absolute p-2 inline-block bg-gray-600 border-[2px] border-gray-400 rounded-r-lg uppercase text-xs font-medium'>Search</button>
+    
         </li>
 
         {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
+        
+
+        <li className="inline-block align-bottom h-[70px] w-[115px] text-center">
+          <Link replace href="/home">
+          <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded  hover:text-orange-500 transition duration-300 ease-in-out">Home</button>
+          </Link>
+        </li>
+
+        <li className="inline-block align-bottom text-center w-[115px] h-full">      
+          <Link replace href="/guest/trainning-list">
+          <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">Trainings</button>
+          </Link>
+        </li>
+
         <HoverLi
           href="trainee/tool/tools"
           text="tools"
           isHover={hovers.tools}
-          optionsList={["IMC", "Diet Planning"]}
+          optionsList={["Stop Watch", "Calories Calculator", "Fat Calculator"]}
           {...{ hoverEventHandler }}
         />
-
-        <li>
-          <Link replace href="/home">
-            Home
-          </Link>
-        </li>
-
-        <li>
-          <Link replace href="/guest/trainning-list">
-            Trainnings
-          </Link>
-        </li>
-
-        <li>
-          <input type="text" ref={searchRef} />
-        </li>
 
         <HoverLi
           imgUrl={userImg}
@@ -64,7 +68,7 @@ export default function Navbar() {
           isHover={hovers.user}
           optionsList={
             isLoggedIn
-              ? ["Diets", "Trainer", "Programs", "Log out"]
+              ? ["Diets", "Trainer Programs", "Log out"]
               : ["Register", "Log In"]
           }
           {...{ hoverEventHandler }}

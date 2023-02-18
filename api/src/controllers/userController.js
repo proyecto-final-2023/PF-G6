@@ -49,7 +49,7 @@ const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
   const user = await User.findByPk(decoded.id);
 
-  if (user.email.length) {
+  if (user) {
     const result = await User.update(
       { verify: true },
       {
