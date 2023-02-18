@@ -24,11 +24,11 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="w-full bg-gray-500 p-0 h-[72px] border-x-none border-b-[2px] border-gray-100" >
+    <nav className="w-full bg-gray-600 p-0 h-[72px] border-x-none border-b-[2px] border-orange-500" >
       <ul className="flex justify-around align-middle">
-        <li className="inline-block align-bottom text-center border border-gray-500  rounded-full shadow-sm w-[100px] h-[65px]">
+        <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
         <Link replace href="/" scroll>
-        <Image src={logoImg} alt={`link of the whole app`} className="inline-block align-bottom text-center border border-gray-300 bg-white hover:bg-gray-100 rounded-full shadow-sm w-[75px] h-[65px]" />
+        <Image src={logoImg} alt={`link of the whole app`} className="inline-block align-bottom mt-[3px] w-[75px] h-[65px]" />
         </Link>
         </li>
         <li  className="inline-block align-bottom text-center pt-5">
@@ -36,6 +36,20 @@ export default function Navbar() {
         </li>
 
         {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
+        
+
+        <li className="inline-block align-bottom h-[70px] w-[115px] text-center">
+          <Link replace href="/home">
+          <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded  hover:text-orange-500 transition duration-300 ease-in-out">Home</button>
+          </Link>
+        </li>
+
+        <li className="inline-block align-bottom text-center w-[115px] h-full">      
+          <Link replace href="/guest/trainning-list">
+          <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">Trainings</button>
+          </Link>
+        </li>
+
         <HoverLi
           href="trainee/tool/tools"
           text="tools"
@@ -43,20 +57,6 @@ export default function Navbar() {
           optionsList={["IMC", "Diet Planning"]}
           {...{ hoverEventHandler }}
         />
-
-        <li className="inline-block align-bottom h-[70px] w-[115px] text-center">
-          <Link replace href="/home">
-          <button type="button" className="inline-block px-6 bg-grey-500 font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:bg-gray-400 transition duration-300 ease-in-out">Home</button>
-          </Link>
-        </li>
-
-        <li className="inline-block align-bottom text-center w-[115px] h-full">      
-          <Link replace href="/guest/trainning-list">
-          <button type="button" className="inline-block px-6 bg-grey-500 font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:bg-gray-400 transition duration-300 ease-in-out">Trainings</button>
-          </Link>
-        </li>
-
-      
 
         <HoverLi
           imgUrl={userImg}

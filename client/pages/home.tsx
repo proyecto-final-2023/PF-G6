@@ -11,6 +11,6 @@ export default function Home() {
 }
 
 //  ? Server side func, for better performance
-export async function getServerSideProps() {
-  return await ssrProtection();
-}
+// export async function getServerSideProps() {
+//   return await ssrProtection();
+// }
