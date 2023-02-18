@@ -8,17 +8,21 @@ export default [
   {
     title: "Tuturu",
     image: trainer1,
+    hoverTxt: "first hover",
   },
   {
     title: "Kya~",
     image: trainer2,
+    hoverTxt: "second hover",
   },
   {
     title: "Yamete",
     image: trainer3,
+    hoverTxt: "third hover",
   },
   {
     title: "Oyasumimir",
     image: trainer4,
+    hoverTxt: "forth hover",
   },
 ];

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { StaticImageData } from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TripleImagesCarrousel from "./TripleImagesCarrousel";
 import SingleImageCarousel from "./SingleImageCarousel";
+import { CarouselCompProps } from "@/types/components";
 
 export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
 
@@ -16,10 +16,13 @@ export interface CarouselItemProps {
   isTriple: boolean;
   indicators: { current: number; total: number };
 }
-// ? Loops over them instead of stop working when we reach the end
+
+
 interface CarouselCompProps {
   slidesArr: Array<{ title: string; image: StaticImageData; hoverText:string }>;
 }
+
+
 
 export default function CarouselComp(props: CarouselCompProps) {
   const { slidesArr } = props;
