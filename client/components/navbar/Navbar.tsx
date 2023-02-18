@@ -32,7 +32,10 @@ export default function Navbar() {
         </Link>
         </li>
         <li  className="inline-block align-bottom text-center pt-5">
-          <input type="text" ref={searchRef} />
+          {/* <input type="text" ref={searchRef} /> */}
+          <input type="search"  ref={searchRef} id="default-search" className="inline-block w-[150px] p-1 bg-gray-600 focus:bg-gray-500 focus:outline-none focus:w-[300px] duration-300 border-[2px] border-gray-400 rounded-l-lg  placeholder-white text-white" placeholder="Search..." required/>
+          <button type="submit" className='absolute p-2 inline-block bg-gray-600 border-[2px] border-gray-400 rounded-r-lg uppercase text-xs font-medium'>Search</button>
+    
         </li>
 
         {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}

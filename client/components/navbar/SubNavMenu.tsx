@@ -33,7 +33,7 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
   }
 
   return (
-    <ul className="absolute left-0 w-[115px] flex flex-col bg-gray-600 border-gray-200 rounded-lg shadow-lg transition ease-in-out duration-500">
+    <ul className="absolute left-0 w-[115px] flex flex-col bg-gray-600 border-gray-200 rounded-lg shadow-lg ease-in-out duration-500">
       {optionsList.map((option) => {
         const urlKey = option.replace(" ", "").toLowerCase();
         // TS needed this to be happy, since I modifed the key before using it
@@ -52,6 +52,7 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
                 {option}
               </button>
             )}
+
           </li>
         );
       })}

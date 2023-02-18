@@ -9,8 +9,8 @@ export default function HoverLi(props: HoverLiProps) {
   const USER_ID = "777-www";
 
   return (
-    <li
-      className="transition duration-300 ease-in-out"
+
+    <li className=""
       onMouseEnter={() => hoverEventHandler({ type: "enter", key: text })}
       onMouseLeave={() => hoverEventHandler({ type: "leave", key: text })}
     >
@@ -36,6 +36,7 @@ export default function HoverLi(props: HoverLiProps) {
       </Link>
       {isHover && (
         <div className="absolute  px-2 py-2 w-[115px] ">
+
           <SubNavMenu {...{ optionsList }} id={USER_ID} />
         </div>
       )}
