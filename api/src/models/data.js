@@ -4,93 +4,95 @@ module.exports = (sequelize) => {
   sequelize.define(
     "data",
     {
-      id_data:{
-        type:DataTypes.UUID,
-        allowNull:false
+      id_data: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        default: DataTypes.UUIDV4,
+        primaryKey: true,
       },
-      weight:{
-        type:DataTypes.INTEGER,
-        allowNull:false
+      weight: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
-      height:{
+      height: {
         type: DataTypes.DECIMAL,
-        allowNull:false
+        allowNull: false,
       },
-      neck:{
+      neck: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      torso:{
+      torso: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      chess:{
+      chess: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      waist:{
+      waist: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      arm:{
+      arm: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      wrist:{
+      wrist: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      hip:{
+      hip: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      butt:{
+      butt: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      thig:{
+      thig: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      calf:{
+      calf: {
         type: DataTypes.DECIMAL,
-        allowNull:false,
+        allowNull: false,
       },
-      allergies:{
-        type: DataTypes.STRING,
-        allowNull:false,
-      },
-      surgeries:{
-        type: DataTypes.STRING,
-        allowNull:false,
-      },
-      smoke:{
-        type: DataTypes.BOOLEAN,
-        defaultValue:false,
-      },
-      drinker:{
-        type: DataTypes.BOOLEAN,
-        defaultValue:false,
-      },
-      drugs:{
-        type: DataTypes.BOOLEAN,
-        defaultValue:false,
-      },
-      roids:{
-        type: DataTypes.BOOLEAN,
-        defaultValue:false,
-      },
-      water:{
-        type: DataTypes.STRING,
-        allowNull:false,
-      },
-      lesions:{
+      allergies: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      smoke:{
+      surgeries: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      smoke: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      drinker: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      drugs: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      roids: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+      },
+      water: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lesions: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      smoke: {
         type: DataTypes.INTEGER,
-        defaultValue:8,
+        defaultValue: 8,
         allowNull: false,
       },
     },
