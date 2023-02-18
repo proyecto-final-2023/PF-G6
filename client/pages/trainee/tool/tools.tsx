@@ -16,7 +16,7 @@ export default function Example() {
             Training Planner
           </Link>
           <Link className="" href="/trainee/tool/Chronometer">
-           Chronometer
+            Chronometer
           </Link>
         </div>
         <div />
