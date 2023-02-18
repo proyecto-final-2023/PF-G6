@@ -9,11 +9,13 @@ html {
 
 input {
   color: black;
+  width: 20vw;
+  
 }
 
 select {
   color: black;
-}
+  }
 
 /* .home__dark__bg {
   background-image: url("/tail-imgs/gym-bg.jpg");

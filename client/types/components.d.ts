@@ -72,5 +72,5 @@ export interface TripleImageCarouselProps {
 export type InputData = {
   label: string;
   name: string;
-  type: "text" | "password" | "number";
+  type: "text" | "password" | "number" ;
 };

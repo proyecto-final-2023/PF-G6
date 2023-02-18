@@ -1,8 +1,15 @@
+
 const nodemailer = require('nodemailer');
 
 const LINK="http://localhost:3001/user/confirm/"
 
-
+// const confirm=()=>{
+//     const history=useHistory()
+//     axios.get(`http://localhost:3001/user/confirm/${token.token}`)
+//     .then(data=>{
+//       console.log(data)})
+//       history.push(/login)
+// }
 
 const mail={
     user: "grupo06fit.u@gmail.com",
@@ -48,11 +55,13 @@ const getTemplate = (name, token) => {
           <h2>Hola ${ name }</h2>
           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
           <a
-              href="http://localhost:3001/user/confirm/${ token.token }"
+              href="http://localhost:3000/confirm/?token=${ token.token }"
               target="_blank"
           >Confirmar Cuenta</a>
+         
       </div>
-    `;
+    `; 
+
 }
 
 

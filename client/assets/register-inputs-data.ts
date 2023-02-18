@@ -38,6 +38,17 @@ const data: InputData[] = [
     name: "cell",
     type: "text",
   },
+  {
+    label: "Gender",
+    name: "gender",
+    type: "text",
+  },
+  {
+    label: "Rol",
+    name: "rol",
+    type: "text",
+  },
+  
 ];
 
 export default data;
