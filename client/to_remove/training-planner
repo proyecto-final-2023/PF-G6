@@ -1,0 +1,129 @@
+import React from "react";
+import { useState } from "react";
+import Link from "next/link";
+import { GrClose } from "react-icons/gr";
+
+const day = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday ",
+  "Friday",
+  "Saturday ",
+  "Sunday",
+];
+
+type Session = {
+  day: string;
+  exercises: string;
+  series: string;
+  reps: string;
+};
+
+export default function TrainingPlanner() {
+  const [objective, setObjective] = useState<string>("");
+  const [sessions, setSessions] = useState<Session[]>([]);
+
+  function addSession() {
+    setSessions([
+      ...sessions,
+      {
+        day: "",
+        exercises: "",
+        series: "",
+        reps: "",
+      },
+    ]);
+  }
+
+  function updateSession(
+    index: number,
+    key: "day" | "exercises" | "series" | "reps",
+    value: string
+  ) {
+    // const nuevasSessions = [...sessions];
+    // nuevasSessions[index][campo] = valor;
+    setSessions((prev) => {
+      // onChange={(e) => updateSession(index, "dia", e.target.value)}
+      const newSession = { ...prev[index] };
+      newSession[key as keyof Session] = value;
+      return newSession;
+    });
+  }
+
+  return (
+    <div className="  grid grid-cols-1 gap-1 justify-items-center">
+      <h2 className="text-lg font-semibold leading-8 tracking-tight text-whait-600">
+        Training Planner
+      </h2>
+      <label className="bg-gray-500 rounded content-center ">
+        Objetive:
+        <input
+          className="bg-gray-200 rounded border-transparent "
+          type="text"
+          value={objective}
+          onChange={(e) => setObjective(e.target.value)}
+        />
+      </label>
+      <h3 className="text-lg font-semibold leading-8 tracking-tight text-whait-600">
+        Training Session
+      </h3>
+
+      {sessions.map((sesion, index) => (
+        <div key={index}>
+          <h4>Session{index + 1}</h4>
+          <label>
+            Day:
+            <select
+              className="text-black bg-gray-700 "
+              name="select"
+              onChange={(e) => updateSession(index, "day", e.target.value)}
+            >
+              {day.map((e) => (
+                <option className="text-black" value={e}>
+                  {e}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Exercises:
+            <input
+              className="bg-gray-700 rounded "
+              type="text"
+              value={sesion.exercises}
+              onChange={(e) =>
+                updateSession(index, "exercises", e.target.value)
+              }
+            />
+          </label>
+          <label>
+            Series:
+            <input
+              className="bg-gray-700  rounded "
+              type="text"
+              value={sesion.series}
+              onChange={(e) => updateSession(index, "series", e.target.value)}
+            />
+          </label>
+          <label>
+            Repetition:
+            <input
+              className="bg-gray-700 rounded "
+              type="text"
+              value={sesion.reps}
+              onChange={(e) => updateSession(index, "reps", e.target.value)}
+            />
+          </label>
+        </div>
+      ))}
+      <button className="bg-gray-600 rounded  " onClick={addSession}>
+        Add
+      </button>
+
+      <Link className="bg-[#f10303] " href="/trainee/tool/tools">
+        <GrClose />
+      </Link>
+    </div>
+  );
+}

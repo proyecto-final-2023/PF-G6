@@ -1,37 +1,43 @@
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useStore } from "zustand";
+import useStore from "@/store";
+
+type ConfirmationState = "ok" | "error" | "loading";
 
 export default function EmailConfirmed() {
-  const { post, fetchPost } = useStore((state) => ({
-    post: state.post,
-    fetchPost: state.fetchPost,
+  const { updateCock, userData } = useStore((state) => ({
+    userData: state.userData,
+    updateCock: state.updateConfirmed,
   }));
 
+  console.log(userData);
+
   const router = useRouter();
-  const [confirmation, setConfirmation] =
-    (useState < "ok") | "error" | ("loading" > "loading");
+
+  const [confirmation, setConfirmation] = useState<ConfirmationState>();
 
   // localhost:3000/email-confirmed?hash=YOUR_HASH
-  useEffect(() => {
-    try {
-      (async () => {
-        const { data } = await axios(
-          `https//:localhost:3001/confirm${router.query.token}`
-        );
-        setConfirmation("ok");
-      })();
-    } catch (error) {
-      setConfirmation("error");
-      console.log(error);
-    }
-  }, []);
+  // useEffect(() => {
+  //   try {
+  //     (async () => {
+  //       const { data } = await axios(
+  //         `https//:localhost:3001/confirm${router.query.token}`
+  //       );
+  //       setConfirmation("ok");
+  //     })();
+  //   } catch (error) {
+  //     setConfirmation("error");
+  //     console.log(error);
+  //   }
+  // }, []);
 
   confirmation === "ok" && router.replace("/home");
 
   return (
     <div className="grid items-center">
+      <button onClick={() => updateCock(true)}>FETCH</button>
+      <h1>title {userData.confirmed}</h1>
+
       <div className="bg-slate-500 w-2/3 min-h-full">
         {confirmation === "ok" && (
           <div>
