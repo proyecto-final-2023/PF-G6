@@ -42,7 +42,7 @@ export interface NavbarStates {
 }
 
 // @ CarouselItem
-export type CarouselImg = { title: string; image: StaticImageData };
+export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
 
 // @ CarouselItem
 export interface CarouselItemProps {

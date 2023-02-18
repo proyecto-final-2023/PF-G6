@@ -1,24 +1,31 @@
 // need to be this way...
-import cannon from "./img/cannon.jpeg";
-import ice from "./img/ice.jpeg";
-import mountain from "./img/mountain.jpeg";
-import sand from "./img/sand.jpeg";
+import gainz from "./img/gainz.png";
+import fatLoose from "./img/fatLoose.png";
+import pTrainer from "./img/personalTrainer.png";
+import dietPlan from "./img/dietPlan.png";
+
+
+
 
 export default [
   {
-    title: "Machu Picchu",
-    image: cannon,
+    title: "Gain Muscle",
+    image: gainz,
+    hoverText: "Hola"
   },
   {
-    title: "Chamonix",
-    image: ice,
+    title: "Fat Loose",
+    image: fatLoose,
+    hoverText: "Hola1"
   },
   {
-    title: "Mimisa Rocks",
-    image: mountain,
+    title: "Personal Trainer",
+    image: pTrainer,
+    hoverText: "Find the best trainer according to your personal goals."
   },
   {
-    title: "Four",
-    image: sand,
+    title: "Diet Planning",
+    image: dietPlan,
+    hoverText: "Hola3"
   },
 ];
