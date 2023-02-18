@@ -6,7 +6,7 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
 
   return (
     <div className="flex gap-3">
-      <div>
+      <div className="hover:text-white">
         <Image
           src={prevImg.image}
           alt={`some cool thing`}
@@ -14,6 +14,7 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
           className="rounded-md w-auto h-60 object-cover"
         />
       </div>
+      <h1 className="text-white">{prevImg.hoverText}</h1>
       <div>
         <Image
           src={currImg.image}

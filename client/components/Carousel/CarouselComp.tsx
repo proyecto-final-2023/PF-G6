@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react";
-import { StaticImageData } from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TripleImagesCarrousel from "./TripleImagesCarrousel";
 import SingleImageCarousel from "./SingleImageCarousel";
+import { CarouselCompProps } from "@/types/components";
 
 // ? Loops over them instead of stop working when we reach the end
-interface CarouselCompProps {
-  slidesArr: Array<{ title: string; image: StaticImageData }>;
-}
-
 export default function CarouselComp(props: CarouselCompProps) {
   const { slidesArr } = props;
   const [slideNum, setSlideNum] = useState(0);

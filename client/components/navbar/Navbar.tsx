@@ -57,7 +57,7 @@ export default function Navbar() {
           href="trainee/tool/tools"
           text="tools"
           isHover={hovers.tools}
-          optionsList={["IMC", "Diet Planning"]}
+          optionsList={["Stop Watch", "Calories Calculator", "Fat Calculator"]}
           {...{ hoverEventHandler }}
         />
 
@@ -68,7 +68,7 @@ export default function Navbar() {
           isHover={hovers.user}
           optionsList={
             isLoggedIn
-              ? ["Diets", "Trainer", "Programs", "Log out"]
+              ? ["Diets", "Trainer Programs", "Log out"]
               : ["Register", "Log In"]
           }
           {...{ hoverEventHandler }}
