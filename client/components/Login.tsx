@@ -5,7 +5,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import blankProfile from "../assets/img/blankProfile.png";
 import Image, { StaticImageData } from "next/dist/client/image";
 
+
+
 export const Login = () => {
+
+  
   const [user, setUser] = useAuthState(auth);
   const googleAuth = new GoogleAuthProvider();
   const login = async () => {
@@ -23,9 +27,8 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    console.log(user);
+    console.log(user?.email);
   }, [user]);
-
   return (
     <div>
       <p className="text-sm">LOGIN WITH GOOGLE</p>

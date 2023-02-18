@@ -30,7 +30,7 @@ export const Login2 = () => {
     <>
       <p className="text-sm">LOGIN WITH FACEBOOK</p>
       <button className="text-green-400 rounded-md bg-white" onClick={login}>
-        Facebook Log out
+        Facebook Log in
       </button>
       {user ? "Welcome, " + user.displayName + " e-mail : " + user.email : ""}
       <Image src={loginimg() as string} width={50} height={50} alt="a" />
