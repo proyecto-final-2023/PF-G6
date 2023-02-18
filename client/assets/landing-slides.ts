@@ -8,17 +8,21 @@ export default [
   {
     title: "Machu Picchu",
     image: cannon,
+    hoverText: "img 1",
   },
   {
     title: "Chamonix",
     image: ice,
+    hoverText: "img 2",
   },
   {
     title: "Mimisa Rocks",
     image: mountain,
+    hoverText: "img 3",
   },
   {
     title: "Four",
     image: sand,
+    hoverText: "img 4",
   },
 ];
