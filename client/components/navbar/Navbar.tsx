@@ -24,7 +24,7 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="w-full bg-gray-600 p-0 h-[72px] border-x-none border-b-[2px] border-orange-500" >
+    <nav className="w-full bg-gray-600 p-0 h-[72px] border-x-none border-b-[2px] border-yellow-900" >
       <ul className="flex justify-around align-middle">
         <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
         <Link replace href="/" scroll>

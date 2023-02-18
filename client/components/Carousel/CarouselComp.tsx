@@ -53,8 +53,8 @@ export default function CarouselComp(props: CarouselCompProps) {
   };
 
   return (
-    <div className="flex justify-center align-middle gap-3 m-3">
-      <button className="border-zinc-50 rounded p-3" onClick={prevImgHandler}>
+    <div className="right-0 bottom-0 left-0 flex justify-center ">
+      <button  onClick={prevImgHandler}>
         <FaArrowLeft />
       </button>
 

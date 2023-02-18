@@ -5,6 +5,10 @@
 html {
   background-color: #232323;
   color: #fff;
+  position: relative;
+  padding-bottom: 10em ;
+  min-height: 100vh;
+
 }
 
 input {
