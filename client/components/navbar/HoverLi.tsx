@@ -13,15 +13,13 @@ export default function HoverLi(props: HoverLiProps) {
       onMouseEnter={() => hoverEventHandler({ type: "enter", key: text })}
       onMouseLeave={() => hoverEventHandler({ type: "leave", key: text })}
     >
-      <Link {...{ href }} replace>
-        {/* if imgUrl render Image: else render text */}
-        {/* make text upper case, cuz' of hoverState's key */}
-        {imgUrl ? (
-          <Image src={imgUrl} alt={`link of ${text}`} width={34} />
-        ) : (
-          text[0].toUpperCase() + text.slice(1)
-        )}
-      </Link>
+      {/* if imgUrl render Image: else render text */}
+      {/* make text upper case, cuz' of hoverState's key */}
+      {imgUrl ? (
+        <Image src={imgUrl} alt={`link of ${text}`} width={34} />
+      ) : (
+        text[0].toUpperCase() + text.slice(1)
+      )}
       {isHover && <SubNavMenu {...{ optionsList }} id={USER_ID} />}
     </li>
   );

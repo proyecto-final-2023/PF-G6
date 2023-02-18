@@ -8,16 +8,19 @@ import React from "react";
 
 // outside to avoid creating it on every re-render, since will never change
 const optionsUrlMapping: UrlMapping = {
-  // guest routes
-  imc: "/guest/imc-calculator",
-  dietplanning: "/guest/diet-planning",
+  // Tools hover
+  caloriescalculator: "/trainee/tools/calculator",
+  fatcalculator: "/trainee/tools/fat-calculator",
+  stopwatch: "/trainee/tools/stop-watch",
+  // User guest hover
   register: "/login/register",
   login: "/login",
-  // trainee routes
-  diets: "/trainee/diets-list",
-  trainer: "/trainee",
-  programs: "/trainee",
-  logout: "SUPPOSED TO JUST BE A FUNCTION TO LOG OUT KEK",
+  // User logged in hover
+  diets: "/trainee/eating-plans",
+  trainerprograms: "/trainee/training-plans",
+  logout: () => {
+    console.log("Discord kitte FTW");
+  },
 };
 
 export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
@@ -32,13 +35,17 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
   return (
     <ul className="flex flex-col gap-1 bg-slate-500">
       {optionsList.map((option) => {
-        const urlKey = option.replace(" ", "").toLowerCase() || "diets";
+        const urlKey = option.replace(" ", "").toLowerCase();
         // TS needed this to be happy, since I modifed the key before using it
-        const url = optionsUrlMapping[urlKey as keyof UrlMapping];
+        const urlOrFunc = optionsUrlMapping[urlKey as keyof UrlMapping];
 
         return (
-          <li key={option}>
-            <Link href={url}>{option}</Link>
+          <li key={option.toString()}>
+            {typeof urlOrFunc === "string" ? (
+              <Link href={urlOrFunc}>{option}</Link>
+            ) : (
+              <button onClick={urlOrFunc}>{option}</button>
+            )}
           </li>
         );
       })}

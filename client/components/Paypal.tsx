@@ -26,9 +26,9 @@ export function Paypal() {
             }
           }}
           onCancel={(data) => console.log("compra cancelada")}
-          onApprove={(data, actions) => {
+          onApprove={async (data, actions) => {
             console.log(data);
-            actions.order.capture();
+            actions.order?.capture();
           }}
           style={{ layout: "vertical", color: "blue" }}
         />

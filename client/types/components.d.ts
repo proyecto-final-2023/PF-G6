@@ -23,14 +23,16 @@ export type SubNavMenuProps = {
 
 // @ SubNavMenu
 export type UrlMapping = {
-  imc: string;
-  dietplanning: string;
+  caloriescalculator: string;
+  fatcalculator: string;
+  stopwatch: string;
+
   register: string;
   login: string;
+
   diets: string;
-  trainer: string;
-  programs: string;
-  logout: string;
+  trainerprograms: string;
+  logout: () => void;
 };
 
 // @ SubNavMenu
@@ -72,5 +74,5 @@ export interface TripleImageCarouselProps {
 export type InputData = {
   label: string;
   name: string;
-  type: "text" | "password" | "number" ;
+  type: "text" | "password" | "number";
 };
