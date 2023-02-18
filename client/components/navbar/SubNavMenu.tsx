@@ -30,7 +30,7 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
   }
 
   return (
-    <ul className="flex flex-col gap-1 bg-slate-500">
+    <ul className="absolute left-0 w-[115px] flex flex-col bg-gray-400 border-gray-200 rounded-lg shadow-lg esae-in-out duration-5000">
       {optionsList.map((option) => {
         const urlKey = option.replace(" ", "").toLowerCase() || "diets";
         // TS needed this to be happy, since I modifed the key before using it
@@ -38,7 +38,9 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
 
         return (
           <li key={option}>
-            <Link href={url}>{option}</Link>
+            <Link href={url}>
+            <button type="button" className="inline-block px-6 py-2.5 bg-transparent font-medium text-xs leading-tight uppercase hover:bg-gray-500 rounded w-[115px] transition duration-300 ease-in-out">{option}</button>
+            </Link>
           </li>
         );
       })}

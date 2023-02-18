@@ -24,12 +24,15 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="w-full bg-red-900">
+    <nav className="w-full bg-gray-500 p-0 h-[72px] border-x-none border-b-[2px] border-gray-100" >
       <ul className="flex justify-around align-middle">
-        <li>
-          <Link replace href="/" scroll>
-            <Image src={logoImg} alt={`link of the whole app`} width={34} />
-          </Link>
+        <li className="inline-block align-bottom text-center border border-gray-500  rounded-full shadow-sm w-[100px] h-[65px]">
+        <Link replace href="/" scroll>
+        <Image src={logoImg} alt={`link of the whole app`} className="inline-block align-bottom text-center border border-gray-300 bg-white hover:bg-gray-100 rounded-full shadow-sm w-[75px] h-[65px]" />
+        </Link>
+        </li>
+        <li  className="inline-block align-bottom text-center pt-5">
+          <input type="text" ref={searchRef} />
         </li>
 
         {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
@@ -41,21 +44,19 @@ export default function Navbar() {
           {...{ hoverEventHandler }}
         />
 
-        <li>
+        <li className="inline-block align-bottom h-[70px] w-[115px] text-center">
           <Link replace href="/home">
-            Home
+          <button type="button" className="inline-block px-6 bg-grey-500 font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:bg-gray-400 transition duration-300 ease-in-out">Home</button>
           </Link>
         </li>
 
-        <li>
+        <li className="inline-block align-bottom text-center w-[115px] h-full">      
           <Link replace href="/guest/trainning-list">
-            Trainnings
+          <button type="button" className="inline-block px-6 bg-grey-500 font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:bg-gray-400 transition duration-300 ease-in-out">Trainings</button>
           </Link>
         </li>
 
-        <li>
-          <input type="text" ref={searchRef} />
-        </li>
+      
 
         <HoverLi
           imgUrl={userImg}
