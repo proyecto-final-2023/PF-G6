@@ -42,11 +42,30 @@ export interface NavbarStates {
 }
 
 // @ CarouselItem
+export type CarouselImg = { title: string; image: StaticImageData };
+
+// @ CarouselItem
 export interface CarouselItemProps {
-  imgData: { title: string; image: StaticImageData };
+  prevImg: CarouselImg;
+  currImg: CarouselImg;
+  nextImg: CarouselImg;
   isModalOpen: boolean;
-  imgClickHandler?: () => void;
+  imgClickHandler: () => void;
+  isTriple: boolean;
   indicators: { current: number; total: number };
+}
+
+// @ SingleImageCarousel
+export interface SingleImageCarouselProps {
+  currImg: CarouselImg;
+  indicators: { current: number; total: number };
+}
+
+// @ TripleImageCarousel
+export interface TripleImageCarouselProps {
+  prevImg: CarouselImg;
+  currImg: CarouselImg;
+  nextImg: CarouselImg;
 }
 
 // @ register-inputs-data
