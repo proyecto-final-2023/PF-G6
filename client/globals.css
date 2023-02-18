@@ -9,8 +9,9 @@ html {
 
 input{
   color: black;
+  width: 20vw;
+  
 }
-
-select{
-  color: black;
+.rounded-md{
+  width: 10vw;
 }

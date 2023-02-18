@@ -1,5 +1,6 @@
 import registerInputsData from "@/assets/register-inputs-data";
 import { InputData } from "@/types/components";
+import axios from "axios";
 
 // ? ----------------------------------------// ? ----------------------------------------
 // ? missing inputs
@@ -17,8 +18,12 @@ export default function RegisterForm() {
   } = useForm<InputData>({ mode: "onBlur" });
   // console.log(watch("example"));
 
-  const onSubmit: SubmitHandler<InputData> = (data) => {
+  const  onSubmit: SubmitHandler<InputData> = async (data) => {
     console.log(data);
+    await axios.post("http://localhost:3001/createuser",data)
+    .then(data=>{
+      console.log(data)}
+    )
     // TODO:
     // handle coudlinary upload
     // add extra prop to object authExtern: false
@@ -52,18 +57,17 @@ export default function RegisterForm() {
         accept="image/png, image/jpeg"
         {...register("imgUrl" as keyof InputData, { required: true })}
       />
-
+ 
       {/* later on put a dropdown menu */}
-      <input
+      {/* <input
         type="text"
-        {...register("gender" as keyof InputData, { required: true })}
-      />
+        {...register("gender" as keyof InputData, { required: true })}/>
 
       {/* later on put a dropdown menu */}
-      <input
+      {/* <input
         type="text"
         {...register("rol" as keyof InputData, { required: true })}
-      />
+      />  */}
 
       {/* // imgURL: userBot.picture.large // gender: userBot.gender // rol: "bot" */}
       <button className="rounded-md bg-lime-500">Submit</button>
