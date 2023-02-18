@@ -1,17 +1,16 @@
-
-import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js"
 import axios from "axios";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 
 export function Paypal() {
   return (
-    <div >
+    <div>
       <PayPalScriptProvider
         options={{
-          "client-id": "AQndibadVKrY_Jb_q8qD3Zp0FHRRFiZYUkA3MoDOOpFIx-oFcKGrUZ5AYrY58zDcMxdFKmtc_KYxzycJ",
+          "client-id":
+            "AQndibadVKrY_Jb_q8qD3Zp0FHRRFiZYUkA3MoDOOpFIx-oFcKGrUZ5AYrY58zDcMxdFKmtc_KYxzycJ",
         }}
       >
         <PayPalButtons
-       
           createOrder={async () => {
             try {
               const res = await axios({
@@ -36,4 +35,4 @@ export function Paypal() {
       </PayPalScriptProvider>
     </div>
   );
-        }
+}

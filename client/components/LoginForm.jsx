@@ -18,9 +18,12 @@ export default function FormularioLogin() {
     event.preventDefault();
     axios.post('http://localhost:3001/auth', formData)
       .then(data => {
-        console.log(data)
+        console.log(data.data.token)
+<<<<<<< HEAD
       }) 
-    console.log(formData);
+=======
+      })
+>>>>>>> 5d24f065b39ccd4ec0b2a58713b7189fef745d37
   };
 
   const handleChange = (event) => {

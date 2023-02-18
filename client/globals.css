@@ -9,4 +9,9 @@ html {
 
 input{
   color: black;
+  width: 20vw;
+  
+}
+.rounded-md{
+  width: 10vw;
 }

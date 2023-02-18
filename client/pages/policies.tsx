@@ -49,7 +49,7 @@ export default function politicas() {
         El usuario acepta indemnizar y mantener a Fit-U, sus directores,
         empleados y licenciantes libres de cualquier reclamo, demanda, daño,
         costo o gasto, incluyendo honorarios de abogados, resultante del uso de
-        la App{" "}
+        la App
       </p>
     </div>
   );
