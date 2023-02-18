@@ -6,7 +6,10 @@ import blankProfile from "../assets/img/blankProfile.png";
 import Image, { StaticImageData } from "next/dist/client/image";
 
 
+
 export const Login = () => {
+
+  
   const [user, setUser] = useAuthState(auth);
   const googleAuth = new GoogleAuthProvider();
   const login = async () => {

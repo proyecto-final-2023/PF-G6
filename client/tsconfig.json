@@ -23,14 +23,10 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/footer/Footer.tsx",
-    "components/Footer.js",
-    "pages/index.tsx",
-    "pages/login/index.jsx",
-    "components/Footer.tsx",
-    "pages/trainee/payments.jsx",
-    "components/Signup.jsx",
-    "pages/trainee/tool/stop-watch.tsx"
+    "pages/*.tsx",
+    "pages/**/*.tsx",
+    "components/*.tsx",
+    "components/**/.tsx"
   ],
   "exclude": ["node_modules"]
 }

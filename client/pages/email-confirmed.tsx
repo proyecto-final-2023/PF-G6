@@ -10,9 +10,8 @@ export default function EmailConfirmed() {
   }));
 
   const router = useRouter();
-  const [confirmation, setConfirmation] = useState<"ok" | "error" | "loading">(
-    "loading"
-  );
+  const [confirmation, setConfirmation] =
+    (useState < "ok") | "error" | ("loading" > "loading");
 
   // localhost:3000/email-confirmed?hash=YOUR_HASH
   useEffect(() => {
