@@ -1,26 +1,31 @@
 import React, {useState} from "react";
 import axios from "axios";
-
-export default function contactForm(){
-    const [contactData, setContactData] = useState(
-    {
+ 
+    export default function ContactForm() {
+      const [contactData, setContactData] = useState({
         name: '',
         email: '',
         subject: '',
         message: ''
-    }
-    );
-   
-    const handleSubmit = (event) => {
+      });
+    
+      const handleSubmit = (event) => {
         event.preventDefault();
-        axios.post('http://localhost:3001/contact, formdata')
-        .then(data => {
-            console.log(data)
+        axios.post('http://localhost:3001/contact', contactData)
+          .then(response => {
+            console.log(response.data);
           })
-    };
-
-    const handleChange = (event) => {
-        setContactData({ ...contactData, [event.target.name]: event.target.value });
+          .catch(error => {
+            console.log(error);
+          });
+      };
+    
+      const handleChange = (event) => {
+        const { name, value } = event.target;
+        setContactData(prevState => ({
+          ...prevState,
+          [name]: value
+        }));
       };
     
       return (
@@ -57,8 +62,7 @@ export default function contactForm(){
           <br />
           <label>
             Message:
-            <input
-              type="text"
+            <textarea
               name="message"
               value={contactData.message}
               onChange={handleChange}
@@ -69,4 +73,3 @@ export default function contactForm(){
         </form>
       );
     }
-
