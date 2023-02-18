@@ -4,8 +4,8 @@ import { UserCreator } from "@/types/zustand-types";
 const createUserSlice: UserCreator = (set) => ({
   userData: { confirmed: false, imgURL: "", rol: "trainee", name: "" },
 
-  updateConfirmed: async (state) => {
-    console.log("poggers confimration");
+  updateConfirmed: async (status) => {
+    set((state) => ({ userData: { ...state.userData, confirmed: status } }));
   },
 
   updateData: async (imgURL, rol, fullName) => {
