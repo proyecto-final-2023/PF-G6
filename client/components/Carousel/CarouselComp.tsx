@@ -87,4 +87,3 @@ export default function CarouselComp(props: CarouselCompProps) {
   );
 }
 
-// **************************
