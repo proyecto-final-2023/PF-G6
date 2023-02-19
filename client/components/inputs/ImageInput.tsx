@@ -1,14 +1,9 @@
-import { InputData } from "@/types/components";
-import { FieldError, UseFormRegister } from "react-hook-form";
+// Libraries
+// Types
+// Components/Assets
+import { ImageInputProps } from "@/types/components";
 
-export interface ImageInputProps {
-  register: UseFormRegister<InputData>;
-  label: string;
-  name: string;
-  options: { required: boolean; regex?: RegExp };
-  err: FieldError | undefined;
-}
-
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function ImageInput(props: ImageInputProps) {
   const { register, label, name, options, err } = props;
 

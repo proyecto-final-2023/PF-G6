@@ -1,8 +1,9 @@
+// Libraries
 import axios from "axios";
 import { useForm, SubmitHandler } from "react-hook-form";
-
+// Types
 import { InputData } from "@/types/components";
-
+// Components/Assets
 import GenericInput from "./inputs/GenericInput";
 import ImageInput from "./inputs/ImageInput";
 import SelectInput from "./inputs/SelectInput";

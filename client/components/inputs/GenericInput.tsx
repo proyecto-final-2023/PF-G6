@@ -1,15 +1,9 @@
-import { InputData } from "@/types/components";
-import { FieldError, UseFormRegister } from "react-hook-form";
+// Libraries
+// Types
+import { GenericInputProps, InputData } from "@/types/components";
+// Components/Assets
 
-export interface GenericInputProps {
-  register: UseFormRegister<InputData>;
-  label: string;
-  options: { required: boolean; pattern?: RegExp };
-  err: FieldError | undefined;
-  name: string;
-  type: "text" | "number" | "password" | "email";
-}
-
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function GenericInput(props: GenericInputProps) {
   const { register, label, name, type, options, err } = props;
 

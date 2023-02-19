@@ -1,10 +1,13 @@
+// Libraries
+import Link from "next/link";
+import React from "react";
+// Types
 import {
   ReturnVoidOrJsx,
   SubNavMenuProps,
   UrlMapping,
 } from "@/types/components";
-import Link from "next/link";
-import React from "react";
+// Components/Assets
 
 // outside to avoid creating it on every re-render, since will never change
 const optionsUrlMapping: UrlMapping = {
@@ -23,6 +26,7 @@ const optionsUrlMapping: UrlMapping = {
   },
 };
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
   const { optionsList, singOutHandler, id } = props;
 
@@ -52,7 +56,6 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
                 {option}
               </button>
             )}
-
           </li>
         );
       })}
