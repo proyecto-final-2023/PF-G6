@@ -79,14 +79,6 @@ export interface NavbarStates {
   clicked: { type: "enter" | "leave"; key: "tools" | "user" };
 }
 
-// @ CarouselComp
-export interface CarouselCompProps {
-  slidesArr: Array<{
-    title: string;
-    image: StaticImageData;
-    hoverText: string;
-  }>;
-}
 // @ contact
 export type ContactData = {
   name: string;
@@ -95,11 +87,25 @@ export type ContactData = {
   message: string;
 };
 
+// @ CarouselComp
+export interface CarouselCompProps {
+  slidesArr: Array<{
+    title: string;
+    image: StaticImageData;
+    hoverText: string;
+  }>;
+}
+
 // @ CarouselItem
 export type CarouselImg = {
   title: string;
   image: StaticImageData;
   hoverText: string;
+};
+
+export type CarouselIndicatorProps = {
+  current: number;
+  total: number;
 };
 
 // @ CarouselItem
