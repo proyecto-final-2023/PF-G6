@@ -5,19 +5,6 @@ import TripleImagesCarrousel from "./TripleImagesCarrousel";
 import SingleImageCarousel from "./SingleImageCarousel";
 import { CarouselCompProps } from "@/types/components";
 
-export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
-
-// @ CarouselItem
-export interface CarouselItemProps {
-  prevImg: CarouselImg;
-  currImg: CarouselImg;
-  nextImg: CarouselImg;
-  isModalOpen: boolean;
-  imgClickHandler: () => void;
-  isTriple: boolean;
-  indicators: { current: number; total: number };
-}
-// ? Loops over them instead of stop working when we reach the end
 export default function CarouselComp(props: CarouselCompProps) {
   const { slidesArr } = props;
   const [slideNum, setSlideNum] = useState(0);
