@@ -13,7 +13,12 @@ export default function SubMenuLink(props: SubMenuTextProps) {
       {optionsList.map((option) => {
         return (
           <li key={option.toString()}>
-            <Link href={option.url || "/"}>{option.title}</Link>
+            <Link
+              href={option.url || "/"}
+              className="font-medium text-xs uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out"
+            >
+              {option.title}
+            </Link>
           </li>
         );
       })}

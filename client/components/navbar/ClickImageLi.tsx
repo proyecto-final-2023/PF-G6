@@ -11,7 +11,7 @@ export default function HoverImageLi(props: HoverImageLiProps) {
 
   return (
     <li onClick={clickEventHandler} className="cursor-pointer">
-      <div className="inline-block px-6 font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">
+      <div>
         <Image
           src={imgUrl}
           alt={`missing unknown image`}

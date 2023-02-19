@@ -14,6 +14,8 @@ import logoImg from "@/assets/images/placeholder-logo.png";
 import HoverImageLi from "./ClickImageLi";
 import HoverTextLi from "./ClickTextLi";
 
+const LinkHoverStyles = "inline-block px-6 leading-tight h-[70px] w-[115px]";
+
 const optionsUrlMapping: OptionsUrlMapping = {
   loggedInUser: [
     { title: "Diets", url: "/trainee/eating-plans" },
@@ -54,19 +56,19 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="w-full bg-gray-800  p-0 h-[72px] border-x-none border-b-[2px]  border-yellow-900">
-      <ul className="flex justify-around align-middle">
-        <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
-          <Link replace href="/" scroll>
+    <nav className="bg-[rgba(23,23,23,0.4)] fixed px-1 w-full border-b-[2px] border-b-yellow-900">
+      <ul className="flex justify-between items-center">
+        <li>
+          <Link replace href="/">
             <Image
               src={logoImg}
               alt={`link of the whole app`}
-              className="inline-block align-bottom mt-[3px] w-[75px] h-[65px]"
+              className="inline-block mt-[3px] w-[75px] h-[65px]"
             />
           </Link>
         </li>
-        <li className="inline-block align-bottom text-center pt-5">
-          {/* <input type="text" ref={searchRef} /> */}
+
+        <li>
           <input
             type="search"
             ref={searchRef}
@@ -83,27 +85,18 @@ export default function Navbar() {
           </button>
         </li>
 
-        {/* sorthand for clickEventHandler = {clickEventHandler}*/}
-
-        <li className="inline-block align-bottom h-[70px] w-[115px] text-center">
-          <Link
-            replace
-            href="/home"
-            className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded  hover:text-orange-500 transition duration-300 ease-in-out"
-          >
+        <li className="font-medium text-xs uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">
+          <Link replace href="/home">
             Home
           </Link>
         </li>
 
-        <li className="inline-block align-bottom text-center w-[115px] h-full">
-          <Link
-            replace
-            href="/guest/trainning-list"
-            className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out"
-          >
-            Trainings
-          </Link>
-        </li>
+        <HoverTextLi
+          text="Tools"
+          optionsList={optionsUrlMapping.tools}
+          isClicked={tools}
+          clickEventHandler={toolsClickHandler}
+        />
 
         <HoverImageLi
           imgUrl={userImg}
@@ -116,12 +109,11 @@ export default function Navbar() {
           clickEventHandler={userPicClickHandler}
         />
 
-        <HoverTextLi
-          text="Tools"
-          optionsList={optionsUrlMapping.tools}
-          isClicked={tools}
-          clickEventHandler={toolsClickHandler}
-        />
+        <li className="font-medium text-xs uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">
+          <Link replace href="/guest/trainning-list">
+            Trainings
+          </Link>
+        </li>
       </ul>
     </nav>
   );
