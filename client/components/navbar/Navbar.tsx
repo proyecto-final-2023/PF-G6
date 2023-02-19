@@ -3,22 +3,51 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
 // Types
-import { NavbarStates } from "@/types/components";
+import {
+  NavbarStates,
+  OptionsUrlMapping,
+  UrlMapping,
+} from "@/types/components";
 // Components/Assets
-import HoverLi from "./HoverLi";
 import userImg from "@/assets/images/user.png";
 import logoImg from "@/assets/images/placeholder-logo.png";
+import HoverImageLi from "./ClickImageLi";
+import HoverTextLi from "./ClickTextLi";
+
+const optionsUrlMapping: OptionsUrlMapping = {
+  loggedInUser: [
+    { title: "Diets", url: "/trainee/eating-plans" },
+    { title: "Trainer Programs", url: "/trainee/training-plans" },
+    {
+      title: "Log out",
+      handler: () => {
+        console.log("Discord kitte FTW");
+      },
+    },
+  ],
+  loggedOutUser: [
+    { title: "Register", url: "/login/register" },
+    { title: "Log In", url: "/login" },
+  ],
+  tools: [
+    { title: "Stop Watch", url: "/trainee/tools/stop-watch" },
+    { title: "Calories Calculator", url: "/trainee/tools/calculator" },
+    { title: "Fat Calculator", url: "/trainee/tools/fat-calculator" },
+  ],
+};
 
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
-  const [hovers, setHovers] = useState({ tools: false, user: false });
+  const [user, setUser] = useState(false);
+  const [tools, setTools] = useState(false);
 
-  const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
-    // if mouse enter then hover state of key => truepages-tools
-    if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
-    // else => hover state of key => false
-    else setHovers((prev) => ({ ...prev, [key]: false }));
+  const toolsClickHandler = () => {
+    setTools((prev) => !prev);
+  };
+
+  const userPicClickHandler = () => {
+    setUser((prev) => !prev);
   };
 
   // TODO: change it to the real value
@@ -54,49 +83,44 @@ export default function Navbar() {
           </button>
         </li>
 
-        {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
+        {/* sorthand for clickEventHandler = {clickEventHandler}*/}
 
         <li className="inline-block align-bottom h-[70px] w-[115px] text-center">
-          <Link replace href="/home">
-            <button
-              type="button"
-              className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded  hover:text-orange-500 transition duration-300 ease-in-out"
-            >
-              Home
-            </button>
+          <Link
+            replace
+            href="/home"
+            className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded  hover:text-orange-500 transition duration-300 ease-in-out"
+          >
+            Home
           </Link>
         </li>
 
         <li className="inline-block align-bottom text-center w-[115px] h-full">
-          <Link replace href="/guest/trainning-list">
-            <button
-              type="button"
-              className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out"
-            >
-              Trainings
-            </button>
+          <Link
+            replace
+            href="/guest/trainning-list"
+            className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out"
+          >
+            Trainings
           </Link>
         </li>
 
-        <HoverLi
-          href="trainee/tool/tools"
-          text="tools"
-          isHover={hovers.tools}
-          optionsList={["Stop Watch", "Calories Calculator", "Fat Calculator"]}
-          {...{ hoverEventHandler }}
-        />
-
-        <HoverLi
+        <HoverImageLi
           imgUrl={userImg}
-          text="user"
-          href="/"
-          isHover={hovers.user}
           optionsList={
             isLoggedIn
-              ? ["Diets", "Trainer Programs", "Log out"]
-              : ["Register", "Log In"]
+              ? optionsUrlMapping.loggedInUser
+              : optionsUrlMapping.loggedOutUser
           }
-          {...{ hoverEventHandler }}
+          isClicked={user}
+          clickEventHandler={userPicClickHandler}
+        />
+
+        <HoverTextLi
+          text="Tools"
+          optionsList={optionsUrlMapping.tools}
+          isClicked={tools}
+          clickEventHandler={toolsClickHandler}
         />
       </ul>
     </nav>
