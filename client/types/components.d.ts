@@ -52,24 +52,7 @@ export interface CarouselCompProps {
 }
 
 // @ CarouselItem
-export type CarouselImg = {
-  title: string;
-  image: StaticImageData;
-  hoverText: string;
-};
-
-// @ SingleImageCarousel
-export interface SingleImageCarouselProps {
-  currImg: CarouselImg;
-  indicators: { current: number; total: number };
-}
-
-// @ TripleImageCarousel
-export interface TripleImageCarouselProps {
-  prevImg: CarouselImg;
-  currImg: CarouselImg;
-  nextImg: CarouselImg;
-}
+export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
 
 // @ CarouselItem
 export interface CarouselItemProps {
@@ -101,3 +84,26 @@ export type InputData = {
   gender: "male" | "female" | "other";
   role: "admin" | "trainee" | "trainer";
 };
+export interface TripleImageCarouselProps {
+  prevImg: CarouselImg;
+  currImg: CarouselImg;
+  nextImg: CarouselImg;
+}
+
+//@generic-inputs
+
+export interface GenericInputProps extends BasicInputsProps {
+  register: UseFormRegister<InputData>;
+}
+
+export interface ContactInputProps extends BasicInputsProps {
+  register: UseFormRegister<ContactData>;
+}
+
+export type BasicInputsProps = {
+  label: string;
+  options: { required: boolean; pattern?: RegExp };
+  err: FieldError | undefined;
+  name: string;
+  type: "text" | "number" | "password" | "email" | "textarea" ;
+}

@@ -8,7 +8,7 @@ export default function SingleImageCarousel(props: SingleImageCarouselProps) {
   return (
     <div>
       <div>
-        <Image
+       <Image
           src={currImg.image}
           alt={`some cool thing`}
           height={330}
