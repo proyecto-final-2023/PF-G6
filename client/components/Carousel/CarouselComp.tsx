@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { StaticImageData } from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TripleImagesCarrousel from "./TripleImagesCarrousel";
 import SingleImageCarousel from "./SingleImageCarousel";
@@ -73,4 +74,3 @@ export default function CarouselComp(props: CarouselCompProps) {
   );
 }
 
-// **************************
