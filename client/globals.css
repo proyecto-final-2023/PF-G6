@@ -5,6 +5,10 @@
 html {
   background-color: #232323;
   color: #fff;
+  position: relative;
+  padding-bottom: 0 ;
+  min-height: 100vh;
+
 }
 
 input {
@@ -17,6 +21,9 @@ select {
   color: black;
   }
 
+textarea{
+  color: black;
+}
 /* .home__dark__bg {
   background-image: url("/tail-imgs/gym-bg.jpg");
   background-color: rgb(124, 124, 124);

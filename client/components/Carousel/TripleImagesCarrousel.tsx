@@ -36,5 +36,7 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
          <h1 className="-mt-40 text-center">{nextImg.hoverText}</h1>
       </div>
     </div>
+    
+    
   );
 }
