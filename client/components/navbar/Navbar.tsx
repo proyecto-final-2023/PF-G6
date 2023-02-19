@@ -3,19 +3,14 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
 // Types
-import {
-  NavbarStates,
-  OptionsUrlMapping,
-  UrlMapping,
-} from "@/types/components";
+import { OptionsUrlMapping } from "@/types/components";
 // Components/Assets
 import userImg from "@/assets/images/user.png";
 import logoImg from "@/assets/images/placeholder-logo.png";
-import HoverImageLi from "./ClickImageLi";
 import HoverTextLi from "./ClickTextLi";
+import ClickImageLi from "./ClickImageLi";
 
-const LinkHoverStyles = "inline-block px-6 leading-tight h-[70px] w-[115px]";
-
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 const optionsUrlMapping: OptionsUrlMapping = {
   loggedInUser: [
     { title: "Diets", url: "/trainee/eating-plans" },
@@ -56,7 +51,7 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="bg-[rgba(23,23,23,0.4)] fixed px-1 w-full border-b-[2px] border-b-yellow-900">
+    <nav className="bg-[rgba(23,23,23,0.4)] fixed w-full border-b-[2px] border-b-yellow-900 drop-shadow px-4 z-10">
       <ul className="flex justify-between items-center">
         <li>
           <Link replace href="/">
@@ -98,7 +93,7 @@ export default function Navbar() {
           clickEventHandler={toolsClickHandler}
         />
 
-        <HoverImageLi
+        <ClickImageLi
           imgUrl={userImg}
           optionsList={
             isLoggedIn
