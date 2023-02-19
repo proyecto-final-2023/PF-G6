@@ -1,7 +1,7 @@
 import CarouselComp from "@/components/Carousel/CarouselComp";
-import Image from "next/image";
 import homeSlides from "@/assets/home-slides";
 import logoImg from "@/assets/images/placeholder-logo.png";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -30,7 +30,4 @@ export default function Home() {
   );
 }
 
-//  ? Server side func, for better performance
-// export async function getServerSideProps() {
-//   return await ssrProtection();
-// }
+

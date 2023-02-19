@@ -3,11 +3,7 @@ import { StaticImageData } from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import TripleImagesCarrousel from "./TripleImagesCarrousel";
 import SingleImageCarousel from "./SingleImageCarousel";
-
-// ? Loops over them instead of stop working when we reach the end
-interface CarouselCompProps {
-  slidesArr: Array<{ title: string; image: StaticImageData }>;
-}
+import { CarouselCompProps } from "@/types/components";
 
 export default function CarouselComp(props: CarouselCompProps) {
   const { slidesArr } = props;
@@ -53,8 +49,8 @@ export default function CarouselComp(props: CarouselCompProps) {
   };
 
   return (
-    <div className="right-0 bottom-0 left-0 flex justify-center ">
-      <button  onClick={prevImgHandler}>
+    <div className="flex justify-center align-middle gap-3 m-3 mt-20 first-letter mb-20 ">
+      <button className="border-zinc-50 rounded p-3" onClick={prevImgHandler}>
         <FaArrowLeft />
       </button>
 
@@ -77,5 +73,3 @@ export default function CarouselComp(props: CarouselCompProps) {
     </div>
   );
 }
-
-// **************************
