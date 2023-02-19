@@ -33,6 +33,70 @@ let capsEntries = entries.map((entry) => [
   entry[1],
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
+const {
+  Activity,
+  Aliments,
+  Certificates,
+  Data,
+  Login,
+  Membership,
+  Plan,
+  PlanTrainee,
+  PlanTrainer,
+  SocialNetworks,
+  Tiempo,
+  Trainee,
+  Trainer,
+  User,
+  Voucher,
+} = sequelize.models;
+
+// User 1 a 1 con Login
+User.hasOne(Login);
+Login.belongsTo(User);
+// Membership 1 A 1 con Voucher
+Membership.hasOne(Voucher);
+Voucher.belongsTo(Membership);
+// Membership de muchos a 1 con PlanTrainer
+Membership.belongsTo(PlanTrainer);
+// Membership de muchos a 1 con PlanTrainee
+Membership.belongsTo(PlanTrainee);
+// PlanTrainer de 1 a muchos con Trainer
+PlanTrainer.belongsTo(Trainer);
+Trainer.hasMany(PlanTrainer);
+// Trainer de uno a muchos con PlanTrainee
+Trainer.hasMany(PlanTrainee);
+PlanTrainee.belongsTo(Trainer);
+// Trainer de uno a muchos con SolcialNetworks
+Trainer.belongsToMany(SocialNetworks, { through: "TrainerSocialNetworks" });
+SocialNetworks.belongsToMany(Trainer, { through: "TrainerSocialNetworks" });
+// Trainer de uno a muchos con Certificates
+Trainer.hasMany(Certificates);
+Certificates.belongsTo(Trainer);
+// PlanTrainee de 1 a muchos con Trainee
+PlanTrainee.hasMany(Trainee);
+Trainee.belongsTo(PlanTrainee);
+// Trainee de uno a uno con Data
+Trainee.hasOne(Data);
+Data.belongsTo(Trainee);
+// Trainee de 1 a 1 con Plan
+Trainee.hasOne(Plan);
+Plan.belongsTo(Trainee);
+// Plan de muchos a muchos con Aliments
+Plan.belongsToMany(Aliments, { through: "PlanAliments" });
+Aliments.belongsToMany(Plan, { through: "PlanAliments" });
+// Plan de muchos a muchos con Activities
+Plan.belongsToMany(Activity, { through: "PlanActivity" });
+Activity.belongsToMany(Plan, { through: "PlanActivity" });
+// PlanTrainer 1 a 1 con Tiempo
+PlanTrainer.hasOne(Tiempo);
+Tiempo.belongsTo(PlanTrainer);
+// PlanTrainee 1 a 1 con Tiempo
+PlanTrainee.hasOne(Tiempo);
+Tiempo.belongsTo(PlanTrainee);
+// PlanTrainer 1 a 1 con Plan
+PlanTrainer.belongsTo(Plan);
+Plan.hasOne(PlanTrainer);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
