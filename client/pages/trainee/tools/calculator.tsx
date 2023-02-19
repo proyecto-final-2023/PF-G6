@@ -1,7 +1,11 @@
+// Libraries
 import { useState } from "react";
 import Link from "next/link";
 import { GrClose } from "react-icons/gr";
+// Types
+// Components/Assets
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function CalculateCalories() {
   const [age, setAge] = useState("");
   const [weight, setWeight] = useState("");

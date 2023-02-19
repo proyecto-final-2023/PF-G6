@@ -1,7 +1,11 @@
+// Libraries
 import Link from "next/link";
 import { useState } from "react";
 import { GrClose } from "react-icons/gr";
+// Types
+// Components/Assets
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 const CalculateFatPercentage = () => {
   const [neck, setNeck] = useState("");
   const [waist, setWaist] = useState("");
@@ -9,13 +13,9 @@ const CalculateFatPercentage = () => {
   const [height, setHeight] = useState("");
   const [gender, setGender] = useState("male");
   const [result, setResult] = useState(0);
- 
-  
-  
- 
+
   const calculate = () => {
     let bodyFatPercentage = 0;
-  
 
     if (gender === "male") {
       bodyFatPercentage =
@@ -30,9 +30,6 @@ const CalculateFatPercentage = () => {
     }
 
     setResult(bodyFatPercentage);
-    
-  
-    
   };
 
   return (
@@ -45,7 +42,6 @@ const CalculateFatPercentage = () => {
           value={neck}
           onChange={(e) => setNeck(e.target.value)}
         />
-      
       </div>
       <div>
         <label>Waist circumference (cm):</label>
@@ -54,7 +50,6 @@ const CalculateFatPercentage = () => {
           value={waist}
           onChange={(e) => setWaist(e.target.value)}
         />
-      
       </div>
       <div>
         <label>Hip circumference (cm):</label>
@@ -63,7 +58,6 @@ const CalculateFatPercentage = () => {
           value={hip}
           onChange={(e) => setHip(e.target.value)}
         />
-     
       </div>
       <div>
         <label>Height (cm):</label>
@@ -72,7 +66,6 @@ const CalculateFatPercentage = () => {
           value={height}
           onChange={(e) => setHeight(e.target.value)}
         />
-        
       </div>
       <div>
         <label>Gender:</label>
@@ -80,7 +73,6 @@ const CalculateFatPercentage = () => {
           <option value="male">Male</option>
           <option value="female">Female</option>
         </select>
-      
       </div>
       <button onClick={calculate}>Calculate</button>
       <div>Result: {result} %</div>

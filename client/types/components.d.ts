@@ -1,7 +1,11 @@
-import { StaticImageData } from "next/image";
-
 // ? interfaces only for components states
 // ? types for almost everything
+// Libraries
+import { StaticImageData } from "next/image";
+// Types
+// Components/Assets
+// @
+type ConfirmationState = "ok" | "error" | "loading";
 
 // @ HoverLi
 export type HoverLiProps = {
@@ -11,6 +15,16 @@ export type HoverLiProps = {
   isHover: boolean;
   hoverEventHandler: ({}: HoverState) => void;
   optionsList: string[];
+};
+
+// @
+export type ResType = {
+  bodyPart: string;
+  equipement: string;
+  gifUrl: string;
+  id: number;
+  name: string;
+  target: string;
 };
 
 // @ SubNavMenu
@@ -52,7 +66,11 @@ export interface CarouselCompProps {
 }
 
 // @ CarouselItem
-export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
+export type CarouselImg = {
+  title: string;
+  image: StaticImageData;
+  hoverText: string;
+};
 
 // @ CarouselItem
 export interface CarouselItemProps {
@@ -88,4 +106,39 @@ export interface TripleImageCarouselProps {
   prevImg: CarouselImg;
   currImg: CarouselImg;
   nextImg: CarouselImg;
+}
+
+// @ CarouselIndicator
+export interface CarouselIndicatorProps {
+  current: number;
+  total: number;
+}
+
+// @ GenericInput
+export interface GenericInputProps {
+  register: UseFormRegister<InputData>;
+  label: string;
+  options: { required: boolean; pattern?: RegExp };
+  err: FieldError | undefined;
+  name: string;
+  type: "text" | "number" | "password" | "email";
+}
+
+// @ ImageInput
+export interface ImageInputProps {
+  register: UseFormRegister<InputData>;
+  label: string;
+  name: string;
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
+}
+
+// @SelectInput
+export interface SelectInputProps {
+  register: UseFormRegister<InputData>;
+  label: string;
+  name: string;
+  selectOptions: string[];
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
 }

@@ -1,17 +1,13 @@
+// Libraries
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+// Types
+import { ResType } from "@/types/components";
+// Components/Assets
 
-export type ResType = {
-  bodyPart: string;
-  equipement: string;
-  gifUrl: string;
-  id: number;
-  name: string;
-  target: string;
-};
-
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function ExercisesLibrary() {
   const [rndExercises, setRndExercises] = useState<ResType[]>([]);
 

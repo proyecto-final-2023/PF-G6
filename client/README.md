@@ -1,3 +1,15 @@
+## Comp separation stuff
+
+```jsx
+libs (react, react-icons, suztand, etc...)...
+
+ts-types...
+
+components...
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+rfc
+```
+
 ## TS stuff
 
 ### Use a key that was modified before to acces an object
