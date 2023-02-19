@@ -21,6 +21,9 @@ select {
   color: black;
   }
 
+textarea{
+  color: black;
+}
 /* .home__dark__bg {
   background-image: url("/tail-imgs/gym-bg.jpg");
   background-color: rgb(124, 124, 124);

@@ -89,3 +89,21 @@ export interface TripleImageCarouselProps {
   currImg: CarouselImg;
   nextImg: CarouselImg;
 }
+
+//@generic-inputs
+
+export interface GenericInputProps extends BasicInputsProps {
+  register: UseFormRegister<InputData>;
+}
+
+export interface ContactInputProps extends BasicInputsProps {
+  register: UseFormRegister<ContactData>;
+}
+
+export type BasicInputsProps = {
+  label: string;
+  options: { required: boolean; pattern?: RegExp };
+  err: FieldError | undefined;
+  name: string;
+  type: "text" | "number" | "password" | "email" | "textarea" ;
+}
