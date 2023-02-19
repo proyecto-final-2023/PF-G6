@@ -14,7 +14,7 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
 
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
-    // if mouse enter then hover state of key => true
+    // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
     // else => hover state of key => false
     else setHovers((prev) => ({ ...prev, [key]: false }));
@@ -24,7 +24,7 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="w-full bg-gray-600 p-0 h-[72px] border-x-none border-b-[2px] border-orange-500" >
+    <nav className="w-full bg-gray-800  p-0 h-[72px] border-x-none border-b-[2px]  border-yellow-900" >
       <ul className="flex justify-around align-middle">
         <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
         <Link replace href="/" scroll>
