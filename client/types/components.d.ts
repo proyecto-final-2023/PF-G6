@@ -64,6 +64,13 @@ export interface CarouselCompProps {
     hoverText: string;
   }>;
 }
+// @ contact
+export type ContactData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
 
 // @ CarouselItem
 export type CarouselImg = {
@@ -108,24 +115,34 @@ export interface TripleImageCarouselProps {
   nextImg: CarouselImg;
 }
 
-// @ CarouselIndicator
-export interface CarouselIndicatorProps {
-  current: number;
-  total: number;
-}
-
-// @ GenericInput
-export interface GenericInputProps {
-  register: UseFormRegister<InputData>;
+// @ GenericInputs
+export type BasicInputsProps = {
   label: string;
   options: { required: boolean; pattern?: RegExp };
   err: FieldError | undefined;
   name: string;
   type: "text" | "number" | "password" | "email";
+};
+
+export interface GenericInputProps extends BasicInputsProps {
+  register: UseFormRegister<InputData>;
+}
+
+export interface ContactInputProps extends BasicInputsProps {
+  register: UseFormRegister<ContactData>;
 }
 
 // @ ImageInput
 export interface ImageInputProps {
+  register: UseFormRegister<InputData>;
+  label: string;
+  name: string;
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
+}
+
+// @ TextareaInput
+export interface TextareaInputProps {
   register: UseFormRegister<InputData>;
   label: string;
   name: string;

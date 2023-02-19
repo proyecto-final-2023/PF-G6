@@ -15,7 +15,7 @@ export default function RegisterForm() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<InputData>({ mode: "onBlur" });
+  } = useForm<InputData>({ mode: "onChange" });
   // console.log(watch("example"));
 
   const onSubmit: SubmitHandler<InputData> = async (data) => {

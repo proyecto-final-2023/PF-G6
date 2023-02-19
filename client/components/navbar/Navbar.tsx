@@ -15,7 +15,7 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
 
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
-    // if mouse enter then hover state of key => true
+    // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
     // else => hover state of key => false
     else setHovers((prev) => ({ ...prev, [key]: false }));
