@@ -9,7 +9,6 @@ import dietPlan from "./img/dietPlan.png";
 
 export default [
   {
-
     title: "Gain Muscle",
     image: gainz,
     hoverText: "Hola"
@@ -28,8 +27,5 @@ export default [
     title: "Diet Planning",
     image: dietPlan,
     hoverText: "Hola3"
-
-    
-
   },
 ];
