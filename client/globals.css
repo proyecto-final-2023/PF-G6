@@ -27,3 +27,47 @@ textarea{
   background-position: 20% center;
   background-size: cover;
 } */
+
+.footer{
+  position: relative;
+  display:flex;
+  min-height:30vh;
+
+}
+.divImg1{
+  width: 100vw;
+  height: 95vh;
+  background-image: url('./assets/images/img_landing1.png');
+  background-repeat: no-repeat;
+  background-position:top;
+  background-size: cover;
+  color: aliceblue;
+  display: flex;
+  flex-direction: column;
+justify-content: center;
+
+}
+
+.textoImg1{
+  text-align: center;
+  font-size: larger;
+  font-weight: bold;
+ 
+}
+.carouselLanding{
+  margin-top: 20vh;
+}
+
+.divImg2{
+  width: 100vw;
+  height: 95vh;
+  background-image: url('./assets/images/img_landing2.png');
+  background-repeat: no-repeat;
+  background-position:top;
+  background-size: cover;
+  color: aliceblue;
+  display: flex;
+  flex-direction: column;
+justify-content: center;
+margin-top:30vh
+}

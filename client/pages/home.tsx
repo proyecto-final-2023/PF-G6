@@ -1,4 +1,5 @@
 import CarouselComp from "@/components/Carousel/CarouselComp";
+
 import homeSlides from "@/assets/home-slides";
 
 export default function Home() {
@@ -23,7 +24,4 @@ export default function Home() {
   );
 }
 
-//  ? Server side func, for better performance
-// export async function getServerSideProps() {
-//   return await ssrProtection();
-// }
+
