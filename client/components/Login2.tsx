@@ -1,11 +1,15 @@
-import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
-import Image from "next/dist/client/image";
-import blankProfile from "../assets/img/blankProfile.png";
+// Libraries
 import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
+// Types
+// Components/Assets
+import { auth } from "../firebase";
+import Image from "next/image";
+import blankProfile from "../assets/img/blankProfile.png";
 
-export const Login2 = () => {
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+export default function Login2() {
   const [user, setUser] = useAuthState(auth);
   const facebookAuth = new FacebookAuthProvider();
   const login = async () => {
@@ -43,4 +47,4 @@ export const Login2 = () => {
       </button>
     </>
   );
-};
+}

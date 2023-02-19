@@ -1,51 +1,9 @@
-import Link from "next/link";
+// Libraries
+// Types
+// Components/Assets
+import creditsData from "@/assets/credits-data";
 
-const team = [
-  {
-    name: "Javier Garbale",
-    link: <Link href="#">Linkedin</Link>,
-    imageUrl:
-      "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png",
-  },
-  {
-    name: "Teo Nicolas Gimenez",
-    link: <Link href="#">Linkedin</Link>,
-    imageUrl:
-      "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png",
-  },
-  {
-    name: "Oscar Alatrista",
-    link: <Link href="#">Linkedin</Link>,
-    Correo: "alexsilverr2390@gamil.com",
-    imageUrl:
-      "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png",
-  },
-  {
-    name: "Andrew Velata",
-    link: <Link href="#">Linkedin</Link>,
-    imageUrl:
-      "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png",
-  },
-  {
-    name: "Adan Moreno",
-    link: <Link href="#">Linkedin</Link>,
-    imageUrl:
-      "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png",
-  },
-  {
-    name: "Juan Pablo Quinteros",
-    link: <Link href="#">Linkedin</Link>,
-    imageUrl:
-      "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png",
-  },
-  {
-    name: "Alexander Arvelo",
-    link: <Link href="#">Linkedin</Link>,
-    imageUrl:
-      "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png",
-  },
-];
-
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function About() {
   return (
     <div className="bg-gray-400 py-24 sm:py-32">
@@ -65,7 +23,7 @@ export default function About() {
           </p>
         </div>
         <ul className="grid gap-x-8 gap-y-12 sm:grid-cols-2 sm:gap-y-16 xl:col-span-2">
-          {team.map((person) => (
+          {creditsData.map((person) => (
             <li key={person.name}>
               <div className="flex items-center gap-x-6">
                 <img

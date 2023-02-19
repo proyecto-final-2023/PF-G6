@@ -1,10 +1,13 @@
+// Libraries
 import { useState, useEffect } from "react";
-import { StaticImageData } from "next/image";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+// Types
+import { CarouselCompProps } from "@/types/components";
+// Components/Assets
 import TripleImagesCarrousel from "./TripleImagesCarrousel";
 import SingleImageCarousel from "./SingleImageCarousel";
-import { CarouselCompProps } from "@/types/components";
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function CarouselComp(props: CarouselCompProps) {
   const { slidesArr } = props;
   const [slideNum, setSlideNum] = useState(0);

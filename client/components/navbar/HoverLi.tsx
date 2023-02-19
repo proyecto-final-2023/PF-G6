@@ -1,16 +1,20 @@
+// Libraries
 import Image from "next/image";
 import Link from "next/link";
+// Types
 import { HoverLiProps } from "@/types/components";
+// Components/Assets
 import SubNavMenu from "./SubNavMenu";
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function HoverLi(props: HoverLiProps) {
   const { imgUrl, href, text, isHover, hoverEventHandler, optionsList } = props;
 
   const USER_ID = "777-www";
 
   return (
-
-    <li className=""
+    <li
+      className=""
       onMouseEnter={() => hoverEventHandler({ type: "enter", key: text })}
       onMouseLeave={() => hoverEventHandler({ type: "leave", key: text })}
     >
@@ -36,7 +40,6 @@ export default function HoverLi(props: HoverLiProps) {
       </Link>
       {isHover && (
         <div className="absolute  px-2 py-2 w-[115px] ">
-
           <SubNavMenu {...{ optionsList }} id={USER_ID} />
         </div>
       )}

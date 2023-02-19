@@ -1,14 +1,15 @@
+// Libraries
 import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState } from "react";
-
-import HoverLi from "./HoverLi";
+// Types
 import { NavbarStates } from "@/types/components";
-
+// Components/Assets
+import HoverLi from "./HoverLi";
 import userImg from "@/assets/images/user.png";
 import logoImg from "@/assets/images/placeholder-logo.png";
 
-// * uwu *//
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
@@ -24,32 +25,56 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
-    <nav className="w-full bg-gray-800  p-0 h-[72px] border-x-none border-b-[2px]  border-yellow-900" >
+    <nav className="w-full bg-gray-800  p-0 h-[72px] border-x-none border-b-[2px]  border-yellow-900">
       <ul className="flex justify-around align-middle">
         <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
-        <Link replace href="/" scroll>
-        <Image src={logoImg} alt={`link of the whole app`} className="inline-block align-bottom mt-[3px] w-[75px] h-[65px]" />
-        </Link>
+          <Link replace href="/" scroll>
+            <Image
+              src={logoImg}
+              alt={`link of the whole app`}
+              className="inline-block align-bottom mt-[3px] w-[75px] h-[65px]"
+            />
+          </Link>
         </li>
-        <li  className="inline-block align-bottom text-center pt-5">
+        <li className="inline-block align-bottom text-center pt-5">
           {/* <input type="text" ref={searchRef} /> */}
-          <input type="search"  ref={searchRef} id="default-search" className="inline-block w-[150px] p-1 bg-gray-600 focus:bg-gray-500 focus:outline-none focus:w-[300px] duration-300 border-[2px] border-gray-400 rounded-l-lg  placeholder-white text-white" placeholder="Search..." required/>
-          <button type="submit" className='absolute p-2 inline-block bg-gray-600 border-[2px] border-gray-400 rounded-r-lg uppercase text-xs font-medium'>Search</button>
-    
+          <input
+            type="search"
+            ref={searchRef}
+            id="default-search"
+            className="inline-block w-[150px] p-1 bg-gray-600 focus:bg-gray-500 focus:outline-none focus:w-[300px] duration-300 border-[2px] border-gray-400 rounded-l-lg  placeholder-white text-white"
+            placeholder="Search..."
+            required
+          />
+          <button
+            type="submit"
+            className="absolute p-2 inline-block bg-gray-600 border-[2px] border-gray-400 rounded-r-lg uppercase text-xs font-medium"
+          >
+            Search
+          </button>
         </li>
 
         {/* sorthand for hoverEventHandler = {hoverEventHandler}*/}
-        
 
         <li className="inline-block align-bottom h-[70px] w-[115px] text-center">
           <Link replace href="/home">
-          <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded  hover:text-orange-500 transition duration-300 ease-in-out">Home</button>
+            <button
+              type="button"
+              className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded  hover:text-orange-500 transition duration-300 ease-in-out"
+            >
+              Home
+            </button>
           </Link>
         </li>
 
-        <li className="inline-block align-bottom text-center w-[115px] h-full">      
+        <li className="inline-block align-bottom text-center w-[115px] h-full">
           <Link replace href="/guest/trainning-list">
-          <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">Trainings</button>
+            <button
+              type="button"
+              className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out"
+            >
+              Trainings
+            </button>
           </Link>
         </li>
 

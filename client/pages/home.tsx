@@ -1,8 +1,12 @@
+// Libraries
+// Types
+// Components/Assets
 import CarouselComp from "@/components/Carousel/CarouselComp";
 import homeSlides from "@/assets/home-slides";
 import logoImg from "@/assets/images/placeholder-logo.png";
 import Image from "next/image";
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function Home() {
   return (
     <>
@@ -29,5 +33,3 @@ export default function Home() {
     </>
   );
 }
-
-

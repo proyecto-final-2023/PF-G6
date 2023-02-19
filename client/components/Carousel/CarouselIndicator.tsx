@@ -1,10 +1,10 @@
+// Libraries
 import { BsCircle, BsCircleFill } from "react-icons/bs";
+// Types
+import { CarouselIndicatorProps } from "@/types/components";
+// Components/Assets
 
-interface CarouselIndicatorProps {
-  current: number;
-  total: number;
-}
-
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function CarouselIndicator(props: CarouselIndicatorProps) {
   const { current, total } = props;
 

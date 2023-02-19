@@ -1,7 +1,11 @@
-import { StaticImageData } from "next/image";
-
 // ? interfaces only for components states
 // ? types for almost everything
+// Libraries
+import { StaticImageData } from "next/image";
+// Types
+// Components/Assets
+// @
+type ConfirmationState = "ok" | "error" | "loading";
 
 // @ HoverLi
 export type HoverLiProps = {
@@ -11,6 +15,16 @@ export type HoverLiProps = {
   isHover: boolean;
   hoverEventHandler: ({}: HoverState) => void;
   optionsList: string[];
+};
+
+// @
+export type ResType = {
+  bodyPart: string;
+  equipement: string;
+  gifUrl: string;
+  id: number;
+  name: string;
+  target: string;
 };
 
 // @ SubNavMenu
@@ -50,9 +64,20 @@ export interface CarouselCompProps {
     hoverText: string;
   }>;
 }
+// @ contact
+export type ContactData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
 
 // @ CarouselItem
-export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
+export type CarouselImg = {
+  title: string;
+  image: StaticImageData;
+  hoverText: string;
+};
 
 // @ CarouselItem
 export interface CarouselItemProps {
@@ -90,7 +115,14 @@ export interface TripleImageCarouselProps {
   nextImg: CarouselImg;
 }
 
-//@generic-inputs
+// @ GenericInputs
+export type BasicInputsProps = {
+  label: string;
+  options: { required: boolean; pattern?: RegExp };
+  err: FieldError | undefined;
+  name: string;
+  type: "text" | "number" | "password" | "email";
+};
 
 export interface GenericInputProps extends BasicInputsProps {
   register: UseFormRegister<InputData>;
@@ -100,10 +132,30 @@ export interface ContactInputProps extends BasicInputsProps {
   register: UseFormRegister<ContactData>;
 }
 
-export type BasicInputsProps = {
+// @ ImageInput
+export interface ImageInputProps {
+  register: UseFormRegister<InputData>;
   label: string;
-  options: { required: boolean; pattern?: RegExp };
-  err: FieldError | undefined;
   name: string;
-  type: "text" | "number" | "password" | "email" | "textarea" ;
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
+}
+
+// @ TextareaInput
+export interface TextareaInputProps {
+  register: UseFormRegister<InputData>;
+  label: string;
+  name: string;
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
+}
+
+// @SelectInput
+export interface SelectInputProps {
+  register: UseFormRegister<InputData>;
+  label: string;
+  name: string;
+  selectOptions: string[];
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
 }
