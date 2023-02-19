@@ -42,7 +42,5 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
         </div>
       </div>
     </div>
-    </div>
-    </div>
   );
 }
