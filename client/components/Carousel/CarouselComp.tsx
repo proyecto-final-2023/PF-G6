@@ -4,26 +4,6 @@ import TripleImagesCarrousel from "./TripleImagesCarrousel";
 import SingleImageCarousel from "./SingleImageCarousel";
 import { CarouselCompProps } from "@/types/components";
 
-export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
-
-// @ CarouselItem
-export interface CarouselItemProps {
-  prevImg: CarouselImg;
-  currImg: CarouselImg;
-  nextImg: CarouselImg;
-  isModalOpen: boolean;
-  imgClickHandler: () => void;
-  isTriple: boolean;
-  indicators: { current: number; total: number };
-}
-
-
-interface CarouselCompProps {
-  slidesArr: Array<{ title: string; image: StaticImageData; hoverText:string }>;
-}
-
-
-
 export default function CarouselComp(props: CarouselCompProps) {
   const { slidesArr } = props;
   const [slideNum, setSlideNum] = useState(0);
