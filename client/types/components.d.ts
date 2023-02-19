@@ -4,17 +4,37 @@
 import { StaticImageData } from "next/image";
 // Types
 // Components/Assets
-// @
+
+// @ Home
 type ConfirmationState = "ok" | "error" | "loading";
 
-// @ HoverLi
-export type HoverLiProps = {
-  imgUrl?: StaticImageData;
-  href: string;
+// @ Navbar
+export type HiddenOption = {
+  title: string;
+  url?: string;
+  handler?: () => void;
+};
+
+export type OptionsUrlMapping = {
+  loggedInUser: HiddenOption[];
+  loggedOutUser: HiddenOption[];
+  tools: HiddenOption[];
+};
+
+// @ HoverImageLi
+export type HoverImageLiProps = {
+  imgUrl: StaticImageData | string;
+  isClicked: boolean;
+  optionsList: HiddenOption[];
+  clickEventHandler: () => void;
+};
+
+// @ HoverTextLi
+export type HoverTextLiProps = {
   text: string;
-  isHover: boolean;
-  hoverEventHandler: ({}: HoverState) => void;
-  optionsList: string[];
+  isClicked: boolean;
+  optionsList: HiddenOption[];
+  clickEventHandler: () => void;
 };
 
 // @
@@ -27,11 +47,14 @@ export type ResType = {
   target: string;
 };
 
-// @ SubNavMenu
-export type SubNavMenuProps = {
-  optionsList: string[];
-  singOutHandler?: (id: string) => void;
-  id: string;
+// @ SubMenuText
+export type SubMenuTextProps = {
+  optionsList: HiddenOption[];
+};
+
+// @ SubMenuBnt
+export type SubMenuBtnProps = {
+  optionsList: HiddenOption[];
 };
 
 // @ SubNavMenu
@@ -53,8 +76,16 @@ export type ReturnVoidOrJsx = null | React.ReactElement;
 
 // @ Navbar
 export interface NavbarStates {
-  hovers: { type: "enter" | "leave"; key: "tools" | "user" };
+  clicked: { type: "enter" | "leave"; key: "tools" | "user" };
 }
+
+// @ contact
+export type ContactData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
 
 // @ CarouselComp
 export interface CarouselCompProps {
@@ -64,19 +95,17 @@ export interface CarouselCompProps {
     hoverText: string;
   }>;
 }
-// @ contact
-export type ContactData = {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-};
 
 // @ CarouselItem
 export type CarouselImg = {
   title: string;
   image: StaticImageData;
   hoverText: string;
+};
+
+export type CarouselIndicatorProps = {
+  current: number;
+  total: number;
 };
 
 // @ CarouselItem
