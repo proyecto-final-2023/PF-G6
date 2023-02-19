@@ -7,8 +7,8 @@ module.exports = (sequelize) => {
       id: {
         type: DataTypes.UUID,
         allowNull: false,
-        default: DataTypes.UUIDV4,
         primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
       },
       status: {
         type: DataTypes.BOOLEAN,
@@ -42,10 +42,6 @@ module.exports = (sequelize) => {
       },
       imgURL: {
         type: DataTypes.STRING(255),
-      },
-      verify: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
       },
     },
     { timestamps: false }

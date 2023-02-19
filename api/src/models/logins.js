@@ -2,7 +2,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "login",
+    "logins",
     {
       id_login: {
         type: DataTypes.UUID,
@@ -17,6 +17,10 @@ module.exports = (sequelize) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false,
+      },
+      verify: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
       },
     },
     { timestamps: false }

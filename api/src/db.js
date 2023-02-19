@@ -38,7 +38,7 @@ const {
   Aliments,
   Certificates,
   Data,
-  Login,
+  Logins,
   Membership,
   Plan,
   PlanTrainee,
@@ -52,8 +52,8 @@ const {
 } = sequelize.models;
 
 // User 1 a 1 con Login
-User.hasOne(Login);
-Login.belongsTo(User);
+User.hasOne(Logins);
+Logins.belongsTo(User);
 // Membership 1 A 1 con Voucher
 Membership.hasOne(Voucher);
 Voucher.belongsTo(Membership);
