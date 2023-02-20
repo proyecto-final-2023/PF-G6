@@ -12,8 +12,7 @@ export default function SingleImageCarousel(props: SingleImageCarouselProps) {
           src={currImg.image}
           alt={`some cool thing`}
           height={330}
-          className="rounded-md w-80 h-80"
-        />
+          className="rounded-md w-80 h-80"/>
       </div>
 
       <CarouselIndicator

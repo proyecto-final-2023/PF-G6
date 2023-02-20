@@ -1,5 +1,6 @@
 import CarouselComp from "@/components/Carousel/CarouselComp";
 import landindSlides from "@/assets/landing-slides";
+import landindSlides2 from "@/assets/landing-slides2";
 
 export default function LandingPage() {
   return (
@@ -16,7 +17,7 @@ export default function LandingPage() {
           DIGITAL ERA
         </h1>
       </div>
-      <CarouselComp slidesArr={landindSlides} />
+      <CarouselComp slidesArr={landindSlides2} />
     </div>
   );
 }

@@ -13,9 +13,9 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
           height={330}
           className="rounded-md w-auto h-60  hover:opacity-20 transition duration-300 ease-in-out hover:scale-105 "
         />
-        <div>
-        <h1 className="-mt-40 text-center">{prevImg.hoverText}</h1>
-        </div>
+        
+        <h1 className=" -m-40 text-center w-auto">{prevImg.hoverText}</h1>
+        
       </div>
       <div className="text-transparent hover:text-white">
         <Image
