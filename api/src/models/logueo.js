@@ -2,13 +2,13 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "logins",
+    "logueo",
     {
       id_login: {
-        type: DataTypes.UUID,
+        type: DataTypes.INTEGER,
         allowNull: false,
-        default: DataTypes.UUIDV4,
-        primaryKey: true,
+        autoIncrement: true,
+        primaryKey: true
       },
       email: {
         type: DataTypes.STRING,

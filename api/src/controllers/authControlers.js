@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const { User, Logins } = require("../db");
+const { User, Logueo } = require("../db");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const { sendEmail, getTemplate } = require("./Mail/Config.mail");
@@ -19,28 +19,24 @@ async function comparePassword(password, receivedPassword) {
 async function signUP(obj) {
   const { first_name, last_name, nickname, email, password, rol, imgURL } = obj;
   //se usa para crear un nuevo usuario
-  const user = await User.findOne({
-    include:Logins,
-    where: { email: email },
+  const exist = await Logueo.findOne({ where: { email: email },
   });
-  if (user) throw new Error("El usuario ya existe");
-  const pass = await encPassword(obj.password);
-  const create = await User.create(
-    {
-      first_name,
-      last_name,
-      nickname,
-      rol,
-      imgURL,
-      Logins: {
-        email,
-        password: pass,
-      },
-    },
-    {
-      include:"Logins",
-    }
-  );
+  if (exist) throw new Error("El usuario ya existe");
+  const hashedPass = await encPassword(obj.password);
+  //Logueo.create/({email,hashedPass})
+
+  const create = await User.create({
+    first_name,
+    last_name,
+    nickname,
+    rol,
+    imgURL,
+  });
+  
+  const logueo = await Logueo.create({ email: email, password: hashedPass, verify: false });
+  await create.setLogueo(logueo);
+
+
   //aqui va para enviar el mail y esperar que verifique
   try {
     const template = getTemplate(first_name, token(create.id));
