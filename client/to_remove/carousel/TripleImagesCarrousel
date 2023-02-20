@@ -5,11 +5,12 @@ import { TripleImageCarouselProps } from "@/types/components";
 // Components/Assets
 
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
+// export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
+export default function TripleImagesCarrousel(props) {
   const { prevImg, currImg, nextImg } = props;
 
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 pb-40 pt-20">
       <div className="text-transparent hover:text-white">
         <Image
           src={prevImg.image}
@@ -40,7 +41,5 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
         <h1 className="-mt-40 text-center">{nextImg.hoverText}</h1>
       </div>
     </div>
-    
-    
   );
 }

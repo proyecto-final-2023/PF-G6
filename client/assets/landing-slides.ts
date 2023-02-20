@@ -8,21 +8,21 @@ export default [
   {
     title: "Gain Muscle",
     image: gainz,
-    hoverText: "Slide 1",
+    hoverText: "GAIN MUSCLE MASS",
   },
   {
     title: "Fat Loose",
     image: fatLoose,
-    hoverText: "Slide 22",
+    hoverText: "FAT LOSS",
   },
   {
     title: "Personal Trainer",
     image: pTrainer,
-    hoverText: "Find the best trainer according to your personal goals.",
+    hoverText: "FIND THE BEST TRAINER 4U",
   },
   {
     title: "Diet Planning",
     image: dietPlan,
-    hoverText: "Slide 4444",
+    hoverText: "NUTRITIONAL PLANS",
   },
 ];
