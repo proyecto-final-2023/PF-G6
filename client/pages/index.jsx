@@ -1,7 +1,7 @@
 import CarouselComp from "@/components/Carousel/CarouselComp";
 import landindSlides from "@/assets/landing-slides";
 import landindSlides2 from "@/assets/landing-slides2";
-
+//arreglando//
 export default function LandingPage() {
   return (
     <div>
