@@ -10,8 +10,8 @@ export default function Layout({ children }: { children: ReactNode }) {
   return (
     <div>
       <Navbar />
-      {/* <Image  alt="imagen1"src={imagen}/> */}
-      {children}
+      <div className="main pt-14">{children}</div>
+
       <div className="footer">
         <Footer />
       </div>

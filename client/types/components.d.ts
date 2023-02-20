@@ -87,8 +87,15 @@ export type ContactData = {
   message: string;
 };
 
-// @ CarouselComp
-export interface CarouselCompProps {
+// @ newCarousel/Carousel
+export type SingleCarouselProps = {
+  slides: Array<{ title: string; image: StaticImageData; hoverText: string }>;
+  autoSlide?: boolean;
+  autoSlideInterval?: number;
+};
+
+// @ SwiperCarousel
+export interface SwiperCarouselProps {
   slidesArr: Array<{
     title: string;
     image: StaticImageData;

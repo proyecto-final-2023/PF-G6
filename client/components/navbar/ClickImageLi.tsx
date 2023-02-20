@@ -6,7 +6,7 @@ import SubMenuLink from "./SubMenuLink";
 // Components/Assets
 
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-export default function HoverImageLi(props: HoverImageLiProps) {
+export default function ClickImageLi(props: HoverImageLiProps) {
   const { imgUrl, isClicked, clickEventHandler, optionsList } = props;
 
   return (

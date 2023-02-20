@@ -2,8 +2,13 @@
 import type { AppProps } from "next/app";
 // Types
 // Components/Assets
-import "../globals.css";
 import Layout from "@/components/Layout";
+import "../globals.css";
+// for carousel
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
 
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function MyApp({ Component, pageProps }: AppProps) {
