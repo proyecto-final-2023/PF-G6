@@ -1,5 +1,5 @@
 const bcrypt = require("bcryptjs");
-const { User } = require("../db");
+const { User, Logueo } = require("../db");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const { sendEmail, getTemplate } = require("./Mail/Config.mail");
@@ -17,26 +17,28 @@ async function comparePassword(password, receivedPassword) {
 }
 
 async function signUP(obj) {
-  const { first_name, last_name, nick_name, email, password, rol, imgURL } =
-    obj;
+  const { first_name, last_name, nickname, email, password, rol, imgURL } = obj;
   //se usa para crear un nuevo usuario
-  //el objeto requiere los siguientes datos
-  //   first_name, last_name, nick_name, email, password, rol, imgURL
-  const user = await User.findOne({ where: { email: email } });
-  if (user) throw new Error("El usuario ya existe");
-  const pass = await encPassword(obj.password);
+  const exist = await Logueo.findOne({ where: { email: email },
+  });
+  if (exist) throw new Error("El usuario ya existe");
+  const hashedPass = await encPassword(obj.password);
+  //Logueo.create/({email,hashedPass})
+
   const create = await User.create({
     first_name,
     last_name,
-    nick_name,
-    email,
-    password: pass,
+    nickname,
     rol,
     imgURL,
   });
+  
+  const logueo = await Logueo.create({ email: email, password: hashedPass, verify: false });
+  await create.setLogueo(logueo);
+
+
   //aqui va para enviar el mail y esperar que verifique
   try {
-    console.log(create);
     const template = getTemplate(first_name, token(create.id));
     const send = sendEmail(email, template);
     return send;
@@ -46,9 +48,10 @@ async function signUP(obj) {
 }
 
 async function signIn(email, password) {
+  console.log(email, password);
   //se usa para enviar un token a los usuarios que se loguean via login local
   //se debe implementar una funcion para saber si el usuario es verificado
-  const user = await User.findOne({ where: { email: email } });
+  const user = await Logins.findOne({ where: { email: email } });
   if (!user) throw new Error("Usuario no existe");
   if (!user.verify) throw new Error("Usuario no verificado"); //si el usuario no esta verificado no puede loguear
   const exist = await comparePassword(user.dataValues.password, password);
