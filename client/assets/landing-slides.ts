@@ -4,28 +4,25 @@ import fatLoose from "./img/fatLoose.png";
 import pTrainer from "./img/personalTrainer.png";
 import dietPlan from "./img/dietPlan.png";
 
-
-
-
 export default [
   {
     title: "Gain Muscle",
     image: gainz,
-    hoverText: "Hola"
+    hoverText: "Slide 1",
   },
   {
     title: "Fat Loose",
     image: fatLoose,
-    hoverText: "Hola1"
+    hoverText: "Slide 22",
   },
   {
     title: "Personal Trainer",
     image: pTrainer,
-    hoverText: "Find the best trainer according to your personal goals."
+    hoverText: "Find the best trainer according to your personal goals.",
   },
   {
     title: "Diet Planning",
     image: dietPlan,
-    hoverText: "Hola3"
+    hoverText: "Slide 4444",
   },
 ];

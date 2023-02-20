@@ -1,40 +1,40 @@
-import React, {useState} from "react";
+// Libraries
 import axios from "axios";
+import { useForm, SubmitHandler } from "react-hook-form";
+// Types
+import { ContactData } from "@/types/components";
+// Components/Assets
 import GenericInput from "@/components/inputs/GenericInput";
-import { useForm, SubmitHandler } from 'react-hook-form'
 import TextAreaInput from "@/components/inputs/TextAreaInput";
 
-
-export type ContactData = {
-  name: string;
-  email: string;
-  subject: string;
-  message: string;
-}
- 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function RegisterForm() {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<ContactData>({ mode: "onBlur" });
+  } = useForm<ContactData>({ mode: "onChange" });
   // console.log(watch("example"));
 
   const onSubmit: SubmitHandler<ContactData> = async (data) => {
     console.log("SUBMIT", data);
-      axios.post('http://localhost:3001/contact', data)
-  
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.log(error);
-        });
+    axios
+      .post("http://localhost:3001/contact", data)
+
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 mx-6">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-6 mx-6"
+    >
       <GenericInput
         label="Enter your name:"
         name="name"
@@ -65,7 +65,6 @@ export default function RegisterForm() {
       <TextAreaInput
         label="Enter your message:"
         name="message"
-        type="textarea"
         options={{ required: false }}
         err={errors.message}
         {...{ register }}

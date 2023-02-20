@@ -1,14 +1,18 @@
-import { SingleImageCarouselProps } from "@/types/components";
+// Libraries
 import Image from "next/image";
+// Types
+import { SingleImageCarouselProps } from "@/types/components";
+// Components/Assets
 import CarouselIndicator from "./CarouselIndicator";
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function SingleImageCarousel(props: SingleImageCarouselProps) {
   const { indicators, currImg } = props;
 
   return (
     <div>
       <div>
-       <Image
+        <Image
           src={currImg.image}
           alt={`some cool thing`}
           height={330}

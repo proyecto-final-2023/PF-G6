@@ -1,6 +1,10 @@
 import React from "react";
 import useStore from "@/store";
+// Libraries
+// Types
+// Components/Assets
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function App() {
   const { post, fetchPost } = useStore((state) => ({
     post: state.post,

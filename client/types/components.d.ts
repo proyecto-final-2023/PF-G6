@@ -1,23 +1,60 @@
-import { StaticImageData } from "next/image";
-
 // ? interfaces only for components states
 // ? types for almost everything
+// Libraries
+import { StaticImageData } from "next/image";
+// Types
+// Components/Assets
 
-// @ HoverLi
-export type HoverLiProps = {
-  imgUrl?: StaticImageData;
-  href: string;
-  text: string;
-  isHover: boolean;
-  hoverEventHandler: ({}: HoverState) => void;
-  optionsList: string[];
+// @ Home
+type ConfirmationState = "ok" | "error" | "loading";
+
+// @ Navbar
+export type HiddenOption = {
+  title: string;
+  url?: string;
+  handler?: () => void;
 };
 
-// @ SubNavMenu
-export type SubNavMenuProps = {
-  optionsList: string[];
-  singOutHandler?: (id: string) => void;
-  id: string;
+export type OptionsUrlMapping = {
+  loggedInUser: HiddenOption[];
+  loggedOutUser: HiddenOption[];
+  tools: HiddenOption[];
+};
+
+// @ HoverImageLi
+export type HoverImageLiProps = {
+  imgUrl: StaticImageData | string;
+  isClicked: boolean;
+  optionsList: HiddenOption[];
+  clickEventHandler: () => void;
+};
+
+// @ HoverTextLi
+export type HoverTextLiProps = {
+  text: string;
+  isClicked: boolean;
+  optionsList: HiddenOption[];
+  clickEventHandler: () => void;
+};
+
+// @
+export type ResType = {
+  bodyPart: string;
+  equipement: string;
+  gifUrl: string;
+  id: number;
+  name: string;
+  target: string;
+};
+
+// @ SubMenuText
+export type SubMenuTextProps = {
+  optionsList: HiddenOption[];
+};
+
+// @ SubMenuBnt
+export type SubMenuBtnProps = {
+  optionsList: HiddenOption[];
 };
 
 // @ SubNavMenu
@@ -39,11 +76,26 @@ export type ReturnVoidOrJsx = null | React.ReactElement;
 
 // @ Navbar
 export interface NavbarStates {
-  hovers: { type: "enter" | "leave"; key: "tools" | "user" };
+  clicked: { type: "enter" | "leave"; key: "tools" | "user" };
 }
 
-// @ CarouselComp
-export interface CarouselCompProps {
+// @ contact
+export type ContactData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+// @ newCarousel/Carousel
+export type SingleCarouselProps = {
+  slides: Array<{ title: string; image: StaticImageData; hoverText: string }>;
+  autoSlide?: boolean;
+  autoSlideInterval?: number;
+};
+
+// @ SwiperCarousel
+export interface SwiperCarouselProps {
   slidesArr: Array<{
     title: string;
     image: StaticImageData;
@@ -52,7 +104,16 @@ export interface CarouselCompProps {
 }
 
 // @ CarouselItem
-export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
+export type CarouselImg = {
+  title: string;
+  image: StaticImageData;
+  hoverText: string;
+};
+
+export type CarouselIndicatorProps = {
+  current: number;
+  total: number;
+};
 
 // @ CarouselItem
 export interface CarouselItemProps {
@@ -90,7 +151,14 @@ export interface TripleImageCarouselProps {
   nextImg: CarouselImg;
 }
 
-//@generic-inputs
+// @ GenericInputs
+export type BasicInputsProps = {
+  label: string;
+  options: { required: boolean; pattern?: RegExp };
+  err: FieldError | undefined;
+  name: string;
+  type: "text" | "number" | "password" | "email";
+};
 
 export interface GenericInputProps extends BasicInputsProps {
   register: UseFormRegister<InputData>;
@@ -100,10 +168,30 @@ export interface ContactInputProps extends BasicInputsProps {
   register: UseFormRegister<ContactData>;
 }
 
-export type BasicInputsProps = {
+// @ ImageInput
+export interface ImageInputProps {
+  register: UseFormRegister<InputData>;
   label: string;
-  options: { required: boolean; pattern?: RegExp };
-  err: FieldError | undefined;
   name: string;
-  type: "text" | "number" | "password" | "email" | "textarea" ;
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
+}
+
+// @ TextareaInput
+export interface TextareaInputProps {
+  register: UseFormRegister<InputData>;
+  label: string;
+  name: string;
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
+}
+
+// @SelectInput
+export interface SelectInputProps {
+  register: UseFormRegister<InputData>;
+  label: string;
+  name: string;
+  selectOptions: string[];
+  options: { required: boolean; regex?: RegExp };
+  err: FieldError | undefined;
 }

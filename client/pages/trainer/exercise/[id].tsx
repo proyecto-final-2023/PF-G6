@@ -1,9 +1,13 @@
+// Libraries
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { ResType } from "../exercises-library";
+// Types
+import { ResType } from "@/types/components";
+// Components/Assets
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function ExerciseDetails() {
   const router = useRouter();
   const { id } = router.query;

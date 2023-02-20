@@ -1,15 +1,9 @@
-import { InputData } from "@/types/components";
-import { FieldError, UseFormRegister } from "react-hook-form";
+// Libraries
+// Types
+import { InputData, SelectInputProps } from "@/types/components";
+// Components/Assets
 
-export interface SelectInputProps {
-  register: UseFormRegister<InputData>;
-  label: string;
-  name: string;
-  selectOptions: string[];
-  options: { required: boolean; regex?: RegExp };
-  err: FieldError | undefined;
-}
-
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function SelectInput(props: SelectInputProps) {
   const { register, label, name, selectOptions, options, err } = props;
 

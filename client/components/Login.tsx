@@ -1,15 +1,15 @@
+// Libraries
 import React, { useEffect } from "react";
-import { auth } from "../firebase";
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import Image, { StaticImageData } from "next/image";
+// Types
+// Components/Assets
+import { auth } from "../firebase";
 import blankProfile from "../assets/img/blankProfile.png";
-import Image, { StaticImageData } from "next/dist/client/image";
 
-
-
-export const Login = () => {
-
-  
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+export default function Login() {
   const [user, setUser] = useAuthState(auth);
   const googleAuth = new GoogleAuthProvider();
   const login = async () => {
@@ -46,4 +46,4 @@ export const Login = () => {
       </button>
     </div>
   );
-};
+}
