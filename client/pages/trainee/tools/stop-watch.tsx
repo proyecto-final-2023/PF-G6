@@ -1,7 +1,11 @@
-import React, { useState, useRef } from "react";
+// Libraries
+import { useState, useRef } from "react";
+// Types
+// Components/Assets
 
 type StoppedTimes = { time: number; timestamp: number };
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function StopWatch() {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [isRunning, setIsRunning] = useState(false);

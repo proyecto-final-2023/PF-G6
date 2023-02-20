@@ -1,6 +1,10 @@
+// Libraries
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+// Types
+// Components/Assets
 
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function TraineeDetails() {
   const [userData, setUserData] = useState({});
   const router = useRouter();

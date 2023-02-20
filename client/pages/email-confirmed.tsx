@@ -1,9 +1,12 @@
+// Libraries
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+// Types
+import { ConfirmationState } from "@/types/components";
+// Components/Assets
 import useStore from "@/store";
 
-type ConfirmationState = "ok" | "error" | "loading";
-
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function EmailConfirmed() {
   const { updateCock, userData } = useStore((state) => ({
     userData: state.userData,

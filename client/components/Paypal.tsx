@@ -1,7 +1,11 @@
+// Libraries
 import axios from "axios";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+// Types
+// Components/Assets
 
-export function Paypal() {
+// ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+export default function Paypal() {
   return (
     <div>
       <PayPalScriptProvider
