@@ -19,7 +19,7 @@ export default function SelectInput(props: SelectInputProps) {
         {label}
         <select
           {...register(name as keyof InputData, options)}
-          className="w-1/3"
+          className="w-1/3 rounded-md"
         >
           <option value={""}>---</option>
           {selectOptions.map((value) => {

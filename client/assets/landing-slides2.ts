@@ -1,7 +1,7 @@
 // need to be this way...
 import trainees from "./img/trainees.png";
 import trainingPlan from "./img/trainingPlan.png";
-import nutritionalPlan from "./img/nutritionPlan.png";
+import nutritionalPlan from "./img/dieta.png";
 import excerciseDB from "./img/excerciseDB.png";
 
 

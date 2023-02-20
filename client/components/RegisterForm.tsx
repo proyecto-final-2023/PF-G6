@@ -28,7 +28,9 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="caja-form ">
+      <h1 className="p-5 ">Register Form</h1>
+      <div className="caja">
       <GenericInput
         label="Enter your first name:"
         name="first_name"
@@ -127,9 +129,11 @@ export default function RegisterForm() {
         err={errors.imgFile}
       />
 
-      <button className="rounded-md bg-lime-500" type="submit">
+      <button className="button" type="submit">
         Submit
       </button>
+      </div>
+
     </form>
   );
 }

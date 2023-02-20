@@ -28,12 +28,12 @@ export default function CarouselComp(props: CarouselCompProps) {
   }, []);
 
   const getPrevImg = () => {
-    const willBeLower = slideNum - 2 < 0;
+    const willBeLower = slideNum - 1 < 0;
     return willBeLower ? slidesArr.length - 1 : slideNum - 1;
   };
 
   const getNextImg = () => {
-    const willBeGreater = slideNum + 2 >= slidesArr.length;
+    const willBeGreater = slideNum + 1 >= slidesArr.length;
     return willBeGreater ? 0 : slideNum + 1;
   };
 

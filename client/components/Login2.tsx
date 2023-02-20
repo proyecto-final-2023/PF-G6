@@ -5,6 +5,9 @@ import Image from "next/dist/client/image";
 import blankProfile from "../assets/img/blankProfile.png";
 import { useEffect } from "react";
 
+
+
+
 export const Login2 = () => {
   const [user, setUser] = useAuthState(auth);
   const facebookAuth = new FacebookAuthProvider();
@@ -27,20 +30,28 @@ export const Login2 = () => {
   };
 
   return (
-    <>
-      <p className="text-sm">LOGIN WITH FACEBOOK</p>
-      <button className="text-green-400 rounded-md bg-white" onClick={login}>
-        Facebook Log in
-      </button>
-      {user ? "Welcome, " + user.displayName + " e-mail : " + user.email : ""}
+    <> 
+     <div className="">
+     
+     
+     <button type="button" onClick={login} className="text-white bg-[#3b5998] hover:bg-[#3b5998]/90 focus:ring-4 focus:outline-none focus:ring-[#3b5998]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#3b5998]/55 mr-2 mb-2">
+    <svg className="w-3 h-4 mr-2 -ml-2" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M279.1 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.4 0 225.4 0c-73.22 0-121.1 44.38-121.1 124.7v70.62H22.89V288h81.39v224h100.2V288z"></path></svg>
+     Sign in with Facebook
+    </button>
+      
+      
+      
+      {/* {user ? "Welcome, " + user.displayName + " e-mail : " + user.email : ""}
       <Image src={loginimg() as string} width={50} height={50} alt="a" />
       <br></br>
       <button
-        className="text-green-400 rounded-md bg-white"
+        className="group relative flex  justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
         onClick={() => auth.signOut()}
       >
-        Facebook Log out
-      </button>
+        Log out
+      </button> */}
+     </div>
+     
     </>
   );
 };

@@ -5,10 +5,11 @@ import FormularioLogin from "@/components/LoginForm"
 
 export default function Index() {
   return (
-    <>
-      <FormularioLogin />
-      <Login />
-      <Login2 />
-    </>
+    <div className="login">
+    <FormularioLogin />
+    <Login />
+    <Login2 />
+    
+  </div>
   );
 }

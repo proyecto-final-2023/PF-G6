@@ -3,7 +3,7 @@ import gainz from "./img/gainz.png";
 import fatLoose from "./img/fatLoose.png";
 import pTrainer from "./img/personalTrainer.png";
 import dietPlan from "./img/dietPlan.png";
-//cambiando para el pr//
+
 
 
 

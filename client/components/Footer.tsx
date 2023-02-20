@@ -11,7 +11,7 @@ import logoImg from "@/assets/images/placeholder-logo.png";
 
 export default function Footer() {
   return (
-    <div className=" w-full p-2 text-amber-800 rounded-lg shadow md:flex md:items-center md:justify-between md:p-8 bg-gray-800 position absolute bottom-0  border-4 border-gray-800  border-t-yellow-900">
+    <div className=" w-full  text-amber-800 rounded-lg shadow md:flex md:items-center md:justify-between md:p-8 bg-gray-800 position relative bottom-0 min-h-max  border-4 border-gray-800  border-t-yellow-900">
       
       <div className="flex flex-row  space-x-4   text-sky-400/100">
       <Link  href="/contact">

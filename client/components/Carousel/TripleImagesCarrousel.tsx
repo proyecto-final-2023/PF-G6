@@ -5,7 +5,7 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
   const { prevImg, currImg, nextImg } = props;
 
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 pb-40 pt-20">
       <div className="text-transparent hover:text-white">
         <Image
           src={prevImg.image}

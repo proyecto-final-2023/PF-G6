@@ -17,6 +17,7 @@ export default function ImageInput(props: ImageInputProps) {
       <label className="flex flex-col">
         Choose a profile image:
         <input
+        className="rounded-md"
           type="file"
           accept="image/png, image/jpeg"
           {...register("imgFile", { required: false })}
