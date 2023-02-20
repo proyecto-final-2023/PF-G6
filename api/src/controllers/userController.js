@@ -1,4 +1,4 @@
-const { User } = require("../db");
+const { User, Logins } = require("../db.js");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
@@ -47,10 +47,10 @@ const userByName = async (name) => {
 
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
-  const user = await User.findByPk(decoded.id);
-
+  const user = await User.getLogins(decoded.id);
+  console.log(user)
   if (user) {
-    const result = await User.update(
+    const result = await Logins.update(
       { verify: true },
       {
         where: {

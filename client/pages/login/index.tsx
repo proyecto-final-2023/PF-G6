@@ -9,10 +9,11 @@ import Login2 from "@/components/Login2";
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function Index() {
   return (
-    <>
-      <FormularioLogin />
-      <Login />
-      <Login2 />
-    </>
+    <div className="login">
+    <FormularioLogin />
+    <Login />
+    <Login2 />
+    
+  </div>
   );
 }

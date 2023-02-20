@@ -20,16 +20,20 @@ export default function RegisterForm() {
 
   const onSubmit: SubmitHandler<InputData> = async (data) => {
     console.log("SUBMIT", data);
-    // await axios.post("http://localhost:3001/createuser", data).then((data) => {
-    //   console.log(data);
-    // });
+    data.imgURL="";
+    await axios.post("http://localhost:3001/createuser", data)
+    .then((data) => {
+      console.log(data);
+    });
     // TODO:
     // handle coudlinary upload
     // add extra prop to object authExtern: false
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+    <form onSubmit={handleSubmit(onSubmit)} className="caja-form ">
+      <h1 className="p-5 ">Register Form</h1>
+      <div className="caja">
       <GenericInput
         label="Enter your first name:"
         name="first_name"
@@ -126,11 +130,14 @@ export default function RegisterForm() {
         name="imageFile"
         options={{ required: false }}
         err={errors.imgFile}
+      
       />
 
-      <button className="rounded-md bg-lime-500" type="submit">
+      <button className="button" type="submit">
         Submit
       </button>
+      </div>
+
     </form>
   );
 }
