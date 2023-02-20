@@ -19,9 +19,11 @@ export default function RegisterForm() {
 
   const onSubmit: SubmitHandler<InputData> = async (data) => {
     console.log("SUBMIT", data);
-    // await axios.post("http://localhost:3001/createuser", data).then((data) => {
-    //   console.log(data);
-    // });
+    data.imgURL="";
+    await axios.post("http://localhost:3001/createuser", data)
+    .then((data) => {
+      console.log(data);
+    });
     // TODO:
     // handle coudlinary upload
     // add extra prop to object authExtern: false
@@ -127,6 +129,7 @@ export default function RegisterForm() {
         name="imageFile"
         options={{ required: false }}
         err={errors.imgFile}
+      
       />
 
       <button className="button" type="submit">

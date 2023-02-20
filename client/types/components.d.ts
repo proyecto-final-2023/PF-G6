@@ -80,6 +80,7 @@ export type InputData = {
   email: string;
   phone: string;
   cell: string;
+  imgURL:string
   imgFile: File;
   gender: "male" | "female" | "other";
   role: "admin" | "trainee" | "trainer";

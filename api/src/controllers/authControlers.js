@@ -51,7 +51,7 @@ async function signIn(email, password) {
   console.log(email, password);
   //se usa para enviar un token a los usuarios que se loguean via login local
   //se debe implementar una funcion para saber si el usuario es verificado
-  const user = await Logins.findOne({ where: { email: email } });
+  const user = await Logueo.findOne({ where: { email: email } });
   if (!user) throw new Error("Usuario no existe");
   if (!user.verify) throw new Error("Usuario no verificado"); //si el usuario no esta verificado no puede loguear
   const exist = await comparePassword(user.dataValues.password, password);
