@@ -2,7 +2,7 @@
 // Types
 // Components/Assets
 import landindSlides from "@/assets/landing-slides";
-import CarouselTest from "@/components/CarouselTest";
+import SwiperCarousel from "@/components/SwiperCarousel";
 
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function LandingPage() {
@@ -15,7 +15,7 @@ export default function LandingPage() {
           </h1>
         </div>
       </div>
-      <CarouselTest />
+      <SwiperCarousel slidesArr={landindSlides} />
     </div>
   );
 }

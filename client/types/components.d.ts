@@ -94,8 +94,8 @@ export type SingleCarouselProps = {
   autoSlideInterval?: number;
 };
 
-// @ CarouselComp
-export interface CarouselCompProps {
+// @ SwiperCarousel
+export interface SwiperCarouselProps {
   slidesArr: Array<{
     title: string;
     image: StaticImageData;
