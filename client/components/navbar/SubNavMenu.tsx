@@ -42,7 +42,12 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
         return (
           <li key={option.toString()}>
             {typeof urlOrFunc === "string" ? (
-              <Link href={urlOrFunc}>{option}</Link>
+              <Link href={urlOrFunc}><button
+              className="inline-block px-6 py-2.5 bg-transparent font-medium text-xs leading-tight uppercase hover:bg-gray-600 hover:text-orange-500 rounded w-[115px] transition duration-300 ease-in-out"
+              type="button"
+            >
+              {option}
+            </button></Link>
             ) : (
               <button
                 onClick={urlOrFunc}
