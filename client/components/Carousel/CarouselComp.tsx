@@ -1,0 +1,75 @@
+import { useState, useEffect } from "react";
+import { StaticImageData } from "next/image";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import TripleImagesCarrousel from "./TripleImagesCarrousel";
+import SingleImageCarousel from "./SingleImageCarousel";
+import { CarouselCompProps } from "@/types/components";
+
+export default function CarouselComp(props: CarouselCompProps) {
+  const { slidesArr } = props;
+  const [slideNum, setSlideNum] = useState(0);
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    function updateViewportWidth() {
+      setViewportWidth(window.innerWidth);
+    }
+
+    // Add event listener to update viewport width on resize
+    window.addEventListener("resize", updateViewportWidth);
+
+    // Set initial viewport width
+    updateViewportWidth();
+
+    // Remove event listener on unmount
+    return () => {
+      window.removeEventListener("resize", updateViewportWidth);
+    };
+  }, []);
+
+  const getPrevImg = () => {
+    const willBeLower = slideNum - 1 < 0;
+    return willBeLower ? slidesArr.length - 1 : slideNum - 1;
+  };
+
+  const getNextImg = () => {
+    const willBeGreater = slideNum + 1 >= slidesArr.length;
+    return willBeGreater ? 0 : slideNum + 1;
+  };
+
+  // divided in order to get 3 on screen
+  const nextImgHandler = () => {
+    const newIndex = getNextImg();
+    setSlideNum(newIndex);
+  };
+
+  const prevImgHandler = () => {
+    const newIndex = getPrevImg();
+    setSlideNum(newIndex);
+  };
+
+  return (
+    <div className="flex justify-center align-middle gap-3 m-3 mt-20 first-letter mb-20 ">
+      <button className="border-zinc-50 rounded p-3" onClick={prevImgHandler}>
+        <FaArrowLeft />
+      </button>
+
+      {viewportWidth > 700 ? (
+        <TripleImagesCarrousel
+          prevImg={slidesArr[getPrevImg()]}
+          currImg={slidesArr[slideNum]}
+          nextImg={slidesArr[getNextImg()]}
+        />
+      ) : (
+        <SingleImageCarousel
+          currImg={slidesArr[slideNum]}
+          indicators={{ current: slideNum + 1, total: slidesArr.length }}
+        />
+      )}
+
+      <button className="" onClick={nextImgHandler}>
+        <FaArrowRight />
+      </button>
+    </div>
+  );
+}
