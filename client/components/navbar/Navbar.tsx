@@ -28,7 +28,7 @@ export default function Navbar() {
       <ul className="flex justify-around align-middle">
         <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
         <Link replace href="/" scroll>
-        <Image src={logoImg} alt={`link of the whole app`} className="inline-block align-bottom mt-[3px] w-[75px] h-[65px]" />
+        <Image src={logoImg} alt={`link of the whole app`} className="inline-block align-bottom mt-[3px] w-[100px] h-[65px]" />
         </Link>
         </li>
         <li  className="inline-block align-bottom text-center pt-5">

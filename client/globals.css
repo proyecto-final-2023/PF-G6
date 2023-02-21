@@ -9,6 +9,10 @@ html {
   min-height: calc(100vh (100px-100px));
 }
 
+body{
+  width: 100vw;
+}
+
 input {
   color: black;
   width: 20vw;
