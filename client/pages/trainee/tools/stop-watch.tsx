@@ -39,28 +39,33 @@ export default function StopWatch() {
   }
 
   return (
-    <div>
-      <h1>Cronómetro</h1>
-      <p>Tiempo transcurrido: {timeElapsed / 1000}Segundo</p>
+    <div className="flex justify-center items-center h-[82.5vh]">
+      <div className="flex flex-col w-[20vw] h-[82.5vh] items-center mx-auto my-auto">
+        <div className="border border-amber-700 w-full h-[25vh] my-auto py-10">
+        <h1 className="text-center" >Cronómetro</h1>
+      <p className="text-center">Tiempo transcurrido: {timeElapsed / 1000}Segundo</p>
       {!isRunning && timeElapsed === 0 && (
-        <button onClick={handleStart}>Iniciar</button>
+        <button onClick={handleStart} className="items-center block mx-auto">Iniciar</button>
       )}
-      {isRunning && <button onClick={handlePause}>Pausa</button>}
+      {isRunning && <button onClick={handlePause} className="items-center block mx-auto" >Pausa</button>}
       {!isRunning && timeElapsed > 0 && (
-        <button onClick={handleStart}>Continuar</button>
-      )}
-      {!isRunning && timeElapsed > 0 && (
-        <button onClick={handleStop}>Detener</button>
+        <button onClick={handleStart} className="items-center block mx-auto">Continuar</button>
       )}
       {!isRunning && timeElapsed > 0 && (
-        <button onClick={() => setTimeElapsed(0)}>Reiniciar</button>
+        <button onClick={handleStop} className="items-center block mx-auto">Detener</button>
       )}
-      <h2>Tiempos detenidos:</h2>
+      {!isRunning && timeElapsed > 0 && (
+        <button onClick={() => setTimeElapsed(0)} className="items-center block mx-auto">Reiniciar</button>
+      )}
+      <h2 className="text-center">Tiempos detenidos:</h2>
       <ul>
         {stoppedTimes.map((e) => (
-          <li key={e.timestamp}>{e.time / 1000} Segundo</li>
+          <li key={e.timestamp} className="text-center" >{e.time / 1000} Segundo</li>
         ))}
       </ul>
+
+        </div> 
+      </div>   
     </div>
   );
 }

@@ -34,7 +34,7 @@ export default function CalculateCalories() {
   };
 
   return (
-    <div className="grid grid-cols-1 gap-1 justify-items-center">
+    <div className="grid grid-cols-1 gap-1 justify-items-center h-[82.5vh] py-11">
       <h1>Calories-Calculator</h1>
       <div>
         <label>Age:</label>
