@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
         unique: true,
         allowNull: false,
       },
-      rol: {
+      role: {
         type: DataTypes.STRING,
       },
       gender: {

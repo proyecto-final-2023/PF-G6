@@ -17,7 +17,7 @@ async function comparePassword(password, receivedPassword) {
 }
 
 async function signUP(obj) {
-  const { first_name, last_name, nickname, email, password, rol, imgURL } = obj;
+  const { first_name, last_name, nickname, email, password, role, imgURL } = obj;
   //se usa para crear un nuevo usuario
   const exist = await Logueo.findOne({ where: { email: email },
   });
@@ -29,7 +29,7 @@ async function signUP(obj) {
     first_name,
     last_name,
     nickname,
-    rol,
+    role,
     imgURL,
   });
   
@@ -48,16 +48,15 @@ async function signUP(obj) {
 }
 
 async function signIn(email, password) {
-  console.log(email, password);
   //se usa para enviar un token a los usuarios que se loguean via login local
   //se debe implementar una funcion para saber si el usuario es verificado
   const user = await Logueo.findOne({ where: { email: email } });
   if (!user) throw new Error("Usuario no existe");
-  if (!user.verify) throw new Error("Usuario no verificado"); //si el usuario no esta verificado no puede loguear
+  if (!user.dataValues.verify) throw new Error("Usuario no verificado"); //si el usuario no esta verificado no puede loguear
   const exist = await comparePassword(user.dataValues.password, password);
   if (!exist) throw new Error("usuario no existe o password incorrecto");
   else {
-    const tkn = token(user.dataValues.id);
+    const tkn = token(user.dataValues.LogueoId);
     return tkn;
   }
 }
