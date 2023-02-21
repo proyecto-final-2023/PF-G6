@@ -14,7 +14,7 @@ export default function SelectInput(props: SelectInputProps) {
   const { register, label, name, selectOptions, options, err } = props;
 
   return (
-    <div>
+    <div className="ml-5">
       <label className="flex gap-5">
         {label}
         <select

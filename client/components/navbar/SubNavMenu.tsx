@@ -5,7 +5,7 @@ import {
 } from "@/types/components";
 import Link from "next/link";
 import React from "react";
-
+import { auth } from "../../firebase";
 // outside to avoid creating it on every re-render, since will never change
 const optionsUrlMapping: UrlMapping = {
   // Tools hover
@@ -19,7 +19,7 @@ const optionsUrlMapping: UrlMapping = {
   diets: "/trainee/eating-plans",
   trainerprograms: "/trainee/training-plans",
   logout: () => {
-    console.log("Discord kitte FTW");
+    auth.signOut()
   },
 };
 

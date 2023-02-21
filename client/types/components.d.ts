@@ -48,11 +48,12 @@ export interface CarouselCompProps {
     title: string;
     image: StaticImageData;
     hoverText: string;
+    hoverText2:string
   }>;
 }
 
 // @ CarouselItem
-export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
+export type CarouselImg = { title: string; image: StaticImageData;hoverText:string;hoverText2:string};
 
 // @ CarouselItem
 export interface CarouselItemProps {
