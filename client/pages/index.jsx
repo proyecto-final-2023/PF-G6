@@ -20,7 +20,7 @@ export default function LandingPage() {
       <CarouselComp slidesArr={landindSlides} />
       {/* <div className="divImg2"> */}
       <div className="h-[95vh] flex flex-col justify-center items-center bg-[url('/bgs/img_landing2.png')] bg-no-repeat bg-cover bg-top mt-5">
-        <h1 className="textoImg1">
+        <h1 className="text-center text-xl font-bold">
           ARE YOU TRAINER? <br></br>JOIN TO THE BEST NETWORK WITH THE BEST TOOLS
           FOR THE DIGITAL ERA
         </h1>
