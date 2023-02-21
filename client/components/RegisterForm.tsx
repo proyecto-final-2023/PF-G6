@@ -31,10 +31,10 @@ export default function RegisterForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="caja-form ">
-      <h1 className="p-5 ">Register Form</h1>
+      <h1 className="p-5 text-center ">Welcome to Fit U App, please complete the form to register</h1>
       <div className="caja">
       <GenericInput
-        label="Enter your first name:"
+        label="Enter your first name: "
         name="first_name"
         type="text"
         options={{ required: true, pattern: /^[a-zA-Z]{3,}$/ }}
@@ -43,7 +43,7 @@ export default function RegisterForm() {
       />
 
       <GenericInput
-        label="Enter your last name:"
+        label="Enter your last name: "
         name="last_name"
         type="text"
         options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/ }}
@@ -52,8 +52,8 @@ export default function RegisterForm() {
       />
 
       <GenericInput
-        label="Enter your nickname:"
-        name="nick_name"
+        label="Enter your nickname: "
+        name="nickname"
         type="text"
         options={{ required: false }}
         err={errors.nick_name}
@@ -61,16 +61,16 @@ export default function RegisterForm() {
       />
 
       <GenericInput
-        label="Enter your password:"
+        label="Enter your password: "
         name="password"
         type="password"
-        options={{ required: false }}
+        options={{ required: false,  pattern:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{":;'?/><.,])(?=.*\S).{8,}$/ }}
         err={errors.password}
         {...{ register }}
       />
 
       <GenericInput
-        label="Enter your email:"
+        label="Enter your email: "
         name="email"
         type="text"
         options={{ required: false }}
@@ -78,7 +78,7 @@ export default function RegisterForm() {
         {...{ register }}
       />
 
-      <GenericInput
+      {/* <GenericInput
         label="Enter your mobile phone number:"
         name="cell"
         type="text"
@@ -103,34 +103,41 @@ export default function RegisterForm() {
         options={{ required: false }}
         err={errors.email}
         {...{ register }}
-      />
+      /> */}
 
       <SelectInput
         {...{ register }}
-        label="Select your role:"
+        label="Select your role: "
         name="role"
-        selectOptions={["admin", "trainee", "trainer"]}
+        selectOptions={["trainee", "trainer"]}
         options={{ required: false }}
         err={errors.role}
       />
 
-      <SelectInput
+      {/* <SelectInput
         {...{ register }}
         label="Select your gender:"
         name="gender"
         options={{ required: false }}
         err={errors.gender}
         selectOptions={["male", "female", "other"]}
+      /> */}
+    <GenericInput
+        label="URL of your image: "
+        name="imgURL"
+        type="text"
+        options={{ required: false }}
+        err={errors.imgURL}
+        {...{ register }}
       />
-
-      <ImageInput
+      {/* <ImageInput
         {...{ register }}
         label="Select a profile image"
         name="imageFile"
         options={{ required: false }}
         err={errors.imgFile}
       
-      />
+      /> */}
 
       <button className="button" type="submit">
         Submit

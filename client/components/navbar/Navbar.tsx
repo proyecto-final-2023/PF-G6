@@ -8,11 +8,19 @@ import { NavbarStates } from "@/types/components";
 import userImg from "@/assets/images/user.png";
 import logoImg from "@/assets/images/placeholder-logo.png";
 
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase";
+
+
 // * uwu *//
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
-
+  const [user, setUser] = useAuthState(auth);
+  // const photo=user?.photoURL
+  const name=user?.displayName
+ 
+console.log(user)
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
@@ -24,6 +32,7 @@ export default function Navbar() {
   const isLoggedIn = false;
 
   return (
+    <div>
     <nav className="w-full bg-gray-800  p-0 h-[72px] border-x-none border-b-[2px]  border-yellow-900" >
       <ul className="flex justify-around align-middle">
         <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
@@ -52,6 +61,8 @@ export default function Navbar() {
           <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">Trainings</button>
           </Link>
         </li>
+       {/* <Image src={photo} alt="hola"></Image> */}
+       
 
         <HoverLi
           href="trainee/tool/tools"
@@ -61,19 +72,22 @@ export default function Navbar() {
           {...{ hoverEventHandler }}
         />
 
+      {user?(<li className="m-5">Hello {name}</li>):console.log("")}
         <HoverLi
           imgUrl={userImg}
           text="user"
           href="/"
           isHover={hovers.user}
           optionsList={
-            isLoggedIn
+            user
               ? ["Diets", "Trainer Programs", "Log out"]
               : ["Register", "Log In"]
           }
           {...{ hoverEventHandler }}
         />
+        
       </ul>
     </nav>
+    </div>
   );
 }

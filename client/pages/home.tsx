@@ -28,7 +28,7 @@ export default function Home() {
       </div>
       <div className="text-center py-20 ">
         <h2 className="text-center font-bold text-yellow-700  ">
-          We have exercises like
+          Find the Best Trainer For You!
         </h2>
         <SwiperCarousel slidesArr={homeSlides} />
       </div>

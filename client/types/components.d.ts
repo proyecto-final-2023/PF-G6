@@ -43,37 +43,39 @@ export interface NavbarStates {
 }
 
 // @ CarouselComp
-export interface CarouselCompProps {
-  slidesArr: Array<{
-    title: string;
-    image: StaticImageData;
-    hoverText: string;
-  }>;
-}
+// export interface CarouselCompProps {
+//   slidesArr: Array<{
+//     title: string;
+//     image: StaticImageData;
+//     hoverText: string;
+//     hoverText2: string;
+//   }>;
+// }
 
-// @ CarouselItem
-export type CarouselImg = {
-  title: string;
-  image: StaticImageData;
-  hoverText: string;
-};
+// // @ CarouselItem
+// export type CarouselImg = {
+//   title: string;
+//   image: StaticImageData;
+//   hoverText: string;
+//   hoverText2: string;
+// };
 
-// @ CarouselItem
-export interface CarouselItemProps {
-  prevImg: CarouselImg;
-  currImg: CarouselImg;
-  nextImg: CarouselImg;
-  isModalOpen: boolean;
-  imgClickHandler: () => void;
-  isTriple: boolean;
-  indicators: { current: number; total: number };
-}
+// // @ CarouselItem
+// export interface CarouselItemProps {
+//   prevImg: CarouselImg;
+//   currImg: CarouselImg;
+//   nextImg: CarouselImg;
+//   isModalOpen: boolean;
+//   imgClickHandler: () => void;
+//   isTriple: boolean;
+//   indicators: { current: number; total: number };
+// }
 
-// @ SingleImageCarousel
-export interface SingleImageCarouselProps {
-  currImg: CarouselImg;
-  indicators: { current: number; total: number };
-}
+// // @ SingleImageCarousel
+// export interface SingleImageCarouselProps {
+//   currImg: CarouselImg;
+//   indicators: { current: number; total: number };
+// }
 
 // @ register-inputs-data
 export type InputData = {
@@ -101,6 +103,7 @@ export interface SwiperCarouselProps {
     title: string;
     image: StaticImageData;
     hoverText: string;
+    hoverText2: string;
   }>;
 }
 
