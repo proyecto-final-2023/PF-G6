@@ -3,8 +3,11 @@ import axios from "axios";
 import Image from "next/image";
 import logoImg from "@/assets/images/placeholder-logo.png";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { setCookie } from "@/utils/cookieHandler";
 
 export default function FormularioLogin() {
+  const router = useRouter();
   const [formData, setFormData] = useState({
     first_name: "",
     last_name: "",
@@ -18,9 +21,15 @@ export default function FormularioLogin() {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    axios.post("http://localhost:3001/auth", formData).then((data) => {
-      console.log(data.data.token);
-    });
+    axios
+      .post("http://localhost:3001/auth", formData)
+      .then((data) => {
+        setCookie("token", data.data.token);
+        router.push("/");
+      })
+      .catch((error) => {
+        window.alert("Error Loggin in" + error);
+      });
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,13 +38,16 @@ export default function FormularioLogin() {
 
   return (
     <form className="caja-login" onSubmit={handleSubmit}>
-     
-      <Image src={logoImg} width={80} alt={`link of the whole app`} className=" pt-8  "  />
+      <Image
+        src={logoImg}
+        width={80}
+        alt={`link of the whole app`}
+        className=" pt-8  "
+      />
       <h2 className="text-gray-300 text-xl  ">Iniciar Sesión</h2>
       <label>
-       
         <input
-        className="m-4  bg-gray-200 shadow-2xl rounded-md"
+          className="m-4  bg-gray-200 shadow-2xl rounded-md"
           type="email"
           name="email"
           placeholder="E-mail..."
@@ -45,8 +57,8 @@ export default function FormularioLogin() {
       </label>
       <br />
       <label>
-        
-        <input className=" bg-gray-200 rounded-md "
+        <input
+          className=" bg-gray-200 rounded-md "
           type="password"
           name="password"
           placeholder="Password..."
@@ -55,8 +67,20 @@ export default function FormularioLogin() {
         />
       </label>
       <br />
-      <button className="button " type="submit">Login</button>
-      <p className="m-4 font-mono text-xs ">You do not have an account? {<Link className="text-yellow-800 hover:text-yellow-400 font-mono text-xs  " href='/login/register'>Sign up here </Link>}</p>
+      <button className="button " type="submit">
+        Login
+      </button>
+      <p className="m-4 font-mono text-xs ">
+        You do not have an account?{" "}
+        {
+          <Link
+            className="text-yellow-800 hover:text-yellow-400 font-mono text-xs  "
+            href="/login/register"
+          >
+            Sign up here
+          </Link>
+        }
+      </p>
     </form>
   );
 }
