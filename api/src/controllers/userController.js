@@ -1,4 +1,4 @@
-const { User, Logins } = require("../db.js");
+const { User, Logueo } = require("../db.js");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
@@ -47,14 +47,15 @@ const userByName = async (name) => {
 
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
-  const user = await User.getLogins(decoded.id);
-  console.log(user)
+  const [user] = await Logueo.findAll({
+    where:{LogueoId: decoded.id}
+  });
   if (user) {
-    const result = await Logins.update(
+    const result = await Logueo.update(
       { verify: true },
       {
         where: {
-          email: user.email,
+          email: user.dataValues.email,
         },
       }
     );
