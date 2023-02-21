@@ -58,7 +58,7 @@ const getTemplate = (name, token) => {
           <h2>Hola ${name}</h2>
           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
           <a
-              href="http://localhost:3000/confirm/?token=${token.token}"
+              href="http://localhost:3001/confirm/?token=${token.token}"
               target="_blank"
           >Confirmar Cuenta</a>
          
