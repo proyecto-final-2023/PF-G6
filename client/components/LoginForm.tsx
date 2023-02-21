@@ -25,7 +25,7 @@ export default function FormularioLogin() {
       .post("http://localhost:3001/auth", formData)
       .then((data) => {
         setCookie("token", data.data.token);
-        router.push("/");
+        router.push("/home");
       })
       .catch((error) => {
         window.alert("Error Loggin in" + error);
