@@ -23,7 +23,6 @@ async function signUP(obj) {
   });
   if (exist) throw new Error("El usuario ya existe");
   const hashedPass = await encPassword(obj.password);
-  //Logueo.create/({email,hashedPass})
 
   const create = await User.create({
     first_name,
@@ -32,8 +31,9 @@ async function signUP(obj) {
     role,
     imgURL,
   });
-  
+
   const logueo = await Logueo.create({ email: email, password: hashedPass, verify: false });
+
   await create.setLogueo(logueo);
 
 
