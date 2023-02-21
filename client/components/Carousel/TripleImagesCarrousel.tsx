@@ -14,7 +14,7 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
           className="rounded-md w-auto h-60  hover:opacity-20 transition duration-300 ease-in-out hover:scale-105 "
         />
         
-        <h1 className=" -m-40 text-center w-auto">{prevImg.hoverText}</h1>
+        <h1 className=" -m-40 text-center w-auto">{prevImg.hoverText}<br></br>{prevImg.hoverText2}</h1>
         
       </div>
       <div className="text-transparent hover:text-white">
@@ -24,7 +24,7 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
           height={330}
           className="rounded-md w-auto h-60 object-cover hover:opacity-20 transition duration-300 ease-in-out hover:scale-105"
         />
-         <h1 className="-mt-40 text-center">{currImg.hoverText}</h1>
+         <h1 className="-mt-40 text-center">{currImg.hoverText}<br></br>{currImg.hoverText2}</h1>
       </div>
       <div className="text-transparent hover:text-white">
         <Image
@@ -33,7 +33,7 @@ export default function TripleImagesCarrousel(props: TripleImageCarouselProps) {
           height={330}
           className="rounded-md w-auto h-60 object-cover hover:opacity-20 transition duration-300 ease-in-out hover:scale-105"
         />
-         <h1 className="-mt-40 text-center">{nextImg.hoverText}</h1>
+         <h1 className="-mt-40 text-center">{nextImg.hoverText}<br></br>{nextImg.hoverText2}</h1>
       </div>
     </div>
     
