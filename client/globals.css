@@ -10,6 +10,10 @@ html {
 
 }
 
+body{
+  width: 100vw;
+}
+
 input {
   color: black;
   width: 20vw;
