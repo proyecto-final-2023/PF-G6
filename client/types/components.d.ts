@@ -52,7 +52,11 @@ export interface CarouselCompProps {
 }
 
 // @ CarouselItem
-export type CarouselImg = { title: string; image: StaticImageData;hoverText:string};
+export type CarouselImg = {
+  title: string;
+  image: StaticImageData;
+  hoverText: string;
+};
 
 // @ CarouselItem
 export interface CarouselItemProps {
@@ -80,7 +84,7 @@ export type InputData = {
   email: string;
   phone: string;
   cell: string;
-  imgURL:string
+  imgURL: string;
   imgFile: File;
   gender: "male" | "female" | "other";
   role: "admin" | "trainee" | "trainer";
@@ -89,6 +93,15 @@ export interface TripleImageCarouselProps {
   prevImg: CarouselImg;
   currImg: CarouselImg;
   nextImg: CarouselImg;
+}
+
+// @ SwiperCarousel
+export interface SwiperCarouselProps {
+  slidesArr: Array<{
+    title: string;
+    image: StaticImageData;
+    hoverText: string;
+  }>;
 }
 
 //@generic-inputs
@@ -106,5 +119,5 @@ export type BasicInputsProps = {
   options: { required: boolean; pattern?: RegExp };
   err: FieldError | undefined;
   name: string;
-  type: "text" | "number" | "password" | "email" | "textarea" ;
-}
+  type: "text" | "number" | "password" | "email" | "textarea";
+};
