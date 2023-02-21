@@ -22,6 +22,8 @@ const getId = async (id) => {
 
   return dataValues;
 };
+
+
 const getListUser = async () => {
   try {
     let listUser = await User.findAll();
