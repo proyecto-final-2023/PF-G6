@@ -4,6 +4,7 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import blankProfile from "../assets/img/blankProfile.png";
 import Image, { StaticImageData } from "next/dist/client/image";
+import Router from "next/router";
 
 
 
@@ -16,7 +17,8 @@ export const Login = () => {
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, googleAuth);
-      console.log("logge in Success :D");
+      alert("Login Successful :D");
+      Router.push('/home')
     } catch (error) {
       console.log("USER CLOSED POP UP");
     }

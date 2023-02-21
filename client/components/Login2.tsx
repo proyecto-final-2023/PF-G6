@@ -1,20 +1,27 @@
 import { signInWithPopup, FacebookAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
-import Image from "next/dist/client/image";
 import blankProfile from "../assets/img/blankProfile.png";
 import { useEffect } from "react";
+import Router from "next/router";
+import useStore from "@/store";
+
+
 
 
 
 
 export const Login2 = () => {
+  
   const [user, setUser] = useAuthState(auth);
   const facebookAuth = new FacebookAuthProvider();
   const login = async () => {
     try {
       const result = await signInWithPopup(auth, facebookAuth);
-      console.log("logge in Success :D");
+      alert("Login Successful :D");
+      Router.push('/home')
+     
+      
     } catch (error) {
       console.log("USER CLOSED POP UP");
     }
@@ -22,6 +29,7 @@ export const Login2 = () => {
 
   useEffect(() => {
     console.log(user);
+    
   }, [user]);
 
   const loginimg = () => {
