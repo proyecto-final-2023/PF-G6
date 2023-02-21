@@ -42,7 +42,6 @@ const sendContactMail = async (name, email, subject, message) => {
     });
     return "e-Mail enviado";
   } catch (error) {
-    console.log(error.message);
     return error.message;
   }
 };
