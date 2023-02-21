@@ -14,10 +14,10 @@ export interface User {
     confirmed: boolean;
     imgURL: string;
     rol: "admin" | "trainee" | "trainer";
-    name: any;
+    name: string;
   };
   updateConfirmed: (state: boolean) => void;
-  updateData: (imgURL: string, rol: string, fullName: any) => void;
+  updateData: (imgURL: string, rol: string, fullName: string) => void;
 }
 
 export type PostCreator = StateCreator<Post & User, [], [], Post>;

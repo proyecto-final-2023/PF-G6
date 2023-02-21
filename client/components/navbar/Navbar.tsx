@@ -81,7 +81,7 @@ console.log(user)
           optionsList={
             user
               ? ["Diets", "Trainer Programs", "Log out"]
-              : ["Register", "Log In",]
+              : ["Register", "Log In"]
           }
           {...{ hoverEventHandler }}
         />
