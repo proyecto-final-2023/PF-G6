@@ -35,6 +35,7 @@ export default function SwiperCarousel({ slidesArr }: SwiperCarouselProps) {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
+        loop={true}
         pagination={{ clickable: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
@@ -46,11 +47,11 @@ export default function SwiperCarousel({ slidesArr }: SwiperCarouselProps) {
               alt={slide.title}
               className="rounded-md w-auto h-[450px] object-cover hover:opacity-20 transition duration-300 ease-in-out hover:scale-105"
             />
-            <div className="flex flex-col justify-center items-center absolute top-0 w-full h-full gap-10 -z-10">
-              <p className="uppercase font-bold text-center">
+            <div className="flex flex-col justify-between items-center absolute top-1/3 gap-7 -z-10">
+              <p className="uppercase font-bold text-center p-3">
                 {slide.hoverText}
               </p>
-              <p className="uppercase font-bold text-center">
+              <p className="uppercase font-bold text-center p-3">
                 {slide.hoverText2}
               </p>
             </div>
@@ -68,10 +69,3 @@ export default function SwiperCarousel({ slidesArr }: SwiperCarouselProps) {
     </div>
   );
 }
-/**
- * <Image
-              src={slide.image}
-              alt={slide.title}
-              className="rounded-md w-auto h-[450px] object-cover hover:opacity-20 transition duration-300 ease-in-out hover:scale-105"
-            />
- */
