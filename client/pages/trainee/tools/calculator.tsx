@@ -34,14 +34,18 @@ export default function CalculateCalories() {
   };
 
   return (
+    <div className="h-[82.5vh] bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm">
+      <div className="bg-[#6f6f70]/80  focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[30vw] m-auto text-m">
     <div className="grid grid-cols-1 gap-1 justify-items-center h-[82.5vh] py-11">
-      <h1>Calories-Calculator</h1>
+      <h1 className="text-xl font-bold">Calories-Calculator</h1>
       <div>
         <label>Age:</label>
         <input
           type="text"
           value={age}
-          onChange={(e) => setAge(e.target.value)}
+          onChange={(e) => setAge(e.target.value)
+          }
+          placeholder='Enter your age'
         />
       </div>
       <div>
@@ -50,6 +54,7 @@ export default function CalculateCalories() {
           type="text"
           value={weight}
           onChange={(e) => setWeight(e.target.value)}
+          placeholder='Enter your weight'
         />
       </div>
       <div>
@@ -58,6 +63,7 @@ export default function CalculateCalories() {
           type="text"
           value={height}
           onChange={(e) => setHeight(e.target.value)}
+          placeholder='Enter your height'
         />
       </div>
       <div>
@@ -87,11 +93,13 @@ export default function CalculateCalories() {
           <option value="gain Weight">Gain Weight</option>
         </select>
       </div>
-      <button onClick={calculate}>Calculate</button>
+      <button onClick={calculate} className='text-lg border-4 w-96 h-10 rounded-md bg-slate-600'>Calculate</button>
       <div>Result: {result} calories/day</div>
-      <Link className="bg-[#f10303] " href="/trainee/tool/tools">
-        <GrClose />
+      <Link replace href="/guest/trainning-list">
+          <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">Volver</button>
       </Link>
+    </div>
+    </div>
     </div>
   );
 }
