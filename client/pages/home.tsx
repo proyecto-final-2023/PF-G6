@@ -1,7 +1,7 @@
-import CarouselComp from "@/components/Carousel/CarouselComp";
+import Image from "next/image";
 import homeSlides from "@/assets/home-slides";
 import logoImg from "@/assets/images/placeholder-logo.png";
-import Image from "next/image";
+import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 
 export default function Home() {
   return (
@@ -28,9 +28,9 @@ export default function Home() {
       </div>
       <div className="text-center py-20 ">
         <h2 className="text-center font-bold text-yellow-700  ">
-          We have exercises like
+          Find the Best Trainer For You!
         </h2>
-        <CarouselComp slidesArr={homeSlides} />
+        <SwiperCarousel slidesArr={homeSlides} />
       </div>
     </>
   );

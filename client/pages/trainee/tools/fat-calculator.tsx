@@ -36,7 +36,8 @@ const CalculateFatPercentage = () => {
   };
 
   return (
-    <div  className="flex  gap-1 bg-black w-full h- ">
+    <div className="h-[82.5vh]">
+       <div  className="flex  gap-1 bg-black w-full h- ">
       <h1>Fat-Calculator</h1>
       <div>
         <label>Neck circumference (cm):</label>
@@ -91,6 +92,8 @@ const CalculateFatPercentage = () => {
       
       
     </div>
+    </div>
+   
   );
 };
 
