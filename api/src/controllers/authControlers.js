@@ -22,7 +22,7 @@ async function signUP(obj) {
   //se usa para crear un nuevo usuario
   const exist = await Logueo.findOne({ where: { email: email } });
   if (exist) throw new Error("El usuario ya existe");
-  const hashedPass = await encPassword(obj.password);
+  const hashedPass = await encPassword(password);
 
   const create = await User.create({
     first_name,
