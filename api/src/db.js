@@ -42,7 +42,7 @@ const {
   Membership,
   Plan,
   PlanTrainee,
-  PlanTrainer,
+  Plantrainer,
   SocialNetworks,
   Tiempo,
   Trainee,
@@ -58,12 +58,12 @@ Logueo.belongsTo(User);
 Membership.hasOne(Voucher);
 Voucher.belongsTo(Membership);
 // Membership de muchos a 1 con PlanTrainer
-Membership.belongsTo(PlanTrainer);
+Membership.belongsTo(Plantrainer);
 // Membership de muchos a 1 con PlanTrainee
 Membership.belongsTo(PlanTrainee);
 // PlanTrainer de 1 a muchos con Trainer
-PlanTrainer.belongsTo(Trainer);
-Trainer.hasMany(PlanTrainer);
+Plantrainer.belongsTo(Trainer);
+Trainer.hasMany(Plantrainer);
 // Trainer de uno a muchos con PlanTrainee
 Trainer.hasMany(PlanTrainee);
 PlanTrainee.belongsTo(Trainer);
@@ -89,14 +89,14 @@ Aliments.belongsToMany(Plan, { through: "PlanAliments" });
 Plan.belongsToMany(Activity, { through: "PlanActivity" });
 Activity.belongsToMany(Plan, { through: "PlanActivity" });
 // PlanTrainer 1 a 1 con Tiempo
-PlanTrainer.hasOne(Tiempo);
-Tiempo.belongsTo(PlanTrainer);
+Plantrainer.hasOne(Tiempo);
+Tiempo.belongsTo(Plantrainer);
 // PlanTrainee 1 a 1 con Tiempo
 PlanTrainee.hasOne(Tiempo);
 Tiempo.belongsTo(PlanTrainee);
 // PlanTrainer 1 a 1 con Plan
-PlanTrainer.belongsTo(Plan);
-Plan.hasOne(PlanTrainer);
+Plantrainer.belongsTo(Plan);
+Plan.hasOne(Plantrainer);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

@@ -1,4 +1,4 @@
-const { User, Logueo } = require("../db.js");
+const { User, Logueo } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
@@ -22,8 +22,6 @@ const getId = async (id) => {
 
   return dataValues;
 };
-
-
 const getListUser = async () => {
   try {
     let listUser = await User.findAll();
