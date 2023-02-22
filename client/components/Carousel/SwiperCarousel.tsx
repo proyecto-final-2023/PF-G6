@@ -35,6 +35,7 @@ export default function SwiperCarousel({ slidesArr }: SwiperCarouselProps) {
           nextEl: ".swiper-button-next",
           prevEl: ".swiper-button-prev",
         }}
+        loop={true}
         pagination={{ clickable: true }}
         onSwiper={(swiper) => console.log(swiper)}
         onSlideChange={() => console.log("slide change")}
@@ -68,10 +69,3 @@ export default function SwiperCarousel({ slidesArr }: SwiperCarouselProps) {
     </div>
   );
 }
-/**
- * <Image
-              src={slide.image}
-              alt={slide.title}
-              className="rounded-md w-auto h-[450px] object-cover hover:opacity-20 transition duration-300 ease-in-out hover:scale-105"
-            />
- */
