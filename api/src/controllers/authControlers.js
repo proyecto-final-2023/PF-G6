@@ -17,10 +17,10 @@ async function comparePassword(password, receivedPassword) {
 }
 
 async function signUP(obj) {
-  const { first_name, last_name, nickname, email, password, role, imgURL } = obj;
+  const { first_name, last_name, nickname, email, password, role, imgURL } =
+    obj;
   //se usa para crear un nuevo usuario
-  const exist = await Logueo.findOne({ where: { email: email },
-  });
+  const exist = await Logueo.findOne({ where: { email: email } });
   if (exist) throw new Error("El usuario ya existe");
   const hashedPass = await encPassword(obj.password);
 
@@ -32,10 +32,13 @@ async function signUP(obj) {
     imgURL,
   });
 
-  const logueo = await Logueo.create({ email: email, password: hashedPass, verify: false });
+  const logueo = await Logueo.create({
+    email: email,
+    password: hashedPass,
+    verify: false,
+  });
 
   await create.setLogueo(logueo);
-
 
   //aqui va para enviar el mail y esperar que verifique
   try {
