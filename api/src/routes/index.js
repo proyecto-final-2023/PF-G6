@@ -4,7 +4,8 @@ const baseRouter = require("./baseRouter");
 const userRoutes = require("./userRoutes");
 const authRoutes = require("./authRoutes");
 const createUserRoutes = require("./createUserRoutes");
-const contactRoutes = require ("./contactRoutes");
+const contactRoutes = require("./contactRoutes");
+const plansRouter = require("./plansRoutes");
 //----------------------------------------------------------
 const activityRouter = require("./activityRoutes");
 const alimentRouter = require("./alimentsRoutes");
@@ -23,5 +24,6 @@ indexRouter.use("/user", userRoutes);
 indexRouter.use("/auth", authRoutes);
 indexRouter.use("/createuser", createUserRoutes);
 indexRouter.use("/contact", contactRoutes);
+indexRouter.use("/plans", plansRouter);
 
 module.exports = indexRouter;
