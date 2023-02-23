@@ -59,7 +59,7 @@ async function signIn(email, password) {
   const exist = await comparePassword(user.dataValues.password, password);
   if (!exist) throw new Error("usuario no existe o password incorrecto");
   else {
-    const tkn = token(user.dataValues.LogueoId);
+    const tkn = token(user.dataValues.userId);
     return tkn;
   }
 }

@@ -23,6 +23,7 @@ plansRouter.get("/trainers", async (req, res) => {
   try {
     res.status(200).send(await allPlans());
   } catch (error) {
+  
     res.status(400).send({ error: error.message });
   }
 });

@@ -8,6 +8,7 @@ const postPlansTrainer = async (
   cantTrainees
 ) => {
   const plans = await Plantrainer.findOne({ where: { name } });
+  console.log(plans)
   if (plans) throw new Error("Este plan ya existe");
   const result = await Plantrainer.create({
     name,
