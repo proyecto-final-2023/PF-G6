@@ -2,7 +2,7 @@ import { FaBeer } from "react-icons/fa";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CardPlans from "../components/CardPlans";
-import logo from "@/assets/images/placeholder-logo.png";
+import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
 
 export default function plans() {
