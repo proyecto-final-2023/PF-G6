@@ -124,3 +124,11 @@ export type BasicInputsProps = {
   name: string;
   type: "text" | "number" | "password" | "email" | "textarea";
 };
+
+// @ Components/CardPlans
+export type CardPlansProps = {
+  name: string;
+  cost: number;
+  category: string;
+  description: string;
+};

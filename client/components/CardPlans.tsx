@@ -1,7 +1,10 @@
 import React from "react";
 import Link from "next/link";
+import { CardPlansProps } from "@/types/components";
 
-export default function CardPlans({ name, cost, category, description }) {
+export default function CardPlans(props: CardPlansProps) {
+  const { name, cost, category, description } = props;
+
   return (
     <Link href="paypal">
       <div className="m-50 py-5 ">
