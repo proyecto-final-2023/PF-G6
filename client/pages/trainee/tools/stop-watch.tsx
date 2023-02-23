@@ -1,5 +1,8 @@
 import React, { useState, useRef } from "react";
 
+
+
+
 type StoppedTimes = { time: number; timestamp: number };
 
 export default function StopWatch() {
@@ -39,30 +42,40 @@ export default function StopWatch() {
   }
 
   return (
-    <div className="flex justify-center items-center h-[82.5vh]">
-      <div className="flex flex-col w-[20vw] h-[82.5vh] items-center mx-auto my-auto">
-        <div className="border border-amber-700 w-full h-[25vh] my-auto py-10">
-        <h1 className="text-center" >Cronómetro</h1>
-      <p className="text-center">Tiempo transcurrido: {timeElapsed / 1000}Segundo</p>
+    <div className="h-[82.5vh] flex justify-center bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm">
+      <div className=" bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[30vw] m-auto text-m">
+        <div className="grid grid-cols-1 gap-1 justify-items-center h-[70vh] py-11">
+        <h1 className="text-center text-4xl font-bold" >Stop watch</h1>
+      <p className="text-center text-xl">Time elapsed:
+      </p>
+        <div className="flex-col justify-self-center border-8 border-yellow-300 rounded-full h-60 w-60">
+        <p className="font-crono self-center text-6xl text-center mt-20">
+        
+          {(timeElapsed / 1000)}
+          <span className="text-2xl"> Sec</span>
+        </p>
+      
+      
+      </div>
       {!isRunning && timeElapsed === 0 && (
-        <button onClick={handleStart} className="items-center block mx-auto">Iniciar</button>
+        <button onClick={handleStart} className=" hover:text-yellow-300 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300">Begin</button>
       )}
-      {isRunning && <button onClick={handlePause} className="items-center block mx-auto" >Pausa</button>}
+      {isRunning && <button onClick={handlePause} className=" hover:text-yellow-300 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300" >Pause</button>}
       {!isRunning && timeElapsed > 0 && (
-        <button onClick={handleStart} className="items-center block mx-auto">Continuar</button>
-      )}
-      {!isRunning && timeElapsed > 0 && (
-        <button onClick={handleStop} className="items-center block mx-auto">Detener</button>
+        <button onClick={handleStart} className=" hover:text-yellow-300 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300">Continue</button>
       )}
       {!isRunning && timeElapsed > 0 && (
-        <button onClick={() => setTimeElapsed(0)} className="items-center block mx-auto">Reiniciar</button>
+        <button onClick={handleStop} className=" hover:text-yellow-300 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300">Stop</button>
       )}
-      <h2 className="text-center">Tiempos detenidos:</h2>
-      <ul>
+      {!isRunning && timeElapsed > 0 && (
+        <button onClick={() => setTimeElapsed(0)} className=" hover:text-yellow-300 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300">Reset</button>
+      )}
+      <h2 className="text-center">Times stopped:</h2>
+      <div className="overflow-y-scroll h-20 w-40">
         {stoppedTimes.map((e) => (
-          <li key={e.timestamp} className="text-center" >{e.time / 1000} Segundo</li>
+          <li key={e.timestamp} className="text-center text-xl" >{e.time / 1000} Sec</li>
         ))}
-      </ul>
+      </div>
 
         </div> 
       </div>   

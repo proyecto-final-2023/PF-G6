@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
         type: DataTypes.DECIMAL,
         allowNull: false,
       },
-      chess: {
+      chest: {
         type: DataTypes.DECIMAL,
         allowNull: false,
       },
@@ -88,11 +88,6 @@ module.exports = (sequelize) => {
       },
       lesions: {
         type: DataTypes.STRING,
-        allowNull: false,
-      },
-      smoke: {
-        type: DataTypes.INTEGER,
-        defaultValue: 8,
         allowNull: false,
       },
     },
