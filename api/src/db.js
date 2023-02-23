@@ -60,11 +60,11 @@ Membership.belongsTo(User);
 // Membership 1 A 1 con Voucher
 Membership.hasOne(Voucher);
 Voucher.belongsTo(Membership);
-// Membership de muchos a 1 con PlanTrainer
+// Membership de muchos a 1 con Plantrainer
 Membership.belongsTo(Plantrainer);
 // Membership de muchos a 1 con PlanTrainee
 Membership.belongsTo(PlanTrainee);
-// PlanTrainer de 1 a muchos con Trainer
+// Plantrainer de 1 a muchos con Trainer
 Plantrainer.belongsTo(Trainer);
 Trainer.hasMany(Plantrainer);
 // Trainer de uno a muchos con PlanTrainee
@@ -91,13 +91,13 @@ Aliments.belongsToMany(Plan, { through: "PlanAliments" });
 // Plan de muchos a muchos con Activities
 Plan.belongsToMany(Activity, { through: "PlanActivity" });
 Activity.belongsToMany(Plan, { through: "PlanActivity" });
-// PlanTrainer 1 a 1 con Tiempo
+// Plantrainer 1 a 1 con Tiempo
 Plantrainer.hasOne(Tiempo);
 Tiempo.belongsTo(Plantrainer);
 // PlanTrainee 1 a 1 con Tiempo
 PlanTrainee.hasOne(Tiempo);
 Tiempo.belongsTo(PlanTrainee);
-// PlanTrainer 1 a 1 con Plan
+// Plantrainer 1 a 1 con Plan
 Plantrainer.belongsTo(Plan);
 Plan.hasOne(Plantrainer);
 
