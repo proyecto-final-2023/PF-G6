@@ -7,6 +7,11 @@ import GenericInput from "./inputs/GenericInput";
 import ImageInput from "./inputs/ImageInput";
 import SelectInput from "./inputs/SelectInput";
 
+import Image from "next/image";
+import logoImg from "@/assets/images/placeholder-logo.png";
+
+import Link from "next/dist/client/link"
+
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function RegisterForm() {
   const {
@@ -30,9 +35,18 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="caja-form ">
-      <h1 className="p-5 text-center ">Welcome to Fit U App, please complete the form to register</h1>
-      <div className="caja">
+    <div>
+    <form onSubmit={handleSubmit(onSubmit)} className="caja-form">
+   
+      <div className="caja pb-4">
+      <Image
+        src={logoImg}
+        width={120}
+        alt={`link of the whole app`}
+        className=" pt-8  "
+      />
+      <h1 className="p-5 text-center leading-none">Welcome to Fit U App, please complete the form to register</h1>
+      <p className="leading-none">Do you have an account? Please <Link className="text-yellow-800 hover:text-yellow-400" href={"/login"}>Login</Link></p>
       <GenericInput
         label="Enter your first name: "
         name="first_name"
@@ -145,5 +159,6 @@ export default function RegisterForm() {
       </div>
 
     </form>
+    </div>
   );
 }
