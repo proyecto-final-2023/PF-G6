@@ -30,7 +30,7 @@ export default function Home() {
         <h2 className="text-center font-bold text-yellow-700  ">
           Find the Best Trainer For You!
         </h2>
-        <CarouselComp slidesArr={homeSlides} />
+        {/* <CarouselComp slidesArr={homeSlides} /> */}
       </div>
     </>
   );
