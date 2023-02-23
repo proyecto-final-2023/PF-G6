@@ -1,4 +1,4 @@
-const { User, Logueo } = require("../db.js");
+const { User, Logueo, Membership, Voucher } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
@@ -8,7 +8,13 @@ const botUserAdd = async () => {
   try {
     const userx = await generateBot(); //GENERA UN BOT
     const userbot = await User.create(userx); // SUBE EL BOT A LA BASE
-    return { message: "BOT CREADO", userbot }; // RETORNA EL BOT PARA EL MENSAJE
+    const logueo = await Logueo.create({
+      email: userx.email,
+      password: userx.password,
+      verify: true,
+    });
+    await userbot.setLogueo(logueo);
+    return { message: "BOT CREADO", userbot, logueo }; // RETORNA EL BOT PARA EL MENSAJE
   } catch (error) {
     return error;
   }
@@ -17,14 +23,19 @@ const botUserAdd = async () => {
 const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
-  const dataValues = await User.findByPk(id);
+  const dataValues = await User.findByPk(id, {
+    include: [{ model: Logueo }, { model: Membership, include: [Voucher] }],
+  });
   if (!dataValues) throw new Error("Usuario inexistente");
 
   return dataValues;
 };
+
 const getListUser = async () => {
   try {
-    let listUser = await User.findAll();
+    let listUser = await User.findAll({
+      attributes: ["first_name", "last_name", "nickname", "role", "imgURL"],
+    });
     if (!listUser) {
       throw Error("No existen Usuarios Registrados");
     }
@@ -48,7 +59,7 @@ const userByName = async (name) => {
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
   const [user] = await Logueo.findAll({
-    where:{LogueoId: decoded.id}
+    where: { LogueoId: decoded.id },
   });
   if (user) {
     const result = await Logueo.update(

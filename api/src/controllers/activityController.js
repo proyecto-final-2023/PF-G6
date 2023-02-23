@@ -2,7 +2,7 @@ const { Activity } = require("../db");
 const { exercices } = require("./ExtractDB/exercices");
 const { Op } = require("sequelize");
 
-const exercicesFilter = async (type, parameter) => {
+const exercicesFilter = async (type, parameter, pageSize, page) => {
   let activityFil = {};
   if (type !== "bodyPart" && type !== "equipment" && type !== "target") {
     throw Error(`El tipo ${type} es una opcion invalida`);
@@ -12,6 +12,8 @@ const exercicesFilter = async (type, parameter) => {
       where: {
         bodyPart: parameter,
       },
+      limit: pageSize,
+      offset: pageSize * page,
     });
   }
   if (type === "equipment") {
@@ -19,6 +21,8 @@ const exercicesFilter = async (type, parameter) => {
       where: {
         equipment: parameter,
       },
+      limit: pageSize,
+      offset: pageSize * page,
     });
   }
   if (type === "target") {
@@ -26,6 +30,8 @@ const exercicesFilter = async (type, parameter) => {
       where: {
         target: parameter,
       },
+      limit: pageSize,
+      offset: pageSize * page,
     });
   }
   if (!activityFil.length) {
@@ -45,14 +51,16 @@ const activityByName = async (name) => {
   return antivity;
 };
 
-const getListActivities = async () => {
+const getListActivities = async (page, pageSize) => {
   try {
-    let listActivities = await Activity.findAll(); //Trae los datos de la base a una varible
-    if (!listActivities.length) {
-      await Activity.bulkCreate(exercices); // luego subo los datos extraidos a la bd
-    }
+    const offset = (page - 1) * pageSize;
 
-    listActivities = await Activity.findAll();
+    let listActivities = await Activity.findAll({ limit: pageSize, offset });
+
+    if (!listActivities.length) {
+      await Activity.bulkCreate(exercices);
+      listActivities = await Activity.findAll({ limit: pageSize, offset });
+    }
 
     return listActivities;
   } catch (error) {
