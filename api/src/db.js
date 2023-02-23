@@ -60,46 +60,46 @@ Membership.belongsTo(User);
 // Membership 1 A 1 con Voucher
 Membership.hasOne(Voucher);
 Voucher.belongsTo(Membership);
-// Membership de muchos a 1 con PlanTrainer
+// Membership de muchos a 1 con Plantrainer
 Membership.belongsTo(Plantrainer);
 // Membership de muchos a 1 con PlanTrainee
 Membership.belongsTo(PlanTrainee);
-// PlanTrainer de 1 a muchos con Trainer
-Plantrainer.belongsTo(Trainer);
-Trainer.hasMany(Plantrainer);
+// Plantrainer de 1 a muchos con Trainer
+Trainer.belongsTo(Plantrainer);
+Plantrainer.hasMany(Trainer);
 // Trainer de uno a muchos con PlanTrainee
-Trainer.hasMany(PlanTrainee);
-PlanTrainee.belongsTo(Trainer);
-// Trainer de uno a muchos con SolcialNetworks
-Trainer.belongsToMany(SocialNetworks, { through: "TrainerSocialNetworks" });
-SocialNetworks.belongsToMany(Trainer, { through: "TrainerSocialNetworks" });
-// Trainer de uno a muchos con Certificates
-Trainer.hasMany(Certificates);
-Certificates.belongsTo(Trainer);
-// PlanTrainee de 1 a muchos con Trainee
-PlanTrainee.hasMany(Trainee);
-Trainee.belongsTo(PlanTrainee);
-// Trainee de uno a uno con Data
-Trainee.hasOne(Data);
-Data.belongsTo(Trainee);
-// Trainee de 1 a 1 con Plan
-Trainee.hasOne(Plan);
-Plan.belongsTo(Trainee);
-// Plan de muchos a muchos con Aliments
-Plan.belongsToMany(Aliments, { through: "PlanAliments" });
-Aliments.belongsToMany(Plan, { through: "PlanAliments" });
-// Plan de muchos a muchos con Activities
-Plan.belongsToMany(Activity, { through: "PlanActivity" });
-Activity.belongsToMany(Plan, { through: "PlanActivity" });
-// PlanTrainer 1 a 1 con Tiempo
-Plantrainer.hasOne(Tiempo);
-Tiempo.belongsTo(Plantrainer);
-// PlanTrainee 1 a 1 con Tiempo
-PlanTrainee.hasOne(Tiempo);
-Tiempo.belongsTo(PlanTrainee);
-// PlanTrainer 1 a 1 con Plan
-Plantrainer.belongsTo(Plan);
-Plan.hasOne(Plantrainer);
+// Trainer.hasMany(PlanTrainee);
+// PlanTrainee.belongsTo(Trainer);
+// // Trainer de uno a muchos con SolcialNetworks
+// Trainer.belongsToMany(SocialNetworks, { through: "TrainerSocialNetworks" });
+// SocialNetworks.belongsToMany(Trainer, { through: "TrainerSocialNetworks" });
+// // Trainer de uno a muchos con Certificates
+// Trainer.hasMany(Certificates);
+// Certificates.belongsTo(Trainer);
+// // PlanTrainee de 1 a muchos con Trainee
+// PlanTrainee.hasMany(Trainee);
+// Trainee.belongsTo(PlanTrainee);
+// // Trainee de uno a uno con Data
+// Trainee.hasOne(Data);
+// Data.belongsTo(Trainee);
+// // Trainee de 1 a 1 con Plan
+// Trainee.hasOne(Plan);
+// Plan.belongsTo(Trainee);
+// // Plan de muchos a muchos con Aliments
+// Plan.belongsToMany(Aliments, { through: "PlanAliments" });
+// Aliments.belongsToMany(Plan, { through: "PlanAliments" });
+// // Plan de muchos a muchos con Activities
+// Plan.belongsToMany(Activity, { through: "PlanActivity" });
+// Activity.belongsToMany(Plan, { through: "PlanActivity" });
+// // Plantrainer 1 a 1 con Tiempo
+// Plantrainer.hasOne(Tiempo);
+// Tiempo.belongsTo(Plantrainer);
+// // PlanTrainee 1 a 1 con Tiempo
+// PlanTrainee.hasOne(Tiempo);
+// Tiempo.belongsTo(PlanTrainee);
+// // Plantrainer 1 a 1 con Plan
+// Plantrainer.belongsTo(Plan);
+// Plan.hasOne(Plantrainer);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

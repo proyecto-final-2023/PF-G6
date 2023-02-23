@@ -6,6 +6,7 @@ const authRoutes = require("./authRoutes");
 const createUserRoutes = require("./createUserRoutes");
 const contactRoutes = require("./contactRoutes");
 const plansRouter = require("./plansRoutes");
+const membership = require("./membershipRoutes");
 //----------------------------------------------------------
 const activityRouter = require("./activityRoutes");
 const alimentRouter = require("./alimentsRoutes");
@@ -25,5 +26,6 @@ indexRouter.use("/auth", authRoutes);
 indexRouter.use("/createuser", createUserRoutes);
 indexRouter.use("/contact", contactRoutes);
 indexRouter.use("/plans", plansRouter);
+indexRouter.use("/membership", membership);
 
 module.exports = indexRouter;
