@@ -2,6 +2,7 @@ import CarouselComp from "@/components/Carousel/CarouselComp";
 import homeSlides from "@/assets/home-slides";
 import logoImg from "@/assets/images/placeholder-logo.png";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -30,6 +31,12 @@ export default function Home() {
         <h2 className="text-center font-bold text-yellow-700  ">
           Find the Best Trainer For You!
         </h2>
+        <div>
+        <Link href="Plan">
+          Planes 
+        </Link>
+        </div>
+    
         <CarouselComp slidesArr={homeSlides} />
       </div>
     </>
