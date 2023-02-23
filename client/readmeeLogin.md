@@ -1,7 +1,7 @@
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 
-/ const photo=user?.photoURL
+const photo=user?.photoURL
 
-
-       {/* <Image src={photo} alt="hola"></Image> */}
+- do something like this instead, no idea of where it was suposed to go tho
+  {user && <Image src={user.photo} alt="hola"/>}

@@ -1,12 +1,11 @@
-import CarouselComp from "@/components/Carousel/CarouselComp";
 import landindSlides from "@/assets/landing-slides";
 import landindSlides2 from "@/assets/landing-slides2";
 import Link from "next/dist/client/link";
+import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 
 export default function LandingPage() {
   return (
     <div className="text-white">
-      {/* <div className="divImg1"> */}
       <div className="flex flex-col justify-center items-center bg-[url('/bgs/img_landing1.png')] h-[95vh] bg-no-repeat bg-top bg-cover">
         <h1 className="text-center text-xl font-bold">
           YOUR TRAINER & YOUR NUTRITIONAL PLAN IN THE SAME PLACE
@@ -17,8 +16,7 @@ export default function LandingPage() {
           </button>
         </Link>
       </div>
-      <CarouselComp slidesArr={landindSlides} />
-      {/* <div className="divImg2"> */}
+      <SwiperCarousel slidesArr={landindSlides} />
       <div className="h-[95vh] flex flex-col justify-center items-center bg-[url('/bgs/img_landing2.png')] bg-no-repeat bg-cover bg-top mt-5">
         <h1 className="text-center text-xl font-bold">
           ARE YOU TRAINER? <br></br>JOIN TO THE BEST NETWORK WITH THE BEST TOOLS
@@ -30,7 +28,7 @@ export default function LandingPage() {
           </button>
         </Link>
       </div>
-      <CarouselComp slidesArr={landindSlides2} />
+      <SwiperCarousel slidesArr={landindSlides2} />
     </div>
   );
 }

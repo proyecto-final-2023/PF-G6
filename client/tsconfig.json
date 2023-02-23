@@ -28,6 +28,6 @@
     "pages/**/**/*.tsx",
     "components/*.tsx",
     "components/**/.tsx"
-, "pages/index.jsx", "components/Layout.tsx"  ],
+  ],
   "exclude": ["node_modules"]
 }
