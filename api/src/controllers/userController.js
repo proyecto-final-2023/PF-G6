@@ -1,4 +1,4 @@
-const { User, Logueo, Membership, Voucher } = require("../db.js");
+const { User, Logueo, Membership, Voucher } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
