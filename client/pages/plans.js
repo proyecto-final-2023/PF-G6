@@ -7,15 +7,15 @@ import Image from "next/image";
 
 export default function plans() {
   const [plans, setPlans] = useState([]);
-  const [promocion1, setPromocion1] = useState( "Con tu suscripción online a través de Paypal,  AHORRÁS MÁS DE $--- de la matrícula " );
-  const [promocion2, setPromocion2] = useState("Promo a través de Paypal");
+  const [promocion1, setPromocion1] = useState( "Con tu suscripción online a través de Paypal,  AHORRÁS MÁS DE 20% de la matrícula " );
+  const [promocion2, setPromocion2] = useState("offer via Paypal");
 
   useEffect(() => {
     axios("http://localhost:3001/plans")
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
   }, []);
-
+  // plans 
   console.log(plans);
   return (
     <div>
@@ -35,10 +35,10 @@ export default function plans() {
 
       <div className="bg-gray-800 text-center h-80 ">
         <h2 className="pt-28  text-yellow-900 text-4xl">
-          ELEGÍ TU PLAN Y EMPEZÁ A ENTRENAR
+          CHOOSE YOUR PLAN AND START TRAINING
         </h2>
         <p className="text-2xl">{promocion1}</p>
-        <p className="text-2xl">¡Adquirí tu plan ahora!</p>
+        <p className="text-2xl">¡I bought your plan now!</p>
       </div>
 
       {promocion2 && (
