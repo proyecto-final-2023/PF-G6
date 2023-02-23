@@ -11,6 +11,8 @@ import logoImg from "@/assets/images/placeholder-logo.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 
+export const linkStyles =
+  "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out";
 // * uwu *//
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
@@ -19,7 +21,7 @@ export default function Navbar() {
   // const photo=user?.photoURL
   const name = user?.displayName;
 
-  console.log(user);
+  // console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
@@ -40,6 +42,7 @@ export default function Navbar() {
               />
             </Link>
           </li>
+
           <li className="inline-block align-bottom text-center pt-5">
             <input
               type="search"
@@ -57,25 +60,15 @@ export default function Navbar() {
             </button>
           </li>
 
-          <li className="inline-block align-bottom h-[70px] w-[115px] text-center">
-            <Link replace href="/home">
-              <button
-                type="button"
-                className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded  hover:text-orange-500 transition duration-300 ease-in-out"
-              >
-                Home
-              </button>
+          <li className="flex justify-center items-center">
+            <Link replace href="/home" className={linkStyles}>
+              Home
             </Link>
           </li>
 
-          <li className="inline-block align-bottom text-center w-[115px] h-full">
-            <Link replace href="/guest/trainning-list">
-              <button
-                type="button"
-                className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out"
-              >
-                Trainings
-              </button>
+          <li className="justify-center flex items-center">
+            <Link replace href="/guest/trainning-list" className={linkStyles}>
+              Trainings
             </Link>
           </li>
 
