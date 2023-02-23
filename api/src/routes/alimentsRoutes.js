@@ -8,8 +8,9 @@ const {
 const alimentsRouter = Router();
 
 alimentsRouter.get("/", async (req, res) => {
+  const { page, limit } = req.body;
   try {
-    const listAliments = await getListAliments();
+    const listAliments = await getListAliments(page, limit);
     res.status(200).json(listAliments);
   } catch (error) {
     res.status(400).json({ error: error.message });
@@ -24,15 +25,13 @@ alimentsRouter.get("/:id", async (req, res, next) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  // } catch (err) {
-  //   next(err);
-  // }
 });
 
-alimentsRouter.get("/filter/:type/:parameter", async (req, res, next) => {
+alimentsRouter.get("/filter/:type/", async (req, res, next) => {
   try {
-    const { type, parameter } = req.params;
-    const aliFilter = await alimentFilter(type, parameter);
+    const { page, pageSize, min, max } = req.body;
+    const { type } = req.params;
+    const aliFilter = await alimentFilter(type, page, pageSize, min, max);
     res.status(200).json(aliFilter);
   } catch (error) {
     res.status(400).json({ error: error.message });

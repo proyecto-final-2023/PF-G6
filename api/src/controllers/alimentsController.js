@@ -1,15 +1,15 @@
 const { Aliments } = require("../db");
 const { aliments } = require("./ExtractDB/aliments");
+const { Op } = require("sequelize");
 
-const getListAliments = async () => {
+const getListAliments = async (page, limit) => {
   try {
-    let listAliments = await Aliments.findAll();
+    const offset = (page - 1) * limit;
+    const listAliments = await Aliments.findAll({ limit, offset });
     if (!listAliments.length) {
-      // for (let index = 0; index <= 2; index++) {
       await Aliments.bulkCreate(aliments);
-      // }
+      console.log("aliments add");
     }
-    listAliments = await Aliments.findAll();
     return listAliments;
   } catch (error) {
     return error;
@@ -25,10 +25,13 @@ const getId = async (id) => {
   return dataValues;
 };
 
-const alimentFilter = async (type, parameter) => {
+const alimentFilter = async (type, page, pageSize, min, max) => {
   let alimentFil = {};
+
+  if (min > max) {
+    throw Error(`El valor maximo no pude ser menor al minimo`);
+  }
   if (
-    type !== "dataType" &&
     type !== "proteinAmount" &&
     type !== "fatTransAmount" &&
     type !== "fatSaturatedAmount" &&
@@ -41,78 +44,99 @@ const alimentFilter = async (type, parameter) => {
   ) {
     throw Error(`El tipo ${type} es una opcion invalida`);
   }
-  if (type === "dataType") {
-    alimentFil = await Aliments.findAll({
-      where: {
-        dataType: parameter,
-      },
-    });
+  const offset = (page - 1) * pageSize;
+
+  const typeOptions = {};
+  if (min !== undefined) {
+    typeOptions[Op.gte] = min;
   }
+  if (max !== undefined) {
+    typeOptions[Op.lte] = max;
+  }
+
   if (type === "proteinAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        proteinAmount: parameter,
+        proteinAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (type === "carbohydrateAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        carbohydrateAmount: parameter,
+        carbohydrateAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (type === "fatTransAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        fatTransAmount: parameter,
+        fatTransAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (type === "fatSaturatedAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        fatSaturatedAmount: parameter,
+        fatSaturatedAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (type === "fatTotalAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        fatTotalAmount: parameter,
+        fatTotalAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (type === "sugarsAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        sugarsAmount: parameter,
+        sugarsAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (type === "sodiumAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        sodiumAmount: parameter,
+        sodiumAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (type === "cholesterolAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        cholesterolAmount: parameter,
+        cholesterolAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (type === "energyAmount") {
     alimentFil = await Aliments.findAll({
       where: {
-        energyAmount: parameter,
+        energyAmount: typeOptions,
       },
+      limit: pageSize,
+      offset,
     });
   }
   if (!alimentFil.length) {
-    throw Error(`El parametro ${parameter} es una opcion invalida`);
+    throw Error(`No se encontraron coinsidencias`);
   }
   return alimentFil;
 };

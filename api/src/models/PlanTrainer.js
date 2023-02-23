@@ -2,12 +2,12 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "PlanTrainer",
+    "plantrainer",
     {
       id_planTrainer: {
         type: DataTypes.UUID,
         allowNull: false,
-        default: DataTypes.UUIDV4,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
       name: {
@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
         type: DataTypes.DECIMAL,
         allowNull: false,
       },
-      categoria: {
+      category: {
         type: DataTypes.STRING,
         allowNull: false,
       },
@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      cantTrainer: {
+      cantTrainees: {
         type: DataTypes.STRING,
         allowNull: false,
       },

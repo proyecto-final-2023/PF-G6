@@ -131,3 +131,11 @@ export type BurgerProps = {
   isBurgerActive: boolean;
   burgerHandler: () => void;
 };
+
+// @ Components/CardPlans
+export type CardPlansProps = {
+  name: string;
+  cost: number;
+  category: string;
+  description: string;
+};
