@@ -52,8 +52,11 @@ const {
 } = sequelize.models;
 
 // User 1 a 1 con Login
-User.hasOne(Logueo, {as:"Logueo"});
+User.hasOne(Logueo);
 Logueo.belongsTo(User);
+// User 1 a 1 con Membership
+User.hasOne(Membership);
+Membership.belongsTo(User);
 // Membership 1 A 1 con Voucher
 Membership.hasOne(Voucher);
 Voucher.belongsTo(Membership);

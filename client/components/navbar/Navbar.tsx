@@ -11,25 +11,21 @@ import logoImg from "@/assets/images/placeholder-logo.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 
-
 // * uwu *//
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [user, setUser] = useAuthState(auth);
   // const photo=user?.photoURL
-  const name=user?.displayName
- 
-console.log(user)
+  const name = user?.displayName;
+
+  console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
     // else => hover state of key => false
     else setHovers((prev) => ({ ...prev, [key]: false }));
   };
-
-  // TODO: change it to the real value
-  const isLoggedIn = false;
 
   return (
     <div>
@@ -72,22 +68,21 @@ console.log(user)
           {...{ hoverEventHandler }}
         />
 
-      {user?(<li className="m-5">Hello {name}</li>):console.log("")}
-        <HoverLi
-          imgUrl={userImg}
-          text="user"
-          href="/"
-          isHover={hovers.user}
-          optionsList={
-            user
-              ? ["Diets", "Trainer Programs", "Log out"]
-              : ["Register", "Log In"]
-          }
-          {...{ hoverEventHandler }}
-        />
-        
-      </ul>
-    </nav>
+          {user && <li className="m-5">Hello {name}</li>}
+          <HoverLi
+            imgUrl={userImg}
+            text="user"
+            href="/"
+            isHover={hovers.user}
+            optionsList={
+              user
+                ? ["Diets", "Trainer Programs", "Log out"]
+                : ["Register", "Log In"]
+            }
+            {...{ hoverEventHandler }}
+          />
+        </ul>
+      </nav>
     </div>
   );
 }

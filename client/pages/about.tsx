@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const team = [
   {
-    name: "Javier Garbale",
+    name: "Javier Garbalena",
     link: <Link href="#">Linkedin</Link>,
     imageUrl:
       "https://e7.pngegg.com/pngimages/178/595/png-clipart-user-profile-computer-icons-login-user-avatars-monochrome-black-thumbnail.png",
