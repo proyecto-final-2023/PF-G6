@@ -1,4 +1,6 @@
-const cDataTrainee = (obj) => {
+const {User, Data} = require('../db')
+
+const cDataTrainee = (id, obj) => {
   const {
     weight,
     height,
@@ -22,5 +24,6 @@ const cDataTrainee = (obj) => {
     lesions,
   } = obj;
 
-  
+
+
 };
