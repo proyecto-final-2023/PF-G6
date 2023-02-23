@@ -1,5 +1,8 @@
 import React, { useState, useRef } from "react";
 
+
+
+
 type StoppedTimes = { time: number; timestamp: number };
 
 export default function StopWatch() {
@@ -46,10 +49,12 @@ export default function StopWatch() {
       <p className="text-center text-xl">Time elapsed:
       </p>
         <div className="flex-col justify-self-center border-8 border-yellow-300 rounded-full h-60 w-60">
-        <p className="self-center text-6xl text-center mt-20">
-          {timeElapsed / 1000}
+        <p className="font-crono self-center text-6xl text-center mt-20">
+        
+          {(timeElapsed / 1000)}
           <span className="text-2xl"> Sec</span>
         </p>
+      
       
       </div>
       {!isRunning && timeElapsed === 0 && (

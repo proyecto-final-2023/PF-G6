@@ -19,7 +19,7 @@ export default function Navbar() {
   // const photo=user?.photoURL
   const name = user?.displayName;
 
-  console.log(user);
+  // console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
@@ -29,7 +29,7 @@ export default function Navbar() {
 
   return (
     <div>
-    <nav className="w-full bg-gray-800  p-0 h-[72px] border-x-none border-b-[2px]  border-yellow-900" >
+    <nav className="w-full bg-gray-800 relative fixed z-10 p-0 h-[72px] border-x-none border-b-[2px]  border-yellow-900" >
       <ul className="flex justify-around align-middle">
         <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
         <Link replace href="/" scroll>
@@ -61,7 +61,7 @@ export default function Navbar() {
        
 
         <HoverLi
-          href="trainee/tool/tools"
+          href="trainee/tools/"
           text="tools"
           isHover={hovers.tools}
           optionsList={["Stop Watch", "Calories Calculator", "Fat Calculator"]}
