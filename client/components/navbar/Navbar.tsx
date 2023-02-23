@@ -10,6 +10,7 @@ import logoImg from "@/assets/images/placeholder-logo.png";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
+import Burger from "./Burger";
 
 export const linkStyles =
   "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out";
@@ -31,31 +32,18 @@ export default function Navbar() {
   };
 
   const burgerHandler = () => {
-    console.log("burger clicked", isBurgerActive);
     setIsBurgerActive((prev) => !prev);
   };
 
   return (
     <div>
-      {/* TESTIN BTN REMOVE TODO: LATER */}
-      <button
-        onClick={burgerHandler}
-        className="absolute top-20 bg-red-600 z-50"
-      >
-        TOGGLE BURGER
-      </button>
-      {/* this burger is */}
-      <div
-        className={`fixed bg-red-500 w-7 h-7 z-30 pointer ${
-          !isBurgerActive && "hidden"
+      <Burger isBurgerActive={isBurgerActive} burgerHandler={burgerHandler} />
+      {/* navbar */}
+      <nav
+        className={`lg:w-full bg-gray-800 h-[72px] border-x-none border-b-[2px] border-yellow-900 w-3/4 top-0 fixed bottom-0 z-20 right-0 ${
+          isBurgerActive && "hidden"
         }`}
-        onClick={burgerHandler}
       >
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-      <nav className="w-full bg-gray-800 h-[72px] border-x-none border-b-[2px] border-yellow-900 sm:w-3/4 sm:top-0 sm:fixed sm:bottom-0 sm:z-20">
         <ul className="flex justify-around align-middle">
           <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
             <Link replace href="/" scroll>

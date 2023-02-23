@@ -124,3 +124,9 @@ export type BasicInputsProps = {
   name: string;
   type: "text" | "number" | "password" | "email" | "textarea";
 };
+
+// @ Components/Navbar/Burger
+export type BurgerProps = {
+  isBurgerActive: boolean;
+  burgerHandler: () => void;
+};
