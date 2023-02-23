@@ -17,6 +17,7 @@ export const linkStyles =
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
+  const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
   // const photo=user?.photoURL
   const name = user?.displayName;
@@ -29,9 +30,32 @@ export default function Navbar() {
     else setHovers((prev) => ({ ...prev, [key]: false }));
   };
 
+  const burgerHandler = () => {
+    console.log("burger clicked", isBurgerActive);
+    setIsBurgerActive((prev) => !prev);
+  };
+
   return (
     <div>
-      <nav className="w-full bg-gray-800  p-0 h-[72px] border-x-none border-b-[2px]  border-yellow-900">
+      {/* TESTIN BTN REMOVE TODO: LATER */}
+      <button
+        onClick={burgerHandler}
+        className="absolute top-20 bg-red-600 z-50"
+      >
+        TOGGLE BURGER
+      </button>
+      {/* this burger is */}
+      <div
+        className={`fixed bg-red-500 w-7 h-7 z-30 pointer ${
+          !isBurgerActive && "hidden"
+        }`}
+        onClick={burgerHandler}
+      >
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <nav className="w-full bg-gray-800 h-[72px] border-x-none border-b-[2px] border-yellow-900 sm:w-3/4 sm:top-0 sm:fixed sm:bottom-0 sm:z-20">
         <ul className="flex justify-around align-middle">
           <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
             <Link replace href="/" scroll>
