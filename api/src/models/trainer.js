@@ -7,12 +7,11 @@ module.exports = (sequelize) => {
       id_trainer: {
         type: DataTypes.UUID,
         allowNull: false,
-        default: DataTypes.UUIDV4,
         primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
       },
       logo: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
     },
     { timestamps: false }

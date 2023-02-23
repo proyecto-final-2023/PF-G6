@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+
+
 module.exports = {
   content: ["./pages/**/*.{jsx,tsx}", "./components/**/*.{jsx,tsx}"],
-  theme: {},
+  theme: {fontFamily: {
+    'crono': ['digital-7', 'sans-serif'],
+  }},
   plugins: [],
 };
