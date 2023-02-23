@@ -7,7 +7,7 @@ export default function Burger({ isBurgerActive, burgerHandler }: BurgerProps) {
   return (
     <button
       type="button"
-      className={`fixed bg-gray-600/30 w-11 h-10 z-30 pointer m-2 right-0 border border-black/90 rounded-sm p-1`}
+      className={`fixed bg-gray-600/30 w-11 h-10 z-30 pointer m-2 right-0 border border-black/90 rounded-sm p-1 sm:hidden`}
       onClick={burgerHandler}
     >
       <div

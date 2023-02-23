@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import HoverLi from "./HoverLi";
 import { NavbarStates } from "@/types/components";
@@ -13,7 +13,7 @@ import { auth } from "../../firebase";
 import Burger from "./Burger";
 
 export const linkStyles =
-  "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out";
+  "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out inline-block p-1 ";
 // * uwu *//
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
@@ -35,27 +35,47 @@ export default function Navbar() {
     setIsBurgerActive((prev) => !prev);
   };
 
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    function updateViewportWidth() {
+      setViewportWidth(window.innerWidth);
+    }
+
+    // Add event listener to update viewport width on resize
+    window.addEventListener("resize", updateViewportWidth);
+
+    // Set initial viewport width
+    updateViewportWidth();
+
+    // Remove event listener on unmount
+    return () => {
+      window.removeEventListener("resize", updateViewportWidth);
+    };
+  }, []);
+
   return (
     <div>
       <Burger isBurgerActive={isBurgerActive} burgerHandler={burgerHandler} />
-      {/* navbar */}
       <nav
-        className={`lg:w-full bg-gray-800 h-[72px] border-x-none border-b-[2px] border-yellow-900 w-3/4 top-0 fixed bottom-0 z-20 right-0 ${
-          isBurgerActive && "hidden"
+        className={`sm:h-[72px] sm:p-0 sm:top-0 py-12 px-6 h-[100vh] w-full bg-gray-800 border-x-none border-b-[2px] border-yellow-900 bottom-0 z-20 transition-all ease duration-300 fixed ${
+          isBurgerActive || viewportWidth > 800
+            ? "-translate-x-0"
+            : "translate-x-[100vw]"
         }`}
       >
-        <ul className="flex justify-around align-middle">
-          <li className="inline-block align-bottom text-center w-[100px] h-[65px]">
+        <ul className="flex sm:justify-around items-center flex-col sm:flex-row h-[85vh] sm:h-[72px]">
+          <li className="inline-block align-bottom text-center w-[100px] h-[65px] p-1">
             <Link replace href="/" scroll>
               <Image
                 src={logoImg}
                 alt={`link of the whole app`}
-                className="inline-block align-bottom mt-[3px] w-[100px] h-[65px]"
+                className="inline-block align-bottom sm:w-[100px] sm:h-[65px]"
               />
             </Link>
           </li>
 
-          <li className="inline-block align-bottom text-center pt-5">
+          <li className="inline-block align-bottom text-center pt-5 py-2 relative sm:-top-2">
             <input
               type="search"
               ref={searchRef}
@@ -88,6 +108,7 @@ export default function Navbar() {
             href="trainee/tool/tools"
             text="tools"
             isHover={hovers.tools}
+            vw={viewportWidth}
             optionsList={[
               "Stop Watch",
               "Calories Calculator",
@@ -102,6 +123,7 @@ export default function Navbar() {
             text="user"
             href="/"
             isHover={hovers.user}
+            vw={viewportWidth}
             optionsList={
               user
                 ? ["Diets", "Trainer Programs", "Log out"]

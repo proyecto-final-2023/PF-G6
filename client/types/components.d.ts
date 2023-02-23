@@ -11,6 +11,7 @@ export type HoverLiProps = {
   isHover: boolean;
   hoverEventHandler: ({}: HoverState) => void;
   optionsList: string[];
+  vw: number;
 };
 
 // @ SubNavMenu
