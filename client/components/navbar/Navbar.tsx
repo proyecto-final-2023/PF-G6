@@ -106,7 +106,7 @@ export default function Navbar() {
           </li>
 
           <CustomHoverLi
-            href="trainee/tool/tools"
+            href="/trainee/tools/"
             text="tools"
             isHover={hovers.tools}
             vw={viewportWidth}
