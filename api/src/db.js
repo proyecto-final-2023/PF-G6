@@ -65,8 +65,9 @@ Membership.belongsTo(Plantrainer);
 // Membership de muchos a 1 con PlanTrainee
 Membership.belongsTo(PlanTrainee);
 // Plantrainer de 1 a muchos con Trainer
-Trainer.belongsTo(Plantrainer);
-Plantrainer.hasMany(Trainer);
+Trainer.belongsTo(Membership);
+Membership.hasMany(Trainer);
+
 // Trainer de uno a muchos con PlanTrainee
 // Trainer.hasMany(PlanTrainee);
 // PlanTrainee.belongsTo(Trainer);

@@ -18,6 +18,19 @@ module.exports = (sequelize) => {
         type: DataTypes.DATEONLY,
         allowNull: false,
       },
+      userId: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        unique: true, // Agregar esta opción
+      },
+      plantrainerIdPlanTrainer: {
+        type: DataTypes.UUID,
+        allowNull: true,
+      },
+      planTraineeIdPlanTrainee: {
+        type: DataTypes.UUID,
+        allowNull: true,
+      },
     },
     {
       timestamps: false,

@@ -25,7 +25,6 @@ module.exports = (sequelize) => {
       nickname: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false,
       },
       role: {
         type: DataTypes.ENUM("trainer", "trainee", "bot"),

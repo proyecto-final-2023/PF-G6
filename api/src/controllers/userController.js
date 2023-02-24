@@ -24,7 +24,10 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    include: [{ model: Logueo }, { model: Membership, include: [Voucher] }],
+    include: [
+      { model: Logueo },
+      { model: Membership, attributes: ["id_membership"] },
+    ],
   });
   if (!dataValues) throw new Error("Usuario inexistente");
 
