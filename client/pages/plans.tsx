@@ -5,18 +5,30 @@ import CardPlans from "../components/CardPlans";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
 
+type PlansType = {
+  id: number;
+  name: string;
+  cost: number;
+  category: string;
+  description: string;
+};
+
 export default function plans() {
-  const [plans, setPlans] = useState([]);
-  const [promocion1, setPromocion1] = useState( "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition" );
-  const [promocion2, setPromocion2] = useState("offer via Paypal With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition");
- 
+
+  const [plans, setPlans] = useState<PlansType[]>([]);
+  const [promocion1, setPromocion1] = useState(
+    "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
+  );
+  const [promocion2, setPromocion2] = useState(
+    "offer via Paypal With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
+  );
 
   useEffect(() => {
     axios("http://localhost:3001/plans/trainers")
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
   }, []);
-  // plans 
+  // plans
   console.log(plans);
   return (
     <div>

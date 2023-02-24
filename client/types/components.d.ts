@@ -11,6 +11,7 @@ export type HoverLiProps = {
   isHover: boolean;
   hoverEventHandler: ({}: HoverState) => void;
   optionsList: string[];
+  vw: number;
 };
 
 // @ SubNavMenu
@@ -123,6 +124,12 @@ export type BasicInputsProps = {
   err: FieldError | undefined;
   name: string;
   type: "text" | "number" | "password" | "email" | "textarea";
+};
+
+// @ Components/Navbar/Burger
+export type BurgerProps = {
+  isBurgerActive: boolean;
+  burgerHandler: () => void;
 };
 
 // @ Components/CardPlans
