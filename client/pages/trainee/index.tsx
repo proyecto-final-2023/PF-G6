@@ -2,32 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import myImage from '../../public/tail-imgs/gym-bg.jpg'
 import Link from "next/link";
-import { Calendar } from '@fullcalendar/core';
-import dayGridPlugin from '@fullcalendar/daygrid'
-import timeGridPlugin from '@fullcalendar/timegrid';
-import listPlugin from '@fullcalendar/list';
-
 
 export default function Index() {
   const [progress, setProgress] = useState("0");
-  const calendarRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      const calendarEl = calendarRef.current!;
-      const calendar = new Calendar(calendarEl, {
-        plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
-        initialView: 'dayGridMonth',
-        headerToolbar: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'dayGridMonth,timeGridWeek,listWeek'
-        }
-      });
 
-      calendar.render();
-    }
-  }, []);
+
 
   return (
     <>
@@ -53,7 +33,7 @@ export default function Index() {
            My events
           </h2>
         </div> 
-        <div ref={calendarRef} className="px-10 py-10" ></div>
+        
       </div>   
     </>
   )
