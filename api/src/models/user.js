@@ -26,17 +26,14 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         unique: true,
       },
-      role: {
-        type: DataTypes.ENUM("trainer", "trainee", "bot"),
-      },
-      gender: {
-        type: DataTypes.ENUM("male", "female"),
-        defaultValue: "male",
-      },
+      // role: {
+      //   type: DataTypes.ENUM("trainer", "trainee", "bot"),
+      // },
+      // gender: {
+      //   type: DataTypes.ENUM("male", "female"),
+      //   defaultValue: "male",
+      // },
       phone: {
-        type: DataTypes.STRING,
-      },
-      cell: {
         type: DataTypes.STRING,
       },
       imgURL: {

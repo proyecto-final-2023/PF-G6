@@ -20,7 +20,7 @@ module.exports = (sequelize) => {
       },
       category: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: "trainer",
       },
       description: {
         type: DataTypes.STRING,

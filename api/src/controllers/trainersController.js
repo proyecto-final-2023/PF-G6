@@ -27,12 +27,4 @@ const listTrainers = async (page, limit) => {
 };
 
 module.exports = { listTrainers };
-// {
-//       include: [
-//         {, attributes: ["id_membership"]
-//           model: Plantrainer,
-//           include: [{ model: Logueo, attributes: ["email"] }],
-//           attributes: ["id", "first_name", "last_name", "imgURL", "role"],
-//         },
-//       ],
-//     }
+
