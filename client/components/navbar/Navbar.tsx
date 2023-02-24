@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 
 import HoverLi from "./HoverLi";
 import { NavbarStates } from "@/types/components";
+import CustomHoverLi from "./CustomHoverLi";
 
 import userImg from "@/assets/images/user.png";
 import logoImg from "@/assets/images/placeholder-logo.png";
@@ -64,7 +65,7 @@ export default function Navbar() {
             : "translate-x-[100vw]"
         }`}
       >
-        <ul className="flex sm:justify-around items-center flex-col sm:flex-row h-[85vh] sm:h-[72px]">
+        <ul className="flex justify-evenly items-center flex-col h-[85vh] sm:h-[72px] sm:flex-row">
           <li className="inline-block align-bottom text-center w-[100px] h-[65px] p-1">
             <Link replace href="/" scroll>
               <Image
@@ -104,7 +105,7 @@ export default function Navbar() {
             </Link>
           </li>
 
-          <HoverLi
+          <CustomHoverLi
             href="trainee/tool/tools"
             text="tools"
             isHover={hovers.tools}
