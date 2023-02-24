@@ -21,7 +21,7 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  // const photo=user?.photoURL
+  const photo=user?.photoURL
   const name = user?.displayName;
 
   // console.log(user);
@@ -104,6 +104,7 @@ export default function Navbar() {
               Trainings
             </Link>
           </li>
+         
 
           <CustomHoverLi
             href="trainee/tools"
@@ -120,7 +121,7 @@ export default function Navbar() {
 
           {user && <li className="m-5">Hello {name}</li>}
           <HoverLi
-            imgUrl={userImg}
+            imgUrl={photo||userImg}
             text="user"
             href="/"
             isHover={hovers.user}

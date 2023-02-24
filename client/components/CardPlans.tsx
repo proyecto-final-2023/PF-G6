@@ -27,4 +27,5 @@ export default function CardPlans(props: CardPlansProps) {
       </div>
     
   );
+  
 }
