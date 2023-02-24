@@ -3,15 +3,21 @@ const {
   getListAliments,
   getId,
   alimentFilter,
+  alimentByName,
 } = require("../controllers/alimentsController");
 
 const alimentsRouter = Router();
 
 alimentsRouter.get("/", async (req, res) => {
-  const { page, limit } = req.body;
+  const { page, name } = req.query;
   try {
-    const listAliments = await getListAliments(page, limit);
-    res.status(200).json(listAliments);
+    if (name) {
+      alimentQuery = await alimentByName(name, page);
+      res.status(200).json(alimentQuery);
+    } else {
+      const listAliments = await getListAliments(page, 10);
+      res.status(200).json(listAliments);
+    }
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
