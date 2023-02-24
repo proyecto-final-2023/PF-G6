@@ -11,14 +11,10 @@ membershipRouter.post("/", async (req, res) => {
   try {
     res.status(200).send(await generateMembership(idUser, idPlan));
   } catch (error) {
-    if (
-      error.message ===
-      "llave duplicada viola restricción de unicidad «memberships_userId_plantrainerIdPlanTrainer_key»"
-    ) {
-      res
-        .status(400)
-        .send({ error: "Usted ya tiene un plan trainer Activado" });
-    }
+    // if (error.name === "SequelizeUniqueConstraintError") {
+    //   console.log(error.name);
+    //   res.status(400).send({ error: "Usted ya tiene un plan Activado" });
+    // }
     res.status(400).send({ error: error.message });
   }
 });
