@@ -11,6 +11,7 @@ export type HoverLiProps = {
   isHover: boolean;
   hoverEventHandler: ({}: HoverState) => void;
   optionsList: string[];
+  vw: number;
 };
 
 // @ SubNavMenu
@@ -43,34 +44,39 @@ export interface NavbarStates {
 }
 
 // @ CarouselComp
-export interface CarouselCompProps {
-  slidesArr: Array<{
-    title: string;
-    image: StaticImageData;
-    hoverText: string;
-    hoverText2:string
-  }>;
-}
+// export interface CarouselCompProps {
+//   slidesArr: Array<{
+//     title: string;
+//     image: StaticImageData;
+//     hoverText: string;
+//     hoverText2: string;
+//   }>;
+// }
 
-// @ CarouselItem
-export type CarouselImg = { title: string; image: StaticImageData;hoverText:string;hoverText2:string};
+// // @ CarouselItem
+// export type CarouselImg = {
+//   title: string;
+//   image: StaticImageData;
+//   hoverText: string;
+//   hoverText2: string;
+// };
 
-// @ CarouselItem
-export interface CarouselItemProps {
-  prevImg: CarouselImg;
-  currImg: CarouselImg;
-  nextImg: CarouselImg;
-  isModalOpen: boolean;
-  imgClickHandler: () => void;
-  isTriple: boolean;
-  indicators: { current: number; total: number };
-}
+// // @ CarouselItem
+// export interface CarouselItemProps {
+//   prevImg: CarouselImg;
+//   currImg: CarouselImg;
+//   nextImg: CarouselImg;
+//   isModalOpen: boolean;
+//   imgClickHandler: () => void;
+//   isTriple: boolean;
+//   indicators: { current: number; total: number };
+// }
 
-// @ SingleImageCarousel
-export interface SingleImageCarouselProps {
-  currImg: CarouselImg;
-  indicators: { current: number; total: number };
-}
+// // @ SingleImageCarousel
+// export interface SingleImageCarouselProps {
+//   currImg: CarouselImg;
+//   indicators: { current: number; total: number };
+// }
 
 // @ register-inputs-data
 export type InputData = {
@@ -81,7 +87,7 @@ export type InputData = {
   email: string;
   phone: string;
   cell: string;
-  imgURL:string
+  imgURL: string;
   imgFile: File;
   gender: "male" | "female" | "other";
   role: "admin" | "trainee" | "trainer";
@@ -90,6 +96,16 @@ export interface TripleImageCarouselProps {
   prevImg: CarouselImg;
   currImg: CarouselImg;
   nextImg: CarouselImg;
+}
+
+// @ SwiperCarousel
+export interface SwiperCarouselProps {
+  slidesArr: Array<{
+    title: string;
+    image: StaticImageData;
+    hoverText: string;
+    hoverText2: string;
+  }>;
 }
 
 //@generic-inputs
@@ -107,5 +123,19 @@ export type BasicInputsProps = {
   options: { required: boolean; pattern?: RegExp };
   err: FieldError | undefined;
   name: string;
-  type: "text" | "number" | "password" | "email" | "textarea" ;
-}
+  type: "text" | "number" | "password" | "email" | "textarea";
+};
+
+// @ Components/Navbar/Burger
+export type BurgerProps = {
+  isBurgerActive: boolean;
+  burgerHandler: () => void;
+};
+
+// @ Components/CardPlans
+export type CardPlansProps = {
+  name: string;
+  cost: number;
+  category: string;
+  description: string;
+};

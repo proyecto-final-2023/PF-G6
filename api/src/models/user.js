@@ -12,7 +12,7 @@ module.exports = (sequelize) => {
       },
       status: {
         type: DataTypes.BOOLEAN,
-        defaultValue: false,
+        defaultValue: true,
       },
       first_name: {
         type: DataTypes.STRING,
@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       role: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM("trainer", "trainee", "bot"),
       },
       gender: {
         type: DataTypes.ENUM("male", "female"),
