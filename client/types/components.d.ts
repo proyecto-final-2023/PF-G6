@@ -139,3 +139,9 @@ export type CardPlansProps = {
   category: string;
   description: string;
 };
+
+// @ components/PaypalButton
+export type PaypalButtonProps = {
+  amountToPay: number;
+  serviceName: string;
+};

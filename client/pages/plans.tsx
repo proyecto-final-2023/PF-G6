@@ -1,4 +1,3 @@
-import { FaBeer } from "react-icons/fa";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CardPlans from "../components/CardPlans";
@@ -14,7 +13,6 @@ type PlansType = {
 };
 
 export default function plans() {
-
   const [plans, setPlans] = useState<PlansType[]>([]);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
