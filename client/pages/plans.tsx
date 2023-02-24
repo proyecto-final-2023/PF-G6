@@ -9,6 +9,7 @@ export default function plans() {
   const [plans, setPlans] = useState([]);
   const [promocion1, setPromocion1] = useState( "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition" );
   const [promocion2, setPromocion2] = useState("offer via Paypal With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition");
+ 
 
   useEffect(() => {
     axios("http://localhost:3001/plans/trainers")
