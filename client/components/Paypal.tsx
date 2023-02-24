@@ -1,7 +1,15 @@
 import axios from "axios";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useState, useEffect } from "react";
 
-export function Paypal() {
+export function Paypal({ cost }) {
+  const [price, setPrice] = useState("");
+
+  useEffect(() => {
+    setPrice(cost);
+  }, []);
+
+  console.log(cost);
   return (
     <div>
       <PayPalScriptProvider
@@ -11,26 +19,35 @@ export function Paypal() {
         }}
       >
         <PayPalButtons
-          createOrder={async () => {
+          createOrder={(data, actions) => {
             try {
-              const res = await axios({
-                url: "http://localhost:3000/api/payment",
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
+              return actions.order.create({
+                purchase_units: [
+                  {
+                    amount: {
+                      value: price,
+                    },
+                  },
+                ],
               });
-              return res.data.id;
             } catch (error) {
               console.log(error);
             }
           }}
           onCancel={(data) => console.log("compra cancelada")}
-          onApprove={async (data, actions) => {
-            console.log(data);
-            actions.order?.capture();
+          onApprove={(data, actions) => {
+            actions.order.capture().then((details) => {
+              const { email_address, payer_id } = details.payer;
+              const { status, id } = details;
+              const { value: monto, currency_code: moneda } =
+                details.purchase_units[0].amount;
+              const { name } = details.purchase_units[0].shipping;
+              const { id: transaccionId } = details;
+
+              console.log(details);
+            });
           }}
-          style={{ layout: "vertical", color: "blue" }}
+          style={{ layout: "vertical", color: "silver" }}
         />
       </PayPalScriptProvider>
     </div>
