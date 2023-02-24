@@ -7,14 +7,18 @@ const {
 const membershipRouter = Router();
 
 membershipRouter.post("/", async (req, res) => {
-  const { idUser, idPlan } = req.body;
+  const { idUser, idPlan, status, idPago, cost, fechaPago } = req.body;
   try {
-    res.status(200).send(await generateMembership(idUser, idPlan));
+    if (status === "COMPLETED") {
+      res
+        .status(200)
+        .send(
+          await generateMembership(idUser, idPlan, idPago, cost, fechaPago)
+        );
+    } else {
+      res.status(404).send("El pago no a sido completado");
+    }
   } catch (error) {
-    // if (error.name === "SequelizeUniqueConstraintError") {
-    //   console.log(error.name);
-    //   res.status(400).send({ error: "Usted ya tiene un plan Activado" });
-    // }
     res.status(400).send({ error: error.message });
   }
 });
