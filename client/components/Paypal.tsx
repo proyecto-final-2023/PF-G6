@@ -1,9 +1,12 @@
-import axios from "axios";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useState, useEffect } from "react";
 
-export function Paypal({ cost }) {
-  const [price, setPrice] = useState("");
+type PaypayProps = {
+  cost: number;
+};
+
+export function Paypal({ cost }: PaypayProps) {
+  const [price, setPrice] = useState<number>();
 
   useEffect(() => {
     setPrice(cost);
@@ -36,7 +39,7 @@ export function Paypal({ cost }) {
           }}
           onCancel={(data) => console.log("compra cancelada")}
           onApprove={(data, actions) => {
-            actions.order.capture().then((details) => {
+            actions.order?.capture().then((details) => {
               const { email_address, payer_id } = details.payer;
               const { status, id } = details;
               const { value: monto, currency_code: moneda } =
