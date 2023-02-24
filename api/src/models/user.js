@@ -27,16 +27,13 @@ module.exports = (sequelize) => {
         unique: true,
       },
       role: {
-        type: DataTypes.ENUM("trainer", "trainee", "bot"),
+        type: DataTypes.STRING, //ERROR CON ENUM
       },
       gender: {
-        type: DataTypes.ENUM("male", "female"),
+        type: DataTypes.STRING, //ERROR CON ENUM
         defaultValue: "male",
       },
       phone: {
-        type: DataTypes.STRING,
-      },
-      cell: {
         type: DataTypes.STRING,
       },
       imgURL: {

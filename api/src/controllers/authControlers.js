@@ -28,7 +28,7 @@ async function signUP(obj) {
     first_name,
     last_name,
     nickname,
-    role,
+    role: "user",
     imgURL,
   });
 

@@ -16,7 +16,6 @@ const generateBot = async () => {
       imgURL: userBot.picture.large,
       gender: userBot.gender,
       phone: userBot.phone,
-      cell: userBot.cell,
       role: "bot",
     };
     return result;

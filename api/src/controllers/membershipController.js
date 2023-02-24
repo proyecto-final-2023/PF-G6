@@ -1,7 +1,14 @@
-const { Membership, User, Plantrainer, Logueo, Trainer } = require("../db");
+const {
+  Membership,
+  User,
+  Plantrainer,
+  Logueo,
+  Trainer,
+  Voucher,
+} = require("../db");
 const moment = require("moment");
 
-const generateMembership = async (idUser, idPlan) => {
+const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
   try {
     if (!idUser || !idPlan) {
       throw Error("Parametros Invalidos");
@@ -42,6 +49,13 @@ const generateMembership = async (idUser, idPlan) => {
     userM.role = "trainer";
     await userM.save();
 
+    const voucher = await Voucher.create({
+      id_voucher: idPago,
+      date: fechaPago,
+      cost: cost,
+    });
+    await membership.setVoucher(voucher);
+
     return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM.name}`;
   } catch (error) {
     const userM = await User.findByPk(idUser);
@@ -69,8 +83,8 @@ const getMembership = async (id) => {
       },
     ],
   });
-  if (!dataValues) throw new Error("Usuario inexistente");
-  // Modificar el valor del campo role del objeto user
+  if (!dataValues) throw new Error("Membresia inexistente");
+  // //Modificar el valor del campo role del objeto user
   // dataValues.user.role = "Trainer";
 
   return dataValues;

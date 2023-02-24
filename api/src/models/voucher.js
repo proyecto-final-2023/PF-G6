@@ -5,13 +5,15 @@ module.exports = (sequelize) => {
     "voucher",
     {
       id_voucher: {
-        type: DataTypes.UUID,
+        type: DataTypes.STRING,
         allowNull: false,
-        default: DataTypes.UUIDV4,
-        primaryKey: true,
       },
       date: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      cost: {
+        type: DataTypes.INTEGER,
         allowNull: false,
       },
     },
