@@ -1,4 +1,11 @@
-const { User, Logueo, Membership, Voucher } = require("../db");
+const {
+  User,
+  Logueo,
+  Membership,
+  Voucher,
+  PlanTrainee,
+  Plantrainer,
+} = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
@@ -26,7 +33,18 @@ const getId = async (id) => {
   const dataValues = await User.findByPk(id, {
     include: [
       { model: Logueo },
-      { model: Membership, attributes: ["id_membership"] },
+      {
+        model: Membership,
+        attributes: ["id_membership", "startDate", "finishDate"],
+        include: [
+          {
+            model: Voucher,
+            attributes: ["id_voucher", "date", "cost"],
+          },
+          { model: Plantrainer },
+          { model: PlanTrainee },
+        ],
+      },
     ],
   });
   if (!dataValues) throw new Error("Usuario inexistente");
