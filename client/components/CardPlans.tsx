@@ -1,6 +1,6 @@
 import React from "react";
 import { CardPlansProps } from "@/types/components";
-import { PayPalButton } from "@/components/NewPaypal";
+import PaypalButton from "./PaypalButton";
 
 export default function CardPlans(props: CardPlansProps) {
   const { name, cost, category, description } = props;
@@ -20,7 +20,7 @@ export default function CardPlans(props: CardPlansProps) {
         {description}
       </p>
       <div className="z-30 w-10 h-10 bg-red-300">
-        <PayPalButton amountToPay={88} />
+        <PaypalButton amountToPay={1.1} serviceName={"dicks"} />
       </div>
       {/* <div className=""><Paypal cost={cost} />  </div> */}
     </div>
