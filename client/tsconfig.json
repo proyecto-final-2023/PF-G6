@@ -28,6 +28,6 @@
     "pages/**/**/*.tsx",
     "components/*.tsx",
     "components/**/.tsx"
-, "pages/plans.js"  ],
+  ],
   "exclude": ["node_modules"]
 }

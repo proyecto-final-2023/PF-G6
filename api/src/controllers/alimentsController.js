@@ -2,13 +2,28 @@ const { Aliments } = require("../db");
 const { aliments } = require("./ExtractDB/aliments");
 const { Op } = require("sequelize");
 
+const alimentByName = async (name, page) => {
+  const offset = (page - 1) * 10;
+  const aliment = await Aliments.findAll({
+    limit: 10,
+    offset,
+    where: {
+      description: { [Op.iLike]: `%${name}%` },
+    },
+  });
+
+  if (!aliment.length) throw Error("No se encuentran coincidencias");
+  return aliment;
+};
+
 const getListAliments = async (page, limit) => {
   try {
     const offset = (page - 1) * limit;
-    const listAliments = await Aliments.findAll({ limit, offset });
+    let listAliments = await Aliments.findAll({ limit, offset });
     if (!listAliments.length) {
       await Aliments.bulkCreate(aliments);
       console.log("aliments add");
+      listAliments = await Aliments.findAll({ limit, offset });
     }
     return listAliments;
   } catch (error) {
@@ -145,4 +160,5 @@ module.exports = {
   getListAliments,
   getId,
   alimentFilter,
+  alimentByName,
 };

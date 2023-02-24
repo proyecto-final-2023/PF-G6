@@ -9,14 +9,13 @@ const {
 const activityRouter = Router();
 
 activityRouter.get("/", async (req, res) => {
-  const { name } = req.query;
-  const { page, pageSize } = req.body;
+  const { name, page } = req.query;
   try {
     if (name) {
       activitiesQuery = await activityByName(name);
       res.status(200).json(activitiesQuery);
     } else {
-      const listActivities = await getListActivities(page, pageSize);
+      const listActivities = await getListActivities(page, 10);
       res.status(200).json(listActivities);
     }
   } catch (error) {
@@ -35,10 +34,10 @@ activityRouter.get("/:id", async (req, res, next) => {
 });
 
 activityRouter.get("/filter/:type/:parameter", async (req, res, next) => {
-  const { page, pageSize } = req.body;
+  const { page } = req.query;
   try {
     const { type, parameter } = req.params;
-    const exerFilter = await exercicesFilter(type, parameter, pageSize, page);
+    const exerFilter = await exercicesFilter(type, parameter, 10, page);
     res.status(200).json(exerFilter);
   } catch (error) {
     res.status(400).json({ error: error.message });

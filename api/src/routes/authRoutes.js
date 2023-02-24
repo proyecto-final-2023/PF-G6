@@ -7,7 +7,7 @@ const authRouter = Router();
 authRouter.post("/", async (req, res) => {
   const obj = req.body;
   try {
-    res.status(200).send(await signIn(obj.email, obj.password));
+    res.status(200).send(await signIn(obj.email, obj.password, obj.authExtern));
   } catch (error) {
     res.status(400).send({ error: error.message });
   }

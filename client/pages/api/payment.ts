@@ -16,7 +16,9 @@ let client = new paypal.core.PayPalHttpClient(environment);
 
 export default async function handler(req: ApiReq, res: ApiRes) {
   if (req.method === "POST") {
+    const { amount, orderId, transactionId } = req.body;
     const request = new paypal.orders.OrdersCreateRequest();
+
     request.requestBody({
       intent: "CAPTURE",
       purchase_units: [

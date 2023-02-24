@@ -1,45 +1,39 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 import { HoverLiProps } from "@/types/components";
 import SubNavMenu from "./SubNavMenu";
+import { linkStyles } from "./Navbar";
 
 export default function HoverLi(props: HoverLiProps) {
-  const { imgUrl, href, text, isHover, hoverEventHandler, optionsList } = props;
+  const { imgUrl, href, text, isHover, hoverEventHandler, optionsList, vw } =
+    props;
 
   const USER_ID = "777-www";
 
   return (
-
-    <li className=""
+    <li
+      className="justify-center flex items-center z-10 relative"
       onMouseEnter={() => hoverEventHandler({ type: "enter", key: text })}
       onMouseLeave={() => hoverEventHandler({ type: "leave", key: text })}
     >
-      <Link {...{ href }} replace className="w-[115px]">
-        {/* if imgUrl render Image: else render text */}
-        {/* make text upper case, cuz' of hoverState's key */}
-        {imgUrl ? (
-          <button
-            type="button"
-            className="inline-block px-6 font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out"
-          >
+      <div className="flex flex-col items-center p-2 sm:p-0">
+        <Link {...{ href }} replace className={linkStyles}>
+          {/* if imgUrl render Image: else render text */}
+          {/* make text upper case, cuz' of hoverState's key */}
+          {imgUrl ? (
             <Image src={imgUrl} alt={`link of ${text}`} />
-          </button>
-        ) : (
-          <button
-            type="button"
-            className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out"
-          >
-            {" "}
-            {text[0].toUpperCase() + text.slice(1)}
-          </button>
-        )}
-      </Link>
-      {isHover && (
-        <div className="absolute  px-2 py-2 w-[115px] ">
+          ) : (
+            text[0].toUpperCase() + text.slice(1)
+          )}
+        </Link>
 
-          <SubNavMenu {...{ optionsList }} id={USER_ID} />
-        </div>
-      )}
+        {(isHover || vw < 800) && (
+          <div className="static sm:absolute top-12 px-2 py-4 w-[115px]">
+            <SubNavMenu {...{ optionsList }} id={USER_ID} />
+          </div>
+        )}
+      </div>
     </li>
   );
 }
