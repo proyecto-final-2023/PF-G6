@@ -34,6 +34,9 @@ export default function RegisterForm() {
   };
 
   return (
+    <div className="h-[82.5vh] flex justify-center bg-[url('/bgs/contact.jpg')] bg-no-repeat bg-cover backdrop-blur-sm">
+      <div className="bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[30vw] m-auto text-m">
+        <div className="grid grid-cols-1 gap-1 justify-items-center h-[70vh] py-11">
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 mx-6">
       <GenericInput
         label="Enter your name:"
@@ -71,9 +74,12 @@ export default function RegisterForm() {
         {...{ register }}
       />
 
-      <button className="rounded-md bg-lime-500 mx-20 p-1 w-20" type="submit">
+      <button className="text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300" type="submit">
         Submit
       </button>
     </form>
+        </div>
+      </div>
+    </div>
   );
 }
