@@ -61,6 +61,7 @@ console.log(user)
           <button type="button" className="inline-block px-6  font-medium text-xs leading-tight h-[70px] w-[115px] uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out">Trainings</button>
           </Link>
         </li>
+        
        {/* <Image src={photo} alt="hola"></Image> */}
        
 
@@ -72,7 +73,7 @@ console.log(user)
           {...{ hoverEventHandler }}
         />
 
-      {user?(<li className="m-5">Hello {name}</li>):console.log("")}
+        {user?(<li className="m-5">Hello {name}</li>):console.log("")}
         <HoverLi
           imgUrl={userImg}
           text="user"
