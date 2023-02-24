@@ -3,7 +3,7 @@ import React from "react";
 
 export default function ToolsIndex() {
   return (
-    <div className="h-[82.5vh] flex justify-center bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm]">
+    <div className="h-[89.8vh] flex justify-center bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm]">
       <div className="w-[78vw] m-auto text-m">
         <div className="flex justify-around ">
           <Link replace href="/trainee/tools/stop-watch">
