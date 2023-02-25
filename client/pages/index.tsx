@@ -1,6 +1,6 @@
+import Link from "next/dist/client/link";
 import landindSlides from "@/assets/landing-slides";
 import landindSlides2 from "@/assets/landing-slides2";
-import Link from "next/dist/client/link";
 import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 
 export default function LandingPage() {
