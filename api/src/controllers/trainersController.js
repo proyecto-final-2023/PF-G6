@@ -1,4 +1,4 @@
-const { Trainer, Membership, User } = require("../db");
+const { Trainer, Membership, User, PlanTrainee } = require("../db");
 
 const listTrainers = async (page, limit) => {
   try {
@@ -15,6 +15,7 @@ const listTrainers = async (page, limit) => {
             },
           ],
         },
+        { model: PlanTrainee },
       ],
       limit: limit,
       offset: (page - 1) * limit,
@@ -27,4 +28,3 @@ const listTrainers = async (page, limit) => {
 };
 
 module.exports = { listTrainers };
-
