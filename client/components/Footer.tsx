@@ -47,9 +47,7 @@ export default function Footer() {
           <li className=" text-yellow-900  hover:text-amber-800 ">About Us</li>
         </Link>
         <Link href="/plans">
-          <li className="  text-yellow-900  hover:text-amber-800 ">
-            Planes
-          </li>
+          <li className="  text-yellow-900  hover:text-amber-800 ">Planes</li>
         </Link>
       </ul>
     </div>
