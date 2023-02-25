@@ -1,3 +1,4 @@
+import PaypalButton from "@/components/PaypalButton";
 import axios from "axios";
 
 const url = "http://localhost:3001/base";
@@ -39,6 +40,7 @@ export default function App(props: { res: string }) {
       <button className="m-4 p-4 border-red-200 bg-black" onClick={testPost}>
         POST
       </button>
+      <PaypalButton amountToPay={1.1} serviceName="pog" />
     </main>
   );
 }
