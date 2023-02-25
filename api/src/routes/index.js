@@ -6,7 +6,9 @@ const authRoutes = require("./authRoutes");
 const createUserRoutes = require("./createUserRoutes");
 const contactRoutes = require("./contactRoutes");
 const plansRouter = require("./plansRoutes");
+const plansTraineeRouter = require("./planTraineeRoutes");
 const membership = require("./membershipRoutes");
+const trainers = require("./trainersRouters");
 //----------------------------------------------------------
 const activityRouter = require("./activityRoutes");
 const alimentRouter = require("./alimentsRoutes");
@@ -25,7 +27,9 @@ indexRouter.use("/user", userRoutes);
 indexRouter.use("/auth", authRoutes);
 indexRouter.use("/createuser", createUserRoutes);
 indexRouter.use("/contact", contactRoutes);
-indexRouter.use("/plans", plansRouter);
+indexRouter.use("/plans/trainers", plansRouter);
+indexRouter.use("/plans/trainee", plansTraineeRouter);
 indexRouter.use("/membership", membership);
+indexRouter.use("/trainers", trainers);
 
 module.exports = indexRouter;

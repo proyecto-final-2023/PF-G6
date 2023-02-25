@@ -7,18 +7,18 @@ const {
 const membershipRouter = Router();
 
 membershipRouter.post("/", async (req, res) => {
-  const { idUser, idPlan } = req.body;
+  const { idUser, idPlan, status, idPago, cost, fechaPago } = req.body;
   try {
-    res.status(200).send(await generateMembership(idUser, idPlan));
-  } catch (error) {
-    if (
-      error.message ===
-      "llave duplicada viola restricción de unicidad «memberships_userId_plantrainerIdPlanTrainer_key»"
-    ) {
+    if (status === "COMPLETED") {
       res
-        .status(400)
-        .send({ error: "Usted ya tiene un plan trainer Activado" });
+        .status(200)
+        .send(
+          await generateMembership(idUser, idPlan, idPago, cost, fechaPago)
+        );
+    } else {
+      res.status(404).send("El pago no a sido completado");
     }
+  } catch (error) {
     res.status(400).send({ error: error.message });
   }
 });

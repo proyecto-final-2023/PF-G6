@@ -29,7 +29,7 @@ export default function HoverLi(props: HoverLiProps) {
         </Link>
 
         {(isHover || vw < 800) && (
-          <div className="static sm:absolute top-16 px-2 py-4 w-[115px]">
+          <div className="static sm:absolute top-12 px-2 py-4 w-[115px]">
             <SubNavMenu {...{ optionsList }} id={USER_ID} />
           </div>
         )}

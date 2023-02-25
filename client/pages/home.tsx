@@ -1,7 +1,8 @@
 import Image from "next/image";
 import homeSlides from "@/assets/home-slides";
 import logoImg from "@/assets/images/placeholder-logo.png";
-
+import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -30,7 +31,18 @@ export default function Home() {
         <h2 className="text-center font-bold text-yellow-700  ">
           Find the Best Trainer For You!
         </h2>
-        {/* <CarouselComp slidesArr={homeSlides} /> */}
+       <Link replace href="/plans"> 
+          <div className=" bg-gray-800 max-w-sm rounded overflow-hidden shadow-lg">
+            <div className="px-6 py-4">
+              <div className="text-yellow-800 font-bold text-xl mb-2">
+                Plans{" "}
+              </div>
+              <p className="text-white text-base">PLANS TRAINEE</p>
+            </div>
+          </div>
+        </Link>
+
+        <SwiperCarousel slidesArr={homeSlides} /> 
       </div>
     </>
   );

@@ -1,0 +1,68 @@
+// import React from "react";
+// import { useState, useEffect, useRef } from "react";
+// import { Calendar } from '@fullcalendar/core';
+// import dayGridPlugin from '@fullcalendar/daygrid'
+// import timeGridPlugin from '@fullcalendar/timegrid';
+// import listPlugin from '@fullcalendar/list';
+// import FullCalendar  from "@fullcalendar/react";
+// import useCalendar from "../../../client/types/zustand-calendar"
+
+// export default function Plans() {
+//   // const calendarRef = useRef<HTMLDivElement>(null);
+
+//   // useEffect(() => {
+//   //   if (typeof window !== "undefined") {
+//   //     const calendarEl = calendarRef.current!;
+//   //     const calendar = new Calendar(calendarEl, {
+//   //       plugins: [ dayGridPlugin, timeGridPlugin, listPlugin ],
+//   //       initialView: 'dayGridMonth',
+//   //       headerToolbar: {
+//   //         left: 'prev,next today',
+//   //         center: 'title',
+//   //         right: 'dayGridMonth,timeGridWeek,listWeek'
+//   //       }
+//   //     });
+//   //     const event = {
+//   //       title: 'Mi evento',
+//   //       start: '2023-03-01T14:30:00',
+//   //       end: '2023-03-01T16:30:00',
+//   //       url: 'http://localhost:3000/trainer/exercises-library'
+//   //     };
+    
+//   //     calendar.addEvent(event);
+//   //     calendar.render();
+//   //   }
+//   // }, []);
+//   // console.log('Soy calendar',calendarRef)
+//   // return <div>plans
+
+//   //    <div ref={calendarRef} className="px-10 py-10" ></div>
+
+//   // </div>;
+//   const [title, setTitle] = useState("");
+//   const [start, setStart] = useState("");
+//   const [end, setEnd] = useState("");
+//   const [description, setDescription] = useState("");
+//   const addEvent = useCalendar((state) => state.addEvent);
+
+//   const handleCreateEvent = () => {
+//     const newEvent = {
+//       title,
+//       start,
+//       end,
+//       description,
+//       id: Date.now().toString(),
+//     };
+//     addEvent(newEvent);
+//   };
+
+//   return (
+//     <div>
+//       <input type="text" onChange={(e) => setTitle(e.target.value)} />
+//       <input type="text" onChange={(e) => setStart(e.target.value)} />
+//       <input type="text" onChange={(e) => setEnd(e.target.value)} />
+//       <input type="text" onChange={(e) => setDescription(e.target.value)} />
+//       <button onClick={handleCreateEvent}>Create event</button>
+//     </div>
+//   );
+// }

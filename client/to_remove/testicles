@@ -1,0 +1,35 @@
+import axios from "axios";
+
+export default function test(props: { res: string }) {
+  console.log(props.res);
+
+  return <div>testicles</div>;
+}
+
+// * SSR
+async function getServersideProps() {
+  const token =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg4YWEwNDUwLTljMzMtNDU1Yi04ODhmLWE3MDA3MjVlY2MxMyIsImlhdCI6MTY3NzE4MjEwMCwiZXhwIjoxNjc3Nzg2OTAwfQ.VfNEKXEj_UVeSCT2IiwfNML94mmHKitsKDeaho_FH4Y";
+  const url = "http://localhost:3001/base";
+
+  try {
+    // const res = await axios.post(url, {
+    //   headers: {
+    //     "x-access-token": token,
+    //   },
+    // });
+
+    const res = await axios({
+      method: "post", //you can set what request you want to be
+      url: "https://example.com/request",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+    return { props: { res } };
+  } catch (error) {
+    console.error(error);
+  }
+
+  return { props: { res: "testicles" } };
+}
