@@ -7,8 +7,8 @@ import Image from "next/image";
 
 export default function plans() {
   const [plans, setPlans] = useState([]);
-  const [promocion1, setPromocion1] = useState( "Con tu suscripción online a través de Paypal,  AHORRÁS MÁS DE 20% de la matrícula " );
-  const [promocion2, setPromocion2] = useState("offer via Paypal");
+  const [promocion1, setPromocion1] = useState( "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition" );
+  const [promocion2, setPromocion2] = useState("offer via Paypal With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition");
 
   useEffect(() => {
     axios("http://localhost:3001/plans/trainers")
@@ -25,7 +25,7 @@ export default function plans() {
             src={logo}
             width={400}
             alt={`link of the whole app`}
-            className="transition ease-in-out delay-550 opacity-50  hover:-translate-y-1 hover:scale-110 hover: duration-100 drop-shadow-2xl justify-items-center    "
+            className="transition ease-in-out delay-550 opacity-60  hover:-translate-y-1 hover:scale-110 hover: duration-100 drop-shadow-2xl justify-items-center    "
           />
           {/* <h1 className="bg-clip-text text-transparent  bg-yellow-900 text-4x1">
             Plans

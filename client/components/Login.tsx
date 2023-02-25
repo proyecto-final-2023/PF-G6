@@ -5,7 +5,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import blankProfile from "../assets/img/blankProfile.png";
 import Image, { StaticImageData } from "next/dist/client/image";
 import Router from "next/router";
-
+import axios from 'axios'
+import { setCookie } from "@/utils/cookieHandler";
 
 
 
@@ -29,9 +30,24 @@ export const Login = () => {
     else return blankProfile;
   };
 
-  useEffect(() => {
-    console.log(user?.email);
-  }, [user]);
+  const info={
+    email: user?.email,
+    authExtern:true 
+    
+  }
+  
+  // useEffect(() => {
+  //   axios
+  //   .post("http://localhost:3001/createUser",info )
+  //   .then((data) => {
+  //     setCookie("token", data.data.token);
+    
+  //   })
+  //   .catch((error) => {
+  //     window.alert("Error Loggin in" + error);
+  //   });
+  // }, [user]);
+
   return (
     <div className="">
       
