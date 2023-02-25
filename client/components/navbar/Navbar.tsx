@@ -24,7 +24,7 @@ export default function Navbar() {
   const photo=user?.photoURL
   const name = user?.displayName;
 
-  // console.log(user);
+  console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));

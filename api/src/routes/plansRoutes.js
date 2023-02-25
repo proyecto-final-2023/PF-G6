@@ -6,23 +6,22 @@ const {
 
 const plansRouter = Router();
 
-plansRouter.post("/trainers", async (req, res) => {
-  const { name, cost, category, description, cantTrainees } = req.body;
+plansRouter.post("/", async (req, res) => {
+  const { name, cost, description, cantTrainees } = req.body;
   try {
     res
       .status(200)
-      .send(
-        await postPlansTrainer(name, cost, category, description, cantTrainees)
-      );
+      .send(await postPlansTrainer(name, cost, description, cantTrainees));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
 
-plansRouter.get("/trainers", async (req, res) => {
+plansRouter.get("/", async (req, res) => {
   try {
     res.status(200).send(await allPlans());
   } catch (error) {
+  
     res.status(400).send({ error: error.message });
   }
 });

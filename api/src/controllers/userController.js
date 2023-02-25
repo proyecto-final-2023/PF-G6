@@ -24,7 +24,10 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    include: [{ model: Logueo }, { model: Membership, include: [Voucher] }],
+    include: [
+      { model: Logueo },
+      { model: Membership, attributes: ["id_membership"] },
+    ],
   });
   if (!dataValues) throw new Error("Usuario inexistente");
 
@@ -60,7 +63,7 @@ const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
   console.log(decoded)
   const [user] = await Logueo.findAll({
-    where: { LogueoId: decoded.id },
+    where: { userId: decoded.id },
   });
   if (user) {
     const result = await Logueo.update(
