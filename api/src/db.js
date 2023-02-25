@@ -36,7 +36,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
   Activity,
   Aliments,
-  Certificate,
+  Certificates,
   Data,
   Logueo,
   Membership,
@@ -70,12 +70,12 @@ Membership.hasMany(Trainer);
 // Trainer de uno a muchos con PlanTrainee
 PlanTrainee.belongsTo(Trainer);
 Trainer.hasMany(PlanTrainee);
-// // Trainer de uno a muchos con SolcialNetworks
-// Trainer.belongsToMany(SocialNetworks, { through: "TrainerSocialNetworks" });
-// SocialNetworks.belongsToMany(Trainer, { through: "TrainerSocialNetworks" });
-// // Trainer de uno a muchos con Certificates
-// Trainer.hasMany(Certificates);
-// Certificates.belongsTo(Trainer);
+// Trainer de uno a muchos con SolcialNetworks
+Trainer.hasMany(SocialNetworks);
+SocialNetworks.belongsTo(Trainer);
+// Trainer de uno a muchos con Certificates
+Trainer.hasMany(Certificates);
+Certificates.belongsTo(Trainer);
 // // PlanTrainee de 1 a muchos con Trainee
 // PlanTrainee.hasMany(Trainee);
 // Trainee.belongsTo(PlanTrainee);

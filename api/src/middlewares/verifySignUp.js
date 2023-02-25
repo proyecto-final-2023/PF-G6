@@ -5,6 +5,7 @@ const { User } = require("../db");
 //verifica que tenga token, usada para rutas de guest
 
 const verifyToken = async (req, res, next) => {
+try {
   const token = req.headers["x-access-token"];
   if (!token) return res.status(403).json({ message: "no se recibió token" });
 
@@ -13,6 +14,9 @@ const verifyToken = async (req, res, next) => {
 
   if (user) next();
   else return res.status(403).json({ message: "Usuario no existe" });
+} catch (error) {
+  return res.status(403).send({error:error.message});
+}
 };
 
 //verifica que tenga token y que el usuario sea trainee
@@ -30,6 +34,7 @@ const verifyTrainee = async (req, res, next) =>{
 //verifica que tenga token y sea un trainer
 const verifyTrainer = async (req, res, next) =>{
   const token = req.headers["x-access-token"];
+  console.log(token)
   if (!token) return res.status(403).json({ message: "no se recibió token" });
 
   const decoded = jwt.verify(token, config.SECRET);
