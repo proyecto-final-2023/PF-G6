@@ -100,18 +100,24 @@ export default function ExercisesLibrary() {
           Siguiente
         </button>
       </div>
-        <div className="flex flex-wrap gap-20">
-      {rndExercises.slice(0, 30).map((ex) => (
-        <Link
+      <div className="flex flex-wrap gap-20">
+        <ul className="grid grid-cols-4 gap-4 mx-auto">
+          {rndExercises.slice(0, 30).map((ex) => {return (
+            <li className="w-1/4 rounded-sm bg-slate-500">
+              <Link
           href={"/trainer/exercise/" + ex.id}
           replace
           key={ex.id}
-          className="w-1/4 rounded-sm bg-slate-500"
+          className="rounded-sm bg-slate-500"
         >
           <p>Body part {ex.bodyPart}</p>
           <Image src={ex.gifUrl} alt="" width={300} height={300} />
         </Link>
-      ))}
+            </li>
+          )})}
+        
+        </ul>
+      </div>
       <div className="flex justify-between items-center w-full mt-10 px-36">
         <button
           onClick={prevPage}
@@ -120,7 +126,7 @@ export default function ExercisesLibrary() {
         >
           Anterior
         </button>
-        <div className="text-xl font-bold">{currentPage}</div>
+          <div className="text-xl font-bold">{currentPage}</div>
         <button
           onClick={nextPage}
           disabled={rndExercises.length === 0}
@@ -129,8 +135,7 @@ export default function ExercisesLibrary() {
           Siguiente
         </button>
       </div>
-    </div>
-      </div>
+  </div>
     
   );
 }
