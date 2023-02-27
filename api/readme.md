@@ -1,24 +1,30 @@
-# Routes to test 16/02
+# User Routes
 
-## Activity
+- _GET_ : **/** : returns a list of users
+  - Query parameters:
+  - name (optional): filter the list by user name
+- Responses:
 
-- _GET_ : **/activity** : NOT USE returns 50k activitys
-- _GET_ : **/activity?page={number}** : returns 10 activities, number of the page for backend pagination
-###Usuario Bot
-- _GET_ : **/user/bot**: Crea un nuevo bot.
-Response 200 (application/json)
-Body
+  - 200 OK: successfully returns a list of users, with an optional filter by name
+  - 400 Bad Request: an error occurred while processing the request
 
-## Aliment
+- _GET_ : **/confirm/:token** : confirms user email
+  - Path parameters:
+  - token: a unique token used to confirm the email
+- Responses:
 
-- _GET_ : **/aliment** : NOT USE returns 50k aliments
-- _GET_ : **/aliment?page={number}** : returns 10 aliments, number of the page for backend pagination
--
+  - 200 OK: successfully confirms the user's email
+  - 400 Bad Request: an error occurred while processing the request
 
-## Trainer
+- _GET_ : **/bot** : adds a bot user
+- Responses:
 
-- **/confirm/:token** : POST... Confirms the user's email
+  - 200 OK: successfully adds a bot user
+  - 400 Bad Request: an error occurred while processing the request
 
-## Auth
-
-- _POST_ : **/auth** : POST... Confirms the user's email
+- _GET_ : **/:id** : retrieves a specific user by ID
+  - Path parameters:
+    - id: the unique identifier of the user to retrieve
+  - Responses:
+    - 200 OK: successfully retrieves the specified user
+    - 400 Bad Request: an error occurred while processing the request
