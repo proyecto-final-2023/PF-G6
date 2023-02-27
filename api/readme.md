@@ -1,18 +1,20 @@
 # Routes to test 16/02
 
-## activity
+## Activity
 
-- **/?name={exercise_name}** : _GET_ gives me all exercises that coincide in an arr of objects
-- **/:id** : _GET_ exercise by id (number)
-<!-- TODO: divide this in 3 -->
-- **/filter/:type/:parameter** : GET exercise by type (arm, leg, etc)
-  - type : [bodyPart | equipement | target]
-  - parameter : depends on type...
+- _GET_ : **/activity** : NOT USE returns 50k activitys
+- _GET_ : **/activity?page={number}** : returns 10 activities, number of the page for backend pagination
 
-## aliment
+## Aliment
 
-- **/** : _GET_ NOT USE returns 50k aliments
+- _GET_ : **/aliment** : NOT USE returns 50k aliments
+- _GET_ : **/aliment?page={number}** : returns 10 aliments, number of the page for backend pagination
+-
 
-## trainer
+## Trainer
 
 - **/confirm/:token** : POST... Confirms the user's email
+
+## Auth
+
+- _POST_ : **/auth** : POST... Confirms the user's email
