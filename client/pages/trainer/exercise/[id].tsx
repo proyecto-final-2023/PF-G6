@@ -15,16 +15,16 @@ export default function ExerciseDetails() {
   };
 
   useEffect(() => {
-    axios("http://localhost:3001/activity/" + id).then(({ data }) =>
-      setExerciseData(data)
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/activity/${id}`).then(
+      ({ data }) => setExerciseData(data)
     );
   }, []);
 
   return (
     <div className="">
       <Image
-        src={exerciseData?.gifUrl as string}
-        alt=""
+        src={exerciseData?.gifUrl || ""}
+        alt="pog"
         width={300}
         height={300}
         className="w-2/3"
