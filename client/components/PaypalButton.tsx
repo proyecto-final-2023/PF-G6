@@ -31,9 +31,6 @@ export default function PaypalButton(props: PaypalButtonProps) {
               value: amountToPay,
             },
           },
-          {
-            currency_code: "USD",
-          },
         ],
 
         application_context: {
