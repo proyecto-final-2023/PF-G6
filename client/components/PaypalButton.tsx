@@ -63,7 +63,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
 
   if (succeeded) {
     // send them to their new home
-    console.log("PAYMETN SUCCESFULL");
+    console.log("PAYMENT SUCCESFULL");
   }
 
   if (paypalErrorMessage) {
