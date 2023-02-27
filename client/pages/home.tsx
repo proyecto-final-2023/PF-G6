@@ -35,9 +35,9 @@ export default function Home() {
           <div className=" bg-gray-800 max-w-sm rounded overflow-hidden shadow-lg">
             <div className="px-6 py-4">
               <div className="text-yellow-800 font-bold text-xl mb-2">
-                Plans{" "}
+                Plans
               </div>
-              <p className="text-white text-base">PLANS TRAINEE</p>
+              <p className="text-white text-base">PLANS TRAINER</p>
             </div>
           </div>
         </Link>

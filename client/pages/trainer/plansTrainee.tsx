@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
+import NavbarTrainer from "@/components/navbar/NavbarTrainer";
 
+// crear los planes para trainees
 export default function createPlans() {
   const[idTrain,setId]=useState('3ecd5a1a-f6bc-49f4-99ab-971003de134a');
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState([{
      idTrainer:'67a65040-1a57-496a-9c7e-162fa672e18d',
   	 name:'',
      cost :'',
      description :'',
      
-  });
-
+}]);
+ console.log(formData.name)
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     
@@ -29,10 +31,14 @@ export default function createPlans() {
   };
 
   return (
-    <div>
-    <form className=" pt-20  flex flex-col" onSubmit={handleSubmit}>
+    <div className="grid grid-rows-3 grid-flow-col gap-4"> 
+      <div className="row-span-3 ">
+      <NavbarTrainer />
+      </div>
+      
+    <form className="col-span-2 pt-60" onSubmit={handleSubmit}>
          
-      <p> El ID del tranier: {idTrain}</p>
+      
       <h2 className="text-gray-300 text-xl  ">Create plans trainee</h2>
       <label>
         <input
@@ -73,7 +79,10 @@ export default function createPlans() {
         create
       </button>
     </form>
-    <div></div>
+    <div className="row-span-2 col-span-2  m-auto">
+    
+     </div>
     </div>
   );
 }
+

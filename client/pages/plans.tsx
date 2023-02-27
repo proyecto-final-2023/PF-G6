@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CardPlans from "../components/CardPlans";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
-
+//mostrar los planes para los trainers
 type PlansType = {
   id: number;
   name: string;
@@ -14,6 +14,7 @@ type PlansType = {
 
 export default function plans() {
   const [plans, setPlans] = useState<PlansType[]>([]);
+  console.log(plans)
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
   );
@@ -63,6 +64,7 @@ export default function plans() {
         {plans.map((e) => (
           <CardPlans
             key={e.id}
+            idPlans={e.id}
             name={e.name}
             cost={e.cost}
             category={e.category}

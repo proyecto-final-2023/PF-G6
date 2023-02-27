@@ -13,13 +13,14 @@ CVV: 188
  */
 
 export default function PaypalButton(props: PaypalButtonProps) {
-  const { amountToPay, serviceName } = props;
+  const { amountToPay, serviceName,idPlans } = props;
+  
 
   const [succeeded, setSucceeded] = useState(false);
   const [orderID, setOrderID] = useState("");
   const [billingDetails, setBillingDetails] = useState("");
   const [paypalErrorMessage, setPaypalErrorMessage] = useState("");
-
+ 
   // creates a paypal order
   const createOrder = (data: any, actions: any) => {
     return actions.order
@@ -45,8 +46,20 @@ export default function PaypalButton(props: PaypalButtonProps) {
   // handles when a payment is confirmed by paypal
   const onApprove = (data: any, actions: any) => {
     return actions.order.capture().then(function (details: any) {
-      const { payer } = details;
-      setBillingDetails(payer);
+      const { id,status,update_time } = details;
+      const{payer_id}  = details.payer
+      const{value}  = details.purchase_units[0].amount
+
+      const data={
+        idPlans:idPlans,
+        id: id,
+        payerId:payer_id,
+        cost:value,
+        status:status,
+        time:update_time
+      }
+      console.log(data)
+      setBillingDetails(data);
       setSucceeded(true);
     });
   };
@@ -68,14 +81,15 @@ export default function PaypalButton(props: PaypalButtonProps) {
   }
 
   return (
-    <div className="w-10">
+    <div className=" flex flex-col w-40">
       <PayPalButtons
         style={{
+          height:25,
           color: "white",
-          shape: "pill",
-          label: "subscribe",
+          shape: "rect",
+          label: "paypal",
           tagline: false,
-          layout: "horizontal",
+          layout: "vertical",
         }}
         createOrder={createOrder}
         onApprove={onApprove}

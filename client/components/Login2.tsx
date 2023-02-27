@@ -6,11 +6,6 @@ import { useEffect } from "react";
 import Router from "next/router";
 import useStore from "@/store";
 
-
-
-
-
-
 export const Login2 = () => {
   
   const [user, setUser] = useAuthState(auth);
@@ -19,7 +14,7 @@ export const Login2 = () => {
     try {
       const result = await signInWithPopup(auth, facebookAuth);
       alert("Login Successful :D");
-      Router.push('/home')
+      Router.push('/home ')
      
       
     } catch (error) {
