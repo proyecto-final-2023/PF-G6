@@ -2,6 +2,7 @@ const {
   Membership,
   User,
   Plantrainer,
+  PlanTrainee,
   Logueo,
   Trainer,
   Voucher,
@@ -9,15 +10,19 @@ const {
 const moment = require("moment");
 
 const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
+  console.log("idUser", idUser, idPlan, idPago, cost, fechaPago);
+
   try {
     if (!idUser || !idPlan) {
       throw Error("Parametros Invalidos");
     }
     const userM = await User.findByPk(idUser);
     const planM = await Plantrainer.findByPk(idPlan);
+    // console.log(!planM2);
     if (!userM || !planM) {
       throw Error("Parametros Invalidos");
     }
+
     // Obtener la fecha actual
     const startDate = moment().format("YYYY-MM-DD");
     // Crear un objeto de fecha utilizando moment con la fecha actual.
@@ -33,6 +38,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
     // Obtener la fecha del siguiente mes en el formato deseado.
     const finishDate = finish.format("YYYY-MM-DD");
+
     const membership = await Membership.create({
       startDate,
       finishDate,

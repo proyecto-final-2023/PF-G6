@@ -10,22 +10,23 @@ module.exports = (sequelize) => {
         default: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      // type: {
-      //   type: DataTypes.ENUM("title", "certificate"),
-      //   allowNull: false,
-      // },
-      // name: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      // },
-      // url: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      // },
-      // description: {
-      //   type: DataTypes.STRING,
-      //   allowNull: false,
-      // },
+      type: {
+        // type: DataTypes.ENUM("title", "certificate"),
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     { timestamps: false }
   );
