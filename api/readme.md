@@ -5,7 +5,7 @@
 - _GET_ : **/activity** : NOT USE returns 50k activitys
 - _GET_ : **/activity?page={number}** : returns 10 activities, number of the page for backend pagination
 ###Usuario Bot
-- _GET_ : **/user/bot **: Crea un nuevo bot.
+- _GET_ : **/user/bot**: Crea un nuevo bot.
 Response 200 (application/json)
 Body
 
