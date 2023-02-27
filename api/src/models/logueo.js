@@ -8,7 +8,7 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       email: {
         type: DataTypes.STRING,
@@ -16,7 +16,6 @@ module.exports = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       verify: {
         type: DataTypes.BOOLEAN,
@@ -26,5 +25,3 @@ module.exports = (sequelize) => {
     { timestamps: false }
   );
 };
-
-

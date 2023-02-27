@@ -5,6 +5,7 @@ const {
   Voucher,
   PlanTrainee,
   Plantrainer,
+  Trainer,
 } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
@@ -38,6 +39,7 @@ const getId = async (id) => {
         model: Membership,
         attributes: ["id_membership", "startDate", "finishDate"],
         include: [
+          { model: Trainer },
           {
             model: Voucher,
             attributes: ["id_voucher", "date", "cost"],
@@ -57,7 +59,14 @@ const getListUser = async (page) => {
   try {
     const offset = (page - 1) * 10;
     const listUser = await User.findAll({
-      attributes: ["first_name", "last_name", "nickname", "role", "imgURL"],
+      attributes: [
+        "id",
+        "first_name",
+        "last_name",
+        "nickname",
+        "role",
+        "imgURL",
+      ],
       limit: 10,
       offset,
     });
