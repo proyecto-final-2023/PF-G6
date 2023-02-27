@@ -75,7 +75,7 @@ const getListUser = async (page) => {
     }
     return listUser;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
