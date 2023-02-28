@@ -35,9 +35,10 @@ alimentsRouter.get("/:id", async (req, res, next) => {
 
 alimentsRouter.get("/filter/:type/", async (req, res, next) => {
   try {
-    const { page, pageSize, min, max } = req.body;
+    const { page } = req.query;
+    const { min, max } = req.body;
     const { type } = req.params;
-    const aliFilter = await alimentFilter(type, page, pageSize, min, max);
+    const aliFilter = await alimentFilter(type, page, 10, min, max);
     res.status(200).json(aliFilter);
   } catch (error) {
     res.status(400).json({ error: error.message });

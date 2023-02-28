@@ -1,4 +1,5 @@
 const { Router } = require("express");
+const { idExtract } = require("../middlewares/verifySignUp");
 
 const {
   botUserAdd,
@@ -6,7 +7,9 @@ const {
   getListUser,
   userByName,
   setVerify,
+  getPerfil,
 } = require("../controllers/userController");
+const { token } = require("morgan");
 
 const userRoutes = Router();
 
@@ -45,7 +48,7 @@ userRoutes.get("/bot", async (req, res) => {
   }
 });
 
-userRoutes.get("/:id", async (req, res, next) => {
+userRoutes.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const user = await getId(id);
@@ -53,9 +56,16 @@ userRoutes.get("/:id", async (req, res, next) => {
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
-  // } catch (err) {
-  //   next(err);
-  // }
+});
+
+userRoutes.post("/perfil", async (req, res) => {
+  try {
+    const id = await idExtract(req.headers["x-access-token"]);
+    const user = await getPerfil(id);
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
 });
 
 module.exports = userRoutes;
