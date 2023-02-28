@@ -19,22 +19,28 @@ async function comparePassword(password, receivedPassword) {
 async function signUP(obj) {
   const { first_name, last_name, email, password } = obj;
   //se usa para crear un nuevo usuario
-  
+
   const exist = await Logueo.findOne({ where: { email: email } });
   if (exist) throw new Error("El usuario ya existe");
   const hashedPass = await encPassword(password);
+  let create;
+  let logueo;
 
-  const create = await User.create({
-    first_name,
-    last_name,
-    role: "user",
-  });
-
-  const logueo = await Logueo.create({
-    email: email,
-    password: hashedPass,
-    verify: false,
-  });
+  if (!!email && !!password) {
+    logueo = await Logueo.create({
+      email: email,
+      password: hashedPass,
+      verify: false,
+    });
+  }
+  if (!!logueo) {
+    create = await User.create({
+      first_name,
+      last_name,
+      role: "user",
+    });
+    console.log(create);
+  }
 
   await create.setLogueo(logueo);
 
@@ -54,8 +60,8 @@ async function signIn(email, password, extern) {
   const user = await Logueo.findOne({ where: { email: email } });
   if (!user) throw new Error("Usuario no existe");
   if (extern) {
-    return token(user.dataValues.userId)
-  };
+    return token(user.dataValues.userId);
+  }
   if (!user.dataValues.verify) throw new Error("Usuario no verificado"); //si el usuario no esta verificado no puede loguear
   const exist = await comparePassword(user.dataValues.password, password);
   if (!exist) throw new Error("usuario no existe o password incorrecto");
