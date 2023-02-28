@@ -53,24 +53,24 @@ export const Login2 = () => {
 
 
 
-  useEffect(() => {
-    const info = {
-      first_name: user?.displayName.split(" ")[0],
-      last_name: user?.displayName.split(" ")[1],
-      email: user?.email || email,
-      password:"941310",
-      authExtern: true
-    };
+  // useEffect(() => {
+  //   const info = {
+  //     first_name: user?.displayName.split(" ")[0],
+  //     last_name: user?.displayName.split(" ")[1],
+  //     email: user?.email || email,
+  //     password:"941310",
+  //     authExtern: true
+  //   };
 
-    console.log(info)
+  //   console.log(info)
   
-    if (info.first_name) {
-      axios.post("http://localhost:3001/createuser", info)
-        .then((data) => {
-          console.log(data);
-        });
-    }
-  }, [user, email]);
+  //   if (info.first_name) {
+  //     axios.post("http://localhost:3001/createuser", info)
+  //       .then((data) => {
+  //         console.log(data);
+  //       });
+  //   }
+  // }, [user, email]);
   
   
 

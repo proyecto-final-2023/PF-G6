@@ -39,7 +39,7 @@ async function signUP(obj) {
       last_name,
       role: "user",
     });
-    console.log(create);
+    // console.log(create);
   }
 
   await create.setLogueo(logueo);
