@@ -8,6 +8,7 @@ const {
   userByName,
   setVerify,
   getPerfil,
+  listEmail,
 } = require("../controllers/userController");
 const { token } = require("morgan");
 
@@ -53,6 +54,16 @@ userRoutes.get("/:id", async (req, res) => {
     const { id } = req.params;
     const user = await getId(id);
     res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+userRoutes.post("/email", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const verify = await listEmail(email);
+    res.status(200).json(verify);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
