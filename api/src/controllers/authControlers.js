@@ -17,8 +17,7 @@ async function comparePassword(password, receivedPassword) {
 }
 
 async function signUP(obj) {
-  const { first_name, last_name, nickname, email, password, role, imgURL } =
-    obj;
+  const { first_name, last_name, email, password } = obj;
   //se usa para crear un nuevo usuario
   const exist = await Logueo.findOne({ where: { email: email } });
   if (exist) throw new Error("El usuario ya existe");
@@ -27,9 +26,7 @@ async function signUP(obj) {
   const create = await User.create({
     first_name,
     last_name,
-    nickname,
     role: "user",
-    imgURL,
   });
 
   const logueo = await Logueo.create({
