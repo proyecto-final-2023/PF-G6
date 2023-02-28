@@ -22,12 +22,17 @@ module.exports = (sequelize) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
+      // userId: {
+      //   type: DataTypes.UUID,
+      //   allowNull: false,
+      //   // unique: true,
+      // },
     },
     {
       timestamps: false,
       uniqueKeys: {
         UserLogueo_unique: {
-          fields: ["id", "id_login"],
+          fields: ["userId", "id_login"],
         },
       },
     }
