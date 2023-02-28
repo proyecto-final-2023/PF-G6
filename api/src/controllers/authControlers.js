@@ -22,11 +22,12 @@ async function signUP(obj) {
 
   const exist = await Logueo.findOne({ where: { email: email } });
   if (exist) throw new Error("El usuario ya existe");
+
   const hashedPass = await encPassword(password);
   let create;
   let logueo;
 
-  if (!!email && !!password) {
+  if (!!email) {
     logueo = await Logueo.create({
       email: email,
       password: hashedPass,
@@ -39,7 +40,7 @@ async function signUP(obj) {
       last_name,
       role: "user",
     });
-    console.log(create);
+    // console.log(create);
   }
 
   await create.setLogueo(logueo);
