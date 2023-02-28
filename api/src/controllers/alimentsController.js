@@ -46,6 +46,8 @@ const alimentFilter = async (type, page, pageSize, min, max) => {
   if (min > max) {
     throw Error(`El valor maximo no pude ser menor al minimo`);
   }
+  if (!min) min = 0;
+  if (!max) max = 1000;
   if (
     type !== "proteinAmount" &&
     type !== "fatTransAmount" &&
