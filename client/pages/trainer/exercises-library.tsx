@@ -3,24 +3,15 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
-export type ResType = {
-  bodyPart: string;
-  equipement: string;
-  gifUrl: string;
-  id: number;
-  name: string;
-  target: string;
-};
-
 export default function ExercisesLibrary() {
-  const [rndExercises, setRndExercises] = useState<ResType[]>([]);
+  const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(
-          `http://localhost:3001/activity/filter/target/pectorals?page=${currentPage}`
+        const { data } = await axios(
+          `${process.env.NEXT_PUBLIC_API_URL}/activity?page=${currentPage}`
         );
         setRndExercises(data);
       } catch (error) {
