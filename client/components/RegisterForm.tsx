@@ -11,6 +11,10 @@ import Image from "next/image";
 import logoImg from "@/assets/images/placeholder-logo.png";
 
 import Link from "next/dist/client/link"
+import { auth } from "../firebase";
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
+
 
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function RegisterForm() {
@@ -21,7 +25,8 @@ export default function RegisterForm() {
     formState: { errors },
   } = useForm<InputData>({ mode: "onBlur" });
   // console.log(watch("example"));
-
+  const [user, setUser] = useAuthState(auth);
+  console.log(user)
   const onSubmit: SubmitHandler<InputData> = async (data) => {
     console.log("SUBMIT", data);
     data.imgURL="";
@@ -119,7 +124,7 @@ export default function RegisterForm() {
         err={errors.email}
         {...{ register }}
       /> */}
-
+{/* 
       <SelectInput
         {...{ register }}
         label="Select your role: "
@@ -127,7 +132,7 @@ export default function RegisterForm() {
         selectOptions={["trainee", "trainer"]}
         options={{ required: false }}
         err={errors.role}
-      />
+      /> */}
 
       {/* <SelectInput
         {...{ register }}
