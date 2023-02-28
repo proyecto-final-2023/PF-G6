@@ -18,25 +18,18 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
     }
     const userM = await User.findByPk(idUser);
     const planM = await Plantrainer.findByPk(idPlan);
-    // console.log(!planM2);
     if (!userM || !planM) {
       throw Error("Parametros Invalidos");
     }
 
-    // Obtener la fecha actual
     const startDate = moment().format("YYYY-MM-DD");
-    // Crear un objeto de fecha utilizando moment con la fecha actual.
     const start = moment(startDate);
-    // Agregar un mes a la fecha actual.
     const finish = start.add(1, "month");
 
-    // Si el mes actual es diciembre, cambiar el año a siguiente año.
     if (start.month() === 11) {
-      // Diciembre tiene índice 11 en moment.
       finish.add(1, "year");
     }
 
-    // Obtener la fecha del siguiente mes en el formato deseado.
     const finishDate = finish.format("YYYY-MM-DD");
 
     const membership = await Membership.create({
@@ -90,8 +83,7 @@ const getMembership = async (id) => {
     ],
   });
   if (!dataValues) throw new Error("Membresia inexistente");
-  // //Modificar el valor del campo role del objeto user
-  // dataValues.user.role = "Trainer";
+
 
   return dataValues;
 };

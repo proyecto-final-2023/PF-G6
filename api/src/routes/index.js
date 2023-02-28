@@ -20,16 +20,16 @@ const indexRouter = Router();
 
 // Configurar los routers
 indexRouter.use(errorHandler);
-indexRouter.use("/base", verifyToken, baseRouter);
+indexRouter.use("/base", verifyToken, baseRouter);// check
+indexRouter.use("/user", userRoutes); // check
 indexRouter.use("/activity", activityRouter);
 indexRouter.use("/aliment", alimentRouter);
-indexRouter.use("/user", userRoutes);
 indexRouter.use("/auth", authRoutes);
 indexRouter.use("/createuser", createUserRoutes);
 indexRouter.use("/contact", contactRoutes);
 indexRouter.use("/plans/trainers", plansRouter);
 indexRouter.use("/plans/trainee", plansTraineeRouter);
 indexRouter.use("/membership", membership);
-indexRouter.use("/trainers", trainers);
+indexRouter.use("/trainers", trainers);// check
 
 module.exports = indexRouter;

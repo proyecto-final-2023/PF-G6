@@ -13,6 +13,33 @@ const config = require("../../config");
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
 
+const getPerfil = async (id) => {
+  if (!id) throw new Error("Debe ingresar una ID válida");
+
+  const dataValues = await User.findByPk(id, {
+    attributes: ["id", "first_name", "last_name", "nickname", "role"],
+    include: [
+      { model: Logueo },
+      {
+        model: Membership,
+        attributes: ["id_membership", "startDate", "finishDate"],
+        include: [
+          { model: Trainer },
+          {
+            model: Voucher,
+            attributes: ["id_voucher", "date", "cost"],
+          },
+          { model: Plantrainer },
+          { model: PlanTrainee },
+        ],
+      },
+    ],
+  });
+  if (!dataValues) throw new Error("Usuario inexistente");
+
+  return dataValues;
+};
+
 const botUserAdd = async () => {
   try {
     const userx = await generateBot(); //GENERA UN BOT
@@ -33,19 +60,30 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "nickname", "role"],
     include: [
-      { model: Logueo },
+      {
+        model: Logueo,
+        attributes: ["email"],
+      },
       {
         model: Membership,
-        attributes: ["id_membership", "startDate", "finishDate"],
+        attributes: {
+          exclude: [
+            "id_membership",
+            "startDate",
+            "finishDate",
+            "userId",
+            "plantrainerIdPlanTrainer",
+            "planTraineeIdPlanTrainee",
+          ],
+        },
         include: [
-          { model: Trainer },
           {
-            model: Voucher,
-            attributes: ["id_voucher", "date", "cost"],
+            model: Trainer,
+            attributes: ["logo"],
+            include: [{ model: PlanTrainee }],
           },
-          { model: Plantrainer },
-          { model: PlanTrainee },
         ],
       },
     ],
@@ -129,4 +167,5 @@ module.exports = {
   getListUser,
   userByName,
   setVerify,
+  getPerfil,
 };
