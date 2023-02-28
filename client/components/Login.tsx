@@ -8,6 +8,7 @@ import Router from "next/router";
 import axios from 'axios'
 import { setCookie } from "@/utils/cookieHandler";
 import Modal from "react-modal";
+import { getDisplayName } from "next/dist/shared/lib/utils";
 
 
 interface UserInfo {
@@ -81,11 +82,12 @@ try {
   }
 
   useEffect(() => {
+
     const info = {
       first_name: user?.displayName.split(" ")[0],
       last_name: user?.displayName.split(" ")[1],
       email: user?.email || email,
-      authExtern: true
+      password:user?.email||email,
     };
   
     if (info.first_name) {
@@ -94,7 +96,7 @@ try {
           console.log(data);
         });
     }
-  }, [user, email]);
+  }, [user?.displayName]);
   
   
 
