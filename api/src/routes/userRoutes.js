@@ -1,6 +1,5 @@
 const { Router } = require("express");
 
-
 const {
   botUserAdd,
   getId,
@@ -9,17 +8,16 @@ const {
   setVerify,
 } = require("../controllers/userController");
 
-
 const userRoutes = Router();
 
 userRoutes.get("/", async (req, res) => {
-  const { name } = req.query;
+  const { name, page } = req.query;
   try {
     if (name) {
-      userQuery = await userByName(name);
+      userQuery = await userByName(name, page, 10);
       res.status(200).json(userQuery);
     } else {
-      const listUser = await getListUser();
+      const listUser = await getListUser(page);
       res.status(200).json(listUser);
     }
   } catch (error) {
@@ -29,10 +27,10 @@ userRoutes.get("/", async (req, res) => {
 
 //ruta para confirmar el mail
 userRoutes.get("/confirm/:token", async (req, res) => {
-  const {token}= req.params;
-  const result=setVerify(token)
+  const { token } = req.params;
+  const result = setVerify(token);
   try {
-    res.status(200).send('E mail confirmado');
+    res.status(200).send("E mail confirmado");
   } catch (error) {
     res.status(400).send({ error: error.message });
   }

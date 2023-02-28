@@ -40,8 +40,11 @@ const exercicesFilter = async (type, parameter, pageSize, page) => {
   return activityFil;
 };
 
-const activityByName = async (name) => {
+const activityByName = async (name, page) => {
+  const offset = (page - 1) * 10;
   const antivity = await Activity.findAll({
+    limit: 10,
+    offset,
     where: {
       name: { [Op.iLike]: `%${name}%` },
     },
