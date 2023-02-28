@@ -23,6 +23,7 @@ export default function Navbar() {
   const [user, setUser] = useAuthState(auth);
   // const photo=user?.photoURL
   const name = user?.displayName;
+  const photo=user?.photoURL
 
   // console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
@@ -120,7 +121,7 @@ export default function Navbar() {
 
           {user && <li className="m-5">Hello {name}</li>}
           <HoverLi
-            imgUrl={userImg}
+            imgUrl={photo||userImg}
             text="user"
             href="/"
             isHover={hovers.user}

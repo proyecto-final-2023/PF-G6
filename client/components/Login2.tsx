@@ -12,6 +12,10 @@ import Modal from "react-modal";
 interface UserInfo {
   email: string | null;
   authExtern: boolean;
+  user:{
+    email:string|null;
+    displayName:string|null;
+  }
 }
 
 export const Login2 = () => {

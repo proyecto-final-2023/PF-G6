@@ -85,7 +85,6 @@ try {
       first_name: user?.displayName.split(" ")[0],
       last_name: user?.displayName.split(" ")[1],
       email: user?.email || email,
-      password:"941310",
       authExtern: true
     };
   
