@@ -8,13 +8,14 @@ const membershipRouter = Router();
 
 membershipRouter.post("/", async (req, res) => {
   try {
-    const { idPlan, status, idPago, cost, fechaPago } = req.body;
-    const idUser = await idExtract(req.headers["x-access-token"]);
+    const { idPlan, status, idPago, cost, fechaPago, token } = req.body;
+    console.log('token'+token)
+    const idUser = await idExtract(token);
     if (status === "COMPLETED") {
       res
         .status(200)
         .send(
-          await generateMembership(idUser, idPlan, idPago, cost, fechaPago)
+          await generateMembership(idUser, idPlan, idPago, cost, fechaPago,token)
         );
     } else {
       res.status(404).send("El pago no a sido completado");

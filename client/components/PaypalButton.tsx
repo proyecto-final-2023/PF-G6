@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { PaypalButtonProps } from "@/types/components";
+import { useRouter } from "next/router";
 import axios from "axios";
 
 /**
@@ -14,12 +15,14 @@ CVV: 188
  */
 
 export default function PaypalButton(props: PaypalButtonProps) {
+  const router = useRouter();
   const { amountToPay, serviceName,idPlans } = props;
   const key=document.cookie.split(' ')[1].split('=')[1]
   console.log(key)
   const headers = {
-    'x-access-token': 'key',
+    'x-access-token': key
   };
+
 
   const [succeeded, setSucceeded] = useState(false);
   const [orderID, setOrderID] = useState("");
@@ -50,25 +53,28 @@ export default function PaypalButton(props: PaypalButtonProps) {
 
   // handles when a payment is confirmed by paypal
   const onApprove = (data: any, actions: any) => {
-    return actions.order.capture().then(function (details: any) {
-      const { id,status,update_time } = details;
+    return actions.order.capture().then(function (details: string) {
+      const { status,update_time } = details;
       const{payer_id}  = details.payer
       const{value}  = details.purchase_units[0].amount
 
       const data={
-        
         idPlan:idPlans,
         idPago:payer_id,
-        cost:value,
+        cost:Number(value),
         status:status,
         fechaPago:update_time
-      }
+      } 
       //datos 
-      
+      console.log(data)
         try {
           axios.post("http://localhost:3001/membership", data,{headers})
           .then((res) => {
             console.log(res);
+            console.log(res.data);
+            if(res.status===200) router.push("/trainer");
+
+            
           });
         } catch (error) {
           console.log(error);
