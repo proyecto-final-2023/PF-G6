@@ -3,7 +3,7 @@ import NavigationBtns from "../trainterLibraries/NavigationBtns";
 import PlansContainer from "./PlansContainer";
 import UserContainer from "./UserContainer";
 
-export default function Menu() {
+export default function GridContainer() {
   const [page, setPage] = useState(1);
 
   const nextPage = () => {
