@@ -5,7 +5,7 @@ export default function UserContainer(props: UserContainerProps) {
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-      <h1>USER CAONTEINRS</h1>
+      <h1>USER CONTAINER</h1>
     </div>
   );
 }

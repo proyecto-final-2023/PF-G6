@@ -30,7 +30,7 @@ Chart.register(
   Filler
 );
 
-const scores = [100, 200, 300, 400];
+const scores = [100, 200, 300, 400, 500, 600];
 const labels = ["uno", "dos", "tres"];
 
 function GraficUTT() {
@@ -45,6 +45,10 @@ function GraficUTT() {
             "rgba(54, 162, 235, 0.6)",
             "rgba(255, 206, 86, 0.6)",
             "rgba(75, 192, 192, 0.6)",
+            "rgba(0, 0, 255, 0.6)",
+            "rgba(127, 255, 0, 0.6)",
+            "rgba(255, 0, 255, 0.6)",
+            "rgba(0, 128, 128, 0.6)",
           ],
         },
       ],
