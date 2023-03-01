@@ -8,23 +8,28 @@ module.exports = (sequelize) => {
         type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
-        primaryKey: true
+        primaryKey: true,
       },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       verify: {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
       },
     },
-    { timestamps: false }
+    {
+      timestamps: false,
+      uniqueKeys: {
+        UserLogueo_unique: {
+          fields: ["userId", "id_login"],
+        },
+      },
+    }
   );
 };
-
-

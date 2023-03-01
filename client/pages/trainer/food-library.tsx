@@ -1,21 +1,21 @@
 import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
-import { ExerciesResType } from "@/types/components/libraries";
+import { FoodResType } from "@/types/components/libraries";
 import axios from "axios";
-import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { FaHamburger } from "react-icons/fa";
 
-export default function ExercisesLibrary() {
-  const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
+export default function FoodLibrary() {
+  const [foods, setFoods] = useState<FoodResType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const { data } = await axios(
-          `${process.env.NEXT_PUBLIC_API_URL}/activity?page=${currentPage}`
+          `${process.env.NEXT_PUBLIC_API_URL}/aliment?page=${currentPage}`
         );
-        setRndExercises(data);
+        setFoods(data);
       } catch (error) {
         console.error(error);
       }
@@ -38,24 +38,19 @@ export default function ExercisesLibrary() {
         {...{ currentPage }}
         {...{ prevPage }}
         {...{ nextPage }}
-        length={rndExercises.length}
+        length={foods.length}
       />
 
       <div className="flex flex-wrap gap-20">
-        {rndExercises.slice(0, 30).map((ex) => (
+        {foods.slice(0, 30).map((food) => (
           <Link
-            href={"/trainer/exercise/" + ex.id}
+            href={"/trainer/food/" + food.id}
             replace
-            key={ex.id}
+            key={food.id}
             className="w-1/4 rounded-sm bg-slate-500"
           >
-            <p>Body part {ex.bodyPart}</p>
-            <Image
-              src={ex.gifUrl || ""}
-              alt="missin img"
-              width={300}
-              height={300}
-            />
+            <p>{food.description}</p>
+            <FaHamburger />
           </Link>
         ))}
       </div>
@@ -64,7 +59,7 @@ export default function ExercisesLibrary() {
         {...{ currentPage }}
         {...{ prevPage }}
         {...{ nextPage }}
-        length={rndExercises.length}
+        length={foods.length}
       />
     </div>
   );

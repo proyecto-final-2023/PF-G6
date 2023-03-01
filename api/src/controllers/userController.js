@@ -5,12 +5,40 @@ const {
   Voucher,
   PlanTrainee,
   Plantrainer,
+  Trainer,
 } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
+
+const getPerfil = async (id) => {
+  if (!id) throw new Error("Debe ingresar una ID válida");
+
+  const dataValues = await User.findByPk(id, {
+    attributes: ["id", "first_name", "last_name", "nickname", "role"],
+    include: [
+      { model: Logueo },
+      {
+        model: Membership,
+        attributes: ["id_membership", "startDate", "finishDate"],
+        include: [
+          { model: Trainer },
+          {
+            model: Voucher,
+            attributes: ["id_voucher", "date", "cost"],
+          },
+          { model: Plantrainer },
+          { model: PlanTrainee },
+        ],
+      },
+    ],
+  });
+  if (!dataValues) throw new Error("Usuario inexistente");
+
+  return dataValues;
+};
 
 const botUserAdd = async () => {
   try {
@@ -32,18 +60,30 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "nickname", "role"],
     include: [
-      { model: Logueo },
+      {
+        model: Logueo,
+        attributes: ["email"],
+      },
       {
         model: Membership,
-        attributes: ["id_membership", "startDate", "finishDate"],
+        attributes: {
+          exclude: [
+            "id_membership",
+            "startDate",
+            "finishDate",
+            "userId",
+            "plantrainerIdPlanTrainer",
+            "planTraineeIdPlanTrainee",
+          ],
+        },
         include: [
           {
-            model: Voucher,
-            attributes: ["id_voucher", "date", "cost"],
+            model: Trainer,
+            attributes: ["logo"],
+            include: [{ model: PlanTrainee }],
           },
-          { model: Plantrainer },
-          { model: PlanTrainee },
         ],
       },
     ],
@@ -57,7 +97,14 @@ const getListUser = async (page) => {
   try {
     const offset = (page - 1) * 10;
     const listUser = await User.findAll({
-      attributes: ["first_name", "last_name", "nickname", "role", "imgURL"],
+      attributes: [
+        "id",
+        "first_name",
+        "last_name",
+        "nickname",
+        "role",
+        "imgURL",
+      ],
       limit: 10,
       offset,
     });
@@ -66,7 +113,7 @@ const getListUser = async (page) => {
     }
     return listUser;
   } catch (error) {
-    throw error;
+    return error;
   }
 };
 
@@ -115,10 +162,29 @@ const setVerify = async (token) => {
     return result;
   }
 };
+
+const listEmail = async (email) => {
+  try {
+    const listUser = await Logueo.findAll({
+      where: {
+        email: email,
+      },
+    });
+    if (!!listUser.length) {
+      return { true: true };
+    } else {
+      return { false: false };
+    }
+  } catch (error) {
+    return error;
+  }
+};
 module.exports = {
   botUserAdd,
   getId,
   getListUser,
   userByName,
   setVerify,
+  getPerfil,
+  listEmail,
 };
