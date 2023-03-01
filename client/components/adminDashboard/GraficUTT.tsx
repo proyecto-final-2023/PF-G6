@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import Chart from 'chart.js/auto';
-import {Doughnut} from 'react-chartjs-2';
+import Chart from "chart.js/auto";
+import { Doughnut } from "react-chartjs-2";
 
 import {
   DoughnutController,
@@ -15,8 +15,6 @@ import {
   Filler,
 } from "chart.js";
 
-
-
 Chart.register(
   DoughnutController,
   ArcElement,
@@ -29,16 +27,15 @@ Chart.register(
   CategoryScale,
   Filler
 );
+const nombres = ["besuvio", "cortijo", "perenne"]
 
-const scores = [100, 200, 300, 400, 500, 600];
-const labels = ["uno", "dos", "tres"];
-
-function GraficUTT() {
+function GraficUTT(props:any) {
+  const {labels, scores, label}= props;
   const data = useMemo(
     () => ({
       datasets: [
         {
-          label: 'mis datos',
+          label: label,
           data: scores,
           backgroundColor: [
             "rgba(255, 99, 132, 0.6)",
@@ -53,14 +50,17 @@ function GraficUTT() {
         },
       ],
       labels,
-     
     }),
-    [labels, scores]
+    [labels, scores, nombres]
   );
 
   return (
     <div>
-      <Doughnut data={data} options={{ responsive: true }} className="inline-block w-1/3 p-4"/>
+      <Doughnut
+        data={data}
+        options={{ responsive: true }}
+        className="inline-block w-1/3 p-4"
+      />
     </div>
   );
 }
