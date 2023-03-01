@@ -170,9 +170,9 @@ const listEmail = async (email) => {
       },
     });
     if (!!listUser.length) {
-      return { true: true };
+      return { verify: true };
     } else {
-      return { false: false };
+      return { verify: false };
     }
   } catch (error) {
     return error;

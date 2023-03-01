@@ -5,22 +5,23 @@ const {
   PlanTrainee,
   Logueo,
   Trainer,
+  Trainee,
   Voucher,
 } = require("../db");
 const moment = require("moment");
 
 const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
-  console.log("idUser", idUser, idPlan, idPago, cost, fechaPago);
-
   try {
     if (!idUser || !idPlan) {
       throw Error("Parametros Invalidos");
     }
     const userM = await User.findByPk(idUser);
     const planM = await Plantrainer.findByPk(idPlan);
-    if (!userM || !planM) {
-      throw Error("Parametros Invalidos");
-    }
+    const planM2 = await PlanTrainee.findByPk(idPlan);
+
+    // if (!userM || !planM) {
+    //   throw Error("Parametros Invalidos");
+    // }
 
     const startDate = moment().format("YYYY-MM-DD");
     const start = moment(startDate);
@@ -32,30 +33,54 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
     const finishDate = finish.format("YYYY-MM-DD");
 
-    const membership = await Membership.create({
-      startDate,
-      finishDate,
-      userId: userM.id,
-    });
+    if (planM) {
+      const membership = await Membership.create({
+        startDate,
+        finishDate,
+        userId: userM.id,
+      });
 
-    await membership.setUser(idUser);
-    await membership.setPlantrainer(idPlan);
+      await membership.setUser(idUser);
+      await membership.setPlantrainer(idPlan);
 
-    console.log("x", membership.id_membership);
-    const trainerM = await Trainer.create({});
-    await trainerM.setMembership(membership.id_membership);
-    console.log(trainerM);
-    userM.role = "trainer";
-    await userM.save();
+      const trainerM = await Trainer.create({});
+      await trainerM.setMembership(membership.id_membership);
+      userM.role = "trainer";
+      await userM.save();
 
-    const voucher = await Voucher.create({
-      id_voucher: idPago,
-      date: fechaPago,
-      cost: cost,
-    });
-    await membership.setVoucher(voucher);
+      const voucher = await Voucher.create({
+        id_voucher: idPago,
+        date: fechaPago,
+        cost: cost,
+      });
+      await membership.setVoucher(voucher);
+      return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM.name}`;
+    }
 
-    return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM.name}`;
+    if (planM2) {
+      const membership = await Membership.create({
+        startDate,
+        finishDate,
+        userId: userM.id,
+      });
+
+      await membership.setUser(idUser);
+      await membership.setPlanTrainee(idPlan);
+
+      const trainerM = await Trainee.create({});
+      await trainerM.setMembership(membership.id_membership);
+
+      userM.role = "trainee";
+      await userM.save();
+
+      const voucher = await Voucher.create({
+        id_voucher: idPago,
+        date: fechaPago,
+        cost: cost,
+      });
+      await membership.setVoucher(voucher);
+      return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM2.name}`;
+    }
   } catch (error) {
     const userM = await User.findByPk(idUser);
     if (error.name === "SequelizeUniqueConstraintError") {
@@ -83,7 +108,6 @@ const getMembership = async (id) => {
     ],
   });
   if (!dataValues) throw new Error("Membresia inexistente");
-
 
   return dataValues;
 };
