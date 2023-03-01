@@ -18,11 +18,7 @@ export default function App(props: { res: string }) {
   };
 
   const testPost = async () => {
-    const { data: res } = (await axios.post(
-      url,
-      { name: "joe" },
-      {
-        headers: {
+    const { data: res } = (await axios.post( url,{ name: "joe" },{headers: {
           "x-access-token": token,
         },
       }

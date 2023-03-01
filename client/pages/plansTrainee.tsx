@@ -35,7 +35,7 @@ export default function plansTrainee() {
       .catch((error) => console.log(error));
   }, []);
   // plans
-  console.log(plans.map(e=>e.membership));
+//   console.log(plans.map(e=>e.membership));
   return (
     <div>
       <header className="plan">

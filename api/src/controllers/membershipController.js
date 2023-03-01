@@ -25,15 +25,14 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
     const startDate = moment().format("YYYY-MM-DD");
     const start = moment(startDate);
-    const finish = start.add(1, "month");
 
     if (start.month() === 11) {
-      finish.add(1, "year");
+      finishTrainer.add(1, "year");
     }
 
-    const finishDate = finish.format("YYYY-MM-DD");
-
     if (planM) {
+      const finishTrainer = start.add(1, "month");
+      const finishDate = finishTrainer.format("YYYY-MM-DD");
       const membership = await Membership.create({
         startDate,
         finishDate,
@@ -58,6 +57,9 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
     }
 
     if (planM2) {
+      const finishTrainee = start.add(7, "day");
+      const finishDate = finishTrainee.format("YYYY-MM-DD");
+      console.log("trainee", finishDate);
       const membership = await Membership.create({
         startDate,
         finishDate,
