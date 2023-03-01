@@ -1,5 +1,8 @@
 import { User } from "@/types/components/dashboard";
 
-export default function UserCard(props: User) {
-  return <div>UserCard</div>;
+// export default function UserCard(props: User) {
+export default function UserCard() {
+  return (
+    <button onClick={() => console.log("User Card clicked")}>UserCard</button>
+  );
 }

@@ -1,5 +1,5 @@
 import { Plan } from "@/types/components/dashboard";
 
 export default function PlansCard(props: Plan) {
-  return <div>PlansCard :D</div>;
+  <button onClick={() => console.log("Plans Card clicked")}>UserCard</button>;
 }
