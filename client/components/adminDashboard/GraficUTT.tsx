@@ -59,7 +59,7 @@ function GraficUTT(props:any) {
       <Doughnut
         data={data}
         options={{ responsive: true }}
-        className="inline-block w-1/3 p-4"
+        
       />
     </div>
   );

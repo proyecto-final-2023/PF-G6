@@ -1,12 +1,12 @@
 import MenuContainer from "@/components/adminDashboard/MenuContainer";
-import GrapContainer from "@/components/adminDashboard/GrapContainer";
+import GraphContainer from "@/components/adminDashboard/GraphContainer";
 import OptionMenu from "@/components/adminDashboard/OptionMenu";
 
 
 export default function AdminIndex() {
   return (
     <div>
-      <GrapContainer />
+      <GraphContainer />
       <OptionMenu />
       <MenuContainer />
     </div>
