@@ -17,9 +17,9 @@ export default function MenuContainer() {
     }
 
     // reset on unmount
-    return () => {
-      mountRef.current = false;
-    };
+    // return () => {
+    //   mountRef.current = false;
+    // };
   }, []);
 
   if (menuOption === "plan")
