@@ -2,6 +2,10 @@ const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const { User } = require("../db");
 
+const idExtract = async (token) => {
+  return await jwt.verify(token, config.SECRET).id;
+};
+
 //verifica que tenga token, usada para rutas de guest
 
 const verifyToken = async (req, res, next) => {
@@ -55,4 +59,10 @@ const verifyAdmin = async (req, res, next) => {
   else return res.status(403).json({ message: "rol no permitido" });
 };
 
-module.exports = { verifyToken, verifyTrainer, verifyTrainee, verifyAdmin };
+module.exports = {
+  verifyToken,
+  verifyTrainer,
+  verifyTrainee,
+  verifyAdmin,
+  idExtract,
+};

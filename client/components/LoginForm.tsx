@@ -9,13 +9,8 @@ import { setCookie } from "@/utils/cookieHandler";
 export default function FormularioLogin() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    nick_name: "",
     email: "",
     password: "",
-    rol: "",
-    imgURL: "",
     authExtern: false,
   });
 

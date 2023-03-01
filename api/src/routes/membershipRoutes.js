@@ -3,12 +3,13 @@ const {
   generateMembership,
   getMembership,
 } = require("../controllers/membershipController");
-
+const { idExtract } = require("../middlewares/verifySignUp");
 const membershipRouter = Router();
 
 membershipRouter.post("/", async (req, res) => {
-  const { idUser, idPlan, status, idPago, cost, fechaPago } = req.body;
   try {
+    const { idPlan, status, idPago, cost, fechaPago } = req.body;
+    const idUser = await idExtract(req.headers["x-access-token"]);
     if (status === "COMPLETED") {
       res
         .status(200)

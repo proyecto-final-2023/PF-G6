@@ -1,7 +1,7 @@
+import { FoodResType } from "@/types/components/libraries";
 import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { FoodResType } from "../food-library";
 
 export default function FoodDetails() {
   const router = useRouter();
@@ -11,7 +11,7 @@ export default function FoodDetails() {
   const [foodData, setFoodData] = useState<FoodResType>();
 
   const goBackHandler = () => {
-    router.replace("/trainer/exercises-library");
+    router.replace("/trainer/food-library");
   };
 
   useEffect(() => {

@@ -12,7 +12,7 @@ activityRouter.get("/", async (req, res) => {
   const { name, page } = req.query;
   try {
     if (name) {
-      activitiesQuery = await activityByName(name);
+      activitiesQuery = await activityByName(name, page);
       res.status(200).json(activitiesQuery);
     } else {
       const listActivities = await getListActivities(page, 10);

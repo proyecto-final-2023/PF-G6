@@ -4,9 +4,9 @@ const { listTrainers } = require("../controllers/trainersController");
 const trainerRouter = Router();
 
 trainerRouter.get("/", async (req, res) => {
-  const { page, limit } = req.body;
+  const { page } = req.query;
   try {
-    res.status(200).send(await listTrainers(page, limit));
+    res.status(200).send(await listTrainers(page, 10));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
