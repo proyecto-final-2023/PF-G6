@@ -12,7 +12,7 @@ const similatedData: BasicInfo = {
   imgURL: "missing img",
 };
 
-type Details = {
+export type Details = {
   first_name: string;
   last_name: string;
   nickname: string;
@@ -20,7 +20,7 @@ type Details = {
   removeHandler: () => void;
 };
 
-const similatedDataDetails: Details = {
+export const similatedDataDetails: Details = {
   first_name: "John",
   last_name: "Doe",
   nickname: "Johnny bravo",
