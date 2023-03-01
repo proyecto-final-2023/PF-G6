@@ -19,8 +19,22 @@ export default function GridContainer() {
   return (
     <div className="w-4/5 mx-[10%]">
       <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
-      {someIf ? <PlansContainer /> : <UserContainer />}
-      <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
+      <div className="my-6">
+        {someIf ? (
+          <div className="grid gap-x-2 gap-y-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+            <PlansContainer />
+          </div>
+        ) : (
+          <div className="grid gap-x-2 gap-y-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+            <UserContainer />
+          </div>
+        )}
+        <NavigationBtns
+          currentPage={page}
+          {...{ nextPage }}
+          {...{ prevPage }}
+        />
+      </div>
     </div>
   );
 }
