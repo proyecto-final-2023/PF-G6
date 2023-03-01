@@ -8,6 +8,7 @@ const {
   userByName,
   setVerify,
   getPerfil,
+  listEmail,
 } = require("../controllers/userController");
 const { token } = require("morgan");
 
@@ -58,9 +59,22 @@ userRoutes.get("/:id", async (req, res) => {
   }
 });
 
+userRoutes.post("/email", async (req, res) => {
+  const { email } = req.body;
+  try {
+    const verify = await listEmail(email);
+    res.status(200).json(verify);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 userRoutes.post("/perfil", async (req, res) => {
   try {
+    const token = req.headers["x-access-token"];
+    console.log(token);
     const id = await idExtract(req.headers["x-access-token"]);
+
     const user = await getPerfil(id);
     res.status(200).json(user);
   } catch (error) {
