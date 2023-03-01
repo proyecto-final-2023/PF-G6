@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavigationBtns from "../trainterLibraries/NavigationBtns";
-import PlansContainer from "./PlansContainer";
+import PlanContainer from "./PlanContainer";
 import UserContainer from "./UserContainer";
 
 export default function GridContainer() {
@@ -22,7 +22,7 @@ export default function GridContainer() {
       <div className="my-6">
         {someIf ? (
           <div className="grid gap-x-2 gap-y-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-            <PlansContainer />
+            <PlanContainer />
           </div>
         ) : (
           <div className="grid gap-x-2 gap-y-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
