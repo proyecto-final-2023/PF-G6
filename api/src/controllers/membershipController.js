@@ -33,7 +33,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
     }
 
     if (planM) {
-      const finishDate = finish.format("YYYY-MM-DD");
+      const finishDate = finishTrainer.format("YYYY-MM-DD");
       const membership = await Membership.create({
         startDate,
         finishDate,
