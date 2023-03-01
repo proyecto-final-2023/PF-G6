@@ -27,10 +27,10 @@ Chart.register(
   CategoryScale,
   Filler
 );
-const nombres = ["besuvio", "cortijo", "perenne"]
+const nombres = ["besuvio", "cortijo", "perenne"];
 
-function GraficUTT(props:any) {
-  const {labels, scores, label}= props;
+function GraficUTT(props: any) {
+  const { labels, scores, label } = props;
   const data = useMemo(
     () => ({
       datasets: [
@@ -55,8 +55,8 @@ function GraficUTT(props:any) {
   );
 
   return (
-    <div>
-      <Doughnut
+    <div className=""> 
+        <Doughnut
         data={data}
         options={{ responsive: true }}
         

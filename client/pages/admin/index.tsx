@@ -1,14 +1,12 @@
-import MenuContainer from "@/components/adminDashboard/MenuContainer";
 import GraphContainer from "@/components/adminDashboard/GraphContainer";
-import OptionMenu from "@/components/adminDashboard/OptionMenu";
-
+import GridContainer from "@/components/adminDashboard/GridContainer";
 
 export default function AdminIndex() {
   return (
     <div>
       <GraphContainer />
-      <OptionMenu />
-      <MenuContainer />
+      {/* has user/plans grid & next prev btns */}
+      <GridContainer />
     </div>
   );
 }

@@ -3,17 +3,13 @@
 export type Plan = {
   id: number;
   name: string;
+  price: number;
 };
 
 export type PlanDetails = Plan & {
   duration: number;
-  price: number;
   description: string;
-};
-
-export type PlanContainerProps = {
-  plan: Plan;
-  changeDetails: (id: number) => void;
+  changePlanDetails: (id: number) => void;
   deletePlan: (id: number) => void;
   updatePlan: (id: number, data: Plan) => void;
 };
@@ -30,11 +26,7 @@ export type UserDetails = User & {
   last_name: string;
   email: string;
   nickname: string | null;
-};
-
-export type UserContainerProps = {
-  user: User;
-  changeDetails: (id: number) => void;
+  changeUserDetails: (id: number) => void;
   deleteUser: (id: number) => void;
   updateUser: (id: number, data: User) => void;
 };
