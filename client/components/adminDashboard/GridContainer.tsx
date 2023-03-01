@@ -17,7 +17,7 @@ export default function GridContainer() {
   const someIf = true;
 
   return (
-    <div>
+    <div className="w-4/5 mx-[10%]">
       <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
       {someIf ? <PlansContainer /> : <UserContainer />}
       <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
