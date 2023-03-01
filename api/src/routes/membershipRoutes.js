@@ -3,15 +3,13 @@ const {
   generateMembership,
   getMembership,
 } = require("../controllers/membershipController");
-const jwt = require("jsonwebtoken");
-const config = require("../../config");
+const { idExtract } = require("../middlewares/verifySignUp");
 const membershipRouter = Router();
 
 membershipRouter.post("/", async (req, res) => {
   try {
     const { idPlan, status, idPago, cost, fechaPago } = req.body;
-    const token = req.headers["x-access-token"];
-    const idUser = jwt.verify(token, config.SECRET).id;
+    const idUser = await idExtract(req.headers["x-access-token"]);
     if (status === "COMPLETED") {
       res
         .status(200)

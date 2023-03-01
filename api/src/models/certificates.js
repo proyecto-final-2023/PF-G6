@@ -11,7 +11,6 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       type: {
-        // type: DataTypes.ENUM("title", "certificate"),
         type: DataTypes.STRING,
         allowNull: false,
       },
