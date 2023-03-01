@@ -17,7 +17,7 @@ export default function FormularioLogin() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, formData)
+      .post(`http://localhost:3001/auth`, formData)
       .then((data) => {
         setCookie("token", data.data.token);
         router.push("/home");
