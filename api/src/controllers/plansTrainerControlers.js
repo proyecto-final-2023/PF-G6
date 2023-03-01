@@ -10,7 +10,6 @@ const postPlansTrainer = async (name, cost, description, cantTrainees) => {
     cantTrainees,
   });
 
-  console.log(result);
   return result;
 };
 
