@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PayPalButtons } from "@paypal/react-paypal-js";
 import { PaypalButtonProps } from "@/types/components";
+import axios from "axios";
 
 /**
 sb-myogs25073529@personal.example.com
@@ -14,7 +15,11 @@ CVV: 188
 
 export default function PaypalButton(props: PaypalButtonProps) {
   const { amountToPay, serviceName,idPlans } = props;
-  
+  const key=document.cookie.split(' ')[1].split('=')[1]
+  console.log(key)
+  const headers = {
+    'x-access-token': 'key',
+  };
 
   const [succeeded, setSucceeded] = useState(false);
   const [orderID, setOrderID] = useState("");
@@ -51,19 +56,33 @@ export default function PaypalButton(props: PaypalButtonProps) {
       const{value}  = details.purchase_units[0].amount
 
       const data={
-        idPlans:idPlans,
-        id: id,
-        payerId:payer_id,
+        
+        idPlan:idPlans,
+        idPago:payer_id,
         cost:value,
         status:status,
-        time:update_time
+        fechaPago:update_time
       }
+      //datos 
+      
+        try {
+          axios.post("http://localhost:3001/membership", data,{headers})
+          .then((res) => {
+            console.log(res);
+          });
+        } catch (error) {
+          console.log(error);
+        }
+      
+      
       console.log(data)
       setBillingDetails(data);
       setSucceeded(true);
     });
   };
+ const envioData= () => {
 
+ }
   // handles when a payment is declined
   const onError = (err: Record<string, unknown>) => {
     setPaypalErrorMessage("Something went wrong with your payment");

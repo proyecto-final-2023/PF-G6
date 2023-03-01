@@ -23,7 +23,7 @@ export default function plans() {
   );
 
   useEffect(() => {
-    axios(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`)
+    axios('http://localhost:3001/plans/trainers?page=1')
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
   }, []);
