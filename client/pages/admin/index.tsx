@@ -1,32 +1,40 @@
-import axios from 'axios'
-import React, { useEffect, useRef, useState } from 'react'
-
-export type User = {
-  imgURL: string | null;
-  nickname: string | null;
-  first_name: string;
-  last_name: string;
-  role: string;
-}
+// import axios from 'axios'
+import { useEffect, useRef, useState } from "react";
+import PlansContainer from "@/components/adminDashboard/PlansContainer";
+import UserContainer from "@/components/adminDashboard/UserContainer";
+import { fetchUsers } from "@/utils/adminHelpers";
+import { MenuOptions } from "@/types/components/dashboard";
 
 export default function AdminIndex() {
-  const [users, setusersUsers] = useState<User>()
-  const mountRef = useRef(false)
-
-  const fetchUsers = async () => {
-    const { data } = await axios("https://fp-server-cg2b.onrender.com/user?page=1")
-    return data
-  }
+  const [data, setData] = useState<any[]>([]);
+  const [page, setPage] = useState(1);
+  const mountRef = useRef(false);
+  const [menuOption, setMenuOption] = useState<MenuOptions>("trainer");
 
   useEffect(() => {
     if (!mountRef.current) {
-      fetchUsers().then(data => setusersUsers(data));
-      mountRef.current = true
+      fetchUsers(page).then((data) => setData(data));
+      mountRef.current = true;
     }
-  }, [])
 
-  console.log(users)
-  return (
-    <div>index</div>
-  )
+    // reset on unmount
+    return () => {
+      mountRef.current = false;
+    };
+  }, []);
+
+  console.log(data);
+  // ------------------->
+  if (menuOption === "plan")
+    return (
+      <>
+        <PlansContainer />
+      </>
+    );
+  else
+    return (
+      <>
+        <UserContainer />
+      </>
+    );
 }

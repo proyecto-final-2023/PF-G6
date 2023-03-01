@@ -2,7 +2,7 @@ type LibraryContainer = {
   currentPage: number;
   prevPage: () => void;
   nextPage: () => void;
-  length: number;
+  length?: number; 
 };
 
 const BtnStyles =
