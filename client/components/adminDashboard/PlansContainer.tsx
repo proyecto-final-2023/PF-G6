@@ -1,15 +1,26 @@
-// Manages the logic of showing details below when card is clicked & also the options of
-// logic delete (trainers/trainees) or permanent delete of plans
+import { Plan, PlanDetails } from "@/types/components/dashboard";
+import PlansCard from "./PlansCard";
 
-import { PlanContainerProps } from "@/types/components/dashboard";
-import { useState } from "react";
+export type PlansContainerProps = {
+  // basicData: Plan[];
+  // fullData: PlanDetails[];
+  // currentPage: number;
+};
+const someArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export default function PlansContainer(props: PlanContainerProps) {
-  const { plan, changeDetails, deletePlan, updatePlan } = props;
-
+export default function PlansContainer(props: PlansContainerProps) {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
-      <h1>HEWO UWU</h1>
+      {someArray.map((item) => (
+        <button
+          className="bg-slate-700 rounded cursor-pointer gap-2"
+          onClick={() => console.log("Plans Card clicked" + item)}
+          key={item}
+        >
+          <PlansCard />
+        </button>
+      ))}
+      {/* i */}
     </div>
   );
 }
