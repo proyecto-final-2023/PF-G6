@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import useParam1Store from "@/store/state-lb";
 
-export default function Routines() {
+const MyComponent = () => {
   return (
-    <div>
-      routines
+    <div className="my-[120px]">
+      rutinas
     </div>
+  );
+};
 
-    )
-  }
+export default MyComponent;
