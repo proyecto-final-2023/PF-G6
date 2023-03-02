@@ -8,6 +8,10 @@ import axios from "axios";
 import { setCookie } from "@/utils/cookieHandler";
 import { useState } from "react";
 import Modal from "react-modal";
+import axios from "axios";
+import { setCookie } from "@/utils/cookieHandler";
+import { useState } from "react";
+import Modal from "react-modal";
 
 interface UserInfo {
   email: string | null;
@@ -20,7 +24,10 @@ interface UserInfo {
 
 export const Login2 = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [user, setUser] = useAuthState(auth);
+  const [email, setEmail] = useState(user?.email);
+  const [inputValue, setInputValue] = useState("")
   const [email, setEmail] = useState(user?.email);
   const [inputValue, setInputValue] = useState("")
   const facebookAuth = new FacebookAuthProvider();

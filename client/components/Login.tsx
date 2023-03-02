@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import {
   signInWithPopup,
@@ -17,9 +18,15 @@ interface UserInfo {
   authExtern: boolean;
   displayName: string | null;
 }
+interface UserInfo {
+  email: string | null;
+  authExtern: boolean;
+  displayName: string | null;
+}
 
 export const Login = () => {
   const [user, setUser] = useAuthState(auth);
+  const[usuario,setUsuario]=useState({})
   const googleAuth = new GoogleAuthProvider();
   const facebookAuth = new FacebookAuthProvider();
   const [isOpen, setIsOpen] = useState(false);
@@ -102,6 +109,23 @@ export const Login = () => {
     setInputValue(event.target.value);
   };
 
+ 
+      // const info = {
+      //   first_name: user?.displayName.split(" ")[0],
+      //   last_name: user?.displayName.split(" ")[1],
+      //   email: user?.email || email,
+      //   password: user?.email || email,
+      // };
+      console.log(info)
+    if(info)
+     {
+       axios.post("http://localhost:3001/createuser", info)
+          .then((data) => {
+            console.log(data);
+          });
+      }
+
+   
   useEffect(() => {
     user?.email === null ? setIsOpen(true) : setIsOpen(false);
 

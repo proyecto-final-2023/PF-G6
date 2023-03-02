@@ -189,6 +189,7 @@ const userByName = async (name, page, limit) => {
 
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
+  console.log(decoded)
   const [user] = await Logueo.findAll({
     where: { userId: decoded.id },
   });

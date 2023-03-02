@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import myImage from "../../public/tail-imgs/gym-bg.jpg";
 import myImage from "../../public/tail-imgs/gym-bg.jpg";
 import Link from "next/link";
 import { CircularProgressbar } from "react-circular-progressbar";
@@ -86,6 +88,8 @@ export default function Index() {
 
     setAllEvents([...allEvents, newEvent]);
   }
+    setAllEvents([...allEvents, newEvent]);
+  }
 
   return (
     <div className="flex flex-col">
@@ -106,6 +110,9 @@ export default function Index() {
           <h1 className="text-3xl">{name}</h1>
         </div>
       </div>
+
+      <div>{/* <Image src={myImage} alt="" className="bg-cover" /> */}</div>
+
 
       <div>{/* <Image src={myImage} alt="" className="bg-cover" /> */}</div>
 
