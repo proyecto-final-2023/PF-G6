@@ -36,9 +36,16 @@ export default function ExercisesLibrary() {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedSubOption, setSelectedSubOption] = useState("");
   const { setFirstParam, setSecondParam, firstParam, secondParam } = useParam1Store();
-  const [selectedExercises, setSelectedExercises] = useState<Array<object>>([]);
+  const [selectedExercises, setSelectedExercises] = useState<Array<AddedExercise>>([]);
+  interface AddedExercise {
+    id: number,
+    name: string,
+    target: string,
+    bodyPart: string,
+    gifUrl: string,
+  }
 
-  const handleAddExercise = (ex: object) => {
+  const handleAddExercise = (ex: AddedExercise) => {
     setSelectedExercises([...selectedExercises, ex]);
   };
   
@@ -120,12 +127,16 @@ export default function ExercisesLibrary() {
       <button onClick={handleButtonClick}>Filter</button>
       
     </div>
-    <div className="flex">
-      <p>Mis ejercicios: <ul>
-  {selectedExercises? selectedExercises.map((ex) => (
-    <li key={ex.id}>{ex.name}</li>
-  )) : ''}
-</ul></p>
+    <div className="flex ">
+      Mis ejercicios: <ul>
+  {selectedExercises? selectedExercises.map((ex) => 
+     (
+      <li key={ex.id}>{ex.name}</li>
+    )
+  
+    
+  ) : ''}
+</ul>
         
 
       </div>
