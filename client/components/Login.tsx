@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
-import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, AuthProvider, Auth, User } from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, AuthProvider} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import Router from "next/router";
 import axios from 'axios'
