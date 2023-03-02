@@ -67,7 +67,69 @@ const data = async () => {
       return obj;
     }, {});
 
-  const PVPtrainee = await PlanTrainee.findByPk(sortedCountsTrainee[1].id, {
+  const PVPtrainee1 = await PlanTrainee.findByPk(sortedCountsTrainee[1].id, {
+    attributes: {
+      exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
+    },
+    include: [
+      {
+        model: Trainer,
+        attributes: {
+          exclude: ["id_trainer"],
+        },
+        include: [
+          {
+            model: Membership,
+            attributes: {
+              exclude: [
+                "id_membership",
+                "startDate",
+                "finishDate",
+                "userId",
+                "plantrainerIdPlanTrainer",
+                "planTraineeIdPlanTrainee",
+                // "trainerIdTrainer",
+                "traineeIdTrainee",
+              ],
+            },
+            include: [{ model: User }],
+          },
+        ],
+      },
+    ],
+  });
+  const PVPtrainee2 = await PlanTrainee.findByPk(sortedCountsTrainee[2].id, {
+    attributes: {
+      exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
+    },
+    include: [
+      {
+        model: Trainer,
+        attributes: {
+          exclude: ["id_trainer"],
+        },
+        include: [
+          {
+            model: Membership,
+            attributes: {
+              exclude: [
+                "id_membership",
+                "startDate",
+                "finishDate",
+                "userId",
+                "plantrainerIdPlanTrainer",
+                "planTraineeIdPlanTrainee",
+                // "trainerIdTrainer",
+                "traineeIdTrainee",
+              ],
+            },
+            include: [{ model: User }],
+          },
+        ],
+      },
+    ],
+  });
+  const PVPtrainee3 = await PlanTrainee.findByPk(sortedCountsTrainee[3].id, {
     attributes: {
       exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
     },
@@ -118,8 +180,6 @@ const data = async () => {
       return obj;
     }, {});
 
-  console.log(sortedCountsTrainer[1].id);
-
   const PVPtrainer = await Plantrainer.findByPk(sortedCountsTrainer[1].id);
 
   return {
@@ -127,7 +187,7 @@ const data = async () => {
     membership: { cantMerbership, countsTrainee, countsTrainer },
     bestPlanes: {
       Trainer: PVPtrainer,
-      Trainee: PVPtrainee,
+      Trainee: { PVPtrainee1, PVPtrainee2, PVPtrainee3 },
     },
   };
 };
