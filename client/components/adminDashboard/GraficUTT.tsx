@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Chart from "chart.js/auto";
-import { Doughnut } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 
 import {
   DoughnutController,
@@ -27,9 +27,13 @@ Chart.register(
   CategoryScale,
   Filler
 );
-const nombres = ["besuvio", "cortijo", "perenne"];
+type GraficUTTProps={
+  scores:number;
+  labels:string[];
+  label:string;
+}
 
-function GraficUTT(props: any) {
+function GraficUTT(props: GraficUTTProps) {
   const { labels, scores, label } = props;
   const data = useMemo(
     () => ({
@@ -37,6 +41,7 @@ function GraficUTT(props: any) {
         {
           label: label,
           data: scores,
+          
           backgroundColor: [
             "rgba(255, 99, 132, 0.6)",
             "rgba(54, 162, 235, 0.6)",
@@ -51,12 +56,12 @@ function GraficUTT(props: any) {
       ],
       labels,
     }),
-    [labels, scores, nombres]
+    [labels, scores]
   );
 
   return (
     <div className=""> 
-        <Doughnut
+        <Pie
         data={data}
         options={{ responsive: true }}
         
