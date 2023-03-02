@@ -17,9 +17,11 @@ export type PlanDetails = Plan & {
 // * USER
 export type User = {
   id: number;
-  first_name: string;
   role: string;
-  imgURL: string | null;
+  first_name: string;
+  last_name: string;
+  nickname: string | null;
+  logo: string | null;
 };
 
 export type UserDetails = User & {
