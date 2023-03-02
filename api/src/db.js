@@ -67,6 +67,9 @@ Membership.belongsTo(PlanTrainee);
 // Plantrainer de 1 a muchos con Trainer
 Trainer.hasOne(Membership);
 Membership.belongsTo(Trainer);
+// // PlanTrainee de 1 a muchos con Trainee
+Trainee.hasOne(Membership);
+Membership.belongsTo(Trainee);
 // Trainer de uno a muchos con PlanTrainee
 PlanTrainee.belongsTo(Trainer);
 Trainer.hasMany(PlanTrainee);
@@ -76,9 +79,6 @@ SocialNetworks.belongsTo(Trainer);
 // Trainer de uno a muchos con Certificates
 Trainer.hasMany(Certificates);
 Certificates.belongsTo(Trainer);
-// // PlanTrainee de 1 a muchos con Trainee
-// PlanTrainee.hasMany(Trainee);
-// Trainee.belongsTo(PlanTrainee);
 // // Trainee de uno a uno con Data
 // Trainee.hasOne(Data);
 // Data.belongsTo(Trainee);

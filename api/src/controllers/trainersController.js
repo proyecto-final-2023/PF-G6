@@ -20,7 +20,6 @@ const listTrainers = async (page, limit) => {
       limit: limit,
       offset: (page - 1) * limit,
     });
-    console.log(listTrainers);
     return listTrainers;
   } catch (error) {
     return error;
