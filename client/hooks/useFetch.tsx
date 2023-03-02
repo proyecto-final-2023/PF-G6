@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 
-export default function useFetch(url: string, deps?: any[]) {
+export default function useFetch(url: string) {
   const [data, setData] = useState<[] | {}>([]);
   const isMounted = useRef(true);
   // dev mode in REACT18 buggy so we need to use this
@@ -28,7 +28,7 @@ export default function useFetch(url: string, deps?: any[]) {
     return () => {
       cancel();
     };
-  }, deps);
+  }, [url]);
 
   return { data, setData, cancel };
 }

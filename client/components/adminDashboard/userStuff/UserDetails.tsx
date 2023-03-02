@@ -1,16 +1,10 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { User } from "@/types/components/dashboard";
 
-export type UserDetailsType = {
-  id: string;
-  first_name: string;
-  last_name: string;
-  nickname: string;
-  logo: string;
-};
-
-export default function UserDetails({ details }: { details: UserDetailsType }) {
-  const { first_name, last_name, nickname, logo } = details;
+export default function UserDetails(props: User) {
+  const { first_name, last_name, nickname, logo } = props;
+  const requestType = useRef<"PUT" | "DELETE">("PUT");
 
   const {
     register,
@@ -18,7 +12,7 @@ export default function UserDetails({ details }: { details: UserDetailsType }) {
     watch,
     setValue,
     formState: { errors },
-  } = useForm<UserDetailsType>({
+  } = useForm<User>({
     mode: "onChange",
     defaultValues: {
       first_name: "",
@@ -27,12 +21,15 @@ export default function UserDetails({ details }: { details: UserDetailsType }) {
     },
   });
 
-  const onSubmit: SubmitHandler<UserDetailsType> = async (data) => {
+  const onSubmit: SubmitHandler<User> = async (data) => {
     console.log("SUBMIT", data);
-    // await axios(`${process.env.NEXT_PUBLIC_FRONT_DEPLOY}`)
-    //   .then((data) => {
-    //     console.log(data);
-    //   });
+    if (requestType.current === "PUT") {
+      // await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, data);
+      console.log("READY TO UPDATE");
+    } else {
+      // await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`);
+      console.log("READY TO LOGIC DELETE");
+    }
   };
 
   const updateValues = () => {
@@ -43,7 +40,7 @@ export default function UserDetails({ details }: { details: UserDetailsType }) {
 
   useEffect(() => {
     updateValues();
-  }, [details]);
+  }, [first_name]);
 
   return (
     <div>
@@ -86,8 +83,19 @@ export default function UserDetails({ details }: { details: UserDetailsType }) {
           </label>
         )}
 
-        <button className="py-2 px-3 bg-green-700 rounded">Update</button>
-        <button className="py-2 px-3 bg-red-700 rounded">Delete</button>
+        {/* BUTTONS :D */}
+        <button
+          onClick={() => (requestType.current = "PUT")}
+          className="py-2 px-3 bg-green-700 rounded"
+        >
+          Update
+        </button>
+        <button
+          onClick={() => (requestType.current = "DELETE")}
+          className="py-2 px-3 bg-red-700 rounded"
+        >
+          Delete
+        </button>
       </form>
     </div>
   );

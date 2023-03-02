@@ -1,15 +1,10 @@
 import { User } from "@/types/components/dashboard";
 
-type UserCardProps = Omit<User, "id"> & {
+type UserCardProps = Omit<User, "id" | "last_name"> & {
   clickHandler: (id: number) => void;
   index: number;
 };
 
-/**
- * @dev This comp will check if
- * @param props
- * @returns
- */
 export default function UserCard(props: UserCardProps) {
   const { first_name, role, clickHandler, index } = props;
 

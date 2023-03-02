@@ -16,8 +16,8 @@ export type PlanDetails = Plan & {
 
 // * USER
 export type User = {
-  id: number;
-  role: string;
+  id: string;
+  role: "admin" | "trainer" | "trainee";
   first_name: string;
   last_name: string;
   nickname: string | null;
