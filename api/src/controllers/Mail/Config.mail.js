@@ -2,7 +2,6 @@ const nodemailer = require("nodemailer");
 
 const LINK = "http://localhost:3001/user/confirm/";
 
-
 const mail = {
   user: "grupo06fit.u@gmail.com",
   pass: "zaixnzmpdirujkcq",
@@ -27,7 +26,6 @@ const sendEmail = async (email, html) => {
     });
     return "e-Mail de verificacion enviado";
   } catch (error) {
-    console.log(error.message);
     return error.message;
   }
 };
@@ -38,7 +36,7 @@ const sendContactMail = async (name, email, subject, message) => {
       from: `FitU <${mail.user}>`,
       to: `FitU <${mail.user}>`,
       subject: `Form Contact app: <${subject}>`,
-      text:`nombre:<${name}>  email:<${email}> mensaje: <${message}>`
+      text: `nombre:<${name}>  email:<${email}> mensaje: <${message}>`,
     });
     return "e-Mail enviado";
   } catch (error) {
