@@ -27,6 +27,7 @@ Chart.register(
   CategoryScale,
   Filler
 );
+
 type GraficUTTProps = {
   scores: number[];
   labels: string[];
@@ -35,6 +36,7 @@ type GraficUTTProps = {
 
 function GraficUTT(props: GraficUTTProps) {
   const { labels, scores, label } = props;
+  // could this be causing the hydration mismatch? dunno
   const data = useMemo(
     () => ({
       datasets: [
