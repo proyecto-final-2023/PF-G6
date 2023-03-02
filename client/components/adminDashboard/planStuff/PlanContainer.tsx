@@ -10,9 +10,7 @@ export type PlanContainerProps = {
 };
 const someArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export default function PlanContainer() {
-  const [details, setDetails] = useState(someArray[0])
-
+export default function PlanContainer(props: { page: number }) {
   return (
     <div>
       <div className="grid gap-x-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
@@ -28,7 +26,6 @@ export default function PlanContainer() {
       </div>
       <div>
         <PlanDetails />
-        {details}
       </div>
     </div>
   );
