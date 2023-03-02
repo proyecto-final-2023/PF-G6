@@ -27,7 +27,7 @@ export default function CentralContainer() {
         {someIf ? (
           <PlanContainer {...{ page }} />
         ) : (
-          <UserContainer {...{ page }} {...{ activeId }} />
+          <UserContainer {...{ page }} />
         )}
         <NavigationBtns
           currentPage={page}

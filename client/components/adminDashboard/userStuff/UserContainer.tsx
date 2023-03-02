@@ -3,51 +3,60 @@ import { User } from "@/types/components/dashboard";
 import UserDetails, { UserDetailsType } from "./UserDetails";
 import UserCard from "./UserCard";
 import axios from "axios";
+import useFetch from "@/hooks/useFetch";
 
 type UserContainerProps = {
   page: number;
-  activeId: string;
 };
-export default function UserContainer(props: UserContainerProps) {
-  const [users, setUsers] = useState<User[]>([]);
 
+export default function UserContainer(props: UserContainerProps) {
   const [details, setDetails] = useState<UserDetailsType>({
     id: "",
-    first_name: "",
-    last_name: "",
-    nickname: "",
+    first_name: "fn",
+    last_name: "ln",
+    nickname: "nk",
     logo: "",
   });
 
-  const fetchUsers = async (): Promise<User[]> => {
-    const { data } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user?page=${props.page}`
-    );
-    return data;
-  };
+  // custom hook to handle possible errors
+  const {
+    data: users,
+    setData: setUsers,
+    cancel,
+  } = useFetch(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${props.page}`, [
+    props.page,
+  ]);
 
   useEffect(() => {
-    fetchUsers().then((data) => {
-      setUsers(data);
-    });
-  }, [props.page]);
+    return () => {
+      cancel();
+    };
+  }, []);
+
+  const clickHandler = (id: number) => {
+    users instanceof Array && setDetails(users[id]);
+  };
+  console.log(details);
 
   return (
     <div className="border-white">
       <div className="grid gap-x-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 my-7">
-        {users.map((item) => {
-          const { id, first_name, last_name, nickname, logo, role } = item;
-          return (
-            <UserCard
-              {...{ id }}
-              {...{ role }}
-              {...{ first_name }}
-              {...{ last_name }}
-              {...{ nickname }}
-              {...{ logo }}
-            />
-          );
-        })}
+        {users instanceof Array &&
+          users.map((item, index) => {
+            const { id, first_name, last_name, nickname, logo, role } = item;
+            return (
+              <UserCard
+                key={id}
+                {...{ index }}
+                {...{ role }}
+                {...{ first_name }}
+                {...{ last_name }}
+                {...{ nickname }}
+                {...{ logo }}
+                {...{ clickHandler }}
+              />
+            );
+          })}
       </div>
       <div className="d7">
         <UserDetails {...{ details }} />

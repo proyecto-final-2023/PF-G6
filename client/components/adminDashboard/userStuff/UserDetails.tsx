@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 export type UserDetailsType = {
@@ -15,13 +16,14 @@ export default function UserDetails({ details }: { details: UserDetailsType }) {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
   } = useForm<UserDetailsType>({
     mode: "onChange",
     defaultValues: {
-      first_name: "juanito",
-      last_name: "pochoclo",
-      nickname: "tomaton",
+      first_name: "",
+      last_name: "",
+      nickname: "",
     },
   });
 
@@ -32,6 +34,16 @@ export default function UserDetails({ details }: { details: UserDetailsType }) {
     //     console.log(data);
     //   });
   };
+
+  const updateValues = () => {
+    setValue("first_name", first_name);
+    setValue("last_name", last_name);
+    setValue("nickname", nickname);
+  };
+
+  useEffect(() => {
+    updateValues();
+  }, [details]);
 
   return (
     <div>
@@ -63,14 +75,19 @@ export default function UserDetails({ details }: { details: UserDetailsType }) {
           />
         </label>
 
-        <label className="flex flex-col">
-          Logo:
-          <input
-            className="rounded-md"
-            type="file"
-            {...register("logo", { required: true })}
-          />
-        </label>
+        {logo && (
+          <label className="flex flex-col">
+            Logo:
+            <input
+              className="rounded-md"
+              type="file"
+              {...register("logo", { required: true })}
+            />
+          </label>
+        )}
+
+        <button className="py-2 px-3 bg-green-700 rounded">Update</button>
+        <button className="py-2 px-3 bg-red-700 rounded">Delete</button>
       </form>
     </div>
   );
