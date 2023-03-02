@@ -88,7 +88,7 @@ export default function Index() {
   }
 
   return (
-    <div className="relative">
+    <div className="relative bg-[url('/bgs/trainee.jpg')] bg-cover">
       <CircularProgressbar
         className="absolute top-0 left-0 w-40 h-40"
         value={percentage}
