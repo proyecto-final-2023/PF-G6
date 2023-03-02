@@ -6,6 +6,7 @@ const {
   PlanTrainee,
   Plantrainer,
   Trainer,
+  Trainee,
 } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
@@ -19,24 +20,66 @@ const getPerfil = async (id) => {
   const dataValues = await User.findByPk(id, {
     attributes: ["id", "first_name", "last_name", "nickname", "role"],
     include: [
-      { model: Logueo },
+      {
+        model: Logueo,
+        attributes: ["email", "verify"],
+      },
       {
         model: Membership,
         attributes: ["id_membership", "startDate", "finishDate"],
         include: [
-          { model: Trainer },
+          { model: Trainee },
           {
             model: Voucher,
             attributes: ["id_voucher", "date", "cost"],
           },
           { model: Plantrainer },
-          { model: PlanTrainee },
+          {
+            model: PlanTrainee,
+            attributes: ["name", "description"],
+            include: [
+              {
+                model: Trainer,
+                attributes: ["logo"],
+
+                include: [
+                  {
+                    model: Membership,
+                    attributes: {
+                      exclude: [
+                        "id_membership",
+                        "startDate",
+                        "finishDate",
+                        "userId",
+                        "plantrainerIdPlanTrainer",
+                        "planTraineeIdPlanTrainee",
+                        "traineeIdTrainee",
+                      ],
+                    },
+
+                    include: [
+                      {
+                        model: User,
+                        attributes: [
+                          "first_name",
+                          "last_name",
+                          "nickname",
+                          "imgURL",
+                          "phone",
+                        ],
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+          { model: Trainer, include: [{ model: PlanTrainee }] },
         ],
       },
     ],
   });
   if (!dataValues) throw new Error("Usuario inexistente");
-
   return dataValues;
 };
 
