@@ -161,6 +161,23 @@ const setVerify = async (token) => {
     return result;
   }
 };
+
+const listEmail = async (email) => {
+  try {
+    const listUser = await Logueo.findAll({
+      where: {
+        email: email,
+      },
+    });
+    if (!!listUser.length) {
+      return { verify: true };
+    } else {
+      return { verify: false };
+    }
+  } catch (error) {
+    return error;
+  }
+};
 module.exports = {
   botUserAdd,
   getId,
@@ -168,4 +185,5 @@ module.exports = {
   userByName,
   setVerify,
   getPerfil,
+  listEmail,
 };

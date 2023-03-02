@@ -9,6 +9,7 @@ const plansRouter = require("./plansRoutes");
 const plansTraineeRouter = require("./planTraineeRoutes");
 const membership = require("./membershipRoutes");
 const trainers = require("./trainersRouters");
+const data = require("./dataRoutes");
 //----------------------------------------------------------
 const activityRouter = require("./activityRoutes");
 const alimentRouter = require("./alimentsRoutes");
@@ -20,20 +21,17 @@ const indexRouter = Router();
 
 // Configurar los routers
 indexRouter.use(errorHandler);
+indexRouter.use("/data", data);// check
 indexRouter.use("/base", verifyToken, baseRouter);// check
 indexRouter.use("/user", userRoutes); // check
-
-//----------------------------------------------------Adan Documentation
 indexRouter.use("/activity", activityRouter);
 indexRouter.use("/aliment", alimentRouter);
 indexRouter.use("/auth", authRoutes);
 indexRouter.use("/createuser", createUserRoutes);
-//----------------------------------------------------Andrew Documentation
 indexRouter.use("/contact", contactRoutes);
 indexRouter.use("/plans/trainers", plansRouter);
 indexRouter.use("/plans/trainee", plansTraineeRouter);
 indexRouter.use("/membership", membership);
-
 indexRouter.use("/trainers", trainers);// check
 
 module.exports = indexRouter;
