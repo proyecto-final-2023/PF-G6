@@ -36,7 +36,12 @@ export default function ExercisesLibrary() {
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedSubOption, setSelectedSubOption] = useState("");
   const { setFirstParam, setSecondParam, firstParam, secondParam } = useParam1Store();
-  const [elementosAgregados, setElementosAgregados] = useState([]);
+  const [selectedExercises, setSelectedExercises] = useState<Array<object>>([]);
+
+  const handleAddExercise = (ex: object) => {
+    setSelectedExercises([...selectedExercises, ex]);
+  };
+  
 
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOptionValue = event.target.value;
@@ -113,7 +118,18 @@ export default function ExercisesLibrary() {
         </div>
       )}
       <button onClick={handleButtonClick}>Filter</button>
+      
     </div>
+    <div className="flex">
+      <p>Mis ejercicios: <ul>
+  {selectedExercises? selectedExercises.map((ex) => (
+    <li key={ex.id}>{ex.name}</li>
+  )) : ''}
+</ul></p>
+        
+
+      </div>
+                
         <div className="flex justify-between items-center w-full py-[115px] px-36">  
         <button
           onClick={prevPage}
@@ -143,8 +159,9 @@ export default function ExercisesLibrary() {
         >
           <p>{firstParam? `${firstParam}:` : 'Body Part:'} {secondParam? secondParam : ex.bodyPart}</p>
           <Image className="filter invert" src={ex.gifUrl} alt="" width={300} height={300} />
+          <p>Name: {ex.name}</p>
         </Link>
-        <button >Add</button>
+        <button onClick={() => handleAddExercise(ex)}>Add</button>
             </li>
           )})}
         
