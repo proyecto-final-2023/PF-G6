@@ -22,7 +22,7 @@ export default function createPlans() {
     event.preventDefault();
     
     axios
-      .post("http://localhost:3001/plans/trainee",formData,{headers:{'x-access-token': data}})
+      .post("http://localhost:3001/plans/trainee",formData,{headers:{'x-access-token': key}})
       .then((data) => {
         console.log(data);
       })

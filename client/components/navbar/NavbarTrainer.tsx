@@ -19,10 +19,7 @@ export default function () {
        </div>
       <div className="flex flex-col mt-8">
         <Link href="#" className="py-2 px-4 text-gray-400 hover:text-white hover:bg-gray-700">
-          redes sociales
-        </Link>
-        <Link href="/trainer/routines" className="py-2 px-4 text-gray-400 hover:text-white hover:bg-gray-700">
-          Rutinas
+          Blog
         </Link>
         <Link href="#" className="py-2 px-4 text-gray-400 hover:text-white hover:bg-gray-700">
           trainee
