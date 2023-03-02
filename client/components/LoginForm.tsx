@@ -9,20 +9,15 @@ import { setCookie } from "@/utils/cookieHandler";
 export default function FormularioLogin() {
   const router = useRouter();
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    nick_name: "",
     email: "",
     password: "",
-    rol: "",
-    imgURL: "",
     authExtern: false,
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
-      .post("http://localhost:3001/auth", formData)
+      .post(`http://localhost:3001/auth`, formData)
       .then((data) => {
         setCookie("token", data.data.token);
         router.push("/home");

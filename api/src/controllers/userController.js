@@ -1,8 +1,44 @@
-const { User, Logueo, Membership, Voucher } = require("../db");
+const {
+  User,
+  Logueo,
+  Membership,
+  Voucher,
+  PlanTrainee,
+  Plantrainer,
+  Trainer,
+} = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
 const config = require("../../config");
+const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
+
+const getPerfil = async (id) => {
+  if (!id) throw new Error("Debe ingresar una ID válida");
+
+  const dataValues = await User.findByPk(id, {
+    attributes: ["id", "first_name", "last_name", "nickname", "role"],
+    include: [
+      { model: Logueo },
+      {
+        model: Membership,
+        attributes: ["id_membership", "startDate", "finishDate"],
+        include: [
+          { model: Trainer },
+          {
+            model: Voucher,
+            attributes: ["id_voucher", "date", "cost"],
+          },
+          { model: Plantrainer },
+          { model: PlanTrainee },
+        ],
+      },
+    ],
+  });
+  if (!dataValues) throw new Error("Usuario inexistente");
+
+  return dataValues;
+};
 
 const botUserAdd = async () => {
   try {
@@ -24,9 +60,32 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "nickname", "role"],
     include: [
-      { model: Logueo },
-      { model: Membership, attributes: ["id_membership"] },
+      {
+        model: Logueo,
+        attributes: ["email"],
+      },
+      {
+        model: Membership,
+        attributes: {
+          exclude: [
+            "id_membership",
+            "startDate",
+            "finishDate",
+            "userId",
+            "plantrainerIdPlanTrainer",
+            "planTraineeIdPlanTrainee",
+          ],
+        },
+        include: [
+          {
+            model: Trainer,
+            attributes: ["logo"],
+            include: [{ model: PlanTrainee }],
+          },
+        ],
+      },
     ],
   });
   if (!dataValues) throw new Error("Usuario inexistente");
@@ -34,13 +93,23 @@ const getId = async (id) => {
   return dataValues;
 };
 
-const getListUser = async () => {
+const getListUser = async (page) => {
   try {
-    let listUser = await User.findAll({
-      attributes: ["first_name", "last_name", "nickname", "role", "imgURL"],
+    const offset = (page - 1) * 10;
+    const listUser = await User.findAll({
+      attributes: [
+        "id",
+        "first_name",
+        "last_name",
+        "nickname",
+        "role",
+        "imgURL",
+      ],
+      limit: 10,
+      offset,
     });
-    if (!listUser) {
-      throw Error("No existen Usuarios Registrados");
+    if (!listUser || listUser.length === 0) {
+      throw new Error("No existen Usuarios Registrados");
     }
     return listUser;
   } catch (error) {
@@ -48,15 +117,31 @@ const getListUser = async () => {
   }
 };
 
-const userByName = async (name) => {
-  const user = await User.findAll({
-    where: {
-      first_name: { [Op.iLike]: `%${name}%` },
-    },
-  });
-
-  if (!user.length) throw Error("No se encuentran coincidencias");
-  return user;
+const userByName = async (name, page, limit) => {
+  try {
+    const offset = (page - 1) * limit;
+    const user = await User.findAndCountAll({
+      attributes: ["first_name", "last_name", "nickname", "role", "imgURL"],
+      limit,
+      offset,
+      where: Sequelize.where(
+        Sequelize.fn(
+          "concat",
+          Sequelize.col("first_name"),
+          " ",
+          Sequelize.col("last_name")
+        ),
+        { [Op.iLike]: `%${name}%` }
+      ),
+    });
+    if (!user.rows || user.rows.length === 0) {
+      throw new Error("No se encuentran coincidencias");
+    }
+    const totalPages = Math.ceil(user.count / limit);
+    return { totalPages, users: user.rows };
+  } catch (error) {
+    throw error;
+  }
 };
 
 const setVerify = async (token) => {
@@ -76,10 +161,29 @@ const setVerify = async (token) => {
     return result;
   }
 };
+
+const listEmail = async (email) => {
+  try {
+    const listUser = await Logueo.findAll({
+      where: {
+        email: email,
+      },
+    });
+    if (!!listUser.length) {
+      return { verify: true };
+    } else {
+      return { verify: false };
+    }
+  } catch (error) {
+    return error;
+  }
+};
 module.exports = {
   botUserAdd,
   getId,
   getListUser,
   userByName,
   setVerify,
+  getPerfil,
+  listEmail,
 };
