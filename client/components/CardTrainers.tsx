@@ -1,6 +1,6 @@
 import React from 'react'
 
-
+// card trainers
 const Card = ({ photo, first_name,last_name, description, rating }) => {
     return (
       <div className="card bg-white rounded-lg overflow-hidden shadow-lg">

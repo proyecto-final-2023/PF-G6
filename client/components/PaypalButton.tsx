@@ -3,6 +3,7 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { PaypalButtonProps } from "@/types/components";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { getCookie, setCookie } from "@/utils/cookieHandler";
 
 /**
 sb-myogs25073529@personal.example.com
@@ -17,11 +18,11 @@ CVV: 188
 export default function PaypalButton(props: PaypalButtonProps) {
   const router = useRouter();
   const { amountToPay, serviceName,idPlans } = props;
-  const key=document.cookie.split(' ')[1].split('=')[1]
+  const key=getCookie('token')
   console.log(key)
-  const headers = {
-    'x-access-token': key
-  };
+//  const key=document.cookie.split(' ')[1].split('=')[1];
+
+ 
 
 
   const [succeeded, setSucceeded] = useState(false);
@@ -68,12 +69,18 @@ export default function PaypalButton(props: PaypalButtonProps) {
       //datos 
       console.log(data)
         try {
-          axios.post("http://localhost:3001/membership", data,{headers})
+          axios.post("http://localhost:3001/membership", data,{headers:{'x-access-token': key}})
           .then((res) => {
             console.log(res);
             console.log(res.data);
-            if(res.status===200) router.push("/trainer");
-
+           
+            
+            // aqui te manda 
+            axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
+            .then((data) => {
+              if(data.data.role==='trainer')router.push("/trainer");
+              if(data.data.role=== 'trainee')router.push("/trainee");
+            })
             
           });
         } catch (error) {

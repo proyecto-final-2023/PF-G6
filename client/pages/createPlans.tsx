@@ -2,15 +2,16 @@ import React, { useState } from "react";
 import axios from "axios";
 //crear los planes de los trainer 
 export default function createPlans() {
-  //id de trainers tien que estar en 
-  // const[idTrain,setId]=useState('3ecd5a1a-f6bc-49f4-99ab-971003de134a');
+
+
+ 
   const [formData, setFormData] = useState({
      
      name :"",
      cost :'',
-     category:'',
      description:'',
      cantTrainees:''
+   
      
   });
 
@@ -25,6 +26,7 @@ export default function createPlans() {
       .catch((error) => {
         window.alert("Error in" + error);
       });
+    console.log(formData)
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,16 +61,7 @@ export default function createPlans() {
         />
       </label>
       <br />
-      <label>
-        <input
-          className="m-3  bg-gray-200 rounded-md "
-          type="text"
-          name="category"
-          placeholder="category..."
-          value={formData.category}
-          onChange={handleChange}
-        />
-      </label>
+  
       <br />
       <label>
         <input
@@ -84,7 +77,7 @@ export default function createPlans() {
       <label>
         <input
           className="m-3  bg-gray-200 rounded-md "
-          type="number"
+          type="text"
           name="cantTrainees"
           placeholder="cantTrainees..."
           value={formData.cantTrainees}
@@ -92,6 +85,8 @@ export default function createPlans() {
         />
       </label>
       <br />
+ 
+     
    
       
       <button className="button " type="submit">

@@ -1,7 +1,7 @@
 import CardPlans from "@/components/CardPlans";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-//aqui tiene que  mostrar los planes para trainee
+//aqui tiene pra ver  los planes para trainee
 export default function TrainingPlans() {
   //prueba
   const plansTrainee=[{

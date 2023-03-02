@@ -5,6 +5,7 @@ import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import Link from "next/link";
 
 export default function Home() {
+
   return (
     <>
       <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed  backdrop-blur-sm">

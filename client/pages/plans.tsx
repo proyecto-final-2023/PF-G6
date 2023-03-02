@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import CardPlans from "../components/CardPlans";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
+import { getCookie, setCookie } from "@/utils/cookieHandler";
 //mostrar los planes para los trainers
 type PlansType = {
   id: number;
@@ -22,10 +23,25 @@ export default function plans() {
     "offer via Paypal With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
   );
 
+
+
+  
+
   useEffect(() => {
     axios('http://localhost:3001/plans/trainers?page=1')
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
+        //user token
+ 
+    const key=getCookie('token')
+    console.log(key);
+    axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
+    .then((data) => {
+      if(data.data.role==='trainer')console.log(data.data.role);
+      if(data.data.role=== 'trainee')console.log(data.data.role);
+    })
+
+
   }, []);
   // plans
   console.log(plans);
