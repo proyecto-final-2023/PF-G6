@@ -31,6 +31,7 @@ export default function FormularioLogin() {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  
   return (
     <form className="caja-login" onSubmit={handleSubmit}>
       <Image

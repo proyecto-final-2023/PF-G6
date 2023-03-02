@@ -97,7 +97,7 @@ export const Login2 = () => {
           <svg className="w-3 h-4 mr-2 -ml-2" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-f" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M279.1 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.4 0 225.4 0c-73.22 0-121.1 44.38-121.1 124.7v70.62H22.89V288h81.39v224h100.2V288z"></path></svg>
           Sign in with Facebook
         </button>
-        <Modal className="z-30 w-[100vw] block text-white mt-[30vh] bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-800 dark:hover:bg-blue-700 dark:focus:ring-blue-800" isOpen={isOpen}>
+        {/* <Modal className="z-30 w-[100vw] block text-white mt-[30vh] bg-gray-800 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-gray-800 dark:hover:bg-blue-700 dark:focus:ring-blue-800" isOpen={isOpen}>
           <h2 className="text-white">Oops! We couldn't get your email, please provide it to us to continue.</h2>
 
           <form onSubmit={handleModalSubmit}>
@@ -111,7 +111,7 @@ export const Login2 = () => {
 
             <button className="ml-2 border-2 p-1 rounded-full border-white bg-blue-800 hover:bg-gray-800">Enviar</button>
           </form>
-        </Modal >
+        </Modal > */}
 
 
       </div>
