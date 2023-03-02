@@ -67,6 +67,7 @@ export default function Index() {
       end: new Date(2023, 2, 7),
     },
   ];
+  
 
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState(events);
@@ -88,16 +89,19 @@ export default function Index() {
   }
 
   return (
-    <div className="relative bg-[url('/bgs/trainee.jpg')] bg-cover">
+    <div className="flex flex-col">
+<div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
       <CircularProgressbar
-        className="absolute top-0 left-0 w-40 h-40"
+        className="mt-0 h-[30vh] text-left border-yellow-300 border-2"
         value={percentage}
         text={`${percentage}%`}
       />
 
-      <div className="flex flex-col h-[20-vh] align-bottom">
-        <img className="rounded-full w-40 h-40" src={photo} alt=""></img>
-        <h1 className="text-3xl">{name}</h1>
+<div className="border-red-300 border-2 h-[20-vh]  w-[85vw] text-center">
+  <img className="rounded-full w-40 h-40" src={photo} alt="" style={{margin: "0 auto"}}></img>
+  <h1 className="text-3xl">{name}</h1>
+</div>
+
       </div>
 
       <div>{/* <Image src={myImage} alt="" className="bg-cover" /> */}</div>
@@ -153,5 +157,6 @@ export default function Index() {
         </div>
       </div>
     </div>
+    
   );
 }
