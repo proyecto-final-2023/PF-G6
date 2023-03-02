@@ -11,6 +11,7 @@ function GraphContainer() {
   const label3 = "Membresia";
   const scores3 = [500, 400, 300];
   const labels3 = ["Gold", "Plate", "Bronce"];
+
   return (
     <div className="flex justify-center flex-wrap pt-20 gap-8">
       <GraficUTT scores={scores1} labels={labels1} label={label1} />

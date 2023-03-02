@@ -27,11 +27,11 @@ Chart.register(
   CategoryScale,
   Filler
 );
-type GraficUTTProps={
-  scores:number;
-  labels:string[];
-  label:string;
-}
+type GraficUTTProps = {
+  scores: number[];
+  labels: string[];
+  label: string;
+};
 
 function GraficUTT(props: GraficUTTProps) {
   const { labels, scores, label } = props;
@@ -41,7 +41,7 @@ function GraficUTT(props: GraficUTTProps) {
         {
           label: label,
           data: scores,
-          
+
           backgroundColor: [
             "rgba(255, 99, 132, 0.6)",
             "rgba(54, 162, 235, 0.6)",
@@ -60,12 +60,8 @@ function GraficUTT(props: GraficUTTProps) {
   );
 
   return (
-    <div className=""> 
-        <Pie
-        data={data}
-        options={{ responsive: true }}
-        
-      />
+    <div className="">
+      <Pie data={data} options={{ responsive: true }} />
     </div>
   );
 }
