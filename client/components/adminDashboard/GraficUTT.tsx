@@ -27,21 +27,22 @@ Chart.register(
   CategoryScale,
   Filler
 );
-type GraficUTTProps={
-  scores:number;
-  labels:string[];
-  label:string;
-}
+type GraficUTTProps = {
+  scores: number;
+  labels: string[];
+  label: string;
+  title:string;
+};
 
 function GraficUTT(props: GraficUTTProps) {
-  const { labels, scores, label } = props;
+  const { labels, scores, label, title } = props;
   const data = useMemo(
     () => ({
       datasets: [
         {
           label: label,
           data: scores,
-          
+
           backgroundColor: [
             "rgba(255, 99, 132, 0.6)",
             "rgba(54, 162, 235, 0.6)",
@@ -60,11 +61,19 @@ function GraficUTT(props: GraficUTTProps) {
   );
 
   return (
-    <div className=""> 
-        <Pie
+    <div className="">
+      <Pie
         data={data}
-        options={{ responsive: true }}
-        
+        options={{
+          responsive: true,
+          plugins: {
+            title: {
+              text: props.title,
+              position: "top",
+              display: true,
+            },
+          },
+        }}
       />
     </div>
   );
