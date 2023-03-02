@@ -67,7 +67,6 @@ export default function Index() {
       end: new Date(2023, 2, 7),
     },
   ];
-  
 
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState(events);
@@ -90,24 +89,28 @@ export default function Index() {
 
   return (
     <div className="flex flex-col">
-<div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
-      <CircularProgressbar
-        className="mt-0 h-[30vh] text-left border-yellow-300 border-2"
-        value={percentage}
-        text={`${percentage}%`}
-      />
+      <div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
+        <CircularProgressbar
+          className="mt-0 h-[30vh] text-left border-yellow-300 border-2"
+          value={percentage}
+          text={`${percentage}%`}
+        />
 
-<div className="border-red-300 border-2 h-[20-vh]  w-[85vw] text-center">
-  <img className="rounded-full w-40 h-40" src={photo} alt="" style={{margin: "0 auto"}}></img>
-  <h1 className="text-3xl">{name}</h1>
-</div>
-
+        <div className="border-red-300 border-2 h-[20-vh]  w-[85vw] text-center">
+          <img
+            className="rounded-full w-40 h-40"
+            src={photo}
+            alt=""
+            style={{ margin: "0 auto" }}
+          ></img>
+          <h1 className="text-3xl">{name}</h1>
+        </div>
       </div>
 
       <div>{/* <Image src={myImage} alt="" className="bg-cover" /> */}</div>
 
       <div>
-        <h1 className="flex justify-center text-5xl pb-4">Schedule</h1>
+        {/* <h1 className="flex justify-center text-5xl pb-4">Schedule</h1>
         <h2 className="flex justify-center text-2xl pb-4">Add New Event</h2>
         <div className="mx-auto">
           <div className="flex-col justify-center pl-[42vw]">
@@ -140,7 +143,13 @@ export default function Index() {
               Add Event
             </button>
           </div>
-        </div>
+        </div> */}
+        <Link
+          href="http://localhost:3000/food/"
+          className="text-lg hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"
+        >
+          Food Library
+        </Link>
         <div className="bg-gradient-to-r from-gray-800 via-orange-500 to-gray-800">
           <div className="bg-[url('/bgs/logoblack.png')] bg-contain bg-no-repeat bg-center ">
             <Calendar
@@ -157,6 +166,5 @@ export default function Index() {
         </div>
       </div>
     </div>
-    
   );
 }
