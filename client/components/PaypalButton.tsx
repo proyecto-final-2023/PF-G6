@@ -66,7 +66,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
         status:status,
         fechaPago:update_time
       } 
-      //datos 
+      //enviamos datos a membership
       console.log(data)
         try {
           axios.post("http://localhost:3001/membership", data,{headers:{'x-access-token': key}})
@@ -75,9 +75,10 @@ export default function PaypalButton(props: PaypalButtonProps) {
             console.log(res.data);
            
             
-            // aqui te manda 
+             // si el estado de role cambia te manda al das
             axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
             .then((data) => {
+              console.log(data.data.role);
               if(data.data.role==='trainer')router.push("/trainer");
               if(data.data.role=== 'trainee')router.push("/trainee");
             })

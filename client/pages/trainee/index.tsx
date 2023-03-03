@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import myImage from "../../public/tail-imgs/gym-bg.jpg";
 import Link from "next/link";
-import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import moment from "moment";
 import {
   Calendar,
   momentLocalizer,
@@ -20,14 +17,41 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
+import { getCookie, setCookie } from "@/utils/cookieHandler";
+import ProgressBar from "@/components/traineeProgressbar";
+import Rating from "@/components/StarRating";
 
 export default function Index() {
-  // const [progress, setProgress] = useState("0");
-  const percentage = 70;
-
   const [user, setUser] = useAuthState(auth);
   const photo = user?.photoURL;
   const name = user?.displayName;
+  const key = getCookie("token");
+  const [user1, setUser1] = useState();
+
+  console.log(key);
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/user/perfil", null, {
+        headers: { "x-access-token": key },
+      })
+      .then((data) => {
+        console.log(data.data);
+        console.log(
+          data.data.membership.planTrainee.trainer.membership.user.phone
+        );
+        setUser1({
+          display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
+          userImage: data.data.imgURL,
+          trainer: ` ${data.data.membership.planTrainee.trainer.membership.user.first_name} ${data.data.membership.planTrainee.trainer.membership.user.last_name}`,
+          planStart: `Plan starting date: ${data.data.membership.startDate}`,
+          planEnd: `Plan finishing date: ${data.data.membership.finishDate}`,
+          trainerPhone:
+            data.data.membership.planTrainee.trainer.membership.user.phone,
+        });
+      });
+  }, []);
+
+  console.log(user1);
 
   const locales = {
     "en-US": require("date-fns/locale/en-US"),
@@ -61,7 +85,6 @@ export default function Index() {
       end: new Date(2023, 2, 7),
     },
   ];
-  
 
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState(events);
@@ -84,57 +107,39 @@ export default function Index() {
 
   return (
     <div className="flex flex-col">
-<div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
-      <CircularProgressbar
-        className="mt-0 h-[30vh] text-left border-yellow-300 border-2"
-        value={percentage}
-        text={`${percentage}%`}
-      />
-
-<div className="border-red-300 border-2 h-[20-vh]  w-[85vw] text-center">
-  <img className="rounded-full w-40 h-40" src={photo} alt="" style={{margin: "0 auto"}}></img>
-  <h1 className="text-3xl">{name}</h1>
-</div>
-
-      </div>
-
-      <div>{/* <Image src={myImage} alt="" className="bg-cover" /> */}</div>
-
-      <div>
-        <h1 className="flex justify-center text-5xl pb-4">Schedule</h1>
-        <h2 className="flex justify-center text-2xl pb-4">Add New Event</h2>
-        <div className="mx-auto">
-          <div className="flex-col justify-center pl-[42vw]">
-            <input
-              type="text"
-              placeholder="Add Title"
-              value={newEvent.title}
-              onChange={(e) =>
-                setNewEvent({ ...newEvent, title: e.target.value })
-              }
-              className="w-[18vw] justify-center"
-            />
-
-            <DatePicker
-              placeholderText="Start Date"
-              selected={newEvent.start}
-              onChange={(start) => setNewEvent({ ...newEvent, start })}
-              className="w-[5vw] justify-center"
-            />
-            <DatePicker
-              placeholderText="End Date"
-              selected={newEvent.end}
-              onChange={(end) => setNewEvent({ ...newEvent, end })}
-              className="w-[5vw] justify-center"
-            />
-            <button
-              className=" my-8 text-center relative hover:text-orange-500 border-2 bg-slate-600 w-20 rounded-xl hover:w-40 ease-in-out duration-300"
-              onClick={handleAddEvent}
-            >
-              Add Event
-            </button>
+      <div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
+        <ProgressBar />
+        <div className="border-red-300 border-2 h-[20-vh]  w-[85vw] text-center">
+          <img
+            className="rounded-full w-40 h-40"
+            src={user1?.userImage}
+            alt=""
+            style={{ margin: "0 auto" }}
+          ></img>
+          <h1 className="text-3xl">{user1?.display_name}</h1>
+          <h3 className="text-lg">{user1?.planStart}</h3>
+          <h3 className="text-lg">{user1?.planEnd}</h3>
+          <div className="flex-col absolute top-0 right-0 transform translate-x-1/2 translate-y-1/2 border-2 w-80 mr-[12vw]">
+            <h2 className="text-3xl">Trainer: {user1?.trainer}</h2>
+            <Rating />
+            <form>
+              <label className="mr-3 text-md" placeholder="write your feedback">Feedback:</label>
+              <textarea placeholder="write your feedback"/>
+              <input type="submit" value="Submit" className="cursor-pointer text-lg font-bold text-white hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"/>
+            </form>
+            <a href={`https://wa.me/${user1?.trainerPhone}`}>
+              Contact me via WhatsApp!
+            </a>
           </div>
         </div>
+      </div>
+      <div>
+        <Link
+          href="http://localhost:3000/food/"
+          className="text-lg hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"
+        >
+          Food Library
+        </Link>
         <div className="bg-gradient-to-r from-gray-800 via-orange-500 to-gray-800">
           <div className="bg-[url('/bgs/logoblack.png')] bg-contain bg-no-repeat bg-center ">
             <Calendar
@@ -151,10 +156,5 @@ export default function Index() {
         </div>
       </div>
     </div>
-    
   );
 }
-
-
-
-

@@ -2,25 +2,25 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   sequelize.define(
-    "certificates",
+    "ActivitiesPlan",
     {
-      id_certificates: {
+      id: {
         type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
       },
-      type: {
-        type: DataTypes.STRING,
+      idActivity: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
       },
-      name: {
-        type: DataTypes.STRING,
+      series: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
       },
-      url: {
-        type: DataTypes.STRING,
-      },
-      description: {
-        type: DataTypes.STRING,
+      repetitions: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
       },
     },
     { timestamps: false }

@@ -19,11 +19,11 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState(null);
+  const [user1, setUser1] = useState();
   const key =getCookie('token')
   const photo=user?.photoURL
   const name = user?.displayName;
-
+  
 
   console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
@@ -38,10 +38,8 @@ export default function Navbar() {
   };
 
   const [viewportWidth, setViewportWidth] = useState(0);
-    // aqui te manda  datos de user
-    console.log(key)
+    // aqui te manda 
  useEffect(()=>{
-  if(key!==null){
   axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
   .then((data) => {
    console.log(data.data)
@@ -49,10 +47,8 @@ export default function Navbar() {
      display_name:` ${data.data.first_name}  ${data.data.last_name}`
    })
   })
- }},[key!==null])
-
+ },[])
  console.log(user1)
-
   useEffect(() => {
     function updateViewportWidth() {
       setViewportWidth(window.innerWidth);
@@ -92,23 +88,6 @@ export default function Navbar() {
             </Link>
           </li>
 
-          {/* <li className="inline-block align-bottom text-center pt-5 py-2 relative sm:-top-2">
-            <input
-              type="search"
-              ref={searchRef}
-              id="default-search"
-              className="inline-block w-[150px] p-1 bg-gray-600 focus:bg-gray-500 focus:outline-none focus:w-[300px] duration-300 border-[2px] border-gray-400 rounded-l-lg  placeholder-white text-white"
-              placeholder="Search..."
-              required
-            />
-            <button
-              type="submit"
-              className="absolute p-2 inline-block bg-gray-600 border-[2px] border-gray-400 rounded-r-lg uppercase text-xs font-medium"
-            >
-              Search
-            </button>
-          </li> */}
-
           <li className="flex justify-center items-center">
             <Link replace href="/home" className={linkStyles}>
               Home
@@ -120,7 +99,6 @@ export default function Navbar() {
               Trainers
             </Link>
           </li>
-         
 
           <CustomHoverLi
             href="trainee/tools"
@@ -138,13 +116,13 @@ export default function Navbar() {
           {/* {user && <li className="m-5">Hello {user?.display_name}</li>} */}
           {user1 && <li className="m-5">Hello {user1?.display_name}</li>}
           <HoverLi
-            imgUrl={photo||userImg}
+            imgUrl={photo || userImg}
             text="user"
             href="/"
             isHover={hovers.user}
             vw={viewportWidth}
             optionsList={
-              user1 
+              user || user1 
                 ? ["Dashboard", "Log out"]
                 : ["Register", "Log In"]
             }
