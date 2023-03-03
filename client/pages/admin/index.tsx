@@ -10,7 +10,7 @@ export default function AdminIndex() {
       <GraphContainer />
       <OptionMenu />
       {/* has user/plans grid & next prev btns */}
-      <CentralContainer />
+      {/* <CentralContainer /> */}
     </div>
   );
 }

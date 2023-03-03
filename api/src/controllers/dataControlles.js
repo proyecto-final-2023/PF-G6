@@ -6,6 +6,7 @@ const {
   Plantrainer,
   Trainer,
 } = require("../db");
+
 const data = async () => {
   const cantUser = await User.count();
   const cantTrainer = await User.count({
@@ -67,7 +68,7 @@ const data = async () => {
       return obj;
     }, {});
 
-  const PVPtrainee1 = await PlanTrainee.findByPk(sortedCountsTrainee[1].id, {
+  const PVPtrainee1 = await PlanTrainee.findByPk(sortedCountsTrainee[1]?.id, {
     attributes: {
       exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
     },
@@ -98,7 +99,7 @@ const data = async () => {
       },
     ],
   });
-  const PVPtrainee2 = await PlanTrainee.findByPk(sortedCountsTrainee[2].id, {
+  const PVPtrainee2 = await PlanTrainee.findByPk(sortedCountsTrainee[2]?.id, {
     attributes: {
       exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
     },
@@ -129,7 +130,7 @@ const data = async () => {
       },
     ],
   });
-  const PVPtrainee3 = await PlanTrainee.findByPk(sortedCountsTrainee[3].id, {
+  const PVPtrainee3 = await PlanTrainee.findByPk(sortedCountsTrainee[3]?.id, {
     attributes: {
       exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
     },
