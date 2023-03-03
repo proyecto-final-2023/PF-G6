@@ -44,7 +44,7 @@ export default function ExercisesLibrary() {
   const localizer = momentLocalizer(moment);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
+  
 
 
   interface AddedExercise {
@@ -53,6 +53,20 @@ export default function ExercisesLibrary() {
     target: string,
     bodyPart: string,
     gifUrl: string,
+  }
+
+  const handleClick = () => {
+    const dataToSend = {
+      date: selectedDate?.getTime(), // convertir la fecha en un número para enviarla
+      activities: selectedExercises.map((ex) => ({
+        id: ex.id,
+        series: parseInt((document.getElementById(`series-${ex.id}`) as HTMLSelectElement).value),
+        repetitions: parseInt((document.getElementById(`repeticiones-${ex.id}`) as HTMLSelectElement).value)
+      }))
+    };
+    
+    // Aquí se enviaría la información a través de una solicitud HTTP
+    console.log(dataToSend);
   }
 
   const handleAddExercise = (ex: AddedExercise) => {
@@ -107,7 +121,7 @@ export default function ExercisesLibrary() {
   const nextPage = () => {
     setCurrentPage((prev) => prev + 1);
   };
-  console.log('soy Param1', firstParam)
+  console.log(selectedExercises)
 
   return (
       <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed  backdrop-blur-sm">       
@@ -158,12 +172,44 @@ export default function ExercisesLibrary() {
                 />
             </div>
             <div className="backdrop-blur-md border border-white h-[56px] my-auto text-center px-2"> <p className="text-center py-2">Fecha seleccionada: {selectedDate && selectedDate.toString()}</p> </div>
-              <ul className="backdrop-blur-md border border-white h-auto w-[250px] overflow-hidden flex flex-wrap">
+              <ul className="backdrop-blur-md border border-white h-auto w-[350px] overflow-hidden flex flex-wrap">
                <p className="m-2 py-2 mx-5 top-0 left-0">Mis ejercicios:</p> 
+               <button onClick={handleClick} className="hover:text-cyan-400 absolute mx-5 text-center right-0 m-2  backdrop-blur border border-white pt-2 px-3">Save Routine</button>
                 {selectedExercises
-                  ? selectedExercises.map((ex) =><li className='block w-[auto] px-2 pt-2' key={ex.id}>'{ex.name}'</li> )
+                  ? selectedExercises.map((ex) =><li className='block w-[350px] px-5 py-1' key={ex.id}>'{ex.name}' <div>
+                  <label htmlFor={`repeticiones-${ex.id}`}>Repeticiones:</label>
+                  <select name={`repeticiones-${ex.id}`} id={`repeticiones-${ex.id}`}>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    <option value='5'>5</option>
+                    <option value='6'>6</option>
+                    <option value='7'>7</option>
+                    <option value='8'>8</option>
+                    <option value='9'>9</option>
+                    <option value='10'>10</option>
+                    <option value='11'>11</option>
+                    <option value='12'>12</option>
+                    <option value='13'>13</option>
+                    <option value='14'>14</option>
+                    <option value='15'>15</option>
+                    <option value='Failure'>Failure</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor={`series-${ex.id}`}>Series:</label>
+                  <select name={`series-${ex.id}`} id={`series-${ex.id}`}>
+                    <option value='1'>1</option>
+                    <option value='2'>2</option>
+                    <option value='3'>3</option>
+                    <option value='4'>4</option>
+                    <option value='5'>5</option>
+                  </select>
+                </div></li> )
                   : ''}
               </ul>
+              
       </div>
 
                 
@@ -198,7 +244,7 @@ export default function ExercisesLibrary() {
           <Image className="filter invert" src={ex.gifUrl} alt="" width={300} height={300} />
           <p>Name: {ex.name}</p>
         </Link>
-        <button onClick={() => handleAddExercise(ex)}>Add</button>
+        <button className="hover:text-cyan-400" onClick={() => handleAddExercise(ex)}>Add</button>
             </li>
           )})}
         
