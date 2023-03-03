@@ -6,6 +6,7 @@ import CardPlans from "@/components/CardPlans";
 
 export default function TraineeDetails() {
   const [userData, setUserData] = useState([]);
+  const [plans, setPlan] = useState([]);
   console.log(userData)
   const router = useRouter();
   console.log( router.query.id);
@@ -13,29 +14,46 @@ export default function TraineeDetails() {
   useEffect(() => {
     // make call to backend to fetch user data
     axios(`http://localhost:3001/user/${id}`)
-      .then(({ data }) => setUserData(data))
+      .then(({ data }) => {
+      console.log(data)
+       setUserData(data)
+       setPlan(data.membership.trainer.planTrainees)
+      }
+       )
       .catch((error) => console.log(error));
 
   },[]);
-  console.log(userData.membership.trainer.planTrainees)
  
-
+  console.log(userData)
   return( 
-    <div>
-          <div className="content-center justify-items-center pt-40">
+    <div> 
+          <h1>Trainer</h1>
+          <div className=" flex flex-col content-center justify-items-center pt-40">
+          <h1>Trainer</h1>
+
           <img src={userData.imgURL} alt='none' width={200}  height={100}/>
 
           <h2>first name: {userData.first_name}</h2>
           <h2>last name: {userData.last_name}</h2>
           <p>Role- {userData.role}</p>
         </div>
-        <div>
-          {/* {
-             userData.membership.trainer.planTrainees&&
-             userData.membership.trainer.planTrainees.map()
-                        
-          } */}
-       
+        <div> 
+        
+            <div className="flex flex-col w-40">
+              {
+                plans&&
+                plans.map(e => 
+                  <CardPlans key={e.name}
+                  idPlans={e.id_PlanTrainee}
+                  name={e.name}
+                  cost={e.cost}
+                  description={e.description}
+                  category={e.category}
+                  
+                  />)
+              }</div>
+        
+            
         </div>
     </div>
   ) 
