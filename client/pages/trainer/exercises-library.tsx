@@ -4,6 +4,10 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import {ExerciesResType} from '@/types/components/libraries'
 import useParam1Store from "@/store/state-lb";
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+
 
 
 type Option = {
@@ -37,6 +41,12 @@ export default function ExercisesLibrary() {
   const [selectedSubOption, setSelectedSubOption] = useState("");
   const { setFirstParam, setSecondParam, firstParam, secondParam } = useParam1Store();
   const [selectedExercises, setSelectedExercises] = useState<Array<AddedExercise>>([]);
+  const localizer = momentLocalizer(moment);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+
+
+
   interface AddedExercise {
     id: number,
     name: string,
@@ -48,8 +58,13 @@ export default function ExercisesLibrary() {
   const handleAddExercise = (ex: AddedExercise) => {
     setSelectedExercises([...selectedExercises, ex]);
   };
+ 
+  const handleSelect = ({ start }: { start: Date }) => {
+    setSelectedDate(prevSelectedDate => start);
+  };
   
-
+  
+  
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOptionValue = event.target.value;
     setSelectedOption(selectedOptionValue);
@@ -97,7 +112,7 @@ export default function ExercisesLibrary() {
   return (
       <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed  backdrop-blur-sm">       
       <div className="h-auto pt-[72px]">
-      <div className="mx-auto w-full flex justify-around px-36 py-8  bg-gray-800 bg-opacity-50">
+      <div className="mx-auto w-full flex justify-around px-36 py-8  bg-gray-900 bg-opacity-50">
         <div> 
          <label className="pr-0" htmlFor="option-select">Select an option:</label>
         <select className="pl-0" id="option-select" value={selectedOption} onChange={handleOptionChange}>
@@ -124,24 +139,35 @@ export default function ExercisesLibrary() {
           </select>
         </div>
       )}
-      <button onClick={handleButtonClick}>Filter</button>
+      <button onClick={handleButtonClick} className="hover:text-amber-500">Filter</button>
       
     </div>
-    <div className="flex ">
-      Mis ejercicios: <ul>
-  {selectedExercises? selectedExercises.map((ex) => 
-     (
-      <li key={ex.id}>{ex.name}</li>
-    )
-  
-    
-  ) : ''}
-</ul>
-        
 
+      <div className="flex justify-around py-8 px-12">
+       
+            <div className="h-[220px] backdrop-blur-md p-4 border border-white ">
+              <Calendar
+                localizer={localizer}
+                defaultDate={currentDate}
+                views={['month']}
+                onView={() => {}}
+                onNavigate={(date) => setCurrentDate(date)}
+                selectable
+                onSelectSlot={handleSelect}
+                className="text-white"
+                />
+            </div>
+            <div className="backdrop-blur-md border border-white h-[56px] my-auto text-center px-2"> <p className="text-center py-2">Fecha seleccionada: {selectedDate && selectedDate.toString()}</p> </div>
+              <ul className="backdrop-blur-md border border-white h-auto w-[250px] overflow-hidden flex flex-wrap">
+               <p className="m-2 py-2 mx-5 top-0 left-0">Mis ejercicios:</p> 
+                {selectedExercises
+                  ? selectedExercises.map((ex) =><li className='block w-[auto] px-2 pt-2' key={ex.id}>'{ex.name}'</li> )
+                  : ''}
+              </ul>
       </div>
+
                 
-        <div className="flex justify-between items-center w-full py-[115px] px-36">  
+        <div className="flex justify-between items-center w-full py-[115px] px-96">  
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
@@ -149,7 +175,7 @@ export default function ExercisesLibrary() {
         >
           Anterior
         </button>
-        <div className="text-xl font-bold">{currentPage}</div>
+        <div className="font-bold w-[35px] border border-white rounded-full py-2 backdrop-blur-lg text-center">{currentPage}</div>
         <button
           onClick={nextPage}
           disabled={rndExercises.length === 0}
