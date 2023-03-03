@@ -19,6 +19,7 @@ export default function FormularioLogin() {
     axios
       .post(`http://localhost:3001/auth`, formData)
       .then((data) => {
+        console.log(data);
         setCookie("token", data.data.token);
         router.push("/home");
       })
@@ -32,6 +33,7 @@ export default function FormularioLogin() {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  
   return (
     <form className="caja-login" onSubmit={handleSubmit}>
       <Image

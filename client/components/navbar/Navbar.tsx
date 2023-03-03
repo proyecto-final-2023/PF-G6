@@ -19,10 +19,11 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState();
+  const [user1, setUser1] = useState(null);
   const key =getCookie('token')
   const photo=user?.photoURL
   const name = user?.displayName;
+
 
   console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
@@ -37,8 +38,10 @@ export default function Navbar() {
   };
 
   const [viewportWidth, setViewportWidth] = useState(0);
-    // aqui te manda 
+    // aqui te manda  datos de user
+    console.log(key)
  useEffect(()=>{
+  if(key!==null){
   axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
   .then((data) => {
    console.log(data.data)
@@ -46,8 +49,10 @@ export default function Navbar() {
      display_name:` ${data.data.first_name}  ${data.data.last_name}`
    })
   })
- },[])
+ }},[key!==null])
+
  console.log(user1)
+
   useEffect(() => {
     function updateViewportWidth() {
       setViewportWidth(window.innerWidth);
@@ -66,6 +71,7 @@ export default function Navbar() {
   }, []);
 
   return (
+    
     <div>
       <Burger isBurgerActive={isBurgerActive} burgerHandler={burgerHandler} />
       <nav
@@ -81,7 +87,7 @@ export default function Navbar() {
               <Image
                 src={logoImg}
                 alt={`link of the whole app`}
-                className="inline-block align-bottom sm:w-[100px] sm:h-[65px]"
+                className="inline-block  align-bottom sm:w-[100px] sm:h-[65px]"
               />
             </Link>
           </li>
@@ -111,7 +117,7 @@ export default function Navbar() {
 
           <li className="justify-center flex items-center">
             <Link replace href="/guest/trainning-list" className={linkStyles}>
-              Trainings
+              Trainers
             </Link>
           </li>
          
@@ -129,7 +135,8 @@ export default function Navbar() {
             {...{ hoverEventHandler }}
           />
 
-          {user && <li className="m-5">Hello {name}</li>}
+          {/* {user && <li className="m-5">Hello {user?.display_name}</li>} */}
+          {user1 && <li className="m-5">Hello {user1?.display_name}</li>}
           <HoverLi
             imgUrl={photo||userImg}
             text="user"
@@ -137,7 +144,7 @@ export default function Navbar() {
             isHover={hovers.user}
             vw={viewportWidth}
             optionsList={
-              user || user1 
+              user1 
                 ? ["Dashboard", "Log out"]
                 : ["Register", "Log In"]
             }

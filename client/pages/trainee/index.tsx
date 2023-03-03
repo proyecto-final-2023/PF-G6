@@ -4,7 +4,7 @@ import myImage from "../../public/tail-imgs/gym-bg.jpg";
 import Link from "next/link";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-// import moment from "moment";
+import moment from "moment";
 import {
   Calendar,
   momentLocalizer,
@@ -20,12 +20,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
-
-// type newEvent = {
-//   title: string;
-//   start: string;
-//   end: string;
-// }
 
 export default function Index() {
   // const [progress, setProgress] = useState("0");
@@ -160,4 +154,7 @@ export default function Index() {
     
   );
 }
+
+
+
 

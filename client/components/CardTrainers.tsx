@@ -1,24 +1,28 @@
+
+import Link from 'next/link';
 import React from 'react'
 
 // card trainers
-const Card = ({ photo, first_name,last_name, description, rating }) => {
+const Card = ({ photo, first_name,last_name, rating ,id }) => {
     return (
-      <div className="card bg-white rounded-lg overflow-hidden shadow-lg">
+       <Link href={`/trainer/trainers/${id}` } >
+      <div className="flex flex-grow   bg-gray-800 rounded-lg overflow-hidden shadow-lg">
         <img src={photo} alt={name} className="card__photo" />
         <div className="p-4">
-          <h2 className="text-lg font-semibold mb-2">{first_name}</h2>
-          <h2 className="text-lg font-semibold mb-2">{last_name}</h2>
-          <p className="text-gray-600 text-sm mb-2">{description}</p>
+          <h2 className="text-lg text-gray-400 font-semibold mb-2">{first_name}</h2>
+          <h2 className="text-lg text-gray-500 font-semibold mb-2">{last_name}</h2>
+          
           <div className="flex items-center">
             <div className="mr-2">
               {Array.from({ length: rating }, (_, i) => (
-                <span key={i} className="text-yellow-400">&#9733;</span>
+                <span key={i} className="text-yellow-700">&#9733;</span>
               ))}
             </div>
             <span className="text-sm">{rating}</span>
           </div>
         </div>
       </div>
+     </Link>
     );
   };
   

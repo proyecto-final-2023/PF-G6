@@ -55,9 +55,9 @@ export default function plans() {
             alt={`link of the whole app`}
             className="transition ease-in-out delay-550 opacity-60  hover:-translate-y-1 hover:scale-110 hover: duration-100 drop-shadow-2xl justify-items-center    "
           />
-          <h1 className="bg-clip-text text-transparent  bg-yellow-900 text-4x1">
+          {/* <h1 className="bg-clip-text text-transparent  bg-yellow-900 text-4x1">
             Plans
-          </h1>
+          </h1> */}
         </div>
       </header>
 
