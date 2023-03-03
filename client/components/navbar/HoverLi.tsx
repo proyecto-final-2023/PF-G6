@@ -22,7 +22,12 @@ export default function HoverLi(props: HoverLiProps) {
           {/* if imgUrl render Image: else render text /}
           {/ make text upper case, cuz' of hoverState's key */}
           {imgUrl ? (
-            <Image src={imgUrl} alt={`link of ${text}`} />
+            <Image
+              src={imgUrl}
+              alt={`link of ${text}`}
+              width={70}
+              height={70}
+            />
           ) : (
             text[0].toUpperCase() + text.slice(1)
           )}
