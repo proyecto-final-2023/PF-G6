@@ -1,18 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-
 import HoverLi from "./HoverLi";
 import { NavbarStates } from "@/types/components";
 import CustomHoverLi from "./CustomHoverLi";
-
 import userImg from "@/assets/images/user.png";
 import logoImg from "@/assets/images/placeholder-logo.png";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import Burger from "./Burger";
-
+import axios from "axios";
+import { getCookie, setCookie } from "@/utils/cookieHandler";
 export const linkStyles =
   "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out inline-block p-1 ";
 // * uwu *//
@@ -21,11 +19,13 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  // const photo=user?.photoURL
-  const name = user?.displayName;
+  const [user1, setUser1] = useState(null);
+  const key =getCookie('token')
   const photo=user?.photoURL
+  const name = user?.displayName;
 
-  // console.log(user);
+
+  console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
@@ -38,6 +38,20 @@ export default function Navbar() {
   };
 
   const [viewportWidth, setViewportWidth] = useState(0);
+    // aqui te manda  datos de user
+    console.log(key)
+ useEffect(()=>{
+  if(key!==null){
+  axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
+  .then((data) => {
+   console.log(data.data)
+   setUser1({
+     display_name:` ${data.data.first_name}  ${data.data.last_name}`
+   })
+  })
+ }},[key!==null])
+
+ console.log(user1)
 
   useEffect(() => {
     function updateViewportWidth() {
@@ -57,6 +71,7 @@ export default function Navbar() {
   }, []);
 
   return (
+    
     <div>
       <Burger isBurgerActive={isBurgerActive} burgerHandler={burgerHandler} />
       <nav
@@ -77,7 +92,7 @@ export default function Navbar() {
             </Link>
           </li>
 
-          <li className="inline-block align-bottom text-center pt-5 py-2 relative sm:-top-2">
+          {/* <li className="inline-block align-bottom text-center pt-5 py-2 relative sm:-top-2">
             <input
               type="search"
               ref={searchRef}
@@ -92,7 +107,7 @@ export default function Navbar() {
             >
               Search
             </button>
-          </li>
+          </li> */}
 
           <li className="flex justify-center items-center">
             <Link replace href="/home" className={linkStyles}>
@@ -102,9 +117,10 @@ export default function Navbar() {
 
           <li className="justify-center flex items-center">
             <Link replace href="/guest/trainning-list" className={linkStyles}>
-              Trainings
+              Trainers
             </Link>
           </li>
+         
 
           <CustomHoverLi
             href="trainee/tools"
@@ -119,7 +135,8 @@ export default function Navbar() {
             {...{ hoverEventHandler }}
           />
 
-          {user && <li className="m-5">Hello {name}</li>}
+          {/* {user && <li className="m-5">Hello {user?.display_name}</li>} */}
+          {user1 && <li className="m-5">Hello {user1?.display_name}</li>}
           <HoverLi
             imgUrl={photo||userImg}
             text="user"
@@ -127,8 +144,8 @@ export default function Navbar() {
             isHover={hovers.user}
             vw={viewportWidth}
             optionsList={
-              user
-                ? ["Diets", "Trainer Programs", "Log out"]
+              user1 
+                ? ["Dashboard", "Log out"]
                 : ["Register", "Log In"]
             }
             {...{ hoverEventHandler }}

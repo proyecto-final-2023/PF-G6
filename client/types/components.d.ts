@@ -32,7 +32,7 @@ export type UrlMapping = {
 
   diets: string;
   trainerprograms: string;
-  logout: () => void;
+  logout: () => void|string
 };
 
 // @ SubNavMenu

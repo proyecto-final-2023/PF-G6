@@ -6,31 +6,51 @@ import {
 import Link from "next/link";
 import React from "react";
 import { auth } from "../../firebase";
+import { setCookie } from "@/utils/cookieHandler";
+
+
+
+
 // outside to avoid creating it on every re-render, since will never change
-const optionsUrlMapping: UrlMapping = {
-  // Tools hover
-  caloriescalculator: "/trainee/tools/calculator",
-  fatcalculator: "/trainee/tools/fat-calculator",
-  stopwatch: "/trainee/tools/stop-watch",
-  // User guest hover
-  register: "/login/register",
-  login: "/login",
-  // User logged in hover
-  diets: "/trainee/eating-plans",
-  trainerprograms: "/trainee/training-plans",
-  logout: () => {
-    auth.signOut();
-  },
-};
+
 
 export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
   const { optionsList, singOutHandler, id } = props;
+ 
+  
+
+  const optionsUrlMapping: UrlMapping = {
+    // Tools hover
+    caloriescalculator: "/trainee/tools/calculator",
+    fatcalculator: "/trainee/tools/fat-calculator",
+    stopwatch: "/trainee/tools/stop-watch",
+    // User guest hover
+    register: "/login/register",
+    login: "/login",
+    // User logged in hover
+    diets: "/trainee/eating-plans",
+    trainerprograms: "/trainee/training-plans",
+    logout : () => {
+      auth.signOut();
+      setCookie("token", null);
+      window.location.href = "/"
+      
+    }
+  };
+
+
 
   // must return null to be a valid JSX child
   if (singOutHandler) {
     singOutHandler(id);
     return null;
   }
+
+  // const handleLogout = () => {
+  //   auth.signOut();
+  //   setCookie("token", null);
+  //   router.push("/"); // Redirige a la página de inicio
+  // };
 
   return (
     <ul className="left-0 w-[115px] flex flex-col bg-gray-600 border-gray-200 rounded-lg shadow-lg ease-in-out duration-500">
