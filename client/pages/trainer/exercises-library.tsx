@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
@@ -70,6 +69,12 @@ const options: Option[] = [
     ],
   },
 ];
+
+type ExerciseType = {
+  name: string;
+  id: number;
+};
+
 export default function ExercisesLibrary() {
   const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -78,9 +83,11 @@ export default function ExercisesLibrary() {
   const [selectedSubOption, setSelectedSubOption] = useState("");
   const { setFirstParam, setSecondParam, firstParam, secondParam } =
     useParam1Store();
-  const [selectedExercises, setSelectedExercises] = useState<Array<object>>([]);
+  const [selectedExercises, setSelectedExercises] = useState<ExerciseType[]>(
+    []
+  );
 
-  const handleAddExercise = (ex: object) => {
+  const handleAddExercise = (ex: ExerciseType) => {
     setSelectedExercises([...selectedExercises, ex]);
   };
 
@@ -178,14 +185,11 @@ export default function ExercisesLibrary() {
           <button onClick={handleButtonClick}>Filter</button>
         </div>
         <div className="flex ">
-          <p>
-            Mis ejercicios:{" "}
-            <ul>
-              {selectedExercises
-                ? selectedExercises.map((ex) => <li key={ex.id}>{ex.name}</li>)
-                : ""}
-            </ul>
-          </p>
+          <p>Mis ejercicios:</p>
+          <ul>
+            {selectedExercises &&
+              selectedExercises.map((ex) => <li key={ex.id}>{ex.name}</li>)}
+          </ul>
         </div>
 
         <div className="flex justify-between items-center w-full py-[115px] px-36">
