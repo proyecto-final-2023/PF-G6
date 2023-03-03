@@ -41,28 +41,27 @@ function GraphContainer() {
   }, []);
 
   console.log(dataset?.membership.countTrainerMembership);
-  //---------------------------------------------------------------------------------------------
   const label1 = "User";
-  let scores1:any = [];
-  if (scores1.every(Boolean))
-    scores1 = [
-      dataset?.user.countUser,
-      dataset?.user.countTrainer,
-      dataset?.user.countTrainee,
-    ];
-  else scores1 = [1];
-  const labels1 = ["Users", "Trainers", "Trainees"];
+  //------------------------------------------------------------
+  // ? starts as (number | undefined)[] so we need to create another array with type number[] instead of chaning the type of the first one... smh my head
+  const scores1Cast: (number | undefined)[] = [
+    dataset?.user?.countUser,
+    dataset?.user?.countTrainer,
+    dataset?.user?.countTrainee,
+  ];
+  let scores1: number[] = [];
+  if (!scores1Cast.every(Boolean)) scores1 = [1];
+  else scores1 = scores1Cast as number[];
 
-  //-----------------------------------------------------------------------------------------------
-  
+  //---------------------------------------------------------
+  const labels1 = ["Users", "Trainers", "Trainees"];
+  const label2 = "Trainers";
+  const scores2 = [30, 25, 17];
+  //---------------------------------------------------------
   const result = dataset?.membership?.countTrainerMembership;
   let labels2: string[] = [];
   if (result) labels2 = Object.keys(result);
   else labels2 = ["Waiting data"];
-  let scores2:number[] = [];
-  if(result) scores2= Object.values(result);
-  else scores2=[0];
-  const label2:string = "Trainers";
   //---------------------------------------------------------
   const label3 = "Membresia";
   const scores3 = [500, 400, 300];
