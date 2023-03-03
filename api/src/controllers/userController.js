@@ -219,6 +219,7 @@ const userByName = async (name, page, limit) => {
 
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
+  console.log(decoded)
   const [user] = await Logueo.findAll({
     where: { userId: decoded.id },
   });
@@ -242,7 +243,7 @@ const listEmail = async (email) => {
         email: email,
       },
     });
-    if (!!listUser.length) {
+    if (listUser.length) {
       return { verify: true };
     } else {
       return { verify: false };

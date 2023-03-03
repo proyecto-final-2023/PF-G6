@@ -10,6 +10,7 @@ membershipRouter.post("/", async (req, res) => {
   try {
     const { idPlan, status, idPago, cost, fechaPago } = req.body;
     const idUser = await idExtract(req.headers["x-access-token"]);
+    console.log(idUser)
     if (status === "COMPLETED") {
       res
         .status(200)

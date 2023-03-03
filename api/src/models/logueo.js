@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
       email: {
         type: DataTypes.STRING,
         allowNull: false,
-        unique: true,
+        unique:true
       },
       password: {
         type: DataTypes.STRING,
@@ -23,13 +23,10 @@ module.exports = (sequelize) => {
         defaultValue: false,
       },
     },
-    {
-      timestamps: false,
-      uniqueKeys: {
-        UserLogueo_unique: {
-          fields: ["userId", "id_login"],
-        },
+    { timestamps: false,uniqueKeys: {
+      UserLogueo_unique: {
+        fields: ["userId", "id_login"],
       },
-    }
+    }, }
   );
 };
