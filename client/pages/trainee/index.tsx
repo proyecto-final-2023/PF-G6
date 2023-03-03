@@ -18,7 +18,7 @@ import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
-import ProgressBar from "@/components/traineeProgressbar";
+// import ProgressBar from "@/components/TraineeProgressbar";
 import Rating from "@/components/StarRating";
 
 export default function Index() {
@@ -26,7 +26,7 @@ export default function Index() {
   const photo = user?.photoURL;
   const name = user?.displayName;
   const key = getCookie("token");
-  const [user1, setUser1] = useState();
+  const [user1, setUser1] = useState<any>();
 
   console.log(key);
   useEffect(() => {
@@ -98,17 +98,25 @@ export default function Index() {
 
       if ((d1 <= d2 && d2 <= d3) || (d1 <= d4 && d4 <= d3)) {
         alert("There is already an activity on that date, it will clash.");
-        break;
+        // break
+        return;
       }
     }
 
-    setAllEvents([...allEvents, newEvent]);
+    const parsedNewEvent = {
+      title: newEvent.title,
+      start: new Date(newEvent.start),
+      end: new Date(newEvent.end),
+      allDay: true,
+    };
+
+    setAllEvents((prev) => [...prev, parsedNewEvent]);
   }
 
   return (
     <div className="flex flex-col">
       <div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
-        <ProgressBar />
+        {/* <ProgressBar /> */}
         <div className="border-red-300 border-2 h-[20-vh]  w-[85vw] text-center">
           <img
             className="rounded-full w-40 h-40"
@@ -123,9 +131,15 @@ export default function Index() {
             <h2 className="text-3xl">Trainer: {user1?.trainer}</h2>
             <Rating />
             <form>
-              <label className="mr-3 text-md" placeholder="write your feedback">Feedback:</label>
-              <textarea placeholder="write your feedback"/>
-              <input type="submit" value="Submit" className="cursor-pointer text-lg font-bold text-white hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"/>
+              <label className="mr-3 text-md" placeholder="write your feedback">
+                Feedback:
+              </label>
+              <textarea placeholder="write your feedback" />
+              <input
+                type="submit"
+                value="Submit"
+                className="cursor-pointer text-lg font-bold text-white hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"
+              />
             </form>
             <a href={`https://wa.me/${user1?.trainerPhone}`}>
               Contact me via WhatsApp!

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-interface CardData {
+export type CardData = {
   id: number;
   dataType: string;
   description: string;
@@ -23,7 +23,7 @@ interface CardData {
   cholesterolUnit: string;
   energyAmount: number;
   energyUnit: string | null;
-}
+};
 
 function CardList() {
   const [data, setData] = useState<CardData[]>([]);
@@ -127,7 +127,12 @@ function CardList() {
         <button onClick={handleNextPage} className="bg-black">
           Next Page 🡲
         </button>
-        <a className="text-center text-lg hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300" href="javascript:history.back()">Go Back</a>
+        <a
+          className="text-center text-lg hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"
+          href="javascript:history.back()"
+        >
+          Go Back
+        </a>
       </div>
     </div>
   );
