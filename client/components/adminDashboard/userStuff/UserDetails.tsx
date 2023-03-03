@@ -22,13 +22,12 @@ export default function UserDetails(props: User) {
   });
 
   const onSubmit: SubmitHandler<User> = async (data) => {
-    console.log("SUBMIT", data);
     if (requestType.current === "PUT") {
       // await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, data);
-      console.log("READY TO UPDATE");
+      console.log("READY TO UPDATE", data);
     } else {
       // await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`);
-      console.log("READY TO LOGIC DELETE");
+      console.log("READY TO LOGIC DELETE", data);
     }
   };
 

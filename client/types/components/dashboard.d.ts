@@ -1,18 +1,18 @@
 // * This file contains the types for the admin dashboard components
 // * PLAN
-export type Plan = {
-  id: number;
-  name: string;
-  price: number;
-};
+// export type Plan = {
+//   id: number;
+//   name: string;
+//   price: number;
+// };
 
-export type PlanDetails = Plan & {
-  duration: number;
-  description: string;
-  changePlanDetails: (id: number) => void;
-  deletePlan: (id: number) => void;
-  updatePlan: (id: number, data: Plan) => void;
-};
+// export type PlanDetails = Plan & {
+//   duration: number;
+//   description: string;
+//   changePlanDetails: (id: number) => void;
+//   deletePlan: (id: number) => void;
+//   updatePlan: (id: number, data: Plan) => void;
+// };
 
 // * USER
 export type User = {
