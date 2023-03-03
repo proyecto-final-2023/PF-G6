@@ -20,10 +20,9 @@ export default function Navbar() {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
   const [user1, setUser1] = useState();
-  const key =getCookie('token')
-  const photo=user?.photoURL
+  const key = getCookie("token");
+  const photo = user?.photoURL;
   const name = user?.displayName;
-  const photo=user?.photoURL
 
   console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
@@ -38,17 +37,20 @@ export default function Navbar() {
   };
 
   const [viewportWidth, setViewportWidth] = useState(0);
-    // aqui te manda 
- useEffect(()=>{
-  axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
-  .then((data) => {
-   console.log(data.data)
-   setUser1({
-     display_name:` ${data.data.first_name}  ${data.data.last_name}`
-   })
-  })
- },[])
- console.log(user1)
+  // aqui te manda
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/user/perfil", null, {
+        headers: { "x-access-token": key },
+      })
+      .then((data) => {
+        console.log(data.data);
+        setUser1({
+          display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
+        });
+      });
+  }, []);
+  console.log(user1);
   useEffect(() => {
     function updateViewportWidth() {
       setViewportWidth(window.innerWidth);
@@ -115,7 +117,6 @@ export default function Navbar() {
               Trainings
             </Link>
           </li>
-         
 
           <CustomHoverLi
             href="trainee/tools"
@@ -132,15 +133,13 @@ export default function Navbar() {
 
           {user && <li className="m-5">Hello {name}</li>}
           <HoverLi
-            imgUrl={photo||userImg}
+            imgUrl={photo || userImg}
             text="user"
             href="/"
             isHover={hovers.user}
             vw={viewportWidth}
             optionsList={
-              user || user1 
-                ? ["Dashboard", "Log out"]
-                : ["Register", "Log In"]
+              user || user1 ? ["Dashboard", "Log out"] : ["Register", "Log In"]
             }
             {...{ hoverEventHandler }}
           />
