@@ -1,4 +1,50 @@
-const { Trainee, Membership, User, PlanTrainee } = require("../db");
+const {
+  Trainee,
+  Membership,
+  User,
+  PlanTrainee,
+  Comment,
+  Trainer,
+} = require("../db");
+
+const addComment = async (id, comment) => {
+  const user = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["traineeIdTrainee"],
+      },
+    ],
+  });
+  const trai = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["id_membership"],
+        include: [
+          {
+            model: PlanTrainee,
+            attributes: ["trainerIdTrainer"],
+          },
+        ],
+      },
+    ],
+  });
+
+  const trainer = await Trainer.findByPk(
+    trai.membership.planTrainee.trainerIdTrainer
+  );
+  const trainee = await Trainee.findByPk(user.membership.traineeIdTrainee);
+
+  const addcomment = await Comment.create({
+    message: comment,
+    trainerIdTrainer: trai.membership.planTrainee.trainerIdTrainer,
+    traineeIdTrainee: user.membership.traineeIdTrainee,
+  });
+  return addcomment;
+};
 
 const listTraineesbyPlan = async (idPlanTrainee, page, limit) => {
   try {
@@ -118,4 +164,4 @@ const addData = async (
   return `Se actualizó los datos del entrenado  ${user.first_name}, ${user.last_name}`;
 };
 
-module.exports = { listTrainees, listTraineesbyPlan, addData };
+module.exports = { listTrainees, listTraineesbyPlan, addData, addComment };
