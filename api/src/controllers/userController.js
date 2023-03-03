@@ -7,6 +7,11 @@ const {
   Plantrainer,
   Trainer,
   Trainee,
+  SocialNetworks,
+  Certificates,
+  ActivitiesPlan,
+  AlimentsPlan,
+  Plan,
 } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
@@ -28,7 +33,32 @@ const getPerfil = async (id) => {
         model: Membership,
         attributes: ["id_membership", "startDate", "finishDate"],
         include: [
-          { model: Trainee },
+          {
+            model: Trainee,
+            include: [
+              {
+                model: Plan,
+                attributes: ["id_plan", "datePlan"],
+                include: [
+                  {
+                    model: ActivitiesPlan,
+                    attributes: ["idActivity", "series", "repetitions"],
+                  },
+                  {
+                    model: AlimentsPlan,
+                    attributes: ["idAliment", "portion", "time"],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            model: Trainer,
+            attributes: {
+              exclude: ["id_trainer"],
+            },
+            include: [{ model: Certificates }, { model: SocialNetworks }],
+          },
           {
             model: Voucher,
             attributes: ["id_voucher", "date", "cost"],

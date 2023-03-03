@@ -72,14 +72,13 @@ userRoutes.post("/email", async (req, res) => {
 userRoutes.post("/perfil", async (req, res) => {
   try {
     const id = await idExtract(req.headers["x-access-token"]);
-    console.log(id);
-    console.log('holas');
-
     const user = await getPerfil(id);
     res.status(200).json(user);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 });
+
+
 
 module.exports = userRoutes;

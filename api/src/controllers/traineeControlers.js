@@ -7,7 +7,7 @@ const listTraineesbyPlan = async (idPlanTrainee, page, limit) => {
       include: [
         {
           model: Membership,
-          attributes: ["userId"],
+          attributes: ["userId", "traineeIdTrainee"],
           include: [
             {
               model: User,
@@ -31,7 +31,7 @@ const listTrainees = async (page, limit) => {
       include: [
         {
           model: Membership,
-          attributes: ["userId"],
+          attributes: ["userId", "traineeIdTrainee"],
           include: [
             {
               model: PlanTrainee,
@@ -54,4 +54,68 @@ const listTrainees = async (page, limit) => {
   }
 };
 
-module.exports = { listTrainees, listTraineesbyPlan };
+const addData = async (
+  id,
+  weight,
+  height,
+  neck,
+  torso,
+  chest,
+  waist,
+  arm,
+  wrist,
+  hip,
+  butt,
+  thig,
+  calf,
+  allergies,
+  surgeries,
+  smoke,
+  drinker,
+  drugs,
+  roids,
+  water,
+  lesions
+) => {
+  const user = await User.findByPk(id, {
+    attributes: ["first_name", "last_name"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["traineeIdTrainee"],
+      },
+    ],
+  });
+
+  const trainee = await Trainee.findByPk(user.membership.traineeIdTrainee);
+  if (!trainee) {
+    throw new Error(`No se encontró al entrenador con ID ${id}.`);
+  }
+  // Actualizamos la propiedad `logo` del entrenador con el nuevo valor
+  await trainee.update({
+    weight,
+    height,
+    neck,
+    torso,
+    chest,
+    waist,
+    arm,
+    wrist,
+    hip,
+    butt,
+    thig,
+    calf,
+    allergies,
+    surgeries,
+    smoke,
+    drinker,
+    drugs,
+    roids,
+    water,
+    lesions,
+  });
+
+  return `Se actualizó los datos del entrenado  ${user.first_name}, ${user.last_name}`;
+};
+
+module.exports = { listTrainees, listTraineesbyPlan, addData };
