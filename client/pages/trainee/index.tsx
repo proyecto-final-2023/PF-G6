@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import myImage from "../../public/tail-imgs/gym-bg.jpg";
 import Link from "next/link";
-import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import {
   Calendar,
