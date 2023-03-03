@@ -5,7 +5,7 @@ import { StaticImageData } from "next/image";
 
 // @ HoverLi
 export type HoverLiProps = {
-  imgUrl?: StaticImageData;
+  imgUrl?: StaticImageData | string;
   href: string;
   text: string;
   isHover: boolean;
@@ -134,14 +134,18 @@ export type BurgerProps = {
 
 // @ Components/CardPlans
 export type CardPlansProps = {
+  idPlans: number;
   name: string;
   cost: number;
   category: string;
   description: string;
+  // idUser:number;
 };
 
 // @ components/PaypalButton
 export type PaypalButtonProps = {
   amountToPay: number;
   serviceName: string;
+  idPlans: number;
+  idUser: number;
 };

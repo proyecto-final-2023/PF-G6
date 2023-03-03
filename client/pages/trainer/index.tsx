@@ -1,5 +1,10 @@
+import NavbarTrainer from "@/components/navbar/NavbarTrainer";
 import React from "react";
 
-export default function Index() {
-  return <div>index</div>;
+export default function index() {
+  return (
+    <div>
+      <NavbarTrainer />
+    </div>
+  );
 }
