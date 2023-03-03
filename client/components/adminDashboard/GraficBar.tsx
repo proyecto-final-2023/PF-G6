@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import Chart from "chart.js/auto";
-import { Pie } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 
 import {
   DoughnutController,
@@ -34,7 +34,7 @@ type GraficUTTProps = {
   title: string;
 };
 
-function GraficUTT(props: GraficUTTProps) {
+function GraficBar(props: GraficUTTProps) {
   const { labels, scores, label, title } = props;
   const data = useMemo(
     () => ({
@@ -61,8 +61,8 @@ function GraficUTT(props: GraficUTTProps) {
   );
 
   return (
-    <div className="">
-      <Pie
+    <div className="w-1/3">
+      <Bar
         data={data}
         options={{
           responsive: true,
@@ -72,6 +72,9 @@ function GraficUTT(props: GraficUTTProps) {
               position: "top",
               display: true,
             },
+            legend:{
+              display:false,
+            }
           },
         }}
       />
@@ -79,4 +82,4 @@ function GraficUTT(props: GraficUTTProps) {
   );
 }
 
-export default GraficUTT;
+export default GraficBar;
