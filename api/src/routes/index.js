@@ -10,6 +10,7 @@ const plansTraineeRouter = require("./planTraineeRoutes");
 const membership = require("./membershipRoutes");
 const trainers = require("./trainersRouters");
 const data = require("./dataRoutes");
+const trainee = require("./traineesRouter");
 //----------------------------------------------------------
 const activityRouter = require("./activityRoutes");
 const alimentRouter = require("./alimentsRoutes");
@@ -21,8 +22,8 @@ const indexRouter = Router();
 
 // Configurar los routers
 indexRouter.use(errorHandler);
-indexRouter.use("/data", data);// check
-indexRouter.use("/base", verifyToken, baseRouter);// check
+indexRouter.use("/data", data); // check
+indexRouter.use("/base", verifyToken, baseRouter); // check
 indexRouter.use("/user", userRoutes); // check
 indexRouter.use("/activity", activityRouter);
 indexRouter.use("/aliment", alimentRouter);
@@ -32,6 +33,7 @@ indexRouter.use("/contact", contactRoutes);
 indexRouter.use("/plans/trainers", plansRouter);
 indexRouter.use("/plans/trainee", plansTraineeRouter);
 indexRouter.use("/membership", membership);
-indexRouter.use("/trainers", trainers);// check
+indexRouter.use("/trainers", trainers); // check
+indexRouter.use("/trainees", trainee); // check
 
 module.exports = indexRouter;
