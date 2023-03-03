@@ -1,12 +1,49 @@
+const { Op } = require("sequelize");
+const Sequelize = require("sequelize");
 const {
   User,
   Membership,
   PlanTrainee,
   Plantrainer,
   Trainer,
+  Voucher,
 } = require("../db");
 
 const data = async () => {
+  // -------------------------------------------------------------------------------------
+  const vouchers = await Voucher.findAll({
+    attributes: ["cost"],
+  });
+
+  let totalCost = 0;
+  for (let i = 0; i < vouchers.length; i++) {
+    totalCost += parseInt(vouchers[i].cost);
+  }
+  //--------------------------------------------------------------------------------------
+  //! ERROR original: error: invalid value "hoy " for "YYYY"
+  // const monthVouche = await Voucher.findAll({
+  //   attributes: ["cost"],
+  //   where: Sequelize.where(
+  //     Sequelize.fn(
+  //       "date_trunc",
+  //       "month",
+  //       Sequelize.fn(
+  //         "to_date",
+  //         Sequelize.col("date"),
+  //         'YYYY-MM-DD"T"HH24:MI:SS"Z"'
+  //       )
+  //     ),
+  //     Sequelize.fn("date_trunc", "month", Sequelize.fn("now"))
+  //   ),
+  // });
+
+  // let monthCost = 0;
+  // for (let i = 0; i < monthVouche.length; i++) {
+  //   monthCost += parseInt(monthVouche[i].cost);
+  // }
+
+  // console.log(`El total de costos para el mes actual es: ${monthCost}`);
+  // -------------------------------------------------------------------------------------
   const countUser = await User.count();
   const countTrainer = await User.count({
     where: {
@@ -131,6 +168,7 @@ const data = async () => {
   const MVPtrainer = await Plantrainer.findByPk(sortedCountsTrainer[1].id);
 
   return {
+    money: { moneyTotal: totalCost /* moneyMonth: totalCos */ },
     user: { countUser, countTrainer, countTrainee },
     membership: {
       countMerbership,

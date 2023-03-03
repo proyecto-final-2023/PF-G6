@@ -7,24 +7,20 @@ module.exports = (sequelize) => {
       id_certificates: {
         type: DataTypes.UUID,
         allowNull: false,
-        default: DataTypes.UUIDV4,
         primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
       },
       type: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       name: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       url: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
       description: {
         type: DataTypes.STRING,
-        allowNull: false,
       },
     },
     { timestamps: false }
