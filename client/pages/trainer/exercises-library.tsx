@@ -185,7 +185,7 @@ export default function ExercisesLibrary() {
         </button>
       </div>
       <div className="flex flex-wrap gap-5">
-        <ul className="grid grid-cols-4 mx-auto">
+        <ul className="grid grid-cols-4 mx-auto px-9">
           {rndExercises.slice(0, 30).map((ex) => {return (
             <li className="w-auto rounded-lg p-4 m-5 bg-black">
               <Link
