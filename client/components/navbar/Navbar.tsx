@@ -1,18 +1,16 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-
 import HoverLi from "./HoverLi";
 import { NavbarStates } from "@/types/components";
 import CustomHoverLi from "./CustomHoverLi";
-
 import userImg from "@/assets/images/user.png";
 import logoImg from "@/assets/images/placeholder-logo.png";
-
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import Burger from "./Burger";
-
+import axios from "axios";
+import { getCookie, setCookie } from "@/utils/cookieHandler";
 export const linkStyles =
   "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out inline-block p-1 ";
 // * uwu *//
@@ -21,10 +19,12 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  // const photo=user?.photoURL
+  const [user1, setUser1] = useState();
+  const key = getCookie("token");
+  const photo = user?.photoURL;
   const name = user?.displayName;
 
-  // console.log(user);
+  console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
@@ -37,7 +37,20 @@ export default function Navbar() {
   };
 
   const [viewportWidth, setViewportWidth] = useState(0);
-
+  // aqui te manda
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/user/perfil", null, {
+        headers: { "x-access-token": key },
+      })
+      .then((data) => {
+        console.log(data.data);
+        setUser1({
+          display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
+        });
+      });
+  }, []);
+  console.log(user1);
   useEffect(() => {
     function updateViewportWidth() {
       setViewportWidth(window.innerWidth);
@@ -103,15 +116,13 @@ export default function Navbar() {
 
           {user && <li className="m-5">Hello {name}</li>}
           <HoverLi
-            imgUrl={userImg}
+            imgUrl={photo || userImg}
             text="user"
             href="/"
             isHover={hovers.user}
             vw={viewportWidth}
             optionsList={
-              user
-                ? ["Diets", "Trainer Programs", "Log out"]
-                : ["Register", "Log In"]
+              user || user1 ? ["Dashboard", "Log out"] : ["Register", "Log In"]
             }
             {...{ hoverEventHandler }}
           />

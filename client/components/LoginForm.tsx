@@ -28,9 +28,11 @@ export default function FormularioLogin() {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(formData)
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
+  
   return (
     <form className="caja-login" onSubmit={handleSubmit}>
       <Image

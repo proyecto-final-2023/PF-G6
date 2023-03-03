@@ -4,7 +4,7 @@ import CardList from "@/components/Food";
 export default function FoodPage(){
     return(
         <div>
-            <CardList />
+            <CardList />   
         </div>
     );
 }
