@@ -20,6 +20,7 @@ const optionsUrlMapping: UrlMapping = {
   trainerprograms: "/trainee/training-plans",
   logout: () => {
     auth.signOut();
+    
   },
 };
 

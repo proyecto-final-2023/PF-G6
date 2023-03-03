@@ -27,6 +27,13 @@ body {
   min-height: 100vh;
 }
 
+.text-shadow {
+  text-shadow: 0 0 1px rgba(255, 255, 255, 1);
+  -webkit-text-stroke: 1px white;
+}
+
+
+
 /* .home_dark_bg {
   background-image: url("/tail-imgs/gym-bg.jpg");
   background-color: rgb(124, 124, 124);

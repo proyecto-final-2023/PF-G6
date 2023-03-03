@@ -1,12 +1,53 @@
 const { Op } = require("sequelize");
+const Sequelize = require("sequelize");
 const {
   User,
   Membership,
   PlanTrainee,
   Plantrainer,
   Trainer,
+  Voucher,
 } = require("../db");
+const moment = require("moment");
+
 const data = async () => {
+  const startDate = moment().format("YYYY-MM-DD");
+
+  const vouchers = await Voucher.findAll({
+    attributes: ["cost"],
+  });
+
+  let totalCost = 0;
+  for (let i = 0; i < vouchers.length; i++) {
+    totalCost += parseInt(vouchers[i].cost);
+  }
+
+  //--------------------------------------------------------------------------------------
+
+  const vouche = await Voucher.findAll({
+    attributes: ["cost"],
+    where: Sequelize.where(
+      Sequelize.fn(
+        "date_trunc",
+        "month",
+        Sequelize.fn(
+          "to_date",
+          Sequelize.col("date"),
+          'YYYY-MM-DD"T"HH24:MI:SS"Z"'
+        )
+      ),
+      Sequelize.fn("date_trunc", "month", Sequelize.fn("now"))
+    ),
+  });
+
+  let totalCos = 0;
+  for (let i = 0; i < vouche.length; i++) {
+    totalCos += parseInt(vouche[i].cost);
+  }
+
+  console.log(`El total de costos para el mes actual es: ${totalCos}`);
+
+  //-------------------------------------------------------------------------------------------------------
   const cantUser = await User.count();
   const cantTrainer = await User.count({
     where: {
@@ -66,8 +107,45 @@ const data = async () => {
       obj[i + 1] = value;
       return obj;
     }, {});
-
-  const PVPtrainee1 = await PlanTrainee.findByPk(sortedCountsTrainee[1].id, {
+  console.log(!!sortedCountsTrainee[1]);
+  let PVPtrainee1;
+  let PVPtrainee2;
+  let PVPtrainee3;
+  if (!!sortedCountsTrainee[1]) {
+    PVPtrainee1 = await PlanTrainee.findByPk(sortedCountsTrainee[1].id, {
+      attributes: {
+        exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
+      },
+      include: [
+        {
+          model: Trainer,
+          attributes: {
+            exclude: ["id_trainer"],
+          },
+          include: [
+            {
+              model: Membership,
+              attributes: {
+                exclude: [
+                  "id_membership",
+                  "startDate",
+                  "finishDate",
+                  "userId",
+                  "plantrainerIdPlanTrainer",
+                  "planTraineeIdPlanTrainee",
+                  // "trainerIdTrainer",
+                  "traineeIdTrainee",
+                ],
+              },
+              include: [{ model: User }],
+            },
+          ],
+        },
+      ],
+    });
+  }
+  if (!!sortedCountsTrainee[1]) {
+  PVPtrainee2 = await PlanTrainee.findByPk(sortedCountsTrainee[2].id, {
     attributes: {
       exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
     },
@@ -97,8 +175,9 @@ const data = async () => {
         ],
       },
     ],
-  });
-  const PVPtrainee2 = await PlanTrainee.findByPk(sortedCountsTrainee[2].id, {
+  });}
+  if (!!sortedCountsTrainee[1]) {
+  PVPtrainee3 = await PlanTrainee.findByPk(sortedCountsTrainee[3].id, {
     attributes: {
       exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
     },
@@ -128,38 +207,7 @@ const data = async () => {
         ],
       },
     ],
-  });
-  const PVPtrainee3 = await PlanTrainee.findByPk(sortedCountsTrainee[3].id, {
-    attributes: {
-      exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
-    },
-    include: [
-      {
-        model: Trainer,
-        attributes: {
-          exclude: ["id_trainer"],
-        },
-        include: [
-          {
-            model: Membership,
-            attributes: {
-              exclude: [
-                "id_membership",
-                "startDate",
-                "finishDate",
-                "userId",
-                "plantrainerIdPlanTrainer",
-                "planTraineeIdPlanTrainee",
-                // "trainerIdTrainer",
-                "traineeIdTrainee",
-              ],
-            },
-            include: [{ model: User }],
-          },
-        ],
-      },
-    ],
-  });
+  });}
   //  -----------------------------------------------------------------------
   const betsTrainer = {};
   let j = 0;
@@ -183,6 +231,7 @@ const data = async () => {
   const PVPtrainer = await Plantrainer.findByPk(sortedCountsTrainer[1].id);
 
   return {
+    money: { moneyTotal: totalCost, moneyMes: totalCos },
     user: { cantUser, cantTrainer, cantTrainee },
     membership: { cantMerbership, countsTrainee, countsTrainer },
     bestPlanes: {

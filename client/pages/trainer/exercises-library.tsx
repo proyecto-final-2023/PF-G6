@@ -124,13 +124,13 @@ export default function ExercisesLibrary() {
   console.log(selectedExercises)
 
   return (
-      <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed  backdrop-blur-sm">       
-      <div className="h-auto pt-[72px]">
-      <div className="mx-auto w-full flex justify-around px-36 py-8  bg-gray-900 bg-opacity-50">
+      <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed">       
+      <div className="h-auto pt-[82px]">
+      <div className="mx-36 flex justify-around px-36 py-8 backdrop-blur-md bg-black bg-opacity-50 border  border-white">
         <div> 
-         <label className="pr-0" htmlFor="option-select">Select an option:</label>
+         <label className="pr-0" htmlFor="option-select">Select a filter:</label>
         <select className="pl-0" id="option-select" value={selectedOption} onChange={handleOptionChange}>
-        <option value="">Select an option</option>
+        <option value="">Target/Body Part/Equipment</option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -159,7 +159,7 @@ export default function ExercisesLibrary() {
 
       <div className="flex justify-around py-8 px-12">
        
-            <div className="h-[220px] backdrop-blur-md p-4 border border-white ">
+            <div className="h-[220px] backdrop-blur-md bg-black bg-opacity-50 p-4 border border-white ">
               <Calendar
                 localizer={localizer}
                 defaultDate={currentDate}
@@ -171,10 +171,10 @@ export default function ExercisesLibrary() {
                 className="text-white"
                 />
             </div>
-            <div className="backdrop-blur-md border border-white h-[56px] my-auto text-center px-2"> <p className="text-center py-2">Fecha seleccionada: {selectedDate && selectedDate.toString()}</p> </div>
-              <ul className="backdrop-blur-md border border-white h-auto w-[350px] overflow-hidden flex flex-wrap">
-               <p className="m-2 py-2 mx-5 top-0 left-0">Mis ejercicios:</p> 
-               <button onClick={handleClick} className="hover:text-cyan-400 absolute mx-5 text-center right-0 m-2  backdrop-blur border border-white pt-2 px-3">Save Routine</button>
+            <div className="backdrop-blur-md bg-black bg-opacity-50 border  border-white h-[56px] my-auto text-center px-2"> <p className="text-center py-3">Fecha seleccionada: {selectedDate && selectedDate.toString()}</p> </div>
+              <ul className="backdrop-blur-md  bg-black bg-opacity-50 border border-white h-auto w-[350px] overflow-hidden flex flex-wrap">
+               <p className="m-2 py-2 mx-5 top-0 left-0">My routine:</p> 
+               <button onClick={handleClick} className="hover:text-amber-500 absolute mx-5 text-center right-0 m-2  pt-2 px-3">Save Routine</button>
                 {selectedExercises
                   ? selectedExercises.map((ex) =><li className='block w-[350px] px-5 py-1' key={ex.id}>'{ex.name}' <div>
                   <label htmlFor={`repeticiones-${ex.id}`}>Repeticiones:</label>
@@ -213,21 +213,21 @@ export default function ExercisesLibrary() {
       </div>
 
                 
-        <div className="flex justify-between items-center w-full py-[115px] px-96">  
+        <div className="flex justify-between items-center w-full py-10 px-96">  
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center"
         >
-          Anterior
+          PREV
         </button>
-        <div className="font-bold w-[35px] border border-white rounded-full py-2 backdrop-blur-lg text-center">{currentPage}</div>
+        <div className="font-bold w-[35px] border border-white rounded-full py-2 backdrop-blur-lg bg-black bg-opacity-50 text-center">{currentPage}</div>
         <button
           onClick={nextPage}
           disabled={rndExercises.length === 0}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center"
         >
-          Siguiente
+          NEXT
         </button>
       </div>
       <div className="flex flex-wrap gap-5">
@@ -250,21 +250,21 @@ export default function ExercisesLibrary() {
         
         </ul>
       </div>
-      <div className="flex justify-between items-center w-full py-[115px] px-36">
+      <div className="flex justify-between items-center w-full py-10 px-96">
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center"
         >
-          Anterior
+          PREV
         </button>
-          <div className="text-xl font-bold">{currentPage}</div>
+          <div className="font-bold w-[35px] border border-white rounded-full py-2 backdrop-blur-lg bg-black bg-opacity-50 text-center">{currentPage}</div>
         <button
           onClick={nextPage}
           disabled={rndExercises.length === 0}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center"
         >
-          Siguiente
+          NEXT
         </button>
       </div>
       </div>

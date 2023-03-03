@@ -7,6 +7,11 @@ const {
   Plantrainer,
   Trainer,
   Trainee,
+  SocialNetworks,
+  Certificates,
+  ActivitiesPlan,
+  AlimentsPlan,
+  Plan,
 } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
@@ -18,7 +23,7 @@ const getPerfil = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    attributes: ["id", "first_name", "last_name", "nickname", "role"],
+    attributes: ["id", "first_name", "last_name", "nickname", "role", "imgURL"],
     include: [
       {
         model: Logueo,
@@ -28,7 +33,32 @@ const getPerfil = async (id) => {
         model: Membership,
         attributes: ["id_membership", "startDate", "finishDate"],
         include: [
-          { model: Trainee },
+          {
+            model: Trainee,
+            include: [
+              {
+                model: Plan,
+                attributes: ["id_plan", "datePlan"],
+                include: [
+                  {
+                    model: ActivitiesPlan,
+                    attributes: ["idActivity", "series", "repetitions"],
+                  },
+                  {
+                    model: AlimentsPlan,
+                    attributes: ["idAliment", "portion", "time"],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            model: Trainer,
+            attributes: {
+              exclude: ["id_trainer"],
+            },
+            include: [{ model: Certificates }, { model: SocialNetworks }],
+          },
           {
             model: Voucher,
             attributes: ["id_voucher", "date", "cost"],
@@ -189,6 +219,7 @@ const userByName = async (name, page, limit) => {
 
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
+  console.log(decoded)
   const [user] = await Logueo.findAll({
     where: { userId: decoded.id },
   });
@@ -212,7 +243,7 @@ const listEmail = async (email) => {
         email: email,
       },
     });
-    if (!!listUser.length) {
+    if (listUser.length) {
       return { verify: true };
     } else {
       return { verify: false };
