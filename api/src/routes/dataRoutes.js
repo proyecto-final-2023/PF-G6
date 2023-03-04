@@ -9,8 +9,8 @@ dataRoutes.get("/", async (req, res) => {
     const dat = await data();
     res.status(200).json(dat);
   } catch (error) {
-    console.log(error)
-    res.status(400).json( {error} );
+    console.log(error);
+    res.status(400).json(error);
   }
 });
 

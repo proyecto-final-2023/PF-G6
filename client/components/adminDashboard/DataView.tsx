@@ -1,10 +1,12 @@
 import React from "react";
 
-
-let value: number = 100;
-
-function DataView() {
-  return <div>{value}</div>;
+function DataView({ money, title }: { money?: number; title?: string }) {
+  return (
+    <div>
+      <p className="text-xl">{title}</p>
+      <p>{money}</p>
+    </div>
+  );
 }
 
 export default DataView;

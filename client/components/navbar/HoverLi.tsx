@@ -19,10 +19,15 @@ export default function HoverLi(props: HoverLiProps) {
     >
       <div className="flex flex-col items-center p-2 sm:p-0">
         <Link {...{ href }} replace className={linkStyles}>
-          {/* if imgUrl render Image: else render text */}
-          {/* make text upper case, cuz' of hoverState's key */}
+          {/* if imgUrl render Image: else render text /}
+          {/ make text upper case, cuz' of hoverState's key */}
           {imgUrl ? (
-            <Image src={imgUrl} alt={`link of ${text}`} />
+            <Image
+              src={imgUrl}
+              alt={`link of ${text}`}
+              width={70}
+              height={70}
+            />
           ) : (
             text[0].toUpperCase() + text.slice(1)
           )}

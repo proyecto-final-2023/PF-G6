@@ -40,10 +40,12 @@ function GraphContainer() {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(dataset?.membership.countTrainerMembership);
-  const label1 = "User";
   //------------------------------------------------------------
+
   // ? starts as (number | undefined)[] so we need to create another array with type number[] instead of chaning the type of the first one... smh my head
+  const label1 = "User";
+  const title1 = "Count Users/Trainer/Trainees";
+  const labels1 = ["Users", "Trainers", "Trainees"];
   const scores1Cast: (number | undefined)[] = [
     dataset?.user?.countUser,
     dataset?.user?.countTrainer,
@@ -54,25 +56,35 @@ function GraphContainer() {
   else scores1 = scores1Cast as number[];
 
   //---------------------------------------------------------
-  const labels1 = ["Users", "Trainers", "Trainees"];
-  const label2 = "Trainers";
-  const scores2 = [30, 25, 17];
-  //---------------------------------------------------------
-  const result = dataset?.membership?.countTrainerMembership;
+
+  const title2 = "Trainers Memberships";
   let labels2: string[] = [];
-  if (result) labels2 = Object.keys(result);
+  let scores2:number[]=[];
+  const label2 = "Trainers";
+  const result = dataset?.membership?.countTrainerMembership;
+  if (result) {
+    labels2 = Object.keys(result);
+    scores2=Object.values(result);
+  }
   else labels2 = ["Waiting data"];
   //---------------------------------------------------------
+  const title3 = "Popular Trainees plans";
+  let labels3:string[]=[];
+  let scores3:number[]=[];
   const label3 = "Membresia";
-  const scores3 = [500, 400, 300];
-  const labels3 = ["Gold", "Plate", "Bronce"];
-  const title1 = "Cantidad de usuarios Trainer/Trainees";
-  const title2 = "hola 2";
-  const title3 = "hola 3";
+  const result3 = dataset?.membership?.countTraineeMembership;
+  if(result3){
+    labels3= Object.keys(result3);
+    scores3=Object.values(result3)
+  }
+  else{
+    labels3=[];
+    scores3=[];
+  }
 
   return (
     <div className="flex justify-around flex-wrap pt-20 gap-8">
-      <GraficBar
+      <GraficBar 
         scores={scores1}
         labels={labels1}
         label={label1}

@@ -7,6 +7,8 @@ const {
   Trainer,
   Trainee,
   Voucher,
+  SocialNetworks,
+  Certificates,
 } = require("../db");
 const moment = require("moment");
 
@@ -42,7 +44,15 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
       await membership.setUser(idUser);
       await membership.setPlantrainer(idPlan);
 
-      const trainerM = await Trainer.create({});
+      const trainerM = await Trainer.create({
+        logo: "https://www.facebook.com/photo/?fbid=504981774962515&set=a.504981758295850",
+      });
+      // // const certificates = await Certificates.create();
+      // // const socialNet = await SocialNetworks.create();
+
+      // await trainerM.setCertificates(certificates);
+      // await trainerM.setSocialNetworks(socialNet);
+
       await trainerM.setMembership(membership.id_membership);
       userM.role = "trainer";
       await userM.save();
