@@ -9,24 +9,19 @@ import Modal from 'react-modal';
 
 
 
-
-
-
-
-
-
-interface UserInfo {
-  email: string | null;
-  authExtern: boolean;
-  displayName: string | null;
+ 
+  interface UserInfo {
+    displayName: string | null;
+    email: string | null;
+    phoneNumber: string | null;
+    photoURL: string | null;
+    providerId: string;
+    uid: string;
 }
-
 
 export const Login = () => {
 
-
-
-  const [user, setUser] = useAuthState(auth)
+  const [user,setUser] = useAuthState(auth)
   const googleAuth = new GoogleAuthProvider();
   const facebookAuth = new FacebookAuthProvider()
   const [isOpen, setIsOpen] = useState(false);
@@ -40,9 +35,9 @@ export const Login = () => {
     try {
       if (!user) {
         const result = await signInWithPopup(auth, authType);
-        if (user && !user?.email) {
-          setIsOpen(true)
-        }
+      }
+      if (user && !user?.email) {
+      setIsOpen(true)
       }
 
     }
@@ -56,13 +51,13 @@ export const Login = () => {
 
 
   useEffect(() => {
-    setEmail(user?.email);
+    setEmail(user?.email||"no Email");
   }, [user]);
 
 
   const info = {
-    first_name: user?.displayName.split(" ")[0],
-    last_name: user?.displayName.split(" ")[1],
+    first_name: user?.displayName?.split(" ")[0],
+    last_name: user?.displayName?.split(" ")[1],
     email: user?.email || email,
     password: user?.email || email,
   };

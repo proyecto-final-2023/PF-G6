@@ -14,14 +14,26 @@ import { getCookie, setCookie } from "@/utils/cookieHandler";
 export const linkStyles =
   "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out inline-block p-1 ";
 // * uwu *//
+
+type User1info={
+  display_name:string
+}
+interface UserInfo {
+  displayName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  photoURL: string | null;
+  providerId: string;
+  uid: string;}
+
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState(null);
+  const [user1, setUser1] = useState<User1info>();
   const key =getCookie('token')
-  const photo=user?.photoURL
+  const photo=user?.photoURL||""
   const name = user?.displayName;
 
 
@@ -41,7 +53,7 @@ export default function Navbar() {
     // aqui te manda  datos de user
     console.log(key)
  useEffect(()=>{
-  if(key!==null){
+  if(key!=="null"){
   axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
   .then((data) => {
    console.log(data.data)
@@ -49,7 +61,7 @@ export default function Navbar() {
      display_name:` ${data.data.first_name}  ${data.data.last_name}`
    })
   })
- }},[key!==null])
+ }},[key])
 
  console.log(user1)
 
