@@ -45,7 +45,6 @@ console.log(key)
      
     },
     
-
     logout : () => {
       auth.signOut();
       setCookie("token", null);

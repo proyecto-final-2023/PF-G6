@@ -1,6 +1,6 @@
 import type { AppProps } from "next/app";
 import Layout from "@/components/Layout";
-import { NextSeo } from 'next-seo';
+// import { NextSeo } from 'next-seo';
 
 import "../globals.css";
 
@@ -14,14 +14,16 @@ import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
-    {/* <NextSeo noindex={true} /> */}
-    <PayPalScriptProvider
-      options={{ "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "" }}
-    >
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </PayPalScriptProvider>
+      {/* <NextSeo noindex={true} /> */}
+      <PayPalScriptProvider
+        options={{
+          "client-id": process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "",
+        }}
+      >
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </PayPalScriptProvider>
     </>
   );
 }

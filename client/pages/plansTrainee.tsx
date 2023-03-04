@@ -3,19 +3,26 @@ import React, { useEffect, useState } from "react";
 import CardPlans from "../components/CardPlans";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
-import { getCookie, setCookie } from "@/utils/cookieHandler";
+import CardTrainers from "@/components/CardTrainers";
 //mostrar los planes para los trainers
 type PlansType = {
   id: number;
   name: string;
-  cost: number;
-  category: string;
-  description: string;
+  photo: string;
+  first_name: string;
+  last_name: string;
+  imgURL: string;
 };
 
-export default function plans() {
+// id_trainer: 'b769f372-f3ae-4127-bc00-31b2088c557a',
+// logo: null,
+// membership: {
+//   userId: 'd2e80e69-29bc-4e0f-b395-5870f2acfd09',
+//   user: { first_name: 'alexander', last_name: 'arvelo', imgURL: null }
+// },
+
+export default function plansTrainee() {
   const [plans, setPlans] = useState<PlansType[]>([]);
-  console.log(plans);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
   );
@@ -24,24 +31,12 @@ export default function plans() {
   );
 
   useEffect(() => {
-    axios(`http://localhost:3001/plans/trainers`)
-      .then(({ data }) => setPlans(data))
+    axios("http://localhost:3001/trainers?page=1")
+      .then((data) => setPlans(data.data))
       .catch((error) => console.log(error));
-    //user token
-
-    const key = getCookie("token");
-    console.log(key);
-    axios
-      .post("http://localhost:3001/user/perfil", null, {
-        headers: { "x-access-token": key },
-      })
-      .then((data) => {
-        if (data.data.role === "trainer") console.log(data.data.role);
-        if (data.data.role === "trainee") console.log(data.data.role);
-      });
   }, []);
   // plans
-  console.log(plans);
+  //   console.log(plans.map(e=>e.membership));
   return (
     <div>
       <header className="plan">
@@ -52,9 +47,9 @@ export default function plans() {
             alt={`link of the whole app`}
             className="transition ease-in-out delay-550 opacity-60  hover:-translate-y-1 hover:scale-110 hover: duration-100 drop-shadow-2xl justify-items-center    "
           />
-          {/* <h1 className="bg-clip-text text-transparent  bg-yellow-900 text-4x1">
+          <h1 className="bg-clip-text text-transparent  bg-yellow-900 text-4x1">
             Plans
-          </h1> */}
+          </h1>
         </div>
       </header>
 
@@ -74,16 +69,16 @@ export default function plans() {
       )}
 
       <div className=" caja-plan   ">
-        {plans.map((e) => (
-          <CardPlans
-            key={e.id}
-            idPlans={e.id}
-            name={e.name}
-            cost={e.cost}
-            category={e.category}
-            description={e.description}
-          />
-        ))}
+        {plans &&
+          plans.map((e) => (
+            <CardTrainers
+              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              photo={e.imgURL}
+              first_name={e.first_name}
+              last_name={e.last_name}
+              rating={3}
+            />
+          ))}
       </div>
     </div>
   );

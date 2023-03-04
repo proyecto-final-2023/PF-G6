@@ -36,19 +36,21 @@ sequelize.models = Object.fromEntries(capsEntries);
 const {
   Activity,
   Aliments,
-  Certificates,
-  Data,
   Logueo,
   Membership,
   Plan,
   PlanTrainee,
   Plantrainer,
   SocialNetworks,
-  Tiempo,
+  Certificates,
   Trainee,
   Trainer,
   User,
   Voucher,
+  ActivitiesPlan,
+  AlimentsPlan,
+  Comment,
+  Rating,
 } = sequelize.models;
 
 // User 1 a 1 con Login
@@ -84,24 +86,32 @@ Certificates.belongsTo(Trainer);
 // Trainee de uno a muchos con Certificates
 Trainer.hasMany(Certificates);
 Certificates.belongsTo(Trainer);
-// // Trainee de 1 a 1 con Plan
-// Trainee.hasOne(Plan);
-// Plan.belongsTo(Trainee);
-// // Plan de muchos a muchos con Aliments
-// Plan.belongsToMany(Aliments, { through: "PlanAliments" });
-// Aliments.belongsToMany(Plan, { through: "PlanAliments" });
-// // Plan de muchos a muchos con Activities
-// Plan.belongsToMany(Activity, { through: "PlanActivity" });
-// Activity.belongsToMany(Plan, { through: "PlanActivity" });
-// // Plantrainer 1 a 1 con Tiempo
-// Plantrainer.hasOne(Tiempo);
-// Tiempo.belongsTo(Plantrainer);
-// // PlanTrainee 1 a 1 con Tiempo
-// PlanTrainee.hasOne(Tiempo);
-// Tiempo.belongsTo(PlanTrainee);
-// // Plantrainer 1 a 1 con Plan
-// Plantrainer.belongsTo(Plan);
-// Plan.hasOne(Plantrainer);
+// Trainer crea varios Planes
+Trainer.hasMany(Plan);
+Plan.belongsTo(Trainer);
+// Trainee tiene varios Planes
+Trainee.hasMany(Plan);
+Plan.belongsTo(Trainee);
+
+// Definir relación de muchos a muchos entre Plan y Activity
+Plan.hasMany(ActivitiesPlan);
+ActivitiesPlan.belongsTo(Plan);
+Plan.hasMany(AlimentsPlan);
+AlimentsPlan.belongsTo(Plan);
+
+// Relación "Un Trainee puede dar varios comentarios a un Trainer"
+Comment.belongsTo(Trainer);
+Comment.belongsTo(Trainee);
+Trainer.hasMany(Comment);
+Trainee.hasMany(Comment);
+
+// Un Trainee pertenece a un Trainer
+
+Trainee.hasMany(Rating);
+Trainer.hasMany(Rating);
+
+Rating.belongsTo(Trainee);
+Rating.belongsTo(Trainer);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

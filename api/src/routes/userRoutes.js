@@ -9,6 +9,7 @@ const {
   setVerify,
   getPerfil,
   listEmail,
+  addData,
 } = require("../controllers/userController");
 const { token } = require("morgan");
 
@@ -75,6 +76,28 @@ userRoutes.post("/perfil", async (req, res) => {
 
     const user = await getPerfil(id);
     res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+userRoutes.put("/data", async (req, res) => {
+  const { first_name, last_name, nickname, imgURL, gender, phone } = req.body;
+  const id = await idExtract(req.headers["x-access-token"]);
+  try {
+    res
+      .status(200)
+      .send(
+        await addData(
+          id,
+          first_name,
+          last_name,
+          nickname,
+          imgURL,
+          gender,
+          phone
+        )
+      );
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
