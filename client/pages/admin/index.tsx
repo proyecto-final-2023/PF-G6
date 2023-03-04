@@ -6,10 +6,12 @@ import CentralContainer from "@/components/adminDashboard/CentralContainer";
 export default function AdminIndex() {
   return (
     <div>
-      <CentralContainer />
+      <div className="grid grid-cols-[33%_66%]">
+        <OptionMenu />
+        <CentralContainer />
+      </div>
       <DataViewContainer />
       <GraphContainer />
-      <OptionMenu />
     </div>
   );
 }

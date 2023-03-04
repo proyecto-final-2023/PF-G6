@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { User } from "@/types/components/dashboard";
+import { User, UserDetailsT } from "@/types/components/dashboard";
 
-export default function UserDetails(props: User) {
-  const { first_name, last_name, nickname, logo } = props;
+export default function UserDetails(props: UserDetailsT) {
+  const { first_name, last_name, nickname, imgURL } = props;
   const requestType = useRef<"PUT" | "DELETE">("PUT");
 
   const {
@@ -11,14 +11,14 @@ export default function UserDetails(props: User) {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors }
   } = useForm<User>({
     mode: "onChange",
     defaultValues: {
       first_name: "",
       last_name: "",
-      nickname: "",
-    },
+      nickname: ""
+    }
   });
 
   const onSubmit: SubmitHandler<User> = async (data) => {
@@ -34,7 +34,7 @@ export default function UserDetails(props: User) {
   const updateValues = () => {
     setValue("first_name", first_name);
     setValue("last_name", last_name);
-    setValue("nickname", nickname);
+    setValue("nickname", nickname || "");
   };
 
   useEffect(() => {
@@ -77,7 +77,7 @@ export default function UserDetails(props: User) {
             <input
               className="rounded-md"
               type="file"
-              {...register("logo", { required: true })}
+              {...register("imgURL", { required: true })}
             />
           </label>
         )}
