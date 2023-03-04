@@ -1,11 +1,26 @@
-import React from "react";
-import DataView from "./DataView";
-import { GiBanknote, GiBank } from "react-icons/gi";
-import { HiUserGroup } from "react-icons/hi";
-import { FaUserAlt } from "react-icons/fa";
+import dynamic from "next/dynamic";
 
-import axios from "axios";
+// Dynamic imports for icons & disabled SSR, dunno
+const GiBanknote = dynamic(
+  () => import("react-icons/gi").then((mod) => mod.GiBanknote),
+  { ssr: false }
+);
+const GiBank = dynamic(
+  () => import("react-icons/gi").then((mod) => mod.GiBank),
+  { ssr: false }
+);
+const HiUserGroup = dynamic(
+  () => import("react-icons/hi").then((mod) => mod.HiUserGroup),
+  { ssr: false }
+);
+const FaUserAlt = dynamic(
+  () => import("react-icons/fa").then((mod) => mod.FaUserAlt),
+  { ssr: false }
+);
+
 import { useState, useEffect } from "react";
+import axios from "axios";
+import DataView from "./DataView";
 
 interface AxiosData {
   data: Data;
@@ -36,7 +51,7 @@ interface BestPlans {
 interface Data {
   money: {
     moneyTotal: number;
-    moneyMes:number;
+    moneyMes: number;
   };
   user: {
     countUser: number;
@@ -46,11 +61,6 @@ interface Data {
   membership: MembershipCounts;
   bestPlans: BestPlans;
 }
-
-const value: string = "100";
-
-const divStyle =
-  "bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white cursor-default";
 
 function DataViewContainer() {
   const [dataset, setDataset] = useState<Data>();
@@ -66,7 +76,11 @@ function DataViewContainer() {
 
   return (
     <div className="flex justify-around">
-      <div className={divStyle}>
+      <div
+        className={
+          "bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white cursor-default"
+        }
+      >
         <GiBank />
         <DataView money={money1} title={"Bank"} />
       </div>
@@ -83,7 +97,7 @@ function DataViewContainer() {
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white">
         <FaUserAlt />
-        <DataView title={"Active Trainee"}/>
+        <DataView title={"Active Trainee"} />
       </div>
     </div>
   );
