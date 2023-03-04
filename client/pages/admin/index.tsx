@@ -6,11 +6,11 @@ import CentralContainer from "@/components/adminDashboard/CentralContainer";
 export default function AdminIndex() {
   return (
     <div>
+      <CentralContainer />
       <DataViewContainer />
-      <GraphContainer />
+      {/* <GraphContainer /> */}
       <OptionMenu />
       {/* has user/plans grid & next prev btns */}
-      {/* <CentralContainer /> */}
     </div>
   );
 }
