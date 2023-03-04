@@ -17,16 +17,6 @@ export type UserCardT = Pick<BaseUser, "id" | "first_name" | "role"> & {
   clickHandler: (id: string) => void;
 };
 
-// @ UserDetails
-export type UserDetailsT = Pick<
-  BaseUser,
-  "first_name" | "last_name" | "role" | "imgURL"
-> & {
-  changeUserDetails: (id: number) => void;
-  deleteUser: (id: number) => void;
-  updateUser: (id: number, data: BaseUser) => void;
-};
-
 // * Plan
 // @ PlanContainer
 export type Plan = {
@@ -78,4 +68,69 @@ export type User = {
   nickname: string;
   role: string;
   imgURL: string;
+};
+
+// with : {URL}/user/:id @ TrainerConatiner
+export type UserDetailsT = {
+  user_id: string;
+  name: string;
+  role: "trainer";
+  logo: string;
+  logeo: {
+    email: string;
+  };
+  changeTrainerDetails: () => void;
+  deleteTrainer: () => void;
+  updateTrainer: () => void;
+};
+
+export type UserDetailsResponse = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  nickname: string;
+  role: string;
+  imgURL: string;
+  logueo: {
+    email: string;
+  };
+  membership: {
+    trainerIdTrainer: string;
+    traineeIdTrainee: string;
+    /*trainer: {
+      logo: string;
+      planTrainees: PlanTrainee[];
+    };*/
+  };
+};
+
+// ! TRAINERS STUFF
+export type TrainerArrResponse = {
+  id_trainer: string;
+  logo: string;
+  membership: {
+    userId: string;
+    user: {
+      first_name: string;
+      last_name: string;
+      imgURL: string;
+    };
+  };
+};
+
+export type TrainerCardT = {
+  user_id: string;
+  name: string;
+  role: "trainer";
+  clickHandler: (id: string) => void;
+};
+
+export type TrainerDetailsT = {
+  user_id: string;
+  name: string;
+  role: "trainer";
+  logo: string;
+  changeTrainerDetails: () => void;
+  deleteTrainer: () => void;
+  updateTrainer: () => void;
 };

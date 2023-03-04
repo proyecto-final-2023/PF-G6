@@ -1,33 +1,16 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { UserCardT, UserDetailsT } from "@/types/components/dashboard";
 import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
 import TrainerCard from "./TrainerCard";
 import TrainerDetails from "./TrainerDetails";
-
-export type TrainerResponse = {
-  id_trainer: string;
-  first_name: string;
-  last_name: string;
-  role: "trainee" | "trainer" | "user";
-  nickname: string;
-  logo: string;
-  imgURL: string;
-  logeo: { email: string };
-};
-
-export type TrainerCardT = Pick<TrainerResponse, "id_trainer" | "role"> & {
-  name: string;
-  clickHandler: (id: string) => void;
-};
-
-export type TrainerDetailsT = Pick<TrainerCardT, "id_trainer" | "role"> & {
-  name: string;
-  logo: string;
-  changeTrainerDetails: () => void;
-  deleteTrainer: () => void;
-  updateTrainer: () => void;
-};
+import { parseTrainersArr } from "@/utils/adminHelpers";
+import {
+  TrainerArrResponse,
+  TrainerCardT,
+  TrainerDetailsT,
+  UserDetailsResponse,
+  UserDetailsT
+} from "@/types/components/dashboard";
 
 export default function TrainerContainer() {
   const [page, setPage] = useState(1);
@@ -40,50 +23,19 @@ export default function TrainerContainer() {
   useEffect(() => {
     const fetchData = async () => {
       // TODO: add error handling
-      const { data }: { data: TrainerResponse[] } = await axios.get(
+      const { data }: { data: TrainerArrResponse[] } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`
       );
       console.log("data", data);
 
-      const parsedResponse = data.map((trainer) => {
-        const name = `${trainer.first_name} ${trainer.last_name}`;
-        const role: TrainerCardT["role"] = "trainer";
+      const parsedResponse = parseTrainersArr(data, clickHandler);
 
-        return {
-          id_trainer: trainer.id_trainer,
-          name,
-          role,
-          clickHandler
-        };
-      });
       setTrainers(parsedResponse);
     };
-    // console.log("trainer", trainers);
     fetchData();
   }, [page]);
 
-  const clickHandler = async (id: string) => {
-    // make another fetch to get the user details
-    try {
-      const { data }: { data: TrainerResponse } = await axios(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
-      );
-
-      const parsedDetails = {
-        id_trainer: data.id_trainer,
-        name: `${data.first_name} ${data.last_name}`,
-        role: "trainer" as TrainerDetailsT["role"],
-        logo: data.logo,
-        changeTrainerDetails,
-        deleteTrainer,
-        updateTrainer
-      };
-
-      setDetails(parsedDetails);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
+  console.log("trainer", trainers);
 
   const changeTrainerDetails = () => {
     console.log("changeTrainerDetails");
@@ -97,8 +49,8 @@ export default function TrainerContainer() {
     console.log("updateTrainer");
   };
 
-  const [details, setDetails] = useState<TrainerDetailsT>({
-    id_trainer: "",
+  const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsT>({
+    user_id: "",
     name: "",
     role: "trainer",
     logo: "",
@@ -106,6 +58,32 @@ export default function TrainerContainer() {
     deleteTrainer,
     updateTrainer
   });
+
+  const clickHandler = async (id: string /*, updateDetails: () => void*/) => {
+    // make another fetch to get the user details
+    try {
+      const { data }: { data: UserDetailsResponse } = await axios(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
+      );
+      // console.log("data", data);
+
+      // ? since we dont get an id back from the server, we need to add the one in params
+      const parsedDetails = {
+        user_id: id,
+        name: `${data.first_name} ${data.last_name}`,
+        role: "trainer" as TrainerDetailsT["role"],
+        logo: data.imgURL,
+        changeTrainerDetails,
+        deleteTrainer,
+        updateTrainer
+      };
+
+      setTrainerDetails(parsedDetails);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  console.log("trainerDetails", trainerDetails);
 
   return (
     <div className="border-white">
@@ -118,8 +96,8 @@ export default function TrainerContainer() {
           trainers.map((item) => {
             return (
               <TrainerCard
-                key={item.id_trainer}
-                id_trainer={item.id_trainer}
+                key={item.user_id}
+                user_id={item.user_id}
                 role={item.role}
                 name={item.name}
                 {...{ clickHandler }}
@@ -128,12 +106,12 @@ export default function TrainerContainer() {
           })}
       </div>
       <div className="d7">
-        {details.id_trainer && (
+        {trainerDetails.user_id && (
           <TrainerDetails
-            id_trainer={details.id_trainer}
-            name={details.name}
-            role={details.role}
-            logo={details.logo}
+            user_id={trainerDetails.user_id}
+            name={trainerDetails.name}
+            role={trainerDetails.role}
+            logo={trainerDetails.logo}
             {...{ changeTrainerDetails }}
             {...{ deleteTrainer }}
             {...{ updateTrainer }}

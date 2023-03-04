@@ -1,11 +1,10 @@
-import React from "react";
-import { TrainerCardT } from "./TrainerContainer";
+import { TrainerCardT } from "@/types/components/dashboard";
 
 export default function TrainerCard(props: TrainerCardT) {
-  const { name, clickHandler, id_trainer, role } = props;
+  const { name, clickHandler, user_id, role } = props;
 
   return (
-    <button onClick={() => clickHandler(id_trainer)}>
+    <button onClick={() => clickHandler(user_id)}>
       <p>{name}</p>
       <p>role: {role}</p>
     </button>
