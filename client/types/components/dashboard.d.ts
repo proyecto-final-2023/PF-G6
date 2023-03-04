@@ -2,28 +2,29 @@
 // * PLAN
 
 // * USER
-export type User = {
+type BaseUser = {
   id: string;
-  role: "admin" | "trainer" | "trainee";
   first_name: string;
   last_name: string;
   nickname: string | null;
-  logo: string | null;
+  role: "admin" | "trainer" | "trainee" | "bot" | "user";
+  imgURL: string | null;
+  email: string;
 };
 
 // @ UserCard
-type UserCardProps = Omit<User, "id" | "last_name"> & {
-  clickHandler: (id: number) => void;
-  index: number;
+export type UserCardT = Pick<BaseUser, "id" | "first_name" | "role"> & {
+  clickHandler: (id: string) => void;
 };
 
-export type UserDetails = User & {
-  last_name: string;
-  email: string;
-  nickname: string | null;
+// @ UserDetails
+export type UserDetailsT = Pick<
+  BaseUser,
+  "first_name" | "last_name" | "role" | "imgURL"
+> & {
   changeUserDetails: (id: number) => void;
   deleteUser: (id: number) => void;
-  updateUser: (id: number, data: User) => void;
+  updateUser: (id: number, data: BaseUser) => void;
 };
 
 // * Plan
