@@ -1,20 +1,22 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  sequelize.define("socialNetworks", {
-    id_sn: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      default: DataTypes.UUIDV4,
-      primaryKey: true,
+  sequelize.define(
+    "socialNetworks",
+    {
+      id_sn: {
+        type: DataTypes.UUID,
+        allowNull: false,
+        primaryKey: true,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      name: {
+        type: DataTypes.STRING,
+      },
+      url: {
+        type: DataTypes.STRING,
+      },
     },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    url: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  });
+    { timestamps: false }
+  );
 };

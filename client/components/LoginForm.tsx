@@ -17,7 +17,7 @@ export default function FormularioLogin() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, formData)
+      .post(`http://localhost:3001/auth`, formData)
       .then((data) => {
         setCookie("token", data.data.token);
         router.push("/home");
@@ -28,6 +28,7 @@ export default function FormularioLogin() {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(formData);
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 

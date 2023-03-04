@@ -21,11 +21,7 @@ export default function App(props: { res: string }) {
     const { data: res } = (await axios.post(
       url,
       { name: "joe" },
-      {
-        headers: {
-          "x-access-token": token,
-        },
-      }
+      { headers: { "x-access-token": token } }
     )) || { data: "POSTING" };
 
     console.log(res);
@@ -40,7 +36,7 @@ export default function App(props: { res: string }) {
       <button className="m-4 p-4 border-red-200 bg-black" onClick={testPost}>
         POST
       </button>
-      <PaypalButton amountToPay={1.1} serviceName="pog" />
+      {/* <PaypalButton amountToPay={1.1} serviceName="pog" /> */}
     </main>
   );
 }

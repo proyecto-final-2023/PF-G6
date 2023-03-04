@@ -5,64 +5,94 @@ const {
   PlanTrainee,
   Logueo,
   Trainer,
+  Trainee,
   Voucher,
+  SocialNetworks,
+  Certificates,
 } = require("../db");
 const moment = require("moment");
 
 const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
-  console.log("idUser", idUser, idPlan, idPago, cost, fechaPago);
-
   try {
     if (!idUser || !idPlan) {
       throw Error("Parametros Invalidos");
     }
     const userM = await User.findByPk(idUser);
     const planM = await Plantrainer.findByPk(idPlan);
-    // console.log(!planM2);
-    if (!userM || !planM) {
-      throw Error("Parametros Invalidos");
-    }
+    const planM2 = await PlanTrainee.findByPk(idPlan);
 
-    // Obtener la fecha actual
+    // if (!userM || !planM) {
+    //   throw Error("Parametros Invalidos");
+    // }
+
     const startDate = moment().format("YYYY-MM-DD");
-    // Crear un objeto de fecha utilizando moment con la fecha actual.
     const start = moment(startDate);
-    // Agregar un mes a la fecha actual.
-    const finish = start.add(1, "month");
 
-    // Si el mes actual es diciembre, cambiar el año a siguiente año.
     if (start.month() === 11) {
-      // Diciembre tiene índice 11 en moment.
-      finish.add(1, "year");
+      finishTrainer.add(1, "year");
     }
 
-    // Obtener la fecha del siguiente mes en el formato deseado.
-    const finishDate = finish.format("YYYY-MM-DD");
+    if (planM) {
+      const finishTrainer = start.add(1, "month");
+      const finishDate = finishTrainer.format("YYYY-MM-DD");
+      const membership = await Membership.create({
+        startDate,
+        finishDate,
+        userId: userM.id,
+      });
 
-    const membership = await Membership.create({
-      startDate,
-      finishDate,
-      userId: userM.id,
-    });
+      await membership.setUser(idUser);
+      await membership.setPlantrainer(idPlan);
 
-    await membership.setUser(idUser);
-    await membership.setPlantrainer(idPlan);
+      const trainerM = await Trainer.create({
+        logo: "https://www.facebook.com/photo/?fbid=504981774962515&set=a.504981758295850",
+      });
+      // // const certificates = await Certificates.create();
+      // // const socialNet = await SocialNetworks.create();
 
-    console.log("x", membership.id_membership);
-    const trainerM = await Trainer.create({});
-    await trainerM.setMembership(membership.id_membership);
-    console.log(trainerM);
-    userM.role = "trainer";
-    await userM.save();
+      // await trainerM.setCertificates(certificates);
+      // await trainerM.setSocialNetworks(socialNet);
 
-    const voucher = await Voucher.create({
-      id_voucher: idPago,
-      date: fechaPago,
-      cost: cost,
-    });
-    await membership.setVoucher(voucher);
+      await trainerM.setMembership(membership.id_membership);
+      userM.role = "trainer";
+      await userM.save();
 
-    return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM.name}`;
+      const voucher = await Voucher.create({
+        id_voucher: idPago,
+        date: fechaPago,
+        cost: cost,
+      });
+      await membership.setVoucher(voucher);
+      return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM.name}`;
+    }
+
+    if (planM2) {
+      const finishTrainee = start.add(7, "day");
+      const finishDate = finishTrainee.format("YYYY-MM-DD");
+      console.log("trainee", finishDate);
+      const membership = await Membership.create({
+        startDate,
+        finishDate,
+        userId: userM.id,
+      });
+
+      await membership.setUser(idUser);
+      await membership.setPlanTrainee(idPlan);
+
+      const trainerM = await Trainee.create({});
+      await trainerM.setMembership(membership.id_membership);
+
+      userM.role = "trainee";
+      await userM.save();
+
+      const voucher = await Voucher.create({
+        id_voucher: idPago,
+        date: fechaPago,
+        cost: cost,
+      });
+      await membership.setVoucher(voucher);
+      return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM2.name}`;
+    }
   } catch (error) {
     const userM = await User.findByPk(idUser);
     if (error.name === "SequelizeUniqueConstraintError") {
@@ -90,8 +120,6 @@ const getMembership = async (id) => {
     ],
   });
   if (!dataValues) throw new Error("Membresia inexistente");
-  // //Modificar el valor del campo role del objeto user
-  // dataValues.user.role = "Trainer";
 
   return dataValues;
 };

@@ -37,8 +37,8 @@ export default function SwiperCarousel({ slidesArr }: SwiperCarouselProps) {
         }}
         loop={true}
         pagination={{ clickable: true }}
-        onSwiper={(swiper) => console.log(swiper)}
-        onSlideChange={() => console.log("slide change")}
+        // onSwiper={(swiper) => console.log(swiper)}
+        // onSlideChange={() => console.log("slide change")}
       >
         {slidesArr.map((slide) => (
           <SwiperSlide key={slide.hoverText}>
