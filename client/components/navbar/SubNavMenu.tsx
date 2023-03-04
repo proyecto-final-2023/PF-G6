@@ -6,7 +6,9 @@ import {
 import Link from "next/link";
 import React from "react";
 import { auth } from "../../firebase";
-import { setCookie } from "@/utils/cookieHandler";
+import { setCookie,getCookie } from "@/utils/cookieHandler";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 
 
@@ -17,8 +19,9 @@ import { setCookie } from "@/utils/cookieHandler";
 export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
   const { optionsList, singOutHandler, id } = props;
  
-  
-
+  const router=useRouter();
+const key=getCookie('token')
+console.log(key)
   const optionsUrlMapping: UrlMapping = {
     // Tools hover
     caloriescalculator: "/trainee/tools/calculator",
@@ -28,8 +31,21 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
     register: "/login/register",
     login: "/login",
     // User logged in hover
-    diets: "/trainee/eating-plans",
-    trainerprograms: "/trainee/training-plans",
+
+    dashboard: async () => {
+      await axios.post( `http://localhost:3001/user/perfil`, "hola",{headers: {"x-access-token": key} })
+      .then(res=>{
+        console.log(res);
+        const userRole=res?.data.role
+        userRole==="trainer"&& router.push("/trainer");
+        userRole==="trainee"&& router.push("/trainee");
+        userRole==="user"&& alert("In order to enjoy this benefit, you must first acquire a membership.")
+
+      })
+     
+    },
+    
+
     logout : () => {
       auth.signOut();
       setCookie("token", null);

@@ -1,6 +1,5 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
 import { HoverLiProps } from "@/types/components";
 import SubNavMenu from "./SubNavMenu";
 import { linkStyles } from "./Navbar";
