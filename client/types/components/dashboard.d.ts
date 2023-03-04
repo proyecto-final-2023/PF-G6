@@ -1,23 +1,10 @@
 // * This file contains the types for the admin dashboard components
 // * PLAN
-export type Plan = {
-  id: number;
-  name: string;
-  price: number;
-};
-
-export type PlanDetails = Plan & {
-  duration: number;
-  description: string;
-  changePlanDetails: (id: number) => void;
-  deletePlan: (id: number) => void;
-  updatePlan: (id: number, data: Plan) => void;
-};
 
 // * USER
 export type User = {
-  id: number;
-  role: string;
+  id: string;
+  role: "admin" | "trainer" | "trainee";
   first_name: string;
   last_name: string;
   nickname: string | null;
@@ -33,5 +20,50 @@ export type UserDetails = User & {
   updateUser: (id: number, data: User) => void;
 };
 
+// @ PlanContainer
+export type Plan = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  duration: number;
+  features: string[];
+  logo: string;
+};
+
+// @ PlanCard
+export type PlanCardProps = {
+  // more readable than Omit<Plan, ....>
+  price: Plan["price"];
+  name: Plan["name"];
+  logo: Plan["logo"];
+  index: number;
+  clickHandler: (id: number) => void;
+};
+
+// @ UserCard
+type UserCardProps = Omit<User, "id" | "last_name"> & {
+  clickHandler: (id: number) => void;
+  index: number;
+};
+
 // * EXTRAS I DONT KNOW WHERE TO PUT
 export type MenuOptions = "trainer" | "trainee" | "plan";
+
+export type TrainerPlan = {
+  id: string;
+  name: string;
+  cost: string;
+  category: string;
+  description: string;
+  cantTrainees: string;
+};
+
+export type User = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  nickname: string;
+  role: string;
+  imgURL: string;
+};
