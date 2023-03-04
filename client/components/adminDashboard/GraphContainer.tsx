@@ -5,14 +5,14 @@ import axios from "axios";
 
 interface Data {
   user: {
-    countUser: number;
-    countTrainer: number;
-    countTrainee: number;
+    cantUser: number;
+    cantTrainer: number;
+    cantTrainee: number;
   };
   membership: {
     countMerbership: number;
-    countTraineeMembership: Record<string, number>;
-    countTrainerMembership: Record<string, number>;
+    countsTrainee: Record<string, number>;
+    countsTrainer: Record<string, number>;
   };
   bestPlans: {
     Trainer: {
@@ -47,9 +47,9 @@ function GraphContainer() {
   const title1 = "Count Users/Trainer/Trainees";
   const labels1 = ["Users", "Trainers", "Trainees"];
   const scores1Cast: (number | undefined)[] = [
-    dataset?.user?.countUser,
-    dataset?.user?.countTrainer,
-    dataset?.user?.countTrainee,
+    dataset?.user?.cantUser,
+    dataset?.user?.cantTrainer,
+    dataset?.user?.cantTrainee,
   ];
   let scores1: number[] = [];
   if (!scores1Cast.every(Boolean)) scores1 = [1];
@@ -61,18 +61,19 @@ function GraphContainer() {
   let labels2: string[] = [];
   let scores2:number[]=[];
   const label2 = "Trainers";
-  const result = dataset?.membership?.countTrainerMembership;
+  const result = dataset?.membership?.countsTrainer;
   if (result) {
     labels2 = Object.keys(result);
     scores2=Object.values(result);
+    console.log("result",result)
   }
   else labels2 = ["Waiting data"];
   //---------------------------------------------------------
   const title3 = "Popular Trainees plans";
   let labels3:string[]=[];
   let scores3:number[]=[];
-  const label3 = "Membresia";
-  const result3 = dataset?.membership?.countTraineeMembership;
+  const label3 = "Trainees";
+  const result3 = dataset?.membership?.countsTrainee;
   if(result3){
     labels3= Object.keys(result3);
     scores3=Object.values(result3)

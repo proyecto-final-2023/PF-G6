@@ -1,7 +1,9 @@
 import React from "react";
 import DataView from "./DataView";
-import { GiBanknote } from "react-icons/gi";
-// import { BiDollar } from "react-icons/bi";
+import { GiBanknote, GiBank } from "react-icons/gi";
+import { HiUserGroup } from "react-icons/hi";
+import { FaUserAlt } from "react-icons/fa";
+
 import axios from "axios";
 import { useState, useEffect } from "react";
 
@@ -34,6 +36,7 @@ interface BestPlans {
 interface Data {
   money: {
     moneyTotal: number;
+    moneyMes:number;
   };
   user: {
     countUser: number;
@@ -59,27 +62,28 @@ function DataViewContainer() {
   }, []);
 
   let money1 = dataset?.money?.moneyTotal || 0;
+  let moneyMes = dataset?.money?.moneyMes || 0;
 
   return (
     <div className="flex justify-around">
       <div className={divStyle}>
-        <GiBanknote />
+        <GiBank />
         <DataView money={money1} title={"Bank"} />
       </div>
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white cursor-default">
         <GiBanknote />
-        <DataView />
+        <DataView title={"Month"} money={moneyMes} />
       </div>
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white">
-        <GiBanknote />
-        <DataView />
+        <HiUserGroup />
+        <DataView title={"Active Trainers"} />
       </div>
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white">
-        <GiBanknote />
-        <DataView />
+        <FaUserAlt />
+        <DataView title={"Active Trainee"}/>
       </div>
     </div>
   );
