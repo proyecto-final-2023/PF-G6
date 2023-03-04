@@ -5,7 +5,7 @@ import { StaticImageData } from "next/image";
 
 // @ HoverLi
 export type HoverLiProps = {
-  imgUrl?: StaticImageData | string;
+  imgUrl?: StaticImageData|string
   href: string;
   text: string;
   isHover: boolean;
@@ -30,9 +30,9 @@ export type UrlMapping = {
   register: string;
   login: string;
 
-  diets: string;
-  trainerprograms: string;
-  logout: () => void;
+  
+  dashboard:()=> void|string|Promise;
+  logout: () => void|string
 };
 
 // @ SubNavMenu

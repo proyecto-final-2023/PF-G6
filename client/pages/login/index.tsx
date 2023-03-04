@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-// import { Login } from "@/to_fix_later/Login";
+import { Login } from "@/components/Login";
 // import { Login2 } from "@/components/Login2";
 import FormularioLogin from "@/components/LoginForm";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -12,7 +12,7 @@ export default function Index() {
   return (
     <div className="login">
       <FormularioLogin />
-      {/* <Login /> */}
+      <Login />
     </div>
   );
 }

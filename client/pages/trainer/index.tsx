@@ -1,10 +1,9 @@
-import NavbarTrainer from "@/components/navbar/NavbarTrainer";
 import React from "react";
 
 export default function index() {
   return (
-    <div>
-      <NavbarTrainer />
+    <div className="flex flex-col justify-center text-center h-[100vh]">
+     index trainer
     </div>
   );
 }

@@ -14,15 +14,28 @@ import { getCookie, setCookie } from "@/utils/cookieHandler";
 export const linkStyles =
   "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out inline-block p-1 ";
 // * uwu *//
+
+type User1info={
+  display_name:string
+}
+interface UserInfo {
+  displayName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  photoURL: string | null;
+  providerId: string;
+  uid: string;}
+
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState();
-  const key = getCookie("token");
-  const photo = user?.photoURL;
+  const [user1, setUser1] = useState<User1info>();
+  const key =getCookie('token')
+  const photo=user?.photoURL||""
   const name = user?.displayName;
+
 
   console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
@@ -36,21 +49,21 @@ export default function Navbar() {
     setIsBurgerActive((prev) => !prev);
   };
 
-  // aqui te manda
-  // useEffect(() => {
-  //   axios
-  //     .post("http://localhost:3001/user/perfil", null, {
-  //       headers: { "x-access-token": key },
-  //     })
-  //     .then((data) => {
-  //       console.log(data.data);
-  //       setUser1({
-  //         display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
-  //       });
-  //     });
-  // }, []);
-  console.log("@navbar/Navbar", user1);
   const [viewportWidth, setViewportWidth] = useState(0);
+    // aqui te manda  datos de user
+    console.log(key)
+ useEffect(()=>{
+  if(key!=="null"){
+  axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
+  .then((data) => {
+   console.log(data.data)
+   setUser1({
+     display_name:` ${data.data.first_name}  ${data.data.last_name}`
+   })
+  })
+ }},[key])
+
+ console.log(user1)
 
   useEffect(() => {
     function updateViewportWidth() {
@@ -70,6 +83,7 @@ export default function Navbar() {
   }, []);
 
   return (
+    
     <div>
       <Burger isBurgerActive={isBurgerActive} burgerHandler={burgerHandler} />
       <nav
@@ -90,6 +104,23 @@ export default function Navbar() {
             </Link>
           </li>
 
+          {/* <li className="inline-block align-bottom text-center pt-5 py-2 relative sm:-top-2">
+            <input
+              type="search"
+              ref={searchRef}
+              id="default-search"
+              className="inline-block w-[150px] p-1 bg-gray-600 focus:bg-gray-500 focus:outline-none focus:w-[300px] duration-300 border-[2px] border-gray-400 rounded-l-lg  placeholder-white text-white"
+              placeholder="Search..."
+              required
+            />
+            <button
+              type="submit"
+              className="absolute p-2 inline-block bg-gray-600 border-[2px] border-gray-400 rounded-r-lg uppercase text-xs font-medium"
+            >
+              Search
+            </button>
+          </li> */}
+
           <li className="flex justify-center items-center">
             <Link replace href="/home" className={linkStyles}>
               Home
@@ -98,9 +129,10 @@ export default function Navbar() {
 
           <li className="justify-center flex items-center">
             <Link replace href="/guest/trainning-list" className={linkStyles}>
-              Trainings
+              Trainers
             </Link>
           </li>
+         
 
           <CustomHoverLi
             href="trainee/tools"
@@ -115,15 +147,18 @@ export default function Navbar() {
             {...{ hoverEventHandler }}
           />
 
-          {user && <li className="m-5">Hello {name}</li>}
+          {/* {user && <li className="m-5">Hello {user?.display_name}</li>} */}
+          {user1 && <li className="m-5">Hello {user1?.display_name}</li>}
           <HoverLi
-            imgUrl={photo ? photo : userImg}
+            imgUrl={photo||userImg}
             text="user"
             href="/"
             isHover={hovers.user}
             vw={viewportWidth}
             optionsList={
-              user || user1 ? ["Dashboard", "Log out"] : ["Register", "Log In"]
+              user1 
+                ? ["Dashboard", "Log out"]
+                : ["Register", "Log In"]
             }
             {...{ hoverEventHandler }}
           />
