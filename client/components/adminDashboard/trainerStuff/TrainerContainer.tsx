@@ -37,26 +37,11 @@ export default function TrainerContainer() {
 
   console.log("trainer", trainers);
 
-  const changeTrainerDetails = () => {
-    console.log("changeTrainerDetails");
-  };
-
-  const deleteTrainer = () => {
-    console.log("deleteTrainer");
-  };
-
-  const updateTrainer = () => {
-    console.log("updateTrainer");
-  };
-
   const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsT>({
     user_id: "",
     name: "",
     role: "trainer",
-    logo: "",
-    changeTrainerDetails,
-    deleteTrainer,
-    updateTrainer
+    logo: ""
   });
 
   const clickHandler = async (id: string /*, updateDetails: () => void*/) => {
@@ -65,17 +50,13 @@ export default function TrainerContainer() {
       const { data }: { data: UserDetailsResponse } = await axios(
         `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
       );
-      // console.log("data", data);
 
-      // ? since we dont get an id back from the server, we need to add the one in params
       const parsedDetails = {
+        // since we dont get an id back from the server, we need to add the one in params
         user_id: id,
         name: `${data.first_name} ${data.last_name}`,
         role: "trainer" as TrainerDetailsT["role"],
-        logo: data.imgURL,
-        changeTrainerDetails,
-        deleteTrainer,
-        updateTrainer
+        logo: data.imgURL
       };
 
       setTrainerDetails(parsedDetails);
@@ -83,11 +64,10 @@ export default function TrainerContainer() {
       console.error(error);
     }
   };
-  console.log("trainerDetails", trainerDetails);
 
   return (
     <div className="border-white">
-      <h2 className="text-xl text-center">Users Container</h2>
+      <h2 className="text-xl text-center">Trainers Container</h2>
 
       <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
 
@@ -112,9 +92,6 @@ export default function TrainerContainer() {
             name={trainerDetails.name}
             role={trainerDetails.role}
             logo={trainerDetails.logo}
-            {...{ changeTrainerDetails }}
-            {...{ deleteTrainer }}
-            {...{ updateTrainer }}
           />
         )}
       </div>

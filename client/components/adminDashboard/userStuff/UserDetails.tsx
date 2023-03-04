@@ -3,7 +3,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { User, UserDetailsT } from "@/types/components/dashboard";
 
 export default function UserDetails(props: UserDetailsT) {
-  const { first_name, last_name, nickname, imgURL } = props;
+  const first_name = "John";
+  const last_name = "Doe";
+  const nickname = "Johnny";
+  const imgURL = "https://i.imgur.com/1Q1Z1Z1.png";
   const requestType = useRef<"PUT" | "DELETE">("PUT");
 
   const {
@@ -71,7 +74,7 @@ export default function UserDetails(props: UserDetailsT) {
           />
         </label>
 
-        {logo && (
+        {imgURL && (
           <label className="flex flex-col">
             Logo:
             <input

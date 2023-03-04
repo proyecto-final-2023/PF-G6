@@ -130,7 +130,4 @@ export type TrainerDetailsT = {
   name: string;
   role: "trainer";
   logo: string;
-  changeTrainerDetails: () => void;
-  deleteTrainer: () => void;
-  updateTrainer: () => void;
 };
