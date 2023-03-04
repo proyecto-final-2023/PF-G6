@@ -12,9 +12,49 @@ const {
   ActivitiesPlan,
   AlimentsPlan,
   Rating,
+  Comment,
 } = require("../db");
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
+
+const listComment = async (id) => {
+  const user = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["trainerIdTrainer"],
+      },
+    ],
+  });
+
+  const trainerId = user.membership.trainerIdTrainer;
+  if (!trainerId) throw Error("Trainer no Encontrado");
+
+  const comments = await Comment.findAll({
+    where: {
+      trainerIdTrainer: trainerId,
+    },
+    attributes: ["message"],
+    include: [
+      {
+        model: Trainee,
+        attributes: ["id_trainee"],
+        include: [
+          {
+            model: Membership,
+            attributes: ["id_membership"],
+            include: [
+              { model: User, attributes: ["id", "nickname", "imgURL"] },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  return comments;
+};
 
 const ratingTotal = async (id) => {
   const trai = await User.findByPk(id, {
@@ -191,4 +231,5 @@ module.exports = {
   addLogo,
   createPlan,
   ratingTotal,
+  listComment,
 };

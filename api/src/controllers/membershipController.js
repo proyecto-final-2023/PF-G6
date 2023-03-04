@@ -60,7 +60,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
       const voucher = await Voucher.create({
         id_voucher: idPago,
-        date: fechaPago,
+        date: startDate,
         cost: cost,
       });
       await membership.setVoucher(voucher);
@@ -90,7 +90,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
       const voucher = await Voucher.create({
         id_voucher: idPago,
-        date: fechaPago,
+        date: startDate,
         cost: cost,
       });
       await membership.setVoucher(voucher);

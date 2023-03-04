@@ -84,7 +84,9 @@ const addComment = async (id, comment) => {
   const trainer = await Trainer.findByPk(
     trai.membership.planTrainee.trainerIdTrainer
   );
+  if (!trainer) throw Error("No se encontro al Trainer");
   const trainee = await Trainee.findByPk(user.membership.traineeIdTrainee);
+  if (!trainee) throw Error("No se encontro al Trainee");
 
   const addcomment = await Comment.create({
     message: comment,

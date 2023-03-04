@@ -30,11 +30,7 @@ const data = async () => {
       Sequelize.fn(
         "date_trunc",
         "month",
-        Sequelize.fn(
-          "to_date",
-          Sequelize.col("date"),
-          'YYYY-MM-DD"T"HH24:MI:SS"Z"'
-        )
+        Sequelize.fn("to_date", Sequelize.col("date"), "YYYY-MM-DD")
       ),
       Sequelize.fn("date_trunc", "month", Sequelize.fn("now"))
     ),
@@ -107,7 +103,6 @@ const data = async () => {
       obj[i + 1] = value;
       return obj;
     }, {});
-  console.log(!!sortedCountsTrainee[1]);
   let PVPtrainee1;
   let PVPtrainee2;
   let PVPtrainee3;
@@ -144,70 +139,72 @@ const data = async () => {
       ],
     });
   }
-  if (!!sortedCountsTrainee[1]) {
-  PVPtrainee2 = await PlanTrainee.findByPk(sortedCountsTrainee[2].id, {
-    attributes: {
-      exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
-    },
-    include: [
-      {
-        model: Trainer,
-        attributes: {
-          exclude: ["id_trainer"],
-        },
-        include: [
-          {
-            model: Membership,
-            attributes: {
-              exclude: [
-                "id_membership",
-                "startDate",
-                "finishDate",
-                "userId",
-                "plantrainerIdPlanTrainer",
-                "planTraineeIdPlanTrainee",
-                // "trainerIdTrainer",
-                "traineeIdTrainee",
-              ],
-            },
-            include: [{ model: User }],
-          },
-        ],
+  if (!!sortedCountsTrainee[2]) {
+    PVPtrainee2 = await PlanTrainee.findByPk(sortedCountsTrainee[2].id, {
+      attributes: {
+        exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
       },
-    ],
-  });}
-  if (!!sortedCountsTrainee[1]) {
-  PVPtrainee3 = await PlanTrainee.findByPk(sortedCountsTrainee[3].id, {
-    attributes: {
-      exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
-    },
-    include: [
-      {
-        model: Trainer,
-        attributes: {
-          exclude: ["id_trainer"],
-        },
-        include: [
-          {
-            model: Membership,
-            attributes: {
-              exclude: [
-                "id_membership",
-                "startDate",
-                "finishDate",
-                "userId",
-                "plantrainerIdPlanTrainer",
-                "planTraineeIdPlanTrainee",
-                // "trainerIdTrainer",
-                "traineeIdTrainee",
-              ],
-            },
-            include: [{ model: User }],
+      include: [
+        {
+          model: Trainer,
+          attributes: {
+            exclude: ["id_trainer"],
           },
-        ],
+          include: [
+            {
+              model: Membership,
+              attributes: {
+                exclude: [
+                  "id_membership",
+                  "startDate",
+                  "finishDate",
+                  "userId",
+                  "plantrainerIdPlanTrainer",
+                  "planTraineeIdPlanTrainee",
+                  // "trainerIdTrainer",
+                  "traineeIdTrainee",
+                ],
+              },
+              include: [{ model: User }],
+            },
+          ],
+        },
+      ],
+    });
+  }
+  if (!!sortedCountsTrainee[3]) {
+    PVPtrainee3 = await PlanTrainee.findByPk(sortedCountsTrainee[3].id, {
+      attributes: {
+        exclude: ["id_PlanTrainee", "category", "trainerIdTrainer"],
       },
-    ],
-  });}
+      include: [
+        {
+          model: Trainer,
+          attributes: {
+            exclude: ["id_trainer"],
+          },
+          include: [
+            {
+              model: Membership,
+              attributes: {
+                exclude: [
+                  "id_membership",
+                  "startDate",
+                  "finishDate",
+                  "userId",
+                  "plantrainerIdPlanTrainer",
+                  "planTraineeIdPlanTrainee",
+                  // "trainerIdTrainer",
+                  "traineeIdTrainee",
+                ],
+              },
+              include: [{ model: User }],
+            },
+          ],
+        },
+      ],
+    });
+  }
   //  -----------------------------------------------------------------------
   const betsTrainer = {};
   let j = 0;
