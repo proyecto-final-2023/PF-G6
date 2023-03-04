@@ -13,10 +13,10 @@ interface AxiosData {
 
 interface MembershipCounts {
   countMerbership: number;
-  countTraineeMembership: {
+  countsTrainee: {
     [key: string]: number;
   };
-  countTrainerMembership: {
+  countsTrainer: {
     [key: string]: number;
   };
 }
@@ -63,6 +63,17 @@ function DataViewContainer() {
 
   let money1 = dataset?.money?.moneyTotal || 0;
   let moneyMes = dataset?.money?.moneyMes || 0;
+  let activeTrainers:number[] = Object.values(dataset?.membership?.countsTrainer || {});
+  let sum:number=0;
+  if(activeTrainers.length){
+    sum= activeTrainers?.reduce((anterior, siguiente)=> anterior + siguiente);
+  }
+  let activeTrainees:number[] = Object.values(dataset?.membership?.countsTrainee || {});
+  let sum2:number=0;
+  if(activeTrainers.length){
+    sum2= activeTrainees?.reduce((anterior, siguiente)=> anterior + siguiente);
+  }
+  
 
   return (
     <div className="flex justify-around">
@@ -73,17 +84,17 @@ function DataViewContainer() {
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white cursor-default">
         <GiBanknote />
-        <DataView title={"Month"} money={moneyMes} />
+        <DataView money={moneyMes} title={"Month"}  />
       </div>
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white">
         <HiUserGroup />
-        <DataView title={"Active Trainers"} />
+        <DataView money={sum} title={"Active Trainers"} />
       </div>
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white">
         <FaUserAlt />
-        <DataView title={"Active Trainee"}/>
+        <DataView money={sum2} title={"Active Trainee"}/>
       </div>
     </div>
   );
