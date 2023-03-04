@@ -19,9 +19,9 @@ export default function MembershipsContainer() {
 
   return (
     <div>
+      <h2 className="text-xl text-center">Memberships Container</h2>
       <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
       <p></p>
-      <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
     </div>
   );
 }

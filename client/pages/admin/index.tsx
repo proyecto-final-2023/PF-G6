@@ -8,9 +8,8 @@ export default function AdminIndex() {
     <div>
       <CentralContainer />
       <DataViewContainer />
-      {/* <GraphContainer /> */}
+      <GraphContainer />
       <OptionMenu />
-      {/* has user/plans grid & next prev btns */}
     </div>
   );
 }

@@ -55,6 +55,7 @@ export default function PlanContainer() {
 
   return (
     <div className="border-white">
+      <h2 className="text-xl text-center">Plans Container</h2>
       <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
 
       <div className="grid gap-x-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 my-7">
@@ -87,7 +88,6 @@ export default function PlanContainer() {
           />
         )}
       </div>
-      <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
     </div>
   );
 }
