@@ -13,6 +13,7 @@ const {
   AlimentsPlan,
   Plan,
   Comment,
+  Rating,
 } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
@@ -59,6 +60,7 @@ const getPerfil = async (id) => {
               exclude: ["id_trainer"],
             },
             include: [
+              // { model: Rating },
               { model: Certificates },
               { model: SocialNetworks },
               {

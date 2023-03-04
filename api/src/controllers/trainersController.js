@@ -11,9 +11,37 @@ const {
   SocialNetworks,
   ActivitiesPlan,
   AlimentsPlan,
+  Rating,
 } = require("../db");
+const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 
-const Sequelize = require("sequelize");
+const ratingTotal = async (id) => {
+  const trai = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["trainerIdTrainer"],
+      },
+    ],
+  });
+
+  const trainerId = trai.membership.trainerIdTrainer;
+  if (!trainerId) throw Error("Trainer no encontrado");
+
+  const rating = await Rating.findOne({
+    attributes: [[sequelize.fn("AVG", sequelize.col("value")), "rating"]],
+    where: {
+      trainerIdTrainer: trainerId,
+      value: {
+        [Op.gt]: 0,
+      },
+    },
+  });
+  if (!rating) throw Error("No lo han Calificado");
+  return rating;
+};
 const addLogo = async (id, logo) => {
   const user = await User.findByPk(id, {
     attributes: ["first_name", "last_name"],
@@ -47,7 +75,6 @@ const addSocial = async (id, name, url) => {
       },
     ],
   });
-
   const trainer = await Trainer.findByPk(user.membership.trainerIdTrainer);
 
   const social = await SocialNetworks.create({
@@ -152,7 +179,7 @@ const createPlan = async (id, idTrainee, datePlan, activities, aliments) => {
     }
   );
 
-  trainee 
+  trainee;
 
   return plan;
 };
@@ -163,4 +190,5 @@ module.exports = {
   addSocial,
   addLogo,
   createPlan,
+  ratingTotal,
 };

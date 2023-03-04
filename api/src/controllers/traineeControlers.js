@@ -5,7 +5,55 @@ const {
   PlanTrainee,
   Comment,
   Trainer,
+  Rating,
 } = require("../db");
+
+const updateRating = async (id, value) => {
+  if (value < 0 || value > 5) {
+    throw Error("El valor de la calificación debe estar entre 1 y 5");
+  }
+  const user = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["traineeIdTrainee"],
+      },
+    ],
+  });
+  const trai = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["id_membership"],
+        include: [
+          {
+            model: PlanTrainee,
+            attributes: ["trainerIdTrainer"],
+          },
+        ],
+      },
+    ],
+  });
+  const traineeId = user.membership.traineeIdTrainee;
+  const trainerId = trai.membership.planTrainee.trainerIdTrainer;
+
+  const filters = {
+    where: {
+      traineeIdTrainee: traineeId,
+      trainerIdTrainer: trainerId,
+    },
+  };
+  const ratings = await Rating.findOne(filters);
+  console.log(ratings);
+  if (!ratings) throw Error(`La calificación con id ${filters} no existe`);
+
+  ratings.value = value;
+  await ratings.save();
+
+  return ratings;
+};
 
 const addComment = async (id, comment) => {
   const user = await User.findByPk(id, {
@@ -164,4 +212,10 @@ const addData = async (
   return `Se actualizó los datos del entrenado  ${user.first_name}, ${user.last_name}`;
 };
 
-module.exports = { listTrainees, listTraineesbyPlan, addData, addComment };
+module.exports = {
+  listTrainees,
+  listTraineesbyPlan,
+  addData,
+  addComment,
+  updateRating,
+};
