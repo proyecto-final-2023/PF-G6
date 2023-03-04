@@ -36,21 +36,22 @@ export default function Navbar() {
     setIsBurgerActive((prev) => !prev);
   };
 
-  const [viewportWidth, setViewportWidth] = useState(0);
   // aqui te manda
-  useEffect(() => {
-    axios
-      .post("http://localhost:3001/user/perfil", null, {
-        headers: { "x-access-token": key },
-      })
-      .then((data) => {
-        console.log(data.data);
-        setUser1({
-          display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
-        });
-      });
-  }, []);
-  console.log(user1);
+  // useEffect(() => {
+  //   axios
+  //     .post("http://localhost:3001/user/perfil", null, {
+  //       headers: { "x-access-token": key },
+  //     })
+  //     .then((data) => {
+  //       console.log(data.data);
+  //       setUser1({
+  //         display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
+  //       });
+  //     });
+  // }, []);
+  console.log("@navbar/Navbar", user1);
+  const [viewportWidth, setViewportWidth] = useState(0);
+
   useEffect(() => {
     function updateViewportWidth() {
       setViewportWidth(window.innerWidth);
@@ -116,7 +117,7 @@ export default function Navbar() {
 
           {user && <li className="m-5">Hello {name}</li>}
           <HoverLi
-            imgUrl={photo || userImg}
+            imgUrl={photo ? photo : userImg}
             text="user"
             href="/"
             isHover={hovers.user}
