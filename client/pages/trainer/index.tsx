@@ -6,6 +6,7 @@ export default function index() {
   return (
     <div>
       <NavbarTrainer />
+      
 
     </div>
   )

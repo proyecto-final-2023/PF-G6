@@ -1,22 +1,24 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import CardPlans from "../components/CardPlans";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
 import CardTrainers from "@/components/CardTrainers";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
+import homeSlides from "@/assets/home-slides";
 
-//mostrar los planes para los trainers
+// mostrar los planes para los trainers
 type PlansType = {
   id: number;
   name: string;
   description: string;
 };
 
-
-
 export default function plansTrainee() {
+  const [user, setUser] = useAuthState(auth);
   const [plans, setPlans] = useState<PlansType[]>([]);
-  console.log(plans)
+  console.log(plans);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
   );
@@ -25,20 +27,19 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios('http://localhost:3001/trainers?page=1')
+    axios("http://localhost:3001/trainers?page=1")
       .then((data) => {
-      console.log(data.data)
-    
-     setPlans(data.data.map(e=>e.membership))
-      }
-      )
+        console.log(data.data);
+
+        setPlans(data.data.map((e) => e.membership));
+      })
       .catch((error) => console.log(error));
   }, []);
   // plans
-//   console.log(plans.map(e=>e.membership));
+  // console.log(plans.map(e=>e.membership));
   return (
     <div>
-      <header className="plan">
+      <header className="plan ">
         <div className="w-2/3 mx-auto py-12 flex justify-center align-items:center gap-5 m-4.">
           <Image
             src={logo}
@@ -60,39 +61,37 @@ export default function plansTrainee() {
         <p className="text-2xl">¡I bought your plan now!</p>
       </div>
 
-      
       <div className="bg-black  ">
-        <h1 className="text-center" >top new </h1>
-        <div className="grid grid-rows-3 grid-flow-col gap-4">
-      </div>
-      
-          <div className=" grid grid-cols-6 gap-5">
-        {
-            plans&&plans.map(e=>
-                <CardTrainers 
-                 photo={e.user.imgURL}
-                 first_name={e.user.first_name}
-                 last_name={e.user.last_name}
-                 id={e.userId}
-                 rating={5} />
-            )
-        }
-      </div>
-      <div className="bg-black  ">
-        <h1 className="text-center"  >top 10 </h1>
+        <h1 className="text-center text-3xl">Top</h1>
       </div>
 
-      <div className=" grid grid-cols-3 gap-4 ">
-        {
-            plans&&plans.map(e=>
-              <CardTrainers 
-              photo={e.user.imgURL}
+      <div className="   outline-offset-3 justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2">
+        {plans &&
+          plans.map((e) => (
+            <CardTrainers
+              photo={e.user.imgURL || user?.photoURL}
               first_name={e.user.first_name}
               last_name={e.user.last_name}
               id={e.userId}
-              rating={5} />
-            )
-        }
+              rating={5}
+            />
+          ))}{" "}
+      </div>
+      <div className="bg-black  ">
+        <h1 className="text-center text-3xl">Top 10</h1>
+      </div>
+      <SwiperCarousel slidesArr={homeSlides} />
+      <div className=" bg-black justify-items-center grid grid-cols-4  m-20 gap-x-2 gap-y-2">
+        {plans &&
+          plans.map((e) => (
+            <CardTrainers
+              photo={e.user.imgURL || user?.photoURL}
+              first_name={e.user.first_name}
+              last_name={e.user.last_name}
+              id={e.userId}
+              rating={5}
+            />
+          ))}{" "}
       </div>
       {promocion2 && (
         <div className="bg-gradient-to-r from-yellow-200 via-orange-400 to-rose-500 text-center text-gray-800 h-40">
@@ -100,19 +99,18 @@ export default function plansTrainee() {
           <p className="text-xl  text-white  ">¡ bla bla bla ---!</p>
         </div>
       )}
-      <div className=" grid grid-rows-4 grid-flow-col gap-4  ">
-        {
-            plans&&plans.map(e=>
-              <CardTrainers 
-                 photo={e.user.imgURL}
-                 first_name={e.user.first_name}
-                 last_name={e.user.last_name}
-                 id={e.userId}
-                 rating={5} />
-            )
-        }
+      <div className=" justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2 ">
+        {plans &&
+          plans.map((e) => (
+            <CardTrainers
+              photo={e.user.imgURL || user?.photoURL}
+              first_name={e.user.first_name}
+              last_name={e.user.last_name}
+              id={e.userId}
+              rating={5}
+            />
+          ))}
       </div>
-    </div>
     </div>
   );
 }

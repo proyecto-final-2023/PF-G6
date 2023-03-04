@@ -30,8 +30,8 @@ export type UrlMapping = {
   register: string;
   login: string;
 
-  diets: string;
-  trainerprograms: string;
+  Dashboard: string;
+  
   logout: () => void;
 };
 
