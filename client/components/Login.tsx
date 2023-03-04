@@ -73,11 +73,11 @@ export const Login = () => {
   useEffect(() => {
     if (user !== null && info.email !== undefined) {
       console.log(info.email)
-      axios.post(`http://localhost:3001/user/email`, { email: info.email })
+      axios.post(`https://fp-server-cg2b.onrender.com/user/email`, { email: info.email })
         .then(response => {
           console.log(response.data.verify)
           if (response.data.verify === true) {
-            axios.post(`http://localhost:3001/auth`, infoLoguin)
+            axios.post(`https://fp-server-cg2b.onrender.com/auth`, infoLoguin)
               .then(response => {
                 setCookie("token", response.data.token)
                 console.log(response)
@@ -88,7 +88,7 @@ export const Login = () => {
                 console.log(error)
               });
           } else if (response.data.verify === false) {
-            axios.post(`http://localhost:3001/createuser`, info)
+            axios.post(`https://fp-server-cg2b.onrender.com/createuser`, info)
               .then(response => {
                 auth.signOut();
                 console.log(response)

@@ -1,7 +1,7 @@
 import PaypalButton from "@/components/PaypalButton";
 import axios from "axios";
 
-const url = "http://localhost:3001/base";
+const url = "https://fp-server-cg2b.onrender.com/base";
 const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRhZTM0NzBmLTViZjAtNDI0My04ZTYzLTNjMWE5MWI0OWRiYSIsImlhdCI6MTY3NzI4MjkwOCwiZXhwIjoxNjc3ODg3NzA4fQ.FYdSGY48y6OvWmUtVWVO25E3Ke9AKav6OvxLkxkiJwI`;
 
 export default function App(props: { res: string }) {

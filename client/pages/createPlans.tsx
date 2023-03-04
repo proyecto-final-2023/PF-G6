@@ -13,7 +13,7 @@ export default function createPlans() {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3001/plans/trainers", formData)
+      .post("https://fp-server-cg2b.onrender.com/plans/trainers", formData)
       .then((data) => {
         console.log(data);
       })

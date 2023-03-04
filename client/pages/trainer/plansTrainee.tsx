@@ -21,7 +21,7 @@ export default function createPlans() {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3001/plans/trainee", formData, {
+      .post("https://fp-server-cg2b.onrender.com/plans/trainee", formData, {
         headers: { "x-access-token": key },
       })
       .then((data) => {

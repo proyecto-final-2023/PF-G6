@@ -34,7 +34,7 @@ function CardList() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get<CardData[]>(`http://localhost:3001/aliment?page=${page}`)
+      .get<CardData[]>(`https://fp-server-cg2b.onrender.com/aliment?page=${page}`)
       .then((response) => {
         setData(response.data);
         setIsLoading(false);

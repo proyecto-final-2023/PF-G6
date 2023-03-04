@@ -33,7 +33,7 @@ export default function Index() {
   console.log(key);
   useEffect(() => {
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
@@ -50,7 +50,7 @@ export default function Index() {
           trainerPhone:
             data.data.membership.planTrainee.trainer.membership.user.phone,
         });
-      });
+      }).catch(error=> console.log(error));
   }, []);
 
   console.log(user1);

@@ -33,7 +33,7 @@ console.log(key)
     // User logged in hover
 
     dashboard: async () => {
-      await axios.post( `http://localhost:3001/user/perfil`, "hola",{headers: {"x-access-token": key} })
+      await axios.post( `https://fp-server-cg2b.onrender.com/user/perfil`, "hola",{headers: {"x-access-token": key} })
       .then(res=>{
         console.log(res);
         const userRole=res?.data.role
@@ -41,7 +41,7 @@ console.log(key)
         userRole==="trainee"&& router.push("/trainee");
         userRole==="user"&& alert("In order to enjoy this benefit, you must first acquire a membership.")
 
-      })
+      }).catch(error=> console.log(error));
      
     },
     

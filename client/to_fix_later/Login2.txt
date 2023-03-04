@@ -61,7 +61,7 @@ export const Login2 = () => {
   //   console.log(info)
 
   //   if (info.first_name) {
-  //     axios.post("http://localhost:3001/createuser", info)
+  //     axios.post("https://fp-server-cg2b.onrender.com/createuser", info)
   //       .then((data) => {
   //         console.log(data);
   //       });

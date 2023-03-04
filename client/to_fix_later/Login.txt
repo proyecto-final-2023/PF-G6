@@ -68,12 +68,12 @@ export const Login = () => {
     if (user !== null && info.email !== undefined) {
       console.log(info.email);
       axios
-        .post(`http://localhost:3001/user/email`, { email: info.email })
+        .post(`https://fp-server-cg2b.onrender.com/user/email`, { email: info.email })
         .then((response) => {
           console.log(response.data.verify);
           if (response.data.verify === true) {
             axios
-              .post(`http://localhost:3001/auth`, infoLoguin)
+              .post(`https://fp-server-cg2b.onrender.com/auth`, infoLoguin)
               .then((response) => {
                 setCookie("token", response.data.token);
                 console.log(response);
@@ -83,7 +83,7 @@ export const Login = () => {
               });
           } else if (response.data.verify === false) {
             axios
-              .post(`http://localhost:3001/createuser`, info)
+              .post(`https://fp-server-cg2b.onrender.com/createuser`, info)
               .then((response) => {
                 console.log(response);
               })
@@ -116,7 +116,7 @@ export const Login = () => {
   // };
   console.log(info);
   if (info) {
-    axios.post("http://localhost:3001/createuser", info).then((data) => {
+    axios.post("https://fp-server-cg2b.onrender.com/createuser", info).then((data) => {
       console.log(data);
     });
   }

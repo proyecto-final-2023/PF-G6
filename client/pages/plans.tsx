@@ -24,7 +24,7 @@ export default function plans() {
   );
 
   useEffect(() => {
-    axios(`http://localhost:3001/plans/trainers`)
+    axios(`https://fp-server-cg2b.onrender.com/plans/trainers`)
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
     //user token
@@ -32,13 +32,13 @@ export default function plans() {
     const key = getCookie("token");
     console.log(key);
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
         if (data.data.role === "trainer") console.log(data.data.role);
         if (data.data.role === "trainee") console.log(data.data.role);
-      });
+      }).catch(error=> console.log(error));
   }, []);
   // plans
   console.log(plans);

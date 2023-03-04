@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const LINK = "http://localhost:3001/user/confirm/";
+const LINK = "https://fp-server-cg2b.onrender.com/user/confirm/";
 
 const mail = {
   user: "grupo06fit.u@gmail.com",
@@ -55,7 +55,7 @@ const getTemplate = (name, token) => {
           <h2>Hola ${name}</h2>
           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
           <a
-              href="http://localhost:3001/user/confirm/${token.token}"
+              href="https://fp-server-cg2b.onrender.com/user/confirm/${token.token}"
               target="_blank"
           >Confirmar Cuenta</a>
          

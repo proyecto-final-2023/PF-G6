@@ -30,10 +30,11 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<InputData> = async (data) => {
     console.log("SUBMIT", data);
     data.imgURL="";
-    await axios.post("http://localhost:3001/createuser", data)
+    await axios.post("https://fp-server-cg2b.onrender.com/createuser", data)
     .then((data) => {
       console.log(data);
-    });
+    })
+    .catch(error=>console.log(error));
     // TODO:
     // handle coudlinary upload
     // add extra prop to object authExtern: false

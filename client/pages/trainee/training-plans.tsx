@@ -14,7 +14,7 @@ export default function TrainingPlans() {
   }]
 
   useEffect(() => {
-    axios("http://localhost:3001/plans/trainee")
+    axios("https://fp-server-cg2b.onrender.com/plans/trainee")
       .then(({ data }) => console.log(data))
       .catch((error) => console.log(error));
   }, []);

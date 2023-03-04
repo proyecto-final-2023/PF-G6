@@ -31,7 +31,7 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios("http://localhost:3001/trainers?page=1")
+    axios("https://fp-server-cg2b.onrender.com/trainers?page=1")
       .then((data) => setPlans(data.data))
       .catch((error) => console.log(error));
   }, []);

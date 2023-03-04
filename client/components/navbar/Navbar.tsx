@@ -54,13 +54,14 @@ export default function Navbar() {
     console.log(key)
  useEffect(()=>{
   if(key!=="null"){
-  axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
+  axios.post("https://fp-server-cg2b.onrender.com/user/perfil",null,{headers:{'x-access-token': key}})
   .then((data) => {
    console.log(data.data)
    setUser1({
      display_name:` ${data.data.first_name}  ${data.data.last_name}`
    })
   })
+  .catch(error => console.log(error))
  }},[key])
 
  console.log(user1)

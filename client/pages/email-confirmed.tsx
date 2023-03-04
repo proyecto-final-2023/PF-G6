@@ -21,7 +21,7 @@ export default function EmailConfirmed() {
   //   try {
   //     (async () => {
   //       const { data } = await axios(
-  //         `https//:localhost:3001/confirm${router.query.token}`
+  //         `https://fp-server-cg2b.onrender.com/confirm${router.query.token}`
   //       );
   //       setConfirmation("ok");
   //     })();
