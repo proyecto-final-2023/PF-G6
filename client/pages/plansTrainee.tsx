@@ -8,15 +8,18 @@ import CardTrainers from "@/components/CardTrainers";
 type PlansType = {
   id: number;
   name: string;
-  description: string;
+  photo: string;
+  first_name: string;
+  last_name: string;
+  imgURL: string;
 };
 
-    // id_trainer: 'b769f372-f3ae-4127-bc00-31b2088c557a',
-    // logo: null,
-    // membership: {
-    //   userId: 'd2e80e69-29bc-4e0f-b395-5870f2acfd09',
-    //   user: { first_name: 'alexander', last_name: 'arvelo', imgURL: null }
-    // },
+// id_trainer: 'b769f372-f3ae-4127-bc00-31b2088c557a',
+// logo: null,
+// membership: {
+//   userId: 'd2e80e69-29bc-4e0f-b395-5870f2acfd09',
+//   user: { first_name: 'alexander', last_name: 'arvelo', imgURL: null }
+// },
 
 export default function plansTrainee() {
   const [plans, setPlans] = useState<PlansType[]>([]);
@@ -28,14 +31,12 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios('http://localhost:3001/trainers?page=1')
-      .then((data) => 
-      setPlans(data.data)
-      )
+    axios("http://localhost:3001/trainers?page=1")
+      .then((data) => setPlans(data.data))
       .catch((error) => console.log(error));
   }, []);
   // plans
-//   console.log(plans.map(e=>e.membership));
+  //   console.log(plans.map(e=>e.membership));
   return (
     <div>
       <header className="plan">
@@ -68,15 +69,16 @@ export default function plansTrainee() {
       )}
 
       <div className=" caja-plan   ">
-        {
-            plans&&plans.map(e=>
-                <CardTrainers 
-                 photo={e.imgURL}
-                 first_name={e.first_name}
-                 last_name={e.last_name}
-                rating={3} />
-            )
-        }
+        {plans &&
+          plans.map((e) => (
+            <CardTrainers
+              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+              photo={e.imgURL}
+              first_name={e.first_name}
+              last_name={e.last_name}
+              rating={3}
+            />
+          ))}
       </div>
     </div>
   );
