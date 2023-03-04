@@ -72,6 +72,9 @@ function GraficUTT(props: GraficUTTProps) {
               position: "top",
               display: true,
             },
+            legend:{
+              position:'right'
+            },
           },
         }}
       />
