@@ -16,7 +16,7 @@ const data = async () => {
   const vouchers = await Voucher.findAll({
     attributes: ["cost"],
   });
-
+  
   let totalCost = 0;
   for (let i = 0; i < vouchers.length; i++) {
     totalCost += parseInt(vouchers[i].cost);
