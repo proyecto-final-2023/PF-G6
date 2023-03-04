@@ -71,10 +71,16 @@ export default function ExercisesLibrary() {
     const dataToSend = {
       date: selectedDate?.getTime(), // convertir la fecha en un número para enviarla
       activities: selectedExercises.map((ex) => ({
-        id: ex.id,
+        idActivity: ex.id,
         series: parseInt((document.getElementById(`series-${ex.id}`) as HTMLSelectElement).value),
         repetitions: parseInt((document.getElementById(`repeticiones-${ex.id}`) as HTMLSelectElement).value)
+      })),
+      aliments: selectedFood.map((item) => ({
+        idAliment: item.id,
+        portion: parseInt((document.getElementById(`portion-${item.id}`) as HTMLSelectElement).value),
+        time: parseInt((document.getElementById(`time-${item.id}`) as HTMLSelectElement).value)
       }))
+
     };    
     
     // Aquí se enviaría la información a través de una solicitud HTTP
@@ -228,7 +234,7 @@ export default function ExercisesLibrary() {
             <div className="backdrop-blur-md bg-black bg-opacity-50 border  border-white h-[56px] my-auto text-center px-2"> <p className="text-center py-3">Fecha seleccionada:  {selectedDate && formatDate(selectedDate)}</p> </div>
               <ul className="backdrop-blur-md  bg-black bg-opacity-50 border border-white h-auto w-[350px] overflow-hidden flex flex-wrap">
                <p className="m-2 py-2 mx-5 top-0 left-0">My routine:</p> 
-               <button onClick={handleClick} className="hover:text-amber-500 absolute mx-5 text-center right-0 m-2  pt-2 px-3">Save Routine</button>
+               
                 {selectedExercises
                   ? selectedExercises.map((ex) =><li className='block w-[350px] px-5 py-1' key={ex.id}>'{ex.name}' <div>
                   <label htmlFor={`repeticiones-${ex.id}`}>Repeticiones:</label>
@@ -260,6 +266,7 @@ export default function ExercisesLibrary() {
                     <option value='4'>4</option>
                     <option value='5'>5</option>
                   </select>
+                  
                 </div></li> )
                   : ''}
               </ul>
@@ -277,16 +284,26 @@ export default function ExercisesLibrary() {
                     <option value='4'>4</option>
                     <option value='5'>5</option>
                     </select>
+                    <label htmlFor={`time-${item.id}`}>Time:</label>
+                    <select name={`time-${item.id}`} id={`time-${item.id}`}>
+                    <option value='Break Fast'>Break Fast</option>
+                    <option value='Lunch'>Lunch</option>
+                    <option value='Dinner'>Dinner</option>
+                    <option value='Snack'>Snack</option>
+                    <option value='Dessert'>Dessert</option>
+                    
+                    </select>
                   </div>
                 </li>
               )}) : ''}
               </ul>
            </div>
 
-        <div className="mx-auto pl-36">
+        <div className="flex justify-evenly">
           <button className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500" onClick={() => setIsAlimentEndpoint(!isAlimentEndpoint)}>
            {isAlimentEndpoint ? "Switch to Activity" : "Switch to Aliment"}
           </button>
+          <button onClick={handleClick} className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500">Send Changes</button>
         </div>   
         <div className="flex justify-between items-center w-full py-10 px-96">  
           <button onClick={prevPage} disabled={currentPage === 1} className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center" >
