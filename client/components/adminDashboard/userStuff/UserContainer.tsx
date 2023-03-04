@@ -3,8 +3,19 @@ import axios from "axios";
 import UserCard from "./UserCard";
 import UserDetails from "./UserDetails";
 import { User } from "@/types/components/dashboard";
+import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
 
-export default function UserContainer({ page }: { page: number }) {
+export default function UserContainer() {
+  const [page, setPage] = useState(1);
+
+  const nextPage = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  const prevPage = () => {
+    setPage((prev) => prev - 1);
+  };
+
   const [users, setUsers] = useState<User[]>([]);
   const [details, setDetails] = useState<User>({
     id: "",
@@ -12,7 +23,7 @@ export default function UserContainer({ page }: { page: number }) {
     last_name: "",
     nickname: "",
     logo: "",
-    role: "admin",
+    role: "admin"
   });
 
   useEffect(() => {
@@ -33,6 +44,10 @@ export default function UserContainer({ page }: { page: number }) {
 
   return (
     <div className="border-white">
+      <h2 className="text-xl text-center">Users Container</h2>
+
+      <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
+
       <div className="grid gap-x-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 my-7">
         {users.length &&
           users.map((item, index) => {

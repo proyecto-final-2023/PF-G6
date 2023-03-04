@@ -1,3 +1,5 @@
+import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
+import { Plan } from "@/types/components/dashboard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PlanCard from "./PlanCard";
@@ -10,20 +12,19 @@ const fakePlan = {
   price: 10,
   duration: 1,
   features: ["1", "2", "3"],
-  logo: "a",
+  logo: "a"
 };
 
-export type Plan = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  duration: number;
-  features: string[];
-  logo: string;
-};
+export default function PlanContainer() {
+  const [page, setPage] = useState(1);
 
-export default function PlanContainer({ page }: { page: number }) {
+  const nextPage = () => {
+    setPage((prev) => prev + 1);
+  };
+
+  const prevPage = () => {
+    setPage((prev) => prev - 1);
+  };
   const [plans, setPlans] = useState<Plan[]>([fakePlan]);
   const [details, setDetails] = useState<Plan>({
     id: "",
@@ -32,7 +33,7 @@ export default function PlanContainer({ page }: { page: number }) {
     description: "",
     price: 0,
     duration: 0,
-    features: [],
+    features: []
   });
 
   useEffect(() => {
@@ -54,6 +55,9 @@ export default function PlanContainer({ page }: { page: number }) {
 
   return (
     <div className="border-white">
+      <h2 className="text-xl text-center">Plans Container</h2>
+      <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
+
       <div className="grid gap-x-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 my-7">
         {plans.length &&
           plans.map((item, index) => {

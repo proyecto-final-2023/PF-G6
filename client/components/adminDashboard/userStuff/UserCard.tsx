@@ -1,9 +1,4 @@
-import { User } from "@/types/components/dashboard";
-
-type UserCardProps = Omit<User, "id" | "last_name"> & {
-  clickHandler: (id: number) => void;
-  index: number;
-};
+import { UserCardProps } from "@/types/components/dashboard";
 
 export default function UserCard(props: UserCardProps) {
   const { first_name, role, clickHandler, index } = props;

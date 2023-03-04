@@ -1,13 +1,4 @@
-import { Plan } from "./PlanContainer";
-
-// ? more readable
-type PlanCardProps = {
-  price: Plan["price"];
-  name: Plan["name"];
-  logo: Plan["logo"];
-  index: number;
-  clickHandler: (id: number) => void;
-};
+import { PlanCardProps } from "@/types/components/dashboard";
 
 export default function PlanCard(props: PlanCardProps) {
   const { price, name, logo, clickHandler, index } = props;

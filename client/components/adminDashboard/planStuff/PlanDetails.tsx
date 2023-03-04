@@ -1,6 +1,6 @@
+import { Plan } from "@/types/components/dashboard";
 import { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { Plan } from "./PlanContainer";
 
 export default function PlanDetails(props: Plan) {
   const { id, name, description, price, duration, features, logo } = props;
@@ -11,15 +11,15 @@ export default function PlanDetails(props: Plan) {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors },
+    formState: { errors }
   } = useForm<Plan>({
     mode: "onChange",
     defaultValues: {
       name: "",
       description: "",
       price: 0,
-      duration: 0,
-    },
+      duration: 0
+    }
   });
 
   const onSubmit: SubmitHandler<Plan> = async (data) => {
