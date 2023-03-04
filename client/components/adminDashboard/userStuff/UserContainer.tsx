@@ -15,6 +15,9 @@ export default function UserContainer() {
   const prevPage = () => {
     setPage((prev) => prev - 1);
   };
+  // trainers: logo, datos plan,
+  // trainees: post they did, rating they gave (rating), active status (remove plan they have)
+  // memberships: our memberships to trainers
 
   const [users, setUsers] = useState<User[]>([]);
   const [details, setDetails] = useState<User>({
@@ -28,6 +31,7 @@ export default function UserContainer() {
 
   useEffect(() => {
     const fetchData = async () => {
+      // TODO: add error handling
       const { data }: { data: User[] } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`
       );

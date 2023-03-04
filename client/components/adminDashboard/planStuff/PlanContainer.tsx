@@ -1,19 +1,9 @@
-import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
-import { Plan } from "@/types/components/dashboard";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PlanCard from "./PlanCard";
 import PlanDetails from "./PlanDetails";
-
-const fakePlan = {
-  id: "1",
-  name: "Basic",
-  description: "Basic plan",
-  price: 10,
-  duration: 1,
-  features: ["1", "2", "3"],
-  logo: "a"
-};
+import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
+import { Plan } from "@/types/components/dashboard";
 
 export default function PlanContainer() {
   const [page, setPage] = useState(1);
@@ -25,7 +15,7 @@ export default function PlanContainer() {
   const prevPage = () => {
     setPage((prev) => prev - 1);
   };
-  const [plans, setPlans] = useState<Plan[]>([fakePlan]);
+  const [plans, setPlans] = useState<Plan[]>([]);
   const [details, setDetails] = useState<Plan>({
     id: "",
     logo: "",
@@ -38,13 +28,12 @@ export default function PlanContainer() {
 
   useEffect(() => {
     const fetchData = async () => {
-      // const { data }: { data: Plan[] } = await axios.get(
-      //   `${process.env.NEXT_PUBLIC_API_URL}/Plan?page=${page}`
-      // );
-      // setPlans(data);
+      const { data }: { data: Plan[] } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/plans/trainers?page=${page}`
+      );
+      setPlans(data);
     };
     fetchData();
-    console.log("CHANGED PAGE", page);
   }, [page]);
 
   const clickHandler = (id: number) => {
@@ -74,7 +63,7 @@ export default function PlanContainer() {
             );
           })}
       </div>
-      <div className="d7">
+      <div>
         {details.id && (
           <PlanDetails
             {...{ id }}

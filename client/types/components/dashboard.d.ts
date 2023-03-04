@@ -11,6 +11,12 @@ export type User = {
   logo: string | null;
 };
 
+// @ UserCard
+type UserCardProps = Omit<User, "id" | "last_name"> & {
+  clickHandler: (id: number) => void;
+  index: number;
+};
+
 export type UserDetails = User & {
   last_name: string;
   email: string;
@@ -20,6 +26,7 @@ export type UserDetails = User & {
   updateUser: (id: number, data: User) => void;
 };
 
+// * Plan
 // @ PlanContainer
 export type Plan = {
   id: string;
@@ -41,10 +48,14 @@ export type PlanCardProps = {
   clickHandler: (id: number) => void;
 };
 
-// @ UserCard
-type UserCardProps = Omit<User, "id" | "last_name"> & {
-  clickHandler: (id: number) => void;
-  index: number;
+// * MEMBERSHIPS for trainers
+export type MembershipForTrainer = {
+  id: string;
+  name: string;
+  cost: string;
+  category: string;
+  description: string;
+  cantTrainees: string;
 };
 
 // * EXTRAS I DONT KNOW WHERE TO PUT
