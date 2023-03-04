@@ -13,8 +13,11 @@ const postPlansTrainer = async (name, cost, description, cantTrainees) => {
   return result;
 };
 
-const allPlans = async () => {
-  const all = await Plantrainer.findAll();
+const allPlans = async (page = 0, pageSize = 5) => {
+  const all = await Plantrainer.findAll({
+    offset: page * pageSize,
+    limit: pageSize,
+  });
   return all.map((element) => {
     return {
       id: element.dataValues.id_planTrainer,
