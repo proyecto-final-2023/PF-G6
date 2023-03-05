@@ -1,11 +1,8 @@
-<<<<<<< HEAD
 import React from "react";
 import Link from "next/link";
-=======
-import React, { useState } from "react";
+import { useState } from "react";
 import useParam1Store from "@/store/state-lb";
 
->>>>>>> origin/dev
 
 
 export default function Routines() {
