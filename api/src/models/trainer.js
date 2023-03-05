@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
       },
       logo: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
     },
     { timestamps: false }

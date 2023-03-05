@@ -45,7 +45,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
       await membership.setPlantrainer(idPlan);
 
       const trainerM = await Trainer.create({
-        logo: "https://www.facebook.com/photo/?fbid=504981774962515&set=a.504981758295850",
+        logo: "https://scontent.ffdo3-1.fna.fbcdn.net/v/t39.30808-6/242996915_4152433971549158_7674144620545742312_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=TycSgh5ooucAX_RFxlG&_nc_ht=scontent.ffdo3-1.fna&oh=00_AfBAtfry86jwD-1gI8o31ooSd53QlEVOnBarcIKcYoefVg&oe=64092E57",
       });
       // // const certificates = await Certificates.create();
       // // const socialNet = await SocialNetworks.create();

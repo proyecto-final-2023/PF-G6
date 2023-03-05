@@ -1,12 +1,11 @@
-import NavbarTrainer from '@/components/navbar/NavbarTrainer'
-import React from 'react'
+import Dashboard from '@/components/Dashboard'
+
 
 export default function index() {
  
   return (
-    <div>
-      <NavbarTrainer />
-      
+    <div >
+      <Dashboard />
 
     </div>
   )
