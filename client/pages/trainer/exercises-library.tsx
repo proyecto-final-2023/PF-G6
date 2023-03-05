@@ -178,7 +178,9 @@ export default function ExercisesLibrary() {
   return (
       <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed">       
       <div className="h-auto pt-[82px]">
-       { rndExercises.length >= 1 ? <div className=" flex justify-around  py-8 backdrop-blur-md bg-black bg-opacity-50 border  border-white border-l-0 border-r-0">
+       { rndExercises.length >= 1 ? 
+       
+        <div className=" flex justify-around  py-8 backdrop-blur-md bg-black bg-opacity-50 border  border-white border-l-0 border-r-0">
         <div className="flex"> 
         <div className=" px-4">
         <input type="text" value={searchValue} onChange={e => setSearchValue(e.target.value)} placeholder="Search by name..." className="w-[150px] bg-transparent text-white border px-1 border-white focus:w-[180px] duration-[150ms]" />
@@ -212,7 +214,9 @@ export default function ExercisesLibrary() {
       <button onClick={handleButtonClick} className="hover:text-amber-500">Filter</button>
       <button onClick={deleteFilterHandler} className="hover:text-red-400">Delete Filters</button>
       
-    </div> : <div className=" flex justify-around py-8 backdrop-blur-md bg-black bg-opacity-50 border border-white border-l-0 border-r-0" >
+    </div> : 
+    
+    <div className=" flex justify-around py-8 backdrop-blur-md bg-black bg-opacity-50 border border-white border-l-0 border-r-0" >
     <div className=" px-4">
         <input type="text" value={searchValue} onChange={e => setSearchValue(e.target.value)} placeholder="Search by name..." className="w-[150px] bg-transparent text-white border px-1 border-white focus:w-[180px] duration-[150ms]" />
         <button onClick={handleSearch} className="border border-l-0 px-2 border-white hover:text-amber-500" >Buscar</button>
@@ -220,9 +224,9 @@ export default function ExercisesLibrary() {
         </div>} 
       
 
-      <div className="flex justify-around py-8 px-20">
+      <div className="flex flex-col gap-4 justify-around w-[80%] mx-[10%] mt-6">
        
-            <div className="h-[220px] backdrop-blur-md bg-black bg-opacity-50 p-4 border border-white">
+            <div className="h-[220px] backdrop-blur-md bg-black bg-opacity-50 border border-white">
               <Calendar
                 localizer={localizer}
                 defaultDate={currentDate}
@@ -235,11 +239,11 @@ export default function ExercisesLibrary() {
                 />
             </div>
             <div className="backdrop-blur-md bg-black bg-opacity-50 border  border-white h-[56px] my-auto text-center px-2"> <p className="text-center py-3">Fecha seleccionada:  {selectedDate && formatDate(selectedDate)}</p> </div>
-              <ul className="backdrop-blur-md  bg-black bg-opacity-50 border border-white h-auto w-[350px] overflow-hidden flex flex-wrap">
-               <p className="m-2 py-2 mx-5 top-0 left-0">My routine:</p> 
-               
-                {selectedExercises
-                  ? selectedExercises.map((ex) =><li className='block w-[350px] px-5 py-1' key={ex.id}>'{ex.name}' <div>
+              <ul className="backdrop-blur-md  bg-black bg-opacity-50 border border-white h-auto  overflow-hidden">
+               <p className="m-2 py-2 mx-5 text-center  ">My routine:</p> 
+                <div className="flex flex-wrap border justify-center gap-1">
+                {selectedExercises && selectedExercises.map((ex) =><li className='min-w-min px-5 py-1' key={ex.id}>Name: '{ex.name}'
+                 <div>
                   <label className="px-1" htmlFor={`repeticiones-${ex.id}`}>Repeticiones:</label>
                   <select className="pl-0 border bg-black bg-opacity-50 text-white" name={`repeticiones-${ex.id}`} id={`repeticiones-${ex.id}`}>
                     <option className="backdrop-blur-md border bg-black bg-opacity-50" value='1'>1</option>
@@ -271,13 +275,16 @@ export default function ExercisesLibrary() {
                   </select>
                   
                 </div></li> )
-                  : ''}
+                 }
+                </div>
+               
               </ul>
-              <ul className="backdrop-blur-md  bg-black bg-opacity-50 border border-white h-auto w-[350px] overflow-hidden flex flex-wrap">
-              <p className="m-2 py-2 mx-5 top-0 left-0">My diet:</p> 
+              <ul className="backdrop-blur-md  bg-black bg-opacity-50 border border-white h-auto  overflow-hidden">
+              <p className="m-2 py-2 mx-5 text-center ">My diet:</p> 
+              <div className="flex flex-wrap border justify-center gap-4">
               {selectedFood ? selectedFood.map((item) => {return(
-                <li id={`${item.id}`} className="block w-[350px] px-5 py-1">
-                  {item.description}
+                <li id={`${item.id}`} className='min-w-min px-5 py-1'>
+                  Name: {item.description}
                   <div>
                     <label className="px-1" htmlFor={`portion-${item.id}`}>Portions:</label>
                     <select className="pl-0 border bg-black bg-opacity-50 text-white" name={`portion-${item.id}`} id={`portion-${item.id}`}>
@@ -299,32 +306,41 @@ export default function ExercisesLibrary() {
                   </div>
                 </li>
               )}) : ''}
+              </div>
+              
               </ul>
            </div>
 
-        <div className="flex justify-evenly">
-          <button className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500" onClick={() => (setIsAlimentEndpoint(!isAlimentEndpoint), setFirstParam(''),
-    setSelectedOption(''),
-    setSelectedSubOption(''),
-    setSearchValue(''),
-    setCurrentPage(1),
-    setSearchValue(''))}>
+        <div className="flex mt-4">
+          <button className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500" 
+            onClick={() =>
+                (setIsAlimentEndpoint(!isAlimentEndpoint), setFirstParam(''),
+                setSelectedOption(''),
+                setSelectedSubOption(''),
+                setSearchValue(''),
+                setCurrentPage(1),
+                setSearchValue(''))}>
            {isAlimentEndpoint ? "Switch to Activity" : "Switch to Aliment"}
           </button>
           <button onClick={handleClick} className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500">Send Changes</button>
         </div>   
-        <div className="flex justify-between items-center w-full py-10 px-96">  
-          <button onClick={prevPage} disabled={currentPage === 1} className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center" >
+        <div className="pt-8">
+            <div className="flex justify-around  py-5 backdrop-blur-md bg-black bg-opacity-50 border  border-white border-l-0 border-r-0">
+            <p className="mx-auto text-center px-2 py-1">{isAlimentEndpoint ? "You are viewing the foods" : "You are viewing the exercises"}</p>  
+          </div>
+        </div>
+     
+      <div className="flex justify-between items-center w-full py-10 px-96">  
+          <button onClick={prevPage} disabled={currentPage === 1} className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center hover:text-amber-500" >
             PREV
           </button>
-        <div className="font-bold w-[35px] border border-white rounded-full py-2 backdrop-blur-lg bg-black bg-opacity-50 text-center">{currentPage}</div>
-          <button onClick={nextPage}  className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center">
+        <div className="font-bold w-[35px] border border-white rounded-full py-1 backdrop-blur-lg bg-black bg-opacity-50 text-center hover:text-amber-500">{currentPage}</div>
+          <button onClick={nextPage}  className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center hover:text-amber-500">
             NEXT
           </button>
         </div>
-      
       <div className="flex flex-wrap gap-5">
-        <ul className="grid grid-cols-4 mx-auto px-9">
+        <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 mx-auto px-9">
           {
             rndExercises.length > 1 ? 
             
@@ -371,9 +387,9 @@ export default function ExercisesLibrary() {
                   Energy: {item.energyAmount} {item.energyUnit}
                 </p>
               </div>
-              <button className="hover:text-cyan-400" onClick={()=> handleAddFood(item)}>Add</button>
+              
             </div>
-          
+            <button className="hover:text-cyan-400 border px-2 " onClick={()=> handleAddFood(item)}>Add</button>
               </li>
             )}) 
           }
@@ -384,15 +400,15 @@ export default function ExercisesLibrary() {
         <button
           onClick={prevPage}
           disabled={currentPage === 1}
-          className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center"
+          className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center hover:text-amber-500"
         >
           PREV
         </button>
-          <div className="font-bold w-[35px] border border-white rounded-full py-2 backdrop-blur-lg bg-black bg-opacity-50 text-center">{currentPage}</div>
+          <div className="font-bold w-[35px] border border-white rounded-full py-2 backdrop-blur-lg bg-black bg-opacity-50 text-center hover:text-amber-500">{currentPage}</div>
         <button
           onClick={nextPage}
           
-          className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center"
+          className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center hover:text-amber-500"
         >
           NEXT
         </button>
