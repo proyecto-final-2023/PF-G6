@@ -19,7 +19,7 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
  
   const router=useRouter();
 const key=getCookie('token')
-console.log(key)
+// console.log(key)
   const optionsUrlMapping: UrlMapping = {
     // Tools hover
     caloriescalculator: "/trainee/tools/calculator",
@@ -34,7 +34,7 @@ console.log(key)
       if(key){
       await axios.post( `http://localhost:3001/user/perfil`, "hola",{headers: {"x-access-token": key} })
       .then(res=>{
-        console.log(res);
+        // console.log(res);
         const userRole=res?.data.role
         userRole==="trainer"&& router.push("/trainer");
         userRole==="trainee"&& router.push("/trainee");
@@ -58,10 +58,10 @@ console.log(key)
   
 
   // must return null to be a valid JSX child
-  if (singOutHandler) {
-    singOutHandler(id);
-    return null;
-  }
+  // if (singOutHandler) {
+  //   singOutHandler(id);
+  //   return null;
+  // }
 
   
   return (

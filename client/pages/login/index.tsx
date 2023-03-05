@@ -7,7 +7,7 @@ import { auth } from "../../firebase";
 
 export default function Index() {
   const [user, setUser] = useAuthState(auth);
-  console.log(user);
+  // console.log(user);
 
   return (
     <div className="login">

@@ -27,10 +27,10 @@ export default function RegisterForm() {
   // console.log(watch("example"));
   const [user, setUser] = useAuthState(auth);
 
-  console.log(user)
+  // console.log(user)
 
   const onSubmit: SubmitHandler<InputData> = async (data) => {
-    console.log("SUBMIT", data);
+    // console.log("SUBMIT", data);
     // data.imgURL = "";
     await axios.post(`http://localhost:3001/createuser`, 
     { first_name: data.first_name,
@@ -39,7 +39,7 @@ export default function RegisterForm() {
       password: data.password
     })
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         alert("User created successfully! please verify the confirmation E-mail.");
         window.location.href = "/login"
       });

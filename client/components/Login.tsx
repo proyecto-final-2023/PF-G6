@@ -31,7 +31,7 @@ export const Login = () => {
   const [inputValue, setInputValue] = useState("");
   const auth1 = getAuth()
 
-console.log(user?.email)
+// console.log(user?.email)
 
   const login = async (authType: AuthProvider) => {
     try {
@@ -64,7 +64,7 @@ console.log(user?.email)
     password: user?.email || email,
   };
 
-  console.log(info)
+  // console.log(info)
 
   const infoLoguin = {
     email: info.email,
@@ -74,15 +74,15 @@ console.log(user?.email)
 
   useEffect(() => {
     if (user !== null && info.email !== undefined) {
-      console.log(info.email)
+      // console.log(info.email)
       axios.post(`http://localhost:3001/user/email`, { email: info.email })
         .then(response => {
-          console.log(response.data.verify)
+          // console.log(response.data.verify)
           if (response.data.verify === true) {
             axios.post(`http://localhost:3001/auth`, infoLoguin)
               .then(response => {
                 setCookie("token", response.data.token)
-                console.log(response)
+                // console.log(response)
                 window.location.href = "/home"
           
               })
@@ -93,7 +93,7 @@ console.log(user?.email)
             axios.post(`http://localhost:3001/createuser`, info)
               .then(response => {
                 auth.signOut();
-                console.log(response)
+                // console.log(response)
                 window.location.reload()
               })
               .catch(error => {

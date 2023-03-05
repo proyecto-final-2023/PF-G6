@@ -22,7 +22,7 @@ export default function FormularioLogin() {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, formData)
       .then((data) => {
-        console.log(data.config.data)
+        // console.log(data.config.data)
         setCookie("token", data.data.token);
         window.location.href = "/home"
       })
