@@ -1,17 +1,14 @@
-type TraineeCardProps = {
-  name: string;
-  img: string;
-  user_id: string;
-  clickHandler: (id: string) => void;
-};
+import useStore from "@/store/dashStore";
+import { UserCardT } from "@/types/dash/user";
 
-export default function TraineeCard(props: TraineeCardProps) {
-  const { name, img, user_id, clickHandler } = props;
+export default function TraineeCard(props: UserCardT) {
+  const { name, user_id } = props;
+  const updateTraineeDetails = useStore((state) => state.fetchTraineeDetails);
 
   return (
-    <button onClick={() => clickHandler(user_id)}>
-      {name}
-      <img src={img} alt={name} />
+    <button onClick={() => updateTraineeDetails(user_id)}>
+      <p>{name}</p>
+      <p>role: Trainee</p>
     </button>
   );
 }

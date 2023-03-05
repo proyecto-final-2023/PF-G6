@@ -2,6 +2,7 @@ import MembershipsContainer from "./membership/MembershipContainer";
 import PlanContainer from "./planStuff/PlanContainer";
 import UserContainer from "./userStuff/UserContainer";
 import TrainerContainer from "./trainerStuff/TrainerContainer";
+import TraineeContainer from "./traineeStuff/TraineeContainer";
 
 export default function CentralContainer() {
   return (
@@ -9,6 +10,7 @@ export default function CentralContainer() {
       {/* <MembershipsContainer /> */}
       {/* <PlanContainer /> */}
       {/* <UserContainer /> */}
+      <TraineeContainer />
       <TrainerContainer />
     </div>
   );
