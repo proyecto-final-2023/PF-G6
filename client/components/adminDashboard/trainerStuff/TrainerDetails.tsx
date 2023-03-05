@@ -9,7 +9,7 @@ export type ModifyTrainerDetails = {
 
 // ? Only be able to change Logo & Plan Details
 export default function TrainerDetails(props: TrainerDetailsT) {
-  const { user_id, name, role, logo } = props;
+  const { user_id, name, logo } = props;
   // was too much of a pain to pass another param to the submit handler
   const requestType = useRef<"PUT" | "DELETE">("PUT");
 
@@ -66,7 +66,7 @@ export default function TrainerDetails(props: TrainerDetailsT) {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
       <p>Name: {name}</p>
-      <p>Role: {role}</p>
+      <p>Role: Trainer</p>
       <label className="flex flex-col">
         Logo
         <input

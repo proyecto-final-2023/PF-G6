@@ -1,12 +1,12 @@
-import { TrainerCardT } from "@/types/components/dashboard";
+import { UserCardT } from "@/types/components/dashboard";
 
-export default function TrainerCard(props: TrainerCardT) {
-  const { name, clickHandler, user_id, role } = props;
+export default function TrainerCard(props: UserCardT) {
+  const { name, clickHandler, user_id } = props;
 
   return (
     <button onClick={() => clickHandler(user_id)}>
       <p>{name}</p>
-      <p>role: {role}</p>
+      <p>role: Trainer</p>
     </button>
   );
 }

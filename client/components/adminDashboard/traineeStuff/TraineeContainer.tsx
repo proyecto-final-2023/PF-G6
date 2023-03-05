@@ -1,20 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
-import TrainerCard from "./TrainerCard";
-import TrainerDetails from "./TrainerDetails";
-import { parseTrainersArr } from "@/utils/adminHelpers";
+import TraineeCard from "./TraineeCard";
+import TraineeDetails from "./TraineeDetails";
+// import { parseTrainersArr } from "@/utils/adminHelpers";
 import {
-  TrainerArrResponse,
-  TrainerDetailsT,
-  UserCardT,
+  TraineeResponse,
   UserDetailsResponse,
   UserDetailsT
 } from "@/types/components/dashboard";
+import { parseTraineesArr } from "@/utils/adminHelpers";
 
-export default function TrainerContainer() {
+export default function TraineeContsainer() {
   const [page, setPage] = useState(1);
-  const [trainers, setTrainers] = useState<UserCardT[]>([]);
+  const [trainers, setTrainers] = useState<TraineeResponse[]>([]);
 
   const nextPage = () => setPage((prev) => prev + 1);
 
@@ -23,12 +22,12 @@ export default function TrainerContainer() {
   useEffect(() => {
     const fetchData = async () => {
       // TODO: add error handling
-      const { data }: { data: TrainerArrResponse[] } = await axios.get(
+      const { data }: { data: TraineeResponse[] } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`
       );
       console.log("data", data);
 
-      const parsedResponse = parseTrainersArr(data, clickHandler);
+      const parsedResponse = parseTraineesArr(data, clickHandler);
 
       setTrainers(parsedResponse);
     };
@@ -40,6 +39,7 @@ export default function TrainerContainer() {
   const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsT>({
     user_id: "",
     name: "",
+    role: "trainer",
     logo: ""
   });
 
@@ -54,6 +54,7 @@ export default function TrainerContainer() {
         // since we dont get an id back from the server, we need to add the one in params
         user_id: id,
         name: `${data.first_name} ${data.last_name}`,
+        role: "trainer" as TrainerDetailsT["role"],
         logo: data.imgURL
       };
 
@@ -73,9 +74,10 @@ export default function TrainerContainer() {
         {trainers.length &&
           trainers.map((item) => {
             return (
-              <TrainerCard
+              <TraineeCard
                 key={item.user_id}
                 user_id={item.user_id}
+                role={item.role}
                 name={item.name}
                 {...{ clickHandler }}
               />
@@ -84,9 +86,10 @@ export default function TrainerContainer() {
       </div>
       <div className="d7">
         {trainerDetails.user_id && (
-          <TrainerDetails
+          <TraineeDetails
             user_id={trainerDetails.user_id}
             name={trainerDetails.name}
+            role={trainerDetails.role}
             logo={trainerDetails.logo}
           />
         )}
