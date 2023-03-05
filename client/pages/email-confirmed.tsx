@@ -1,13 +1,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useStore from "@/store";
+import useStore from "@/store/dashStore";
 
 type ConfirmationState = "ok" | "error" | "loading";
 
 export default function EmailConfirmed() {
   const { updateCock, userData } = useStore((state) => ({
     userData: state.userData,
-    updateCock: state.updateConfirmed,
+    updateCock: state.updateConfirmed
   }));
 
   console.log(userData);

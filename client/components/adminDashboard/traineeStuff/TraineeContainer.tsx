@@ -15,9 +15,7 @@ import { parseTraineesArr } from "@/utils/adminHelpers";
 export default function TraineeContsainer() {
   const [page, setPage] = useState(1);
   const [trainees, setTrainees] = useState<UserCardT[]>([]);
-
   const nextPage = () => setPage((prev) => prev + 1);
-
   const prevPage = () => setPage((prev) => prev - 1);
 
   const clickHandler = async (id: string /*, updateDetails: () => void*/) => {

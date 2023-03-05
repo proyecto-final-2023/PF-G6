@@ -1,107 +1,48 @@
-import {
-  TrainerDetailsT,
-  UserDetailsResponse
-} from "@/types/components/dashboard";
-import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import useStore from "@/store/dashStore";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export type ModifyTrainerDetails = {
   logo: string;
-  plan: string;
+  email: string;
 };
 
 // ? Only be able to change Logo & Plan Details
+// changeTrainerDetails: () => void;
+// deleteTrainer: () => void;
+// updateTrainer: () => void;
 export default function TrainerDetails({ user_id }: { user_id: string }) {
-  const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsT>();
-  // was too much of a pain to pass another param to the submit handler
-  const requestType = useRef<"PUT" | "DELETE">("PUT");
-
-  // const changeTrainerDetails = () => {
-  //   console.log("changeTrainerDetails");
-  // };
-
-  const fetchDetails = async () => {
-    try {
-      const { data }: { data: UserDetailsResponse } = await axios(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}`
-      );
-
-      const parsedDetails = {
-        // since we dont get an id back from the server, we need to add the one in params
-        user_id,
-        name: `${data.first_name} ${data.last_name}`,
-        logo: data.imgURL
-      };
-
-      setTrainerDetails(parsedDetails);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    // dont need to wait for it
-    fetchDetails();
-  }, [user_id]);
-
-  const deleteTrainer = async () => {
-    try {
-      // await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`);
-      console.log("deleteTrainer");
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const updateTrainer = async () => {
-    try {
-      // need to had cookies by headers (wait until I have admin acc)
-      // await axios.put(
-      //   `${process.env.NEXT_PUBLIC_API_URL}/trainers/logo/${id}`,
-      //   data
-      // );
-      console.log("updateTrainer");
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const trainerDetails = useStore((state) => state.trainerDetails);
 
   const {
     register,
     handleSubmit,
     watch,
-    setValue,
-    formState: { errors }
+    formState: { errors, isSubmitting }
   } = useForm<ModifyTrainerDetails>({
     mode: "onChange",
     defaultValues: {
-      logo: "",
-      plan: ""
+      logo: trainerDetails.logo,
+      email: trainerDetails.email
     }
   });
+
   const onSubmit: SubmitHandler<ModifyTrainerDetails> = async (data) => {
-    if (requestType.current === "PUT") {
-      // add some stuff, like what it want to edit, id of the user, etc
-      await updateTrainer();
-      console.log("READY TO UPDATE", data);
-    } else {
-      await deleteTrainer();
-      console.log("READY TO LOGIC DELETE", data);
-    }
+    // update stuff
+    console.log("update", data);
   };
 
-  const updateValues = () => {
-    // setValue("logo", logo);
-    // setValue("plan", plan);
+  const handleDelete = () => {
+    // delete stuff
+    console.log("delete");
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <p>Name: {trainerDetails?.name}</p>
+      <p>Name: {trainerDetails.name}</p>
       <p>Role: Trainer</p>
+      {/* ---- Logo ---- */}
       <label className="flex flex-col">
-        Logo
+        Logo:
         <input
           className="rounded-md"
           type="text"
@@ -109,15 +50,28 @@ export default function TrainerDetails({ user_id }: { user_id: string }) {
         />
       </label>
 
-      {/* BUTTONS :D */}
+      {/* ---- Email ---- */}
+      <label className="flex flex-col">
+        Email:
+        <input
+          className="rounded-md"
+          type="text"
+          {...register("email", { required: true, minLength: 3 })}
+        />
+      </label>
+
+      {/* ---- Buttons ---- */}
       <button
-        onClick={() => (requestType.current = "PUT")}
+        disabled={isSubmitting}
         className="py-2 px-3 bg-green-700 rounded"
       >
         Update
       </button>
+
       <button
-        onClick={() => (requestType.current = "DELETE")}
+        type="button"
+        disabled={isSubmitting}
+        onClick={handleDelete}
         className="py-2 px-3 bg-red-700 rounded"
       >
         Delete

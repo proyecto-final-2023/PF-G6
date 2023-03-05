@@ -1,10 +1,12 @@
-import { UserCardT } from "@/types/components/dashboard";
+import useStore from "@/store/dashStore";
+import { UserCardT } from "@/types/dash/user";
 
 export default function TrainerCard(props: UserCardT) {
-  const { name, clickHandler, user_id } = props;
+  const { name, user_id } = props;
+  const updateTrainerDetails = useStore((state) => state.fetchTrainerDetails);
 
   return (
-    <button onClick={() => clickHandler(user_id)}>
+    <button onClick={() => updateTrainerDetails(user_id)}>
       <p>{name}</p>
       <p>role: Trainer</p>
     </button>
