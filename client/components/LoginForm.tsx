@@ -19,7 +19,6 @@ export default function FormularioLogin() {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, formData)
       .then((data) => {
-        console.log(data);
         setCookie("token", data.data.token);
         router.push("/home");
       })
