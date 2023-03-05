@@ -1,5 +1,6 @@
 import Cookies from "universal-cookie";
 
+
 export const getCookie = (key: string) => {
   const cookies = new Cookies();
   const value = cookies.get(key);

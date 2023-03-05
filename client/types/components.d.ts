@@ -5,7 +5,7 @@ import { StaticImageData } from "next/image";
 
 // @ HoverLi
 export type HoverLiProps = {
-  imgUrl?: StaticImageData | string;
+  imgUrl?: StaticImageData|string
   href: string;
   text: string;
   isHover: boolean;
@@ -26,12 +26,13 @@ export type UrlMapping = {
   caloriescalculator: string;
   fatcalculator: string;
   stopwatch: string;
-  diets: string;
+
   register: string;
   login: string;
-  trainerprograms: string;
-  //Dashboard: string;
-  logout: () => void;
+
+  
+  dashboard:()=> void|string|Promise;
+  logout: () => void|string
 };
 
 // @ SubNavMenu
@@ -83,6 +84,7 @@ export type InputData = {
   last_name: string;
   nick_name: string;
   password: string;
+  password_confirmation:string,
   email: string;
   phone: string;
   cell: string;
@@ -116,14 +118,16 @@ export interface GenericInputProps extends BasicInputsProps {
 export interface ContactInputProps extends BasicInputsProps {
   register: UseFormRegister<ContactData>;
 }
-
+type ValidatePasswordConfirmation = (value: string) => boolean | string 
 export type BasicInputsProps = {
   label: string;
-  options: { required: boolean; pattern?: RegExp };
+  options: { required: boolean; pattern?: RegExp; validate:ValidatePasswordConfirmation|null };
   err: FieldError | undefined;
   name: string;
-  type: "text" | "number" | "password" | "email" | "textarea";
+  type: "text" | "number" | "password" | "email" | "textarea" |"password_confirmation";
 };
+
+
 
 // @ Components/Navbar/Burger
 export type BurgerProps = {
@@ -133,7 +137,7 @@ export type BurgerProps = {
 
 // @ Components/CardPlans
 export type CardPlansProps = {
-  idPlans: string;
+  idPlans: number;
   name: string;
   cost: number;
   category: string;
@@ -145,6 +149,6 @@ export type CardPlansProps = {
 export type PaypalButtonProps = {
   amountToPay: number;
   serviceName: string;
-  idPlans: string;
+  idPlans: number;
   idUser: number;
 };
