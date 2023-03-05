@@ -31,8 +31,13 @@ export default function RegisterForm() {
 
   const onSubmit: SubmitHandler<InputData> = async (data) => {
     console.log("SUBMIT", data);
-    data.imgURL = "";
-    await axios.post("http://localhost:3001/createuser", data)
+    // data.imgURL = "";
+    await axios.post(`http://localhost:3001/createuser`, 
+    { first_name: data.first_name,
+      last_name: data.last_name,
+      email: data.email,
+      password: data.password
+    })
       .then((data) => {
         console.log(data);
         alert("User created successfully! please verify the confirmation E-mail.");
@@ -50,15 +55,15 @@ export default function RegisterForm() {
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="caja-form">
 
-        <div className="caja pb-4">
+        <div className="caja">
           <Image
             src={logoImg}
             width={120}
             alt={`link of the whole app`}
             className=" pt-8  "
           />
-          <h1 className="p-5 text-center leading-none">Welcome to Fit U App, please complete the form to register</h1>
-          <p className="leading-none">Do you have an account? Please <Link className="text-yellow-800 hover:text-yellow-400" href={"/login"}>Login</Link></p>
+          <p className="p-5 text-center leading-none">Welcome to Fit U App, please complete the form to register</p>
+          <p className="leading-none -mt-5">Do you have an account? Please <Link className="text-orange-500 hover:text-yellow-500" href={"/login"}>Login</Link></p>
           <GenericInput
             label="Enter your first name: "
             name="first_name"

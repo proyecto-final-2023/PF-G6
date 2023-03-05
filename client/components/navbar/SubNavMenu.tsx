@@ -11,8 +11,6 @@ import axios from "axios";
 import { useRouter } from "next/router";
 
 
-
-
 // outside to avoid creating it on every re-render, since will never change
 
 
@@ -33,15 +31,17 @@ console.log(key)
     // User logged in hover
 
     dashboard: async () => {
-      await axios.post( `${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, "hola",{headers: {"x-access-token": key} })
+      if(key){
+      await axios.post( `http://localhost:3001/user/perfil`, "hola",{headers: {"x-access-token": key} })
       .then(res=>{
         console.log(res);
         const userRole=res?.data.role
         userRole==="trainer"&& router.push("/trainer");
         userRole==="trainee"&& router.push("/trainee");
         userRole==="user"&& alert("In order to enjoy this benefit, you must first acquire a membership.")
+        
 
-      })
+      })}
      
     },
     
