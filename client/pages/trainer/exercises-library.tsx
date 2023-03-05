@@ -178,7 +178,7 @@ export default function ExercisesLibrary() {
   return (
       <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed">       
       <div className="h-auto pt-[82px]">
-       { rndExercises.length >= 1 ? <div className="mx-36 flex justify-around px-36 py-8 backdrop-blur-md bg-black bg-opacity-50 border  border-white">
+       { rndExercises.length >= 1 ? <div className=" flex justify-around  py-8 backdrop-blur-md bg-black bg-opacity-50 border  border-white border-l-0 border-r-0">
         <div className="flex"> 
         <div className=" px-4">
         <input type="text" value={searchValue} onChange={e => setSearchValue(e.target.value)} placeholder="Search by name..." className="w-[150px] bg-transparent text-white border px-1 border-white focus:w-[180px] duration-[150ms]" />
@@ -212,7 +212,7 @@ export default function ExercisesLibrary() {
       <button onClick={handleButtonClick} className="hover:text-amber-500">Filter</button>
       <button onClick={deleteFilterHandler} className="hover:text-red-400">Delete Filters</button>
       
-    </div> : <div className="mx-36 flex justify-around px-36 py-8 backdrop-blur-md bg-black bg-opacity-50 border  border-white" >
+    </div> : <div className=" flex justify-around py-8 backdrop-blur-md bg-black bg-opacity-50 border border-white border-l-0 border-r-0" >
       
       </div>} 
       
