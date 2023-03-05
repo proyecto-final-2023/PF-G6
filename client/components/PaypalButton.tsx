@@ -3,7 +3,7 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { PaypalButtonProps } from "@/types/components";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { getCookie, setCookie } from "@/utils/cookieHandler";
+import { getCookie } from "@/utils/cookieHandler";
 
 /**
 sb-myogs25073529@personal.example.com
@@ -62,33 +62,35 @@ export default function PaypalButton(props: PaypalButtonProps) {
       const { payer_id } = details.payer;
       const { value } = details.purchase_units[0].amount;
 
-      const data = {
-        idPlan: idPlans,
-        idPago: payer_id,
-        cost: Number(value),
-        status: status,
-        fechaPago: update_time,
-      };
-      //datos
-      console.log(data);
-      try {
+      const data={
+        idPlan:idPlans,
+        idPago:payer_id,
+        cost:Number(value),
+        status:status,
+        fechaPago:update_time
+      } 
+      //enviamos datos a membership
+      console.log(data)
+        try {
         axios
-          .post("http://localhost:3001/membership", data, {
+          .post(`${process.env.NEXT_PUBLIC_API_URL}/membership`, data, {
             headers: { "x-access-token": key },
           })
           .then((res) => {
             console.log(res);
             console.log(res.data);
-
+           
             // aqui te manda
             axios
-              .post("http://localhost:3001/user/perfil", null, {
+              .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
                 headers: { "x-access-token": key },
               })
-              .then((data) => {
-                if (data.data.role === "trainer") router.push("/trainer");
-                if (data.data.role === "trainee") router.push("/trainee");
-              });
+            .then((data) => {
+              console.log(data.data.role);
+              if(data.data.role==='trainer')router.push("/trainer");
+              if(data.data.role=== 'trainee')router.push("/trainee");
+            })
+            
           });
       } catch (error) {
         console.log(error);
