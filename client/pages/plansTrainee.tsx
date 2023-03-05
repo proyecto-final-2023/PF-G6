@@ -8,15 +8,48 @@ import { auth } from "../firebase";
 import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import homeSlides from "@/assets/home-slides";
 
+
+
+/*  photo={e.user.imgURL || user?.photoURL}
+    first_name={e.user.first_name}
+    last_name={e.user.last_name}
+    id={e.userId}
+    rating={5} */
+
+    interface Trainer {
+      id_trainer: string;
+      logo: string;
+      membership: {
+        userId: string;
+        user: {
+          first_name: string;
+          last_name: string;
+          imgURL: string;
+        };
+      };
+      planTrainees: {
+        id_PlanTrainee: string;
+        name: string;
+        cost: string;
+        description: string;
+        category: string;
+        trainerIdTrainer: string;
+      }[];
+    }
+
 // mostrar los planes para los trainers
 type PlansType = {
-  id: number;
-  name: string;
-  photo: string;
-  first_name: string;
-  last_name: string;
-  imgURL: string;
+  userId: string;
+  user: {
+    name: string;
+    photo: string;
+    first_name: string;
+    last_name: string;
+    imgURL: string;
+  }
 };
+
+
 
 export default function plansTrainee() {
   const [user, setUser] = useAuthState(auth);
@@ -30,11 +63,11 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios("https://fp-server-cg2b.onrender.com/trainers?page=1")
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
       .then((data) => {
-        console.log(data.data);
+        //console.log(data.data);
 
-        setPlans(data.data.map((e) => e.membership));
+        setPlans(data.data.map((e: Trainer) => e.membership));
       })
       .catch((error) => console.log(error));
   }, []);
@@ -72,7 +105,7 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL}
+              photo={e.user.imgURL || user?.photoURL || ""}
               first_name={e.user.first_name}
               last_name={e.user.last_name}
               id={e.userId}
@@ -88,7 +121,7 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL}
+              photo={e.user.imgURL || user?.photoURL || ""}
               first_name={e.user.first_name}
               last_name={e.user.last_name}
               id={e.userId}
@@ -106,7 +139,7 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL}
+              photo={e.user.imgURL || user?.photoURL || ""}
               first_name={e.user.first_name}
               last_name={e.user.last_name}
               id={e.userId}
