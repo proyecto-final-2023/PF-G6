@@ -16,7 +16,7 @@ const data = async () => {
   const vouchers = await Voucher.findAll({
     attributes: ["cost"],
   });
-  
+
   let totalCost = 0;
   for (let i = 0; i < vouchers.length; i++) {
     totalCost += parseInt(vouchers[i].cost);
@@ -40,8 +40,6 @@ const data = async () => {
   for (let i = 0; i < vouche.length; i++) {
     totalCos += parseInt(vouche[i].cost);
   }
-
-  console.log(`El total de costos para el mes actual es: ${totalCos}`);
 
   //-------------------------------------------------------------------------------------------------------
   const cantUser = await User.count();

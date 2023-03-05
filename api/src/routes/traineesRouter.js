@@ -39,6 +39,8 @@ traineeRouter.get("/", async (req, res) => {
   }
 });
 
+
+
 traineeRouter.get("/byplan", async (req, res) => {
   const { idPlanTrainee } = req.body;
   const { page } = req.query;
