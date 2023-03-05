@@ -31,7 +31,7 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios("http://localhost:3001/trainers?page=1")
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
       .then((data) => setPlans(data.data))
       .catch((error) => console.log(error));
   }, []);

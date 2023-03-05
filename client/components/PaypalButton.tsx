@@ -73,7 +73,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
       console.log(data);
       try {
         axios
-          .post("http://localhost:3001/membership", data, {
+          .post(`${process.env.NEXT_PUBLIC_API_URL}/membership`, data, {
             headers: { "x-access-token": key },
           })
           .then((res) => {
@@ -82,7 +82,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
 
             // aqui te manda
             axios
-              .post("http://localhost:3001/user/perfil", null, {
+              .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
                 headers: { "x-access-token": key },
               })
               .then((data) => {
