@@ -10,11 +10,10 @@ import SelectInput from "./inputs/SelectInput";
 import Image from "next/image";
 import logoImg from "@/assets/images/placeholder-logo.png";
 
-import Link from "next/dist/client/link"
+import Link from "next/dist/client/link";
 import { auth } from "../firebase";
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-
 
 // ? * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 export default function RegisterForm() {
@@ -22,18 +21,14 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useForm<InputData>({ mode: "onBlur" });
-  // console.log(watch("example"));
   const [user, setUser] = useAuthState(auth);
-  console.log(user)
   const onSubmit: SubmitHandler<InputData> = async (data) => {
-    console.log("SUBMIT", data);
-    data.imgURL="";
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, data)
-    .then((data) => {
-      console.log(data);
-    });
+    data.imgURL = "";
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, data)
+      .then((data) => {});
     // TODO:
     // handle coudlinary upload
     // add extra prop to object authExtern: false
@@ -41,36 +36,45 @@ export default function RegisterForm() {
 
   return (
     <div>
-    <form onSubmit={handleSubmit(onSubmit)} className="caja-form">
-   
-      <div className="caja pb-4">
-      <Image
-        src={logoImg}
-        width={120}
-        alt={`link of the whole app`}
-        className=" pt-8  "
-      />
-      <h1 className="p-5 text-center leading-none">Welcome to Fit U App, please complete the form to register</h1>
-      <p className="leading-none">Do you have an account? Please <Link className="text-yellow-800 hover:text-yellow-400" href={"/login"}>Login</Link></p>
-      <GenericInput
-        label="Enter your first name: "
-        name="first_name"
-        type="text"
-        options={{ required: true, pattern: /^[a-zA-Z]{3,}$/ }}
-        err={errors.first_name}
-        {...{ register }}
-      />
+      <form onSubmit={handleSubmit(onSubmit)} className="caja-form">
+        <div className="caja pb-4">
+          <Image
+            src={logoImg}
+            width={120}
+            alt={`link of the whole app`}
+            className=" pt-8  "
+          />
+          <h1 className="p-5 text-center leading-none">
+            Welcome to Fit U App, please complete the form to register
+          </h1>
+          <p className="leading-none">
+            Do you have an account? Please{" "}
+            <Link
+              className="text-yellow-800 hover:text-yellow-400"
+              href={"/login"}
+            >
+              Login
+            </Link>
+          </p>
+          <GenericInput
+            label="Enter your first name: "
+            name="first_name"
+            type="text"
+            options={{ required: true, pattern: /^[a-zA-Z]{3,}$/ }}
+            err={errors.first_name}
+            {...{ register }}
+          />
 
-      <GenericInput
-        label="Enter your last name: "
-        name="last_name"
-        type="text"
-        options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/ }}
-        err={errors.last_name}
-        {...{ register }}
-      />
+          <GenericInput
+            label="Enter your last name: "
+            name="last_name"
+            type="text"
+            options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/ }}
+            err={errors.last_name}
+            {...{ register }}
+          />
 
-      {/* <GenericInput
+          {/* <GenericInput
         label="Enter your nickname: "
         name="nickname"
         type="text"
@@ -79,26 +83,29 @@ export default function RegisterForm() {
         {...{ register }}
       /> */}
 
-      <GenericInput
-        label="Enter your password: "
-        name="password"
-        type="password"
-        options={{ required:true,  pattern:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{":;'?/><.,])(?=.*\S).{8,}$/ }}
-        err={errors.password}
-        {...{ register }}
-      />
+          <GenericInput
+            label="Enter your password: "
+            name="password"
+            type="password"
+            options={{
+              required: true,
+              pattern:
+                /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+}{":;'?/><.,])(?=.*\S).{8,}$/
+            }}
+            err={errors.password}
+            {...{ register }}
+          />
 
-      
-      <GenericInput
-        label="Enter your email: "
-        name="email"
-        type="text"
-        options={{ required: false }}
-        err={errors.email}
-        {...{ register }}
-      />
+          <GenericInput
+            label="Enter your email: "
+            name="email"
+            type="text"
+            options={{ required: false }}
+            err={errors.email}
+            {...{ register }}
+          />
 
-      {/* <GenericInput
+          {/* <GenericInput
         label="Enter your mobile phone number:"
         name="cell"
         type="text"
@@ -124,7 +131,7 @@ export default function RegisterForm() {
         err={errors.email}
         {...{ register }}
       /> */}
-{/* 
+          {/* 
       <SelectInput
         {...{ register }}
         label="Select your role: "
@@ -134,7 +141,7 @@ export default function RegisterForm() {
         err={errors.role}
       /> */}
 
-      {/* <SelectInput
+          {/* <SelectInput
         {...{ register }}
         label="Select your gender:"
         name="gender"
@@ -142,7 +149,7 @@ export default function RegisterForm() {
         err={errors.gender}
         selectOptions={["male", "female", "other"]}
       /> */}
-    {/* <GenericInput
+          {/* <GenericInput
         label="URL of your image: "
         name="imgURL"
         type="text"
@@ -150,7 +157,7 @@ export default function RegisterForm() {
         err={errors.imgURL}
         {...{ register }}
       /> */}
-      {/* <ImageInput
+          {/* <ImageInput
         {...{ register }}
         label="Select a profile image"
         name="imageFile"
@@ -159,12 +166,11 @@ export default function RegisterForm() {
       
       /> */}
 
-      <button className="button" type="submit">
-        Submit
-      </button>
-      </div>
-
-    </form>
+          <button className="button" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
     </div>
   );
 }

@@ -7,26 +7,22 @@ import { getCookie, setCookie } from "@/utils/cookieHandler";
 export default function createPlans() {
   //token user
   const key = getCookie("token");
-  console.log(key);
 
   const [formData, setFormData] = useState([
     {
       name: "",
       cost: "",
-      description: "",
-    },
+      description: ""
+    }
   ]);
-  console.log(formData);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`, formData, {
-        headers: { "x-access-token": key },
+        headers: { "x-access-token": key }
       })
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => {})
       .catch((error) => {
         window.alert("Error in" + error);
       });

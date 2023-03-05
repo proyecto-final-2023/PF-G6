@@ -1,90 +1,94 @@
-
-
+import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   FacebookAuthProvider,
-  AuthProvider,
+  AuthProvider
 } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Router from "next/router";
-
-
+import axios from "axios";
+import { setCookie } from "@/utils/cookieHandler";
+import Modal from "react-modal";
+import { getAuth, updateEmail } from "firebase/auth";
 
 interface UserInfo {
+  displayName: string | null;
   email: string | null;
-  authExtern: boolean;
-
+  phoneNumber: string | null;
+  photoURL: string | null;
+  providerId: string;
+  uid: string;
 }
-
 
 export const Login = () => {
   const [user, setUser] = useAuthState(auth);
-  const[usuario,setUsuario]=useState({})
   const googleAuth = new GoogleAuthProvider();
-
-
   const facebookAuth = new FacebookAuthProvider();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState<string | null>(user?.email || null);
   const [inputValue, setInputValue] = useState("");
+  const auth1 = getAuth();
 
   const login = async (authType: AuthProvider) => {
     try {
       if (!user) {
         const result = await signInWithPopup(auth, authType);
-        if (user && !user?.email) {
-          setIsOpen(true);
-        }
+      }
+      if (user && !user?.email) {
+        setIsOpen(true);
       }
     } catch (error) {
-
+      console.error(error);
     }
-    }
+  };
 
   useEffect(() => {
-
-    setEmail(user?.email);
+    setEmail(user?.email || "no Email");
   }, [user]);
 
   const info = {
-    first_name: user?.displayName.split(" ")[0],
-    last_name: user?.displayName.split(" ")[1],
+    first_name: user?.displayName?.split(" ")[0],
+    last_name: user?.displayName?.split(" ")[1],
     email: user?.email || email,
-    password: user?.email || email,
+    password: user?.email || email
   };
-
 
   const infoLoguin = {
     email: info.email,
     password: info.email,
-    authExtern: true,
+    authExtern: true
   };
 
   useEffect(() => {
     if (user !== null && info.email !== undefined) {
       axios
-        .post(`${process.env.NEXT_PUBLIC_API_URL}/user/email`, { email: info.email })
+        .post(`http://localhost:3001/user/email`, { email: info.email })
         .then((response) => {
           if (response.data.verify === true) {
             axios
-              .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, infoLoguin)
+              .post(`http://localhost:3001/auth`, infoLoguin)
               .then((response) => {
                 setCookie("token", response.data.token);
+                window.location.href = "/home";
               })
               .catch((error) => {
+                console.error(error);
               });
           } else if (response.data.verify === false) {
             axios
-              .post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info)
+              .post(`http://localhost:3001/createuser`, info)
               .then((response) => {
+                auth.signOut();
+                window.location.reload();
               })
               .catch((error) => {
+                console.error(error);
               });
           }
         })
         .catch((error) => {
+          console.error(error);
         });
     }
   }, [user?.email || info.email]);
@@ -99,31 +103,25 @@ export const Login = () => {
     setInputValue(event.target.value);
   };
 
- 
-      // const info = {
-      //   first_name: user?.displayName.split(" ")[0],
-      //   last_name: user?.displayName.split(" ")[1],
-      //   email: user?.email || email,
-      //   password: user?.email || email,
-      // };
-<<<<<<< HEAD
-    if(info)
-     {
-       axios.post("http://localhost:3001/createuser", info)
-          .then((data) => {
-=======
-  if (info) {
-    axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info).then((data) => {
->>>>>>> origin/dev
-          });
-      }
-
-   
   useEffect(() => {
     user?.email === null ? setIsOpen(true) : setIsOpen(false);
 
     // // //   a
   }, [user !== null]);
+
+  useEffect(() => {
+    if (auth1?.currentUser && email) {
+      updateEmail(auth1.currentUser, email)
+        .then(() => {
+          // Email updated!
+          // ...
+        })
+        .catch((error) => {
+          // An error occurred
+          // ...
+        });
+    }
+  }, [email]);
 
   return (
     <>
@@ -148,7 +146,7 @@ export const Login = () => {
               d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"
             ></path>
           </svg>
-          Sign in with Google
+          Sign in / Log in with Google
         </button>
 
         <button
@@ -171,7 +169,7 @@ export const Login = () => {
               d="M279.1 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.4 0 225.4 0c-73.22 0-121.1 44.38-121.1 124.7v70.62H22.89V288h81.39v224h100.2V288z"
             ></path>
           </svg>
-          Sign in with Facebook
+          Sign in / Log in with Facebook
         </button>
 
         <div className="flex flex-row">
@@ -203,4 +201,3 @@ export const Login = () => {
     </>
   );
 };
-

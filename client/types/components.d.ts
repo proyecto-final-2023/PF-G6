@@ -26,12 +26,11 @@ export type UrlMapping = {
   caloriescalculator: string;
   fatcalculator: string;
   stopwatch: string;
-
+  diets: string;
   register: string;
   login: string;
-
-  diets: string;
   trainerprograms: string;
+  //Dashboard: string;
   logout: () => void;
 };
 
@@ -134,7 +133,7 @@ export type BurgerProps = {
 
 // @ Components/CardPlans
 export type CardPlansProps = {
-  idPlans: number;
+  idPlans: string;
   name: string;
   cost: number;
   category: string;
@@ -146,6 +145,6 @@ export type CardPlansProps = {
 export type PaypalButtonProps = {
   amountToPay: number;
   serviceName: string;
-  idPlans: number;
+  idPlans: string;
   idUser: number;
 };

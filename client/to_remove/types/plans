@@ -33,7 +33,6 @@
 //   //     calendar.render();
 //   //   }
 //   // }, []);
-//   // console.log('Soy calendar',calendarRef)
 //   // return <div>plans
 
 //   //    <div ref={calendarRef} className="px-10 py-10" ></div>

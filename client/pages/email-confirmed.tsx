@@ -7,10 +7,8 @@ type ConfirmationState = "ok" | "error" | "loading";
 export default function EmailConfirmed() {
   const { updateCock, userData } = useStore((state) => ({
     userData: state.userData,
-    updateCock: state.updateConfirmed,
+    updateCock: state.updateConfirmed
   }));
-
-  console.log(userData);
 
   const router = useRouter();
 
@@ -27,7 +25,6 @@ export default function EmailConfirmed() {
   //     })();
   //   } catch (error) {
   //     setConfirmation("error");
-  //     console.log(error);
   //   }
   // }, []);
 

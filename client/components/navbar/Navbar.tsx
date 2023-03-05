@@ -19,12 +19,11 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState();
+  const [user1, setUser1] = useState<{ display_name: string }>();
   const key = getCookie("token");
   const photo = user?.photoURL;
   const name = user?.displayName;
 
-  console.log(user);
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
@@ -43,15 +42,24 @@ export default function Navbar() {
   //       headers: { "x-access-token": key },
   //     })
   //     .then((data) => {
-  //       console.log(data.data);
   //       setUser1({
   //         display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
   //       });
   //     });
   // }, []);
-  console.log("@navbar/Navbar", user1);
   const [viewportWidth, setViewportWidth] = useState(0);
-
+  // aqui te manda
+  useEffect(() => {
+    axios
+      .post("http://localhost:3001/user/perfil", null, {
+        headers: { "x-access-token": key }
+      })
+      .then((data) => {
+        setUser1({
+          display_name: ` ${data.data.first_name}  ${data.data.last_name}`
+        });
+      });
+  }, []);
   useEffect(() => {
     function updateViewportWidth() {
       setViewportWidth(window.innerWidth);
@@ -85,7 +93,7 @@ export default function Navbar() {
               <Image
                 src={logoImg}
                 alt={`link of the whole app`}
-                className="inline-block align-bottom sm:w-[100px] sm:h-[65px]"
+                className="inline-block  align-bottom sm:w-[100px] sm:h-[65px]"
               />
             </Link>
           </li>
@@ -98,7 +106,7 @@ export default function Navbar() {
 
           <li className="justify-center flex items-center">
             <Link replace href="/guest/trainning-list" className={linkStyles}>
-              Trainings
+              Trainers
             </Link>
           </li>
 
@@ -110,12 +118,13 @@ export default function Navbar() {
             optionsList={[
               "Stop Watch",
               "Calories Calculator",
-              "Fat Calculator",
+              "Fat Calculator"
             ]}
             {...{ hoverEventHandler }}
           />
 
-          {user && <li className="m-5">Hello {name}</li>}
+          {/* {user && <li className="m-5">Hello {user?.display_name}</li>} */}
+          {user1 && <li className="m-5">Hello {user1?.display_name}</li>}
           <HoverLi
             imgUrl={photo ? photo : userImg}
             text="user"
