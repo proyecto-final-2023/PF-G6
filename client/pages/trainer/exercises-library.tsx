@@ -303,7 +303,12 @@ export default function ExercisesLibrary() {
            </div>
 
         <div className="flex justify-evenly">
-          <button className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500" onClick={() => setIsAlimentEndpoint(!isAlimentEndpoint)}>
+          <button className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500" onClick={() => (setIsAlimentEndpoint(!isAlimentEndpoint), setFirstParam(''),
+    setSelectedOption(''),
+    setSelectedSubOption(''),
+    setSearchValue(''),
+    setCurrentPage(1),
+    setSearchValue(''))}>
            {isAlimentEndpoint ? "Switch to Activity" : "Switch to Aliment"}
           </button>
           <button onClick={handleClick} className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500">Send Changes</button>
