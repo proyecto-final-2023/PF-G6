@@ -7,12 +7,14 @@ import axios from "axios";
 import CreatePlansTrainee from "./CreatePlansTrainee";
 
 export default function Dashboard() {
+  
   const key = getCookie("token");
+
   const [plans, setPlans] = useState([]);
   const [logo, setLogo] = useState([]);
   useEffect(() => {
     axios
-      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
+      .post("http://localhost:3001/user/perfil", null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {

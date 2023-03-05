@@ -30,11 +30,11 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios("https://fp-server-cg2b.onrender.com/trainers?page=1")
+    axios("http://localhost:3001/trainers?page=1")
       .then((data) => {
         console.log(data.data);
 
-        setPlans(data.data.map((e) => e.membership));
+        setPlans(data.data.map((e:any) => e.membership));
       })
       .catch((error) => console.log(error));
   }, []);
@@ -70,7 +70,7 @@ export default function plansTrainee() {
 
       <div className="   outline-offset-3 justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2">
         {plans &&
-          plans.map((e) => (
+          plans.map((e:any) => (
             <CardTrainers
               photo={e.user.imgURL || user?.photoURL}
               first_name={e.user.first_name}
@@ -86,7 +86,7 @@ export default function plansTrainee() {
       <SwiperCarousel slidesArr={homeSlides} />
       <div className=" bg-black justify-items-center grid grid-cols-4  m-20 gap-x-2 gap-y-2">
         {plans &&
-          plans.map((e) => (
+          plans.map((e:any) => (
             <CardTrainers
               photo={e.user.imgURL || user?.photoURL}
               first_name={e.user.first_name}
@@ -104,7 +104,7 @@ export default function plansTrainee() {
       )}
       <div className=" justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2 ">
         {plans &&
-          plans.map((e) => (
+          plans.map((e:any) => (
             <CardTrainers
               photo={e.user.imgURL || user?.photoURL}
               first_name={e.user.first_name}

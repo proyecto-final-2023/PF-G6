@@ -110,9 +110,9 @@ export default function ExercisesLibrary() {
     page: number
   ) => {
     try {
-      let url = "https://fp-server-cg2b.onrender.com/activity?page=" + page;
+      let url = "http://localhost:3001/activity?page=" + page;
       if (firstParam && secondParam) {
-        url = `https://fp-server-cg2b.onrender.com/activity/filter/${firstParam}/${secondParam}?page=${page}`;
+        url = `http://localhost:3001/activity/filter/${firstParam}/${secondParam}?page=${page}`;
       }
       const { data } = await axios(url);
       setRndExercises(data);

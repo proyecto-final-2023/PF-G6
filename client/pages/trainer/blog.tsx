@@ -5,7 +5,7 @@ import { getCookie, setCookie } from "@/utils/cookieHandler";
 export default function blog() {
     const key =getCookie('token')
     useEffect(() =>{
-   axios.get('https://fp-server-cg2b.onrender.com/trainers/comment',{headers:{'x-access-token': key}})
+   axios.get('http://localhost:3001/trainers/comment',{headers:{'x-access-token': key}})
    .then((data)=>{
      console.log(data)
     })

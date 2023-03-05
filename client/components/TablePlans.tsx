@@ -7,7 +7,7 @@ export default function TablePlans() {
   const [plans, setPlans] = useState([]);
   useEffect(() => {
     axios
-      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
+      .post("http://localhost:3001/user/perfil", null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {

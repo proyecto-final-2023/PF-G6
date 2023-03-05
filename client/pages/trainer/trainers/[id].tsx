@@ -20,7 +20,7 @@ export default function TraineeDetails() {
   const id = router.query.id;
   useEffect(() => {
     // make call to backend to fetch user data
-    axios(`https://fp-server-cg2b.onrender.com/user/${id}`)
+    axios(`http://localhost:3001/user/${id}`)
       .then(({ data }) => {
         console.log(data);
         setUserData(data);

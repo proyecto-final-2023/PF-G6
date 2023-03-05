@@ -28,14 +28,14 @@ export default function Index() {
   const key = getCookie("token");
   const [user1, setUser1] = useState<any>();
 
-  console.log(key);
+ 
   useEffect(() => {
     axios
-      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
+      .post("http://localhost:3001/user/perfil", null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-        console.log(data.data);
+       
         console.log(
           data.data.membership.planTrainee.trainer.membership.user.phone
         );
