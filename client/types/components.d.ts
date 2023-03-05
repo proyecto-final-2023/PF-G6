@@ -26,12 +26,11 @@ export type UrlMapping = {
   caloriescalculator: string;
   fatcalculator: string;
   stopwatch: string;
-
+  diets: string;
   register: string;
   login: string;
-
-  Dashboard: string;
-  
+  trainerprograms: string;
+  //Dashboard: string;
   logout: () => void;
 };
 

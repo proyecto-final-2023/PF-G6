@@ -72,14 +72,19 @@ export default function PaypalButton(props: PaypalButtonProps) {
       //enviamos datos a membership
       console.log(data)
         try {
-          axios.post("https://fp-server-cg2b.onrender.com/membership", data,{headers:{'x-access-token': key}})
+        axios
+          .post(`${process.env.NEXT_PUBLIC_API_URL}/membership`, data, {
+            headers: { "x-access-token": key },
+          })
           .then((res) => {
             console.log(res);
             console.log(res.data);
            
-            
-             // si el estado de role cambia te manda al das
-            axios.post("https://fp-server-cg2b.onrender.com/user/perfil",null,{headers:{'x-access-token': key}})
+            // aqui te manda
+            axios
+              .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+                headers: { "x-access-token": key },
+              })
             .then((data) => {
               console.log(data.data.role);
               if(data.data.role==='trainer')router.push("/trainer");

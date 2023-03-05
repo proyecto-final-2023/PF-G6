@@ -64,11 +64,15 @@ export default function plansTrainee() {
 
   useEffect(() => {
     axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
+<<<<<<< HEAD
       .then((data) => {
         //console.log(data.data);
 
         setPlans(data.data.map((e: Trainer) => e.membership));
       })
+=======
+      .then((data) => setPlans(data.data))
+>>>>>>> origin/dev
       .catch((error) => console.log(error));
   }, []);
   // plans

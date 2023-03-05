@@ -17,7 +17,7 @@ export default function FormularioLogin() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
-      .post(`https://fp-server-cg2b.onrender.com/auth`, formData)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, formData)
       .then((data) => {
         console.log(data);
         setCookie("token", data.data.token);

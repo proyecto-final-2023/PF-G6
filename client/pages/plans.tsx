@@ -24,7 +24,7 @@ export default function plans() {
   );
 
   useEffect(() => {
-    axios('https://fp-server-cg2b.onrender.com/plans/trainers')
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`)
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
    
@@ -32,7 +32,7 @@ export default function plans() {
     const key = getCookie("token");
     console.log(key);
     axios
-      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {

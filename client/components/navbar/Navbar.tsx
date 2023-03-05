@@ -19,7 +19,7 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState();
+  const [user1, setUser1] = useState<{display_name:string}>();
   const key =getCookie('token')
   const photo=user?.photoURL
   const name = user?.displayName;
@@ -37,20 +37,20 @@ export default function Navbar() {
     setIsBurgerActive((prev) => !prev);
   };
 
-  // // aqui te manda
-  useEffect(() => {
-    axios
-      .post("http://localhost:3001/user/perfil", null, {
-        headers: { "x-access-token": key },
-      })
-      .then((data) => {
-        console.log(data.data);
-        setUser1({
-          display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
-        });
-      });
-  }, []);
-  // console.log("@navbar/Navbar", user1);
+  // aqui te manda
+  // useEffect(() => {
+  //   axios
+  //     .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+  //       headers: { "x-access-token": key },
+  //     })
+  //     .then((data) => {
+  //       console.log(data.data);
+  //       setUser1({
+  //         display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
+  //       });
+  //     });
+  // }, []);
+  console.log("@navbar/Navbar", user1);
   const [viewportWidth, setViewportWidth] = useState(0);
     // aqui te manda 
  useEffect(()=>{

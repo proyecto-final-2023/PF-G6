@@ -1,23 +1,17 @@
 import {
   ReturnVoidOrJsx,
   SubNavMenuProps,
-  UrlMapping,
+  UrlMapping
 } from "@/types/components";
 import Link from "next/link";
 import React from "react";
 import { auth } from "../../firebase";
 import { setCookie } from "@/utils/cookieHandler";
 
-
-
-
 // outside to avoid creating it on every re-render, since will never change
-
 
 export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
   const { optionsList, singOutHandler, id } = props;
- 
-  
 
   const optionsUrlMapping: UrlMapping = {
     // Tools hover
@@ -30,15 +24,12 @@ export default function SubNavMenu(props: SubNavMenuProps): ReturnVoidOrJsx {
     // User logged in hover
     diets: "/trainee/eating-plans",
     trainerprograms: "/trainee/training-plans",
-    logout : () => {
+    logout: () => {
       auth.signOut();
       setCookie("token", null);
-      window.location.href = "/"
-      
+      window.location.href = "/";
     }
   };
-
-
 
   // must return null to be a valid JSX child
   if (singOutHandler) {
