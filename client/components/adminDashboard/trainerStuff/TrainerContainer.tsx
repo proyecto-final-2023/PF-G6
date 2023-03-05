@@ -14,13 +14,10 @@ import {
 export default function TrainerContainer() {
   const [page, setPage] = useState(1);
   const [trainers, setTrainers] = useState<UserCardT[]>([]);
-
   const nextPage = () => setPage((prev) => prev + 1);
-
   const prevPage = () => setPage((prev) => prev - 1);
 
-  const clickHandler = async (id: string /*, updateDetails: () => void*/) => {
-    // make another fetch to get the user details
+  const clickHandler = async (id: string) => {
     try {
       const { data }: { data: UserDetailsResponse } = await axios(
         `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
@@ -39,9 +36,8 @@ export default function TrainerContainer() {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // TODO: add error handling
+  const fetchData = async () => {
+    try {
       const { data }: { data: TrainerResponse[] } = await axios.get(
         `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`
       );
@@ -50,7 +46,12 @@ export default function TrainerContainer() {
       const parsedResponse = parseTrainersArr(data, clickHandler);
 
       setTrainers(parsedResponse);
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
     fetchData();
   }, [page]);
 
@@ -83,11 +84,7 @@ export default function TrainerContainer() {
       </div>
       <div className="d7">
         {trainerDetails.user_id && (
-          <TrainerDetails
-            user_id={trainerDetails.user_id}
-            name={trainerDetails.name}
-            logo={trainerDetails.logo}
-          />
+          <TrainerDetails user_id={trainerDetails.user_id} />
         )}
       </div>
     </div>

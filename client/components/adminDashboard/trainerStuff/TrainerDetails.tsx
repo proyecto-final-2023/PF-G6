@@ -1,5 +1,9 @@
-import { TrainerDetailsT } from "@/types/components/dashboard";
-import { useEffect, useRef } from "react";
+import {
+  TrainerDetailsT,
+  UserDetailsResponse
+} from "@/types/components/dashboard";
+import axios from "axios";
+import { useEffect, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 export type ModifyTrainerDetails = {
@@ -8,8 +12,8 @@ export type ModifyTrainerDetails = {
 };
 
 // ? Only be able to change Logo & Plan Details
-export default function TrainerDetails(props: TrainerDetailsT) {
-  const { user_id, name, logo } = props;
+export default function TrainerDetails({ user_id }: { user_id: string }) {
+  const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsT>();
   // was too much of a pain to pass another param to the submit handler
   const requestType = useRef<"PUT" | "DELETE">("PUT");
 
@@ -17,18 +21,50 @@ export default function TrainerDetails(props: TrainerDetailsT) {
   //   console.log("changeTrainerDetails");
   // };
 
+  const fetchDetails = async () => {
+    try {
+      const { data }: { data: UserDetailsResponse } = await axios(
+        `${process.env.NEXT_PUBLIC_API_URL}/user/${user_id}`
+      );
+
+      const parsedDetails = {
+        // since we dont get an id back from the server, we need to add the one in params
+        user_id,
+        name: `${data.first_name} ${data.last_name}`,
+        logo: data.imgURL
+      };
+
+      setTrainerDetails(parsedDetails);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    // dont need to wait for it
+    fetchDetails();
+  }, [user_id]);
+
   const deleteTrainer = async () => {
-    // await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`);
-    console.log("deleteTrainer");
+    try {
+      // await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`);
+      console.log("deleteTrainer");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const updateTrainer = async () => {
-    // need to had cookies by headers (wait until I have admin acc)
-    // await axios.put(
-    //   `${process.env.NEXT_PUBLIC_API_URL}/trainers/logo/${id}`,
-    //   data
-    // );
-    console.log("updateTrainer");
+    try {
+      // need to had cookies by headers (wait until I have admin acc)
+      // await axios.put(
+      //   `${process.env.NEXT_PUBLIC_API_URL}/trainers/logo/${id}`,
+      //   data
+      // );
+      console.log("updateTrainer");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const {
@@ -54,18 +90,15 @@ export default function TrainerDetails(props: TrainerDetailsT) {
       console.log("READY TO LOGIC DELETE", data);
     }
   };
+
   const updateValues = () => {
-    setValue("logo", logo);
+    // setValue("logo", logo);
     // setValue("plan", plan);
   };
 
-  useEffect(() => {
-    updateValues();
-  }, [name]);
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <p>Name: {name}</p>
+      <p>Name: {trainerDetails?.name}</p>
       <p>Role: Trainer</p>
       <label className="flex flex-col">
         Logo

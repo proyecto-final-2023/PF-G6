@@ -1,5 +1,3 @@
-import React from "react";
-
 type TraineeCardProps = {
   name: string;
   img: string;
@@ -8,5 +6,12 @@ type TraineeCardProps = {
 };
 
 export default function TraineeCard(props: TraineeCardProps) {
-  return <div>TraineeCard</div>;
+  const { name, img, user_id, clickHandler } = props;
+
+  return (
+    <button onClick={() => clickHandler(user_id)}>
+      {name}
+      <img src={img} alt={name} />
+    </button>
+  );
 }
