@@ -2,9 +2,16 @@ import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 import axios from "axios";
 
+interface Plan {
+  name: string;
+  description: string;
+  category: string;
+  cost: number;
+}
+
 export default function TablePlans() {
   const key = getCookie("token");
-  const [plans, setPlans] = useState([]);
+  const [plans, setPlans] = useState<Array<Plan>>([]);
   useEffect(() => {
     axios
       .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
