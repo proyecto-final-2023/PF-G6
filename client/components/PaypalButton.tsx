@@ -39,14 +39,14 @@ export default function PaypalButton(props: PaypalButtonProps) {
         purchase_units: [
           {
             amount: {
-              value: amountToPay,
-            },
-          },
+              value: amountToPay
+            }
+          }
         ],
 
         application_context: {
-          shipping_preference: "NO_SHIPPING",
-        },
+          shipping_preference: "NO_SHIPPING"
+        }
       })
       .then((orderID: string) => {
         setOrderID(orderID);
@@ -61,41 +61,34 @@ export default function PaypalButton(props: PaypalButtonProps) {
       const { payer_id } = details.payer;
       const { value } = details.purchase_units[0].amount;
 
-      const data={
-        idPlan:idPlans,
-        idPago:payer_id,
-        cost:Number(value),
-        status:status,
-        fechaPago:update_time
-      } 
+      const data = {
+        idPlan: idPlans,
+        idPago: payer_id,
+        cost: Number(value),
+        status: status,
+        fechaPago: update_time
+      };
       //enviamos datos a membership
-      console.log(data)
-        try {
+      try {
         axios
           .post(`${process.env.NEXT_PUBLIC_API_URL}/membership`, data, {
-            headers: { "x-access-token": key },
+            headers: { "x-access-token": key }
           })
           .then((res) => {
-            console.log(res);
-            console.log(res.data);
-           
             // aqui te manda
             axios
               .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
-                headers: { "x-access-token": key },
+                headers: { "x-access-token": key }
               })
-            .then((data) => {
-              console.log(data.data.role);
-              if(data.data.role==='trainer')router.push("/trainer");
-              if(data.data.role=== 'trainee')router.push("/trainee");
-            })
-            
+              .then((data) => {
+                if (data.data.role === "trainer") router.push("/trainer");
+                if (data.data.role === "trainee") router.push("/trainee");
+              });
           });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
 
-      console.log(data);
       setBillingDetails(data);
       setSucceeded(true);
     });
@@ -109,7 +102,6 @@ export default function PaypalButton(props: PaypalButtonProps) {
 
   if (succeeded) {
     // send them to their new home
-    console.log("PAYMENT SUCCESFULL");
   }
 
   if (paypalErrorMessage) {
@@ -126,7 +118,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
           shape: "rect",
           label: "paypal",
           tagline: false,
-          layout: "vertical",
+          layout: "vertical"
         }}
         createOrder={createOrder}
         onApprove={onApprove}

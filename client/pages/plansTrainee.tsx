@@ -8,34 +8,32 @@ import { auth } from "../firebase";
 import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import homeSlides from "@/assets/home-slides";
 
-
-
 /*  photo={e.user.imgURL || user?.photoURL}
     first_name={e.user.first_name}
     last_name={e.user.last_name}
     id={e.userId}
     rating={5} */
 
-    interface Trainer {
-      id_trainer: string;
-      logo: string;
-      membership: {
-        userId: string;
-        user: {
-          first_name: string;
-          last_name: string;
-          imgURL: string;
-        };
-      };
-      planTrainees: {
-        id_PlanTrainee: string;
-        name: string;
-        cost: string;
-        description: string;
-        category: string;
-        trainerIdTrainer: string;
-      }[];
-    }
+interface Trainer {
+  id_trainer: string;
+  logo: string;
+  membership: {
+    userId: string;
+    user: {
+      first_name: string;
+      last_name: string;
+      imgURL: string;
+    };
+  };
+  planTrainees: {
+    id_PlanTrainee: string;
+    name: string;
+    cost: string;
+    description: string;
+    category: string;
+    trainerIdTrainer: string;
+  }[];
+}
 
 // mostrar los planes para los trainers
 type PlansType = {
@@ -46,15 +44,12 @@ type PlansType = {
     first_name: string;
     last_name: string;
     imgURL: string;
-  }
+  };
 };
-
-
 
 export default function plansTrainee() {
   const [user, setUser] = useAuthState(auth);
   const [plans, setPlans] = useState<PlansType[]>([]);
-  console.log(plans);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
   );
@@ -65,10 +60,9 @@ export default function plansTrainee() {
   useEffect(() => {
     axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
       .then((data) => setPlans(data.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, []);
   // plans
-  // console.log(plans.map(e=>e.membership));
   return (
     <div>
       <header className="plan ">

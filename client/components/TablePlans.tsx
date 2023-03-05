@@ -15,17 +15,14 @@ export default function TablePlans() {
   useEffect(() => {
     axios
       .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
-        headers: { "x-access-token": key },
+        headers: { "x-access-token": key }
       })
       .then((data) => {
-        console.log(data.data.membership);
         setPlans(data.data.membership.trainer.planTrainees);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, []);
- 
 
-  console.log(plans);
   return (
     <div>
       <div className="relative overflow-x-auto">
@@ -61,8 +58,7 @@ export default function TablePlans() {
                   <td className="px-6 py-4">${e.cost}</td>
                   <td className="px-6 py-4">
                     <button
-                      onClick={() => {}
-                      }
+                      onClick={() => {}}
                       className="font-medium text-red-600 dark:text-red-500 hover:text-red-400"
                     >
                       Remove

@@ -16,20 +16,15 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ContactData>({ mode: "onChange" });
-  // console.log(watch("example"));
 
   const onSubmit: SubmitHandler<ContactData> = async (data) => {
-    console.log("SUBMIT", data);
-
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/contact`, data)
-      .then((response) => {
-        console.log(response.data);
-      })
+      .then((response) => {})
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 

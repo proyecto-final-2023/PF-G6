@@ -6,7 +6,6 @@ import { Login } from "@/components/Login";
 
 export default function Index() {
   const [user, setUser] = useAuthState(auth);
-  console.log(user);
 
   return (
     <div className="login">

@@ -11,7 +11,7 @@ export default function FormularioLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    authExtern: false,
+    authExtern: false
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -28,7 +28,6 @@ export default function FormularioLogin() {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(formData);
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
