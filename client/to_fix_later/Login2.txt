@@ -61,7 +61,7 @@ export const Login2 = () => {
   //   console.log(info)
 
   //   if (info.first_name) {
-  //     axios.post("http://localhost:3001/createuser", info)
+  //     axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info)
   //       .then((data) => {
   //         console.log(data);
   //       });
