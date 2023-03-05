@@ -213,8 +213,11 @@ export default function ExercisesLibrary() {
       <button onClick={deleteFilterHandler} className="hover:text-red-400">Delete Filters</button>
       
     </div> : <div className=" flex justify-around py-8 backdrop-blur-md bg-black bg-opacity-50 border border-white border-l-0 border-r-0" >
-      
-      </div>} 
+    <div className=" px-4">
+        <input type="text" value={searchValue} onChange={e => setSearchValue(e.target.value)} placeholder="Search by name..." className="w-[150px] bg-transparent text-white border px-1 border-white focus:w-[180px] duration-[150ms]" />
+        <button onClick={handleSearch} className="border border-l-0 px-2 border-white hover:text-amber-500" >Buscar</button>
+        </div>
+        </div>} 
       
 
       <div className="flex justify-around py-8 px-20">
