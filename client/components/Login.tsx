@@ -1,49 +1,45 @@
-
 import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, AuthProvider} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {useRouter} from "next/router";
 import axios from 'axios'
 import { setCookie } from "@/utils/cookieHandler";
 import Modal from 'react-modal';
+import { getAuth, updateEmail } from "firebase/auth";
 
 
 
 
-
-
-
-
-
-interface UserInfo {
-  email: string | null;
-  authExtern: boolean;
-  displayName: string | null;
+ 
+  interface UserInfo {
+    displayName: string | null;
+    email: string | null;
+    phoneNumber: string | null;
+    photoURL: string | null;
+    providerId: string;
+    uid: string;
 }
 
 
 export const Login = () => {
 
-
-
-  const [user, setUser] = useAuthState(auth)
+  const [user,setUser] = useAuthState(auth)
   const googleAuth = new GoogleAuthProvider();
   const facebookAuth = new FacebookAuthProvider()
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState<string | null>(user?.email || null);
-  const [inputValue, setInputValue] = useState("")
-  const router=useRouter()
+  const [inputValue, setInputValue] = useState("");
+  const auth1 = getAuth()
 
-
+console.log(user?.email)
 
   const login = async (authType: AuthProvider) => {
     try {
       if (!user) {
         const result = await signInWithPopup(auth, authType);
-        if (user && !user?.email) {
-          setIsOpen(true)
-        }
+      }
+      if (user && !user?.email) {
+      setIsOpen(true)
       }
 
     }
@@ -57,13 +53,13 @@ export const Login = () => {
 
 
   useEffect(() => {
-    setEmail(user?.email);
+    setEmail(user?.email||"no Email");
   }, [user]);
 
 
   const info = {
-    first_name: user?.displayName.split(" ")[0],
-    last_name: user?.displayName.split(" ")[1],
+    first_name: user?.displayName?.split(" ")[0],
+    last_name: user?.displayName?.split(" ")[1],
     email: user?.email || email,
     password: user?.email || email,
   };
@@ -130,6 +126,18 @@ export const Login = () => {
     // // //   a
   }, [user !== null]);
 
+  useEffect(() => {
+    if (auth1?.currentUser && email) {
+      updateEmail(auth1.currentUser, email).then(() => {
+        // Email updated!
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
+    }
+  }, [email]);
+ 
   return (
     <>
       <div className="flex flex-col">

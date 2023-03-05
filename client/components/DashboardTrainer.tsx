@@ -12,7 +12,7 @@ export default function Dashboard() {
   const [logo, setLogo] = useState([]);
   useEffect(() => {
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {

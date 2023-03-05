@@ -7,7 +7,7 @@ export default function TablePlans() {
   const [plans, setPlans] = useState([]);
   useEffect(() => {
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
@@ -16,11 +16,7 @@ export default function TablePlans() {
       })
       .catch((error) => console.log(error));
   }, []);
-  // dele
-  const deletePlans = (id) => {
-    const updatedPlans = plans.filter((e) => e.id_PlanTrainee !== id);
-    setPlans(updatedPlans);
-  };
+ 
 
   console.log(plans);
   return (
@@ -58,9 +54,8 @@ export default function TablePlans() {
                   <td className="px-6 py-4">${e.cost}</td>
                   <td className="px-6 py-4">
                     <button
-                      onClick={() => {
-                        deletePlans(e.id_PlanTrainee);
-                      }}
+                      onClick={() => {}
+                      }
                       className="font-medium text-red-600 dark:text-red-500 hover:text-red-400"
                     >
                       Remove

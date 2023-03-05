@@ -12,7 +12,10 @@ import homeSlides from "@/assets/home-slides";
 type PlansType = {
   id: number;
   name: string;
-  description: string;
+  photo: string;
+  first_name: string;
+  last_name: string;
+  imgURL: string;
 };
 
 export default function plansTrainee() {
@@ -27,7 +30,7 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios("http://localhost:3001/trainers?page=1")
+    axios("https://fp-server-cg2b.onrender.com/trainers?page=1")
       .then((data) => {
         console.log(data.data);
 

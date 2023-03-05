@@ -2,8 +2,16 @@ import Link from "next/link";
 import React from "react";
 import ReactStars from "react-stars";
 
+type CardTrainersProps = {
+  id: string
+  photo: string;
+  first_name: string;
+  last_name: string;
+  description: string;
+  rating: number;
+};
 // card trainers
-const Card = ({ photo, first_name, last_name, rating, id }) => {
+const Card = ({ photo, first_name, last_name, id }) => {
   return (
     <div className="max-w-sm  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="flex   hover:drop-shadow-2xl  ">

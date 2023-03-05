@@ -1,26 +1,35 @@
 import React, { useState } from "react";
 import axios from "axios";
-//crear los planes de los trainer
-export default function createPlans() {
-  const [formData, setFormData] = useState({
-    name: "",
-    cost: "",
-    description: "",
-    cantTrainees: "",
-  });
+import NavbarTrainer from "@/components/navbar/NavbarTrainer";
+import { getCookie, setCookie } from "@/utils/cookieHandler";
 
+// crear los planes para trainees
+export default function createPlans() {
+  //token user
+  const key = getCookie("token");
+  console.log(key);
+
+  const [formData, setFormData] = useState([
+    {
+      name: "",
+      cost: "",
+      description: "",
+    },
+  ]);
+  console.log(formData);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3001/plans/trainers", formData)
+      .post("https://fp-server-cg2b.onrender.com/plans/trainee", formData, {
+        headers: { "x-access-token": key },
+      })
       .then((data) => {
         console.log(data);
       })
       .catch((error) => {
         window.alert("Error in" + error);
       });
-    console.log(formData);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,16 +37,20 @@ export default function createPlans() {
   };
 
   return (
-    <div>
-      <form className=" pt-20  flex flex-col" onSubmit={handleSubmit}>
-        <h2 className="text-gray-300 text-xl  ">Create plans trainers</h2>
+    <div className="grid grid-rows-3 grid-flow-col gap-4">
+      <div className="row-span-3 ">
+        <NavbarTrainer />
+      </div>
+
+      <form className="col-span-2 pt-60" onSubmit={handleSubmit}>
+        <h2 className="text-gray-300 text-xl  ">Create plans trainee</h2>
         <label>
           <input
             className="m-4  bg-gray-200 shadow-2xl rounded-md"
             type="name"
             name="name"
             placeholder="name...."
-            value={formData.name}
+            value={formData[0].name}
             onChange={handleChange}
           />
         </label>
@@ -48,12 +61,10 @@ export default function createPlans() {
             type="number"
             name="cost"
             placeholder="cost...."
-            value={formData.cost}
+            value={formData[0].cost}
             onChange={handleChange}
           />
         </label>
-        <br />
-
         <br />
         <label>
           <input
@@ -61,18 +72,7 @@ export default function createPlans() {
             type="text"
             name="description"
             placeholder="description..."
-            value={formData.description}
-            onChange={handleChange}
-          />
-        </label>
-        <br />
-        <label>
-          <input
-            className="m-3  bg-gray-200 rounded-md "
-            type="text"
-            name="cantTrainees"
-            placeholder="cantTrainees..."
-            value={formData.cantTrainees}
+            value={formData[0].description}
             onChange={handleChange}
           />
         </label>
@@ -82,7 +82,7 @@ export default function createPlans() {
           create
         </button>
       </form>
-      <div></div>
+      <div className="row-span-2 col-span-2  m-auto"></div>
     </div>
   );
 }

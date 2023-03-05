@@ -17,7 +17,7 @@ export default function FormularioLogin() {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
-      .post(`http://localhost:3001/auth`, formData)
+      .post(`https://fp-server-cg2b.onrender.com/auth`, formData)
       .then((data) => {
         console.log(data);
         setCookie("token", data.data.token);
@@ -29,11 +29,10 @@ export default function FormularioLogin() {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(formData)
+    console.log(formData);
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  
   return (
     <form className="caja-login" onSubmit={handleSubmit}>
       <Image

@@ -5,10 +5,30 @@ const {
   addSocial,
   addLogo,
   createPlan,
+  ratingTotal,
+  listComment,
 } = require("../controllers/trainersController");
 const { idExtract } = require("../middlewares/verifySignUp");
 
 const trainerRouter = Router();
+
+trainerRouter.get("/comment", async (req, res) => {
+  const id = await idExtract(req.headers["x-access-token"]);
+  try {
+    res.status(200).send(await listComment(id));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+trainerRouter.get("/rating", async (req, res) => {
+  const id = await idExtract(req.headers["x-access-token"]);
+  try {
+    res.status(200).send(await ratingTotal(id));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 trainerRouter.get("/", async (req, res) => {
   const { page } = req.query;
@@ -64,4 +84,3 @@ trainerRouter.post("/plan", async (req, res) => {
 });
 
 module.exports = trainerRouter;
-

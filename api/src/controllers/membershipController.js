@@ -9,6 +9,7 @@ const {
   Voucher,
   SocialNetworks,
   Certificates,
+  Rating,
 } = require("../db");
 const moment = require("moment");
 
@@ -59,7 +60,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
       const voucher = await Voucher.create({
         id_voucher: idPago,
-        date: fechaPago,
+        date: startDate,
         cost: cost,
       });
       await membership.setVoucher(voucher);
@@ -69,7 +70,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
     if (planM2) {
       const finishTrainee = start.add(7, "day");
       const finishDate = finishTrainee.format("YYYY-MM-DD");
-      console.log("trainee", finishDate);
+
       const membership = await Membership.create({
         startDate,
         finishDate,
@@ -80,6 +81,8 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
       await membership.setPlanTrainee(idPlan);
 
       const trainerM = await Trainee.create({});
+      // console.log(trainerM.id_trainee);
+      // console.log(planM2.trainerIdTrainer);
       await trainerM.setMembership(membership.id_membership);
 
       userM.role = "trainee";
@@ -87,10 +90,17 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
       const voucher = await Voucher.create({
         id_voucher: idPago,
-        date: fechaPago,
+        date: startDate,
         cost: cost,
       });
       await membership.setVoucher(voucher);
+
+      const rating = await Rating.create({
+        value: 0,
+        traineeIdTrainee: trainerM.id_trainee,
+        trainerIdTrainer: planM2.trainerIdTrainer,
+      });
+
       return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM2.name}`;
     }
   } catch (error) {
