@@ -84,6 +84,7 @@ export type InputData = {
   last_name: string;
   nick_name: string;
   password: string;
+  password_confirmation:string,
   email: string;
   phone: string;
   cell: string;
@@ -117,14 +118,16 @@ export interface GenericInputProps extends BasicInputsProps {
 export interface ContactInputProps extends BasicInputsProps {
   register: UseFormRegister<ContactData>;
 }
-
+type ValidatePasswordConfirmation = (value: string) => boolean | string 
 export type BasicInputsProps = {
   label: string;
-  options: { required: boolean; pattern?: RegExp };
+  options: { required: boolean; pattern?: RegExp; validate:ValidatePasswordConfirmation|null };
   err: FieldError | undefined;
   name: string;
-  type: "text" | "number" | "password" | "email" | "textarea";
+  type: "text" | "number" | "password" | "email" | "textarea" |"password_confirmation";
 };
+
+
 
 // @ Components/Navbar/Burger
 export type BurgerProps = {

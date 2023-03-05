@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
 import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, AuthProvider} from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
-import {useRouter} from "next/router";
 import axios from 'axios'
 import { setCookie } from "@/utils/cookieHandler";
 import Modal from 'react-modal';
+import { getAuth, updateEmail } from "firebase/auth";
+
 
 
 
@@ -19,6 +20,7 @@ import Modal from 'react-modal';
     uid: string;
 }
 
+
 export const Login = () => {
 
   const [user,setUser] = useAuthState(auth)
@@ -26,10 +28,10 @@ export const Login = () => {
   const facebookAuth = new FacebookAuthProvider()
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState<string | null>(user?.email || null);
-  const [inputValue, setInputValue] = useState("")
-  const router=useRouter()
+  const [inputValue, setInputValue] = useState("");
+  const auth1 = getAuth()
 
-
+console.log(user?.email)
 
   const login = async (authType: AuthProvider) => {
     try {
@@ -124,6 +126,18 @@ export const Login = () => {
     // // //   a
   }, [user !== null]);
 
+  useEffect(() => {
+    if (auth1?.currentUser && email) {
+      updateEmail(auth1.currentUser, email).then(() => {
+        // Email updated!
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
+    }
+  }, [email]);
+ 
   return (
     <>
       <div className="flex flex-col">

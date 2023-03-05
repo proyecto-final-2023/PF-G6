@@ -87,7 +87,7 @@ export default function Navbar() {
     <div>
       <Burger isBurgerActive={isBurgerActive} burgerHandler={burgerHandler} />
       <nav
-        className={`sm:h-[72px] sm:p-0 sm:top-0 py-12 px-6 h-[100vh] w-full bg-gray-800 border-x-none border-b-[2px] border-yellow-900 bottom-0 z-20 transition-all ease duration-300 fixed ${
+        className={`sm:h-[80px] sm:p-0 sm:top-0 py-12 px-6 h-[100vh] w-full bg-gray-800 border-x-none border-b-[2px] border-yellow-900 bottom-0 z-20 transition-all ease duration-300 fixed ${
           isBurgerActive || viewportWidth > 800
             ? "-translate-x-0"
             : "translate-x-[100vw]"
@@ -97,6 +97,8 @@ export default function Navbar() {
           <li className="inline-block align-bottom text-center w-[100px] h-[65px] p-1">
             <Link replace href="/" scroll>
               <Image
+              width={0}
+              height={0}
                 src={logoImg}
                 alt={`link of the whole app`}
                 className="inline-block align-bottom sm:w-[100px] sm:h-[65px]"
