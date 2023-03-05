@@ -15,16 +15,30 @@ const moment = require("moment");
 
 const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
   try {
-    if (!idUser || !idPlan) {
-      throw Error("Parametros Invalidos");
-    }
     const userM = await User.findByPk(idUser);
     const planM = await Plantrainer.findByPk(idPlan);
-    const planM2 = await PlanTrainee.findByPk(idPlan);
-
-    // if (!userM || !planM) {
-    //   throw Error("Parametros Invalidos");
-    // }
+    const planM2 = await PlanTrainee.findByPk(idPlan, {
+      include: [
+        {
+          model: Trainer,
+          attributes: ["id_trainer"],
+          include: [
+            {
+              model: Membership,
+              attributes: ["id_membership"],
+              include: [
+                {
+                  model: Plantrainer,
+                },
+                {
+                  model: User,
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    });
 
     const startDate = moment().format("YYYY-MM-DD");
     const start = moment(startDate);
@@ -48,11 +62,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
       const trainerM = await Trainer.create({
         logo: "https://www.facebook.com/photo/?fbid=504981774962515&set=a.504981758295850",
       });
-      // // const certificates = await Certificates.create();
-      // // const socialNet = await SocialNetworks.create();
-
-      // await trainerM.setCertificates(certificates);
-      // await trainerM.setSocialNetworks(socialNet);
 
       await trainerM.setMembership(membership.id_membership);
       userM.role = "trainer";
@@ -68,40 +77,57 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
     }
 
     if (planM2) {
-      const finishTrainee = start.add(7, "day");
-      const finishDate = finishTrainee.format("YYYY-MM-DD");
-
-      const membership = await Membership.create({
-        startDate,
-        finishDate,
-        userId: userM.id,
+      const cantTrainees = planM2.trainer.membership.plantrainer.cantTrainees;
+      const idTrainer = planM2.trainerIdTrainer;
+      console.log(idTrainer); //e1305e9b-f5c7-4a8a-b023-aa9a16e97902
+      const plansT = await PlanTrainee.findAll({
+        where: {
+          trainerIdTrainer: idTrainer,
+        },
+        include: [{ model: Membership }],
       });
-
-      await membership.setUser(idUser);
-      await membership.setPlanTrainee(idPlan);
-
-      const trainerM = await Trainee.create({});
-      // console.log(trainerM.id_trainee);
-      // console.log(planM2.trainerIdTrainer);
-      await trainerM.setMembership(membership.id_membership);
-
-      userM.role = "trainee";
-      await userM.save();
-
-      const voucher = await Voucher.create({
-        id_voucher: idPago,
-        date: startDate,
-        cost: cost,
-      });
-      await membership.setVoucher(voucher);
-
-      const rating = await Rating.create({
-        value: 0,
-        traineeIdTrainee: trainerM.id_trainee,
-        trainerIdTrainer: planM2.trainerIdTrainer,
-      });
-
-      return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM2.name}`;
+      let count = 0;
+      for (let plan of plansT) {
+        const membershipCount = await plan.countMemberships();
+        count += membershipCount;
+        // countsTrainer[plan.name] = membershipCount;
+      }
+      if (count < cantTrainees) {
+        const finishTrainee = start.add(7, "day");
+        const finishDate = finishTrainee.format("YYYY-MM-DD");
+        const membership = await Membership.create({
+          startDate,
+          finishDate,
+          userId: userM.id,
+        });
+        await membership.setUser(idUser);
+        await membership.setPlanTrainee(idPlan);
+        const trainerM = await Trainee.create({});
+        // console.log(trainerM.id_trainee);
+        // console.log(planM2.trainerIdTrainer);
+        await trainerM.setMembership(membership.id_membership);
+        userM.role = "trainee";
+        await userM.save();
+        const voucher = await Voucher.create({
+          id_voucher: idPago,
+          date: startDate,
+          cost: cost,
+        });
+        await membership.setVoucher(voucher);
+        const rating = await Rating.create({
+          value: 0,
+          traineeIdTrainee: trainerM.id_trainee,
+          trainerIdTrainer: planM2.trainerIdTrainer,
+        });
+        console.log(count);
+        return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM2.name}`;
+      } else {
+        const nameTrainer =
+          planM2.trainer.membership.user.first_name +
+          " " +
+          planM2.trainer.membership.user.last_name;
+        throw `El Trainer ${nameTrainer} ya no tiene cupos para mas Trainees`;
+      }
     }
   } catch (error) {
     const userM = await User.findByPk(idUser);

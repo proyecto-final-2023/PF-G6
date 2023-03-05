@@ -17,6 +17,41 @@ const {
 const { Op } = require("sequelize");
 const sequelize = require("sequelize");
 
+const listTrainees2 = async (id) => {
+  const trai = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        // attributes: ["id_membership"],
+        include: [
+          {
+            model: PlanTrainee,
+            attributes: ["trainerIdTrainer"],
+          },
+        ],
+      },
+    ],
+  });
+
+  const trainerId = trai.membership.trainerIdTrainer;
+  if (!trainerId) throw Error("Trainer no Encontrado");
+  const traineesUser = await PlanTrainee.findAll({
+    attributes: ["id_PlanTrainee", "name"],
+    where: { trainerIdTrainer: trainerId },
+    include: [
+      {
+        model: Membership,
+        attributes: ["traineeIdTrainee"],
+        include: [
+          { model: User, attributes: ["first_name", "last_name", "imgURL"] },
+        ],
+      },
+    ],
+  });
+  return traineesUser;
+};
+
 const listComment = async (id) => {
   const user = await User.findByPk(id, {
     attributes: ["first_name", "last_name", "imgURL"],
@@ -163,7 +198,11 @@ const listTrainers = async (page, limit) => {
             },
           ],
         },
-        { model: PlanTrainee },
+        {
+          model: PlanTrainee,
+          where: { status: true },
+          attributes: ["id_PlanTrainee", "name", "cost", "description"],
+        },
       ],
       limit: limit,
       offset: (page - 1) * limit,
@@ -232,4 +271,5 @@ module.exports = {
   createPlan,
   ratingTotal,
   listComment,
+  listTrainees2,
 };
