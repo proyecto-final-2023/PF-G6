@@ -196,13 +196,13 @@ export default function ExercisesLibrary() {
       </div>
       {showSubOptions && (
         <div>
-          <label htmlFor="sub-option-select">Select a sub-option:</label>
-          <select id="sub-option-select" value={selectedSubOption} onChange={handleSubOptionChange}>
-            <option value="">Select a sub-option</option>
+          <label className="px-2" htmlFor="sub-option-select">Select a sub-option:</label>
+          <select className="pl-0 border bg-black bg-opacity-50 text-white" id="sub-option-select" value={selectedSubOption} onChange={handleSubOptionChange}>
+            <option className="border bg-black bg-opacity-50" value="">Select a sub-option</option>
             {options
               .find((option) => option.value === selectedOption)
               ?.subOptions.map((subOption) => (
-                <option key={subOption} value={subOption}>
+                <option key={subOption} value={subOption} className="backdrop-blur-md border bg-black bg-opacity-50">
                   {subOption}
                 </option>
               ))}
@@ -240,34 +240,34 @@ export default function ExercisesLibrary() {
                
                 {selectedExercises
                   ? selectedExercises.map((ex) =><li className='block w-[350px] px-5 py-1' key={ex.id}>'{ex.name}' <div>
-                  <label htmlFor={`repeticiones-${ex.id}`}>Repeticiones:</label>
-                  <select name={`repeticiones-${ex.id}`} id={`repeticiones-${ex.id}`}>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    <option value='4'>4</option>
-                    <option value='5'>5</option>
-                    <option value='6'>6</option>
-                    <option value='7'>7</option>
-                    <option value='8'>8</option>
-                    <option value='9'>9</option>
-                    <option value='10'>10</option>
-                    <option value='11'>11</option>
-                    <option value='12'>12</option>
-                    <option value='13'>13</option>
-                    <option value='14'>14</option>
-                    <option value='15'>15</option>
-                    <option value='Failure'>Failure</option>
+                  <label className="px-1" htmlFor={`repeticiones-${ex.id}`}>Repeticiones:</label>
+                  <select className="pl-0 border bg-black bg-opacity-50 text-white" name={`repeticiones-${ex.id}`} id={`repeticiones-${ex.id}`}>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='1'>1</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='2'>2</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='3'>3</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='4'>4</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='5'>5</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='6'>6</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='7'>7</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='8'>8</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='9'>9</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='10'>10</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='11'>11</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='12'>12</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='13'>13</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='14'>14</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='15'>15</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='Failure'>Failure</option>
                   </select>
                 </div>
                 <div>
-                  <label htmlFor={`series-${ex.id}`}>Series:</label>
-                  <select name={`series-${ex.id}`} id={`series-${ex.id}`}>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    <option value='4'>4</option>
-                    <option value='5'>5</option>
+                  <label className="px-1" htmlFor={`series-${ex.id}`}>Series:</label>
+                  <select className="pl-0 border bg-black bg-opacity-50 text-white" name={`series-${ex.id}`} id={`series-${ex.id}`}>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='1'>1</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='2'>2</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='3'>3</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='4'>4</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='5'>5</option>
                   </select>
                   
                 </div></li> )
@@ -279,21 +279,21 @@ export default function ExercisesLibrary() {
                 <li id={`${item.id}`} className="block w-[350px] px-5 py-1">
                   {item.description}
                   <div>
-                    <label htmlFor={`portion-${item.id}`}>Portions:</label>
-                    <select name={`portion-${item.id}`} id={`portion-${item.id}`}>
-                    <option value='1'>1</option>
-                    <option value='2'>2</option>
-                    <option value='3'>3</option>
-                    <option value='4'>4</option>
-                    <option value='5'>5</option>
+                    <label className="px-1" htmlFor={`portion-${item.id}`}>Portions:</label>
+                    <select className="pl-0 border bg-black bg-opacity-50 text-white" name={`portion-${item.id}`} id={`portion-${item.id}`}>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='1'>1</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='2'>2</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='3'>3</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='4'>4</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='5'>5</option>
                     </select>
-                    <label htmlFor={`time-${item.id}`}>Time:</label>
-                    <select name={`time-${item.id}`} id={`time-${item.id}`}>
-                    <option value='Break Fast'>Break Fast</option>
-                    <option value='Lunch'>Lunch</option>
-                    <option value='Dinner'>Dinner</option>
-                    <option value='Snack'>Snack</option>
-                    <option value='Dessert'>Dessert</option>
+                    <label className="px-1" htmlFor={`time-${item.id}`}>Time:</label>
+                    <select className="pl-0 border bg-black bg-opacity-50 text-white" name={`time-${item.id}`} id={`time-${item.id}`}>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='Break Fast'>Break Fast</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='Lunch'>Lunch</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='Dinner'>Dinner</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='Snack'>Snack</option>
+                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='Dessert'>Dessert</option>
                     
                     </select>
                   </div>
