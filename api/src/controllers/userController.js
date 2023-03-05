@@ -13,6 +13,7 @@ const {
   AlimentsPlan,
   Plan,
   Comment,
+  Rating,
 } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
@@ -24,7 +25,7 @@ const getPerfil = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    attributes: ["id", "first_name", "last_name", "nickname", "role", "imgURL"],
+    // attributes: ["id", "first_name", "last_name", "nickname", "role", "imgURL"],
     include: [
       {
         model: Logueo,
@@ -59,6 +60,7 @@ const getPerfil = async (id) => {
               exclude: ["id_trainer"],
             },
             include: [
+              // { model: Rating },
               { model: Certificates },
               { model: SocialNetworks },
               {
@@ -279,6 +281,34 @@ const listEmail = async (email) => {
     return error;
   }
 };
+
+const addData = async (
+  id,
+  first_name,
+  last_name,
+  nickname,
+  imgURL,
+  gender,
+  phone
+) => {
+  const user = await User.findByPk(id);
+
+  if (!User) {
+    throw new Error(`No se encontró al usuario con ID ${id}.`);
+  }
+  await user.update({
+    id,
+    first_name,
+    last_name,
+    nickname,
+    imgURL,
+    gender,
+    phone,
+  });
+
+  return `Se actualizó los datos del Usuario  ${user.first_name}, ${user.last_name}`;
+};
+
 module.exports = {
   botUserAdd,
   getId,
@@ -287,4 +317,5 @@ module.exports = {
   setVerify,
   getPerfil,
   listEmail,
+  addData,
 };

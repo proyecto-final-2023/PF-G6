@@ -13,7 +13,7 @@ export default function createPlans() {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3001/plans/trainers", formData)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`, formData)
       .then((data) => {
         console.log(data);
       })

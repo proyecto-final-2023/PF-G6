@@ -60,8 +60,8 @@ export default function Index() {
   console.log(key);
   useEffect(() => {
     axios
-      .post("http://localhost:3001/user/perfil", null, {
-        headers: { "x-access-token": key }
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+        headers: { "x-access-token": key },
       })
       .then((data) => {
         console.log(data.data);
@@ -186,7 +186,7 @@ export default function Index() {
       </div>
       <div>
         <Link
-          href="http://localhost:3000/food/"
+          href={`${process.env.NEXT_PUBLIC_API_URL}/food/`}
           className="text-lg hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"
         >
           Food Library

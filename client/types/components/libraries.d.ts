@@ -23,6 +23,7 @@ export type FoodResType = {
 };
 
 export type ExerciesResType = {
+  description: string;
   bodyPart: string;
   equipement: string;
   gifUrl: string;

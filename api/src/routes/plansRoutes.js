@@ -18,10 +18,10 @@ plansRouter.post("/", async (req, res) => {
 });
 
 plansRouter.get("/", async (req, res) => {
+  const { page } = req.query;
   try {
-    res.status(200).send(await allPlans());
+    res.status(200).send(await allPlans(page));
   } catch (error) {
-  
     res.status(400).send({ error: error.message });
   }
 });
