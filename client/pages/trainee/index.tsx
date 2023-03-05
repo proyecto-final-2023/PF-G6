@@ -1,10 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
-import Image from "next/image";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "react-circular-progressbar/dist/styles.css";
 import {
   Calendar,
-  momentLocalizer,
   dateFnsLocalizer
 } from "react-big-calendar";
 import format from "date-fns/format";
@@ -12,15 +10,14 @@ import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
-import { getCookie, setCookie } from "@/utils/cookieHandler";
+import { getCookie } from "@/utils/cookieHandler";
 // import ProgressBar from "@/components/TraineeProgressbar";
 import Rating from "@/components/StarRating";
-import TextAreaInput from "@/components/inputs/TextAreaInput";
+import  { SyntheticEvent }  from "react";
 
 export default function Index() {
   const [user, setUser] = useAuthState(auth);
@@ -30,11 +27,11 @@ export default function Index() {
   const [user1, setUser1] = useState<any>();
   const [feedback, setFeedback] = useState("");
 
-  function handleFeedbackChange(event) {
+  function handleFeedbackChange(event:React.ChangeEvent<HTMLTextAreaElement>) {
     setFeedback(event.target.value);
   }
 
-  function handleSubmit(event) {
+  function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
     const comment = {
