@@ -5,11 +5,10 @@ import TrainerCard from "./TrainerCard";
 import TrainerDetails from "./TrainerDetails";
 import { parseTrainersArr } from "@/utils/adminHelpers";
 import {
-  TrainerArrResponse,
   TrainerDetailsT,
+  TrainerResponse,
   UserCardT,
-  UserDetailsResponse,
-  UserDetailsT
+  UserDetailsResponse
 } from "@/types/components/dashboard";
 
 export default function TrainerContainer() {
@@ -19,29 +18,6 @@ export default function TrainerContainer() {
   const nextPage = () => setPage((prev) => prev + 1);
 
   const prevPage = () => setPage((prev) => prev - 1);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // TODO: add error handling
-      const { data }: { data: TrainerArrResponse[] } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`
-      );
-      console.log("data", data);
-
-      const parsedResponse = parseTrainersArr(data, clickHandler);
-
-      setTrainers(parsedResponse);
-    };
-    fetchData();
-  }, [page]);
-
-  console.log("trainer", trainers);
-
-  const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsT>({
-    user_id: "",
-    name: "",
-    logo: ""
-  });
 
   const clickHandler = async (id: string /*, updateDetails: () => void*/) => {
     // make another fetch to get the user details
@@ -62,6 +38,29 @@ export default function TrainerContainer() {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // TODO: add error handling
+      const { data }: { data: TrainerResponse[] } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`
+      );
+      console.log("data", data);
+
+      const parsedResponse = parseTrainersArr(data, clickHandler);
+
+      setTrainers(parsedResponse);
+    };
+    fetchData();
+  }, [page]);
+
+  console.log("trainer", trainers);
+
+  const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsT>({
+    user_id: "",
+    name: "",
+    logo: ""
+  });
 
   return (
     <div className="border-white">

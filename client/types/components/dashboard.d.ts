@@ -65,12 +65,19 @@
 //   imgURL: string;
 // };
 
-// ? Shared types Trainer & Trainee
-// with : {URL}/user/:id @ TrainerConatiner
+// ? --------------------------------------------------------------------------------------------
+// * Shared attributes for Trainer & Trainee
+// ? --------------------------------------------------------------------------------------------
+export type UserCardT = {
+  user_id: string;
+  name: string;
+  clickHandler: (id: string) => Promise<void>;
+};
+
+// with : {URL}/user/:id @ TrainerContainer & TraineeContainer
 export type UserDetailsT = {
   user_id: string;
   name: string;
-  role: "trainer";
   logo: string;
   logeo: {
     email: string;
@@ -85,7 +92,6 @@ export type UserDetailsResponse = {
   first_name: string;
   last_name: string;
   nickname: string;
-  role: string;
   imgURL: string;
   logueo: {
     email: string;
@@ -99,15 +105,10 @@ export type UserDetailsResponse = {
     };*/
   };
 };
-
-export type UserCardT = {
-  user_id: string;
-  name: string;
-  clickHandler: (id: string) => void;
-};
-
-// ! TRAINERS STUFF
-export type TrainerArrResponse = {
+// ? --------------------------------------------------------------------------------------------
+// * TRAINERS STUFF
+// ? --------------------------------------------------------------------------------------------
+export type TrainerResponse = {
   id_trainer: string;
   logo: string;
   membership: {
@@ -126,8 +127,9 @@ export type TrainerDetailsT = {
   logo: string;
 };
 
-// ! TRAINEES STUFF
-// todo: remove the role from trainer & remove the Arr from TrainerArrResponse
+// ? --------------------------------------------------------------------------------------------
+// * TRAINEES STUFF
+// ? --------------------------------------------------------------------------------------------
 export type TraineeResponse = {
   membership: {
     userId: string;
@@ -146,6 +148,5 @@ export type TraineeResponse = {
 export type TraineeDetailsT = {
   user_id: string;
   name: string;
-  role: "trainee";
   logo: string;
 };

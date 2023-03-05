@@ -3,45 +3,22 @@ import axios from "axios";
 import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
 import TraineeCard from "./TraineeCard";
 import TraineeDetails from "./TraineeDetails";
-// import { parseTrainersArr } from "@/utils/adminHelpers";
+// import { parseTraineesArr } from "@/utils/adminHelpers";
 import {
+  TraineeDetailsT,
   TraineeResponse,
-  UserDetailsResponse,
-  UserDetailsT
+  UserCardT,
+  UserDetailsResponse
 } from "@/types/components/dashboard";
 import { parseTraineesArr } from "@/utils/adminHelpers";
 
 export default function TraineeContsainer() {
   const [page, setPage] = useState(1);
-  const [trainers, setTrainers] = useState<TraineeResponse[]>([]);
+  const [trainees, setTrainees] = useState<UserCardT[]>([]);
 
   const nextPage = () => setPage((prev) => prev + 1);
 
   const prevPage = () => setPage((prev) => prev - 1);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // TODO: add error handling
-      const { data }: { data: TraineeResponse[] } = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`
-      );
-      console.log("data", data);
-
-      const parsedResponse = parseTraineesArr(data, clickHandler);
-
-      setTrainers(parsedResponse);
-    };
-    fetchData();
-  }, [page]);
-
-  console.log("trainer", trainers);
-
-  const [trainerDetails, setTrainerDetails] = useState<TrainerDetailsT>({
-    user_id: "",
-    name: "",
-    role: "trainer",
-    logo: ""
-  });
 
   const clickHandler = async (id: string /*, updateDetails: () => void*/) => {
     // make another fetch to get the user details
@@ -54,30 +31,52 @@ export default function TraineeContsainer() {
         // since we dont get an id back from the server, we need to add the one in params
         user_id: id,
         name: `${data.first_name} ${data.last_name}`,
-        role: "trainer" as TrainerDetailsT["role"],
         logo: data.imgURL
       };
 
-      setTrainerDetails(parsedDetails);
+      setTraineeDetails(parsedDetails);
     } catch (error) {
       console.error(error);
     }
   };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      // TODO: add error handling
+      const { data }: { data: TraineeResponse[] } = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/trainees?page=${page}`
+      );
+      console.log("data", data);
+
+      const parsedResponse = parseTraineesArr(data, clickHandler);
+
+      setTrainees(parsedResponse);
+    };
+    fetchData();
+  }, [page]);
+
+  console.log("trainer", trainees);
+
+  const [trainerDetails, setTraineeDetails] = useState<TraineeDetailsT>({
+    user_id: "",
+    name: "",
+    logo: ""
+  });
+
   return (
     <div className="border-white">
-      <h2 className="text-xl text-center">Trainers Container</h2>
+      <h2 className="text-xl text-center">Trainees Container</h2>
 
       <NavigationBtns currentPage={page} {...{ nextPage }} {...{ prevPage }} />
 
       <div className="grid gap-x-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 my-7">
-        {trainers.length &&
-          trainers.map((item) => {
+        {trainees.length &&
+          trainees.map((item) => {
             return (
               <TraineeCard
+                img="rainee-img-jpog"
                 key={item.user_id}
                 user_id={item.user_id}
-                role={item.role}
                 name={item.name}
                 {...{ clickHandler }}
               />
@@ -86,12 +85,7 @@ export default function TraineeContsainer() {
       </div>
       <div className="d7">
         {trainerDetails.user_id && (
-          <TraineeDetails
-            user_id={trainerDetails.user_id}
-            name={trainerDetails.name}
-            role={trainerDetails.role}
-            logo={trainerDetails.logo}
-          />
+          <TraineeDetails user_id={trainerDetails.user_id} />
         )}
       </div>
     </div>
