@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export default function test(props: { res: string }) {
-  console.log(props.res);
 
   return <div>testicles</div>;
 }
@@ -10,7 +9,7 @@ export default function test(props: { res: string }) {
 async function getServersideProps() {
   const token =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg4YWEwNDUwLTljMzMtNDU1Yi04ODhmLWE3MDA3MjVlY2MxMyIsImlhdCI6MTY3NzE4MjEwMCwiZXhwIjoxNjc3Nzg2OTAwfQ.VfNEKXEj_UVeSCT2IiwfNML94mmHKitsKDeaho_FH4Y";
-  const url = "http://localhost:3001/base";
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/base`;
 
   try {
     // const res = await axios.post(url, {

@@ -4,27 +4,29 @@ import React, { useEffect, useState } from "react";
 //aqui tiene pra ver  los planes para trainee
 export default function TrainingPlans() {
   //prueba
-  const plansTrainee=[{
+  const plansTrainee = [
+    {
       id_PlanTrainee: "9885f13a-4f07-40d4-82c0-729dbd32c3cb",
       name: "Bronce para Peso345",
       cost: 5,
       description: "Aqui la descripcion",
       category: "trainee",
       trainerIdTrainer: "3ecd5a1a-f6bc-49f4-99ab-971003de134a"
-  }]
+    }
+  ];
 
   useEffect(() => {
-    axios("http://localhost:3001/plans/trainee")
-      .then(({ data }) => console.log(data))
-      .catch((error) => console.log(error));
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`)
+      // .then(({ data }) => console.log(data))
+      .catch((error) => console.error(error));
   }, []);
-  
-  return(
+
+  return (
     <div className=" flex justify-items-center content-center mt-10 ">
       <div className=" mt-10">
         <h1>Plans-Trainee</h1>
       </div>
-        {/* {plansTrainee.map((e) => (
+      {/* {plansTrainee.map((e) => (
           < CardPlans
             key={e.id_PlanTrainee}
            
@@ -34,9 +36,6 @@ export default function TrainingPlans() {
             description={e.description}
           />
         ))} */}
-      </div>
-  )
-   
-   
-
+    </div>
+  );
 }

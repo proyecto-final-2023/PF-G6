@@ -14,13 +14,13 @@ export default function FormularioLogin() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-    authExtern: false,
+    authExtern: false
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     axios
-      .post(`http://localhost:3001/auth`, formData)
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, formData)
       .then((data) => {
         console.log(data.config.data)
         setCookie("token", data.data.token);
@@ -33,7 +33,6 @@ export default function FormularioLogin() {
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(formData);
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 

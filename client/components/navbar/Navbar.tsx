@@ -54,7 +54,7 @@ export default function Navbar() {
     console.log(key)
  useEffect(()=>{
   if(key!=="null"){
-  axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
+  axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,null,{headers:{'x-access-token': key}})
   .then((data) => {
    console.log(data.data)
    setUser1({
@@ -101,7 +101,7 @@ export default function Navbar() {
               height={0}
                 src={logoImg}
                 alt={`link of the whole app`}
-                className="inline-block align-bottom sm:w-[100px] sm:h-[65px]"
+                className="inline-block  align-bottom sm:w-[100px] sm:h-[65px]"
               />
             </Link>
           </li>
@@ -144,7 +144,7 @@ export default function Navbar() {
             optionsList={[
               "Stop Watch",
               "Calories Calculator",
-              "Fat Calculator",
+              "Fat Calculator"
             ]}
             {...{ hoverEventHandler }}
           />

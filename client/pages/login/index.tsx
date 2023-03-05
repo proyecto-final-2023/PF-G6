@@ -13,6 +13,7 @@ export default function Index() {
     <div className="login">
       <FormularioLogin />
       <Login />
+    
     </div>
-  );
+  )
 }

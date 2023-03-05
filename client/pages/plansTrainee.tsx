@@ -1,27 +1,54 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import CardPlans from "../components/CardPlans";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
 import CardTrainers from "@/components/CardTrainers";
-//mostrar los planes para los trainers
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
+import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
+import homeSlides from "@/assets/home-slides";
+
+/*  photo={e.user.imgURL || user?.photoURL}
+    first_name={e.user.first_name}
+    last_name={e.user.last_name}
+    id={e.userId}
+    rating={5} */
+
+interface Trainer {
+  id_trainer: string;
+  logo: string;
+  membership: {
+    userId: string;
+    user: {
+      first_name: string;
+      last_name: string;
+      imgURL: string;
+    };
+  };
+  planTrainees: {
+    id_PlanTrainee: string;
+    name: string;
+    cost: string;
+    description: string;
+    category: string;
+    trainerIdTrainer: string;
+  }[];
+}
+
+// mostrar los planes para los trainers
 type PlansType = {
-  id: number;
-  name: string;
-  photo: string;
-  first_name: string;
-  last_name: string;
-  imgURL: string;
+  userId: string;
+  user: {
+    name: string;
+    photo: string;
+    first_name: string;
+    last_name: string;
+    imgURL: string;
+  };
 };
 
-// id_trainer: 'b769f372-f3ae-4127-bc00-31b2088c557a',
-// logo: null,
-// membership: {
-//   userId: 'd2e80e69-29bc-4e0f-b395-5870f2acfd09',
-//   user: { first_name: 'alexander', last_name: 'arvelo', imgURL: null }
-// },
-
 export default function plansTrainee() {
+  const [user, setUser] = useAuthState(auth);
   const [plans, setPlans] = useState<PlansType[]>([]);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
@@ -31,15 +58,14 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios("http://localhost:3001/trainers?page=1")
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
       .then((data) => setPlans(data.data))
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, []);
   // plans
-  //   console.log(plans.map(e=>e.membership));
   return (
     <div>
-      <header className="plan">
+      <header className="plan ">
         <div className="w-2/3 mx-auto py-12 flex justify-center align-items:center gap-5 m-4.">
           <Image
             src={logo}
@@ -61,22 +87,53 @@ export default function plansTrainee() {
         <p className="text-2xl">¡I bought your plan now!</p>
       </div>
 
+      <div className="bg-black  ">
+        <h1 className="text-center text-3xl">Top</h1>
+      </div>
+
+      <div className="   outline-offset-3 justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2">
+        {plans &&
+          plans.map((e) => (
+            <CardTrainers
+              photo={e.user.imgURL || user?.photoURL || ""}
+              first_name={e.user.first_name}
+              last_name={e.user.last_name}
+              id={e.userId}
+              rating={5}
+            />
+          ))}{" "}
+      </div>
+      <div className="bg-black  ">
+        <h1 className="text-center text-3xl">Top 10</h1>
+      </div>
+      <SwiperCarousel slidesArr={homeSlides} />
+      <div className=" bg-black justify-items-center grid grid-cols-4  m-20 gap-x-2 gap-y-2">
+        {plans &&
+          plans.map((e) => (
+            <CardTrainers
+              photo={e.user.imgURL || user?.photoURL || ""}
+              first_name={e.user.first_name}
+              last_name={e.user.last_name}
+              id={e.userId}
+              rating={5}
+            />
+          ))}{" "}
+      </div>
       {promocion2 && (
         <div className="bg-gradient-to-r from-yellow-200 via-orange-400 to-rose-500 text-center text-gray-800 h-40">
           <h2 className="pt-10 text-3xl text-white ">{promocion2}</h2>
           <p className="text-xl  text-white  ">¡ bla bla bla ---!</p>
         </div>
       )}
-
-      <div className=" caja-plan   ">
+      <div className=" justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2 ">
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-              photo={e.imgURL}
-              first_name={e.first_name}
-              last_name={e.last_name}
-              rating={3}
+              photo={e.user.imgURL || user?.photoURL || ""}
+              first_name={e.user.first_name}
+              last_name={e.user.last_name}
+              id={e.userId}
+              rating={5}
             />
           ))}
       </div>

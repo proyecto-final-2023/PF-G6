@@ -26,14 +26,13 @@
 //   //       title: 'Mi evento',
 //   //       start: '2023-03-01T14:30:00',
 //   //       end: '2023-03-01T16:30:00',
-//   //       url: 'http://localhost:3000/trainer/exercises-library'
+//   //       url: '${process.env.NEXT_PUBLIC_API_URL}/trainer/exercises-library'
 //   //     };
-    
+
 //   //     calendar.addEvent(event);
 //   //     calendar.render();
 //   //   }
 //   // }, []);
-//   // console.log('Soy calendar',calendarRef)
 //   // return <div>plans
 
 //   //    <div ref={calendarRef} className="px-10 py-10" ></div>

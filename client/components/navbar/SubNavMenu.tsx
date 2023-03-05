@@ -1,7 +1,7 @@
 import {
   ReturnVoidOrJsx,
   SubNavMenuProps,
-  UrlMapping,
+  UrlMapping
 } from "@/types/components";
 import Link from "next/link";
 import React from "react";
@@ -33,7 +33,7 @@ console.log(key)
     // User logged in hover
 
     dashboard: async () => {
-      await axios.post( `http://localhost:3001/user/perfil`, "hola",{headers: {"x-access-token": key} })
+      await axios.post( `${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, "hola",{headers: {"x-access-token": key} })
       .then(res=>{
         console.log(res);
         const userRole=res?.data.role
@@ -55,18 +55,15 @@ console.log(key)
 
 
 
+  
+
   // must return null to be a valid JSX child
   if (singOutHandler) {
     singOutHandler(id);
     return null;
   }
 
-  // const handleLogout = () => {
-  //   auth.signOut();
-  //   setCookie("token", null);
-  //   router.push("/"); // Redirige a la página de inicio
-  // };
-
+  
   return (
     <ul className="left-0 w-[115px] flex flex-col bg-gray-600 border-gray-200 rounded-lg shadow-lg ease-in-out duration-500">
       {optionsList.map((option) => {
