@@ -5,12 +5,20 @@ import { auth } from "../../firebase";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
+import { AxiosResponse } from "axios";
 
-export default function () {
+
+interface User {
+  display_name: string;
+}
+
+export default function Trainer() {
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState();
+  const [user1, setUser1] = useState<User | undefined>(undefined);
   const key = getCookie("token");
+
   console.log(user?.displayName);
+
   useEffect(() => {
     axios
       .post("http://localhost:3001/user/perfil", null, {
@@ -18,15 +26,12 @@ export default function () {
           "x-access-token": key,
         },
       })
-      .then((data) => {
-        console.log(data.data);
+      .then((data: AxiosResponse<any, any>) => {
         setUser1({
           display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
         });
       });
   }, []);
-  console.log(user1);
-  console.log(user);
   return (
     <div className=" top-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
       <nav className="h-full px-3 py-4  bg-gray-50 dark:bg-gray-800">
