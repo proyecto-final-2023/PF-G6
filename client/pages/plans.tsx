@@ -27,7 +27,7 @@ export default function plans() {
     axios(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`)
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
-    //user token
+   
 
     const key = getCookie("token");
     console.log(key);

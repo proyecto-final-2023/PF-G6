@@ -26,3 +26,43 @@ export default function CardPlans(props: CardPlansProps) {
     </div>
   );
 }
+
+  // first_name: 'Hanaé',
+  // last_name: 'Michel',
+  // nickname: 'lazydog695',
+  // role: 'trainer',
+  // imgURL: 'https://randomuser.me/api/portraits/women/84.jpg',
+  // logueo: { email: 'hanae.michel@example.com' },
+  // membership: {
+  //   trainerIdTrainer: '37e22d84-9c1f-4495-a304-58aa63789ea8',
+  //   traineeIdTrainee: null,
+  //   trainer: {
+  //     logo: null,
+  //     planTrainees: Array(2) [
+  //       {
+  //         id_PlanTrainee: 'd635a8f2-843f-4f1e-bdb0-320765357ba8',
+  //         name: 'full',
+  //         cost: '23',
+  //         description: ' full top',
+  //         category: 'trainee',
+  //         trainerIdTrainer: '37e22d84-9c1f-4495-a304-58aa63789ea8'
+  //       },
+
+  // [
+  //   {
+  //     id_PlanTrainee: 'd635a8f2-843f-4f1e-bdb0-320765357ba8',
+  //     name: 'full',
+  //     cost: '23',
+  //     description: ' full top',
+  //     category: 'trainee',
+  //     trainerIdTrainer: '37e22d84-9c1f-4495-a304-58aa63789ea8'
+  //   }, {
+  //     id_PlanTrainee: '7a522f3c-1100-42d8-95cb-e470d583c572',
+  //     name: 'cool',
+  //     cost: '2',
+  //     description: ' full top',
+  //     category: 'trainee',
+  //     trainerIdTrainer: '37e22d84-9c1f-4495-a304-58aa63789ea8'
+  //   },
+    
+  // ]

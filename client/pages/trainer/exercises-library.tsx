@@ -31,30 +31,30 @@ export default function ExercisesLibrary() {
   const [selectedFood, setSelectedFood] = useState<Array<AddedFood>>([])
 
 
-  type Option = {
-    value: string;
-    label: string;
-    subOptions: string[];
-  };
-  
-  const options: Option[] = [
-    {
-      value: "target",
-      label: "Target",
+type Option = {
+  value: string;
+  label: string;
+  subOptions: string[];
+};
+
+const options: Option[] = [
+  {
+    value: "target",
+    label: "Target",
       subOptions: ["pectorals", "abs", "lats", "hamstrings", "triceps", "delts", "forearms", "calves", "cardiovascular system", "quads", "biceps", "upper back", "glutes", "traps", "spine" ],
-    },
-    {
-      value: "bodyPart",
-      label: "Body Part",
+  },
+  {
+    value: "bodyPart",
+    label: "Body Part",
       subOptions: ["waist", "back", "chest", "upper legs", "upper arms", "shoulders", "lower arms", "lower legs", "cardio"],
-    },
-    {
+  },
+  {
       value: 'equipment',
       label: 'Equipment',
       subOptions: ["body weight", "cable", "leverage machine", "assisted", "barbell", "medicine ball", "stability ball", "dumbbell", "ez barbell", "kettlebell", "weighted", "sled machine", "smith machine", "band"]
     }
-  ];
-  
+];
+
   interface AddedExercise {
     id: number,
     name: string,
@@ -81,8 +81,8 @@ export default function ExercisesLibrary() {
         time: parseInt((document.getElementById(`time-${item.id}`) as HTMLSelectElement).value)
       }))
 
-    };    
-    
+};
+
     // Aquí se enviaría la información a través de una solicitud HTTP
     console.log(dataToSend);
   }
@@ -96,7 +96,7 @@ export default function ExercisesLibrary() {
   const handleAddExercise = (ex: AddedExercise) => {
     setSelectedExercises([...selectedExercises, ex]);
   };
- 
+
   const handleAddFood = (item: AddedFood) => {
     setSelectedFood([...selectedFood, item]);
   };
@@ -187,28 +187,28 @@ export default function ExercisesLibrary() {
          <label className="px-2" htmlFor="option-select">Select a filter:</label>
         <select className="pl-0 border bg-black bg-opacity-50 text-white" id="option-select" value={selectedOption} onChange={handleOptionChange}>
         <option className="border bg-black bg-opacity-50" value="">Target/Body Part/Equipment</option>
-        {options.map((option) => (
+              {options.map((option) => (
           <option key={option.value} value={option.value} className="backdrop-blur-md border bg-black bg-opacity-50">
-            {option.label}
-          </option>
-        ))}
-      </select>
-      </div>
-      {showSubOptions && (
-        <div>
-          <label htmlFor="sub-option-select">Select a sub-option:</label>
-          <select id="sub-option-select" value={selectedSubOption} onChange={handleSubOptionChange}>
-            <option value="">Select a sub-option</option>
-            {options
-              .find((option) => option.value === selectedOption)
-              ?.subOptions.map((subOption) => (
-                <option key={subOption} value={subOption}>
-                  {subOption}
+                  {option.label}
                 </option>
               ))}
-          </select>
-        </div>
-      )}
+            </select>
+          </div>
+          {showSubOptions && (
+            <div>
+              <label htmlFor="sub-option-select">Select a sub-option:</label>
+          <select id="sub-option-select" value={selectedSubOption} onChange={handleSubOptionChange}>
+                <option value="">Select a sub-option</option>
+                {options
+                  .find((option) => option.value === selectedOption)
+                  ?.subOptions.map((subOption) => (
+                    <option key={subOption} value={subOption}>
+                      {subOption}
+                    </option>
+                  ))}
+              </select>
+            </div>
+          )}
       <button onClick={handleButtonClick} className="hover:text-amber-500">Filter</button>
       <button onClick={deleteFilterHandler} className="hover:text-red-400">Delete Filters</button>
       
@@ -299,8 +299,8 @@ export default function ExercisesLibrary() {
                   </div>
                 </li>
               )}) : ''}
-              </ul>
-           </div>
+          </ul>
+        </div>
 
         <div className="flex justify-evenly">
           <button className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500" onClick={() => setIsAlimentEndpoint(!isAlimentEndpoint)}>
@@ -318,19 +318,19 @@ export default function ExercisesLibrary() {
           </button>
         </div>
       
-      <div className="flex flex-wrap gap-5">
+        <div className="flex flex-wrap gap-5">
         <ul className="grid grid-cols-4 mx-auto px-9">
           {
             rndExercises.length > 1 ? 
             
             rndExercises.slice(0, 30).map((ex) => {return (
-              <li className="w-auto rounded-lg p-4 m-5 bg-black">
+                <li className="w-auto rounded-lg p-4 m-5 bg-black">
             
             <Image className="filter invert" src={ex.gifUrl} alt="" width={300} height={300} />
-            <p>Name: { ex.name }</p>
+                    <p>Name: {ex.name}</p>
           
           <button className="hover:text-cyan-400" onClick={() => handleAddExercise(ex)}>Add</button>
-              </li>
+                </li>
             )}) : data?.map((item) => {return (
               <li key={item.id} className="w-auto border border-white bg-black bg-opacity-50 backdrop-blur-md p-2 m-2">
               
@@ -373,28 +373,28 @@ export default function ExercisesLibrary() {
             )}) 
           }
         
-        </ul>
-      </div>
+          </ul>
+        </div>
       <div className="flex justify-between items-center w-full py-10 px-96">
-        <button
-          onClick={prevPage}
-          disabled={currentPage === 1}
+          <button
+            onClick={prevPage}
+            disabled={currentPage === 1}
           className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center"
-        >
+          >
           PREV
-        </button>
+          </button>
           <div className="font-bold w-[35px] border border-white rounded-full py-2 backdrop-blur-lg bg-black bg-opacity-50 text-center">{currentPage}</div>
-        <button
-          onClick={nextPage}
+          <button
+            onClick={nextPage}
           
           className=" border border-white rounded-full p-2 backdrop-blur-lg bg-black bg-opacity-50 text-center"
-        >
+          >
           NEXT
-        </button>
-      </div>
+          </button>
+        </div>
       </div>
       
-  </div>
+    </div>
     
   );
 }

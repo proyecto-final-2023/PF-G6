@@ -40,7 +40,7 @@ export default function Index() {
 
     console.log(comment)
     axios
-      .post("http://localhost:3001/trainees/comment", comment, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/comment`, comment, {
         headers: { "x-access-token": key }
       })
       .then((response) => {

@@ -162,7 +162,7 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    attributes: ["first_name", "last_name", "nickname", "role", "imgURL"],
+    attributes: ["first_name", "last_name", "nickname", "role","imgURL"],
     include: [
       {
         model: Logueo,
