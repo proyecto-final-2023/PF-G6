@@ -17,11 +17,10 @@ export default function Trainer() {
   const [user1, setUser1] = useState<User | undefined>(undefined);
   const key = getCookie("token");
 
-  console.log(user?.displayName);
 
   useEffect(() => {
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
         headers: {
           "x-access-token": key,
         },
@@ -42,7 +41,7 @@ export default function Trainer() {
         <div className="items-center justify-center text-white font-bold m-10">
           <img
             className="rounded-lg justify-items-center"
-            src={user?.photoURL}
+            src={user?.photoURL ?? ""}
             alt="data"
           />
 
