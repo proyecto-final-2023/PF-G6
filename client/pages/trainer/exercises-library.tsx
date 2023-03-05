@@ -9,26 +9,33 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { CardData } from "@/components/Food";
 import { DiscoveryError } from "@auth0/nextjs-auth0/dist/auth0-session/utils/errors";
+import { getCookie } from "@/utils/cookieHandler";
+import { access } from "fs";
 
 
 
 
 
 export default function ExercisesLibrary() {
+  const { setFirstParam, setSecondParam, firstParam, secondParam } = useParam1Store();
   const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
   const [data, setData] = useState<CardData[]>([]);
+  const [user, setUser] = useState<Array<selectedUser>>([])
+  const [selectedExercises, setSelectedExercises] = useState<Array<AddedExercise>>([]);
+  const [selectedFood, setSelectedFood] = useState<Array<AddedFood>>([])
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [showSubOptions, setShowSubOptions] = useState(false);
+  const [isAlimentEndpoint, setIsAlimentEndpoint] = useState(false);
+  const [selectedUsers, setSelectedUsers] = useState("")
   const [selectedOption, setSelectedOption] = useState("");
   const [selectedSubOption, setSelectedSubOption] = useState("");
-  const { setFirstParam, setSecondParam, firstParam, secondParam } = useParam1Store();
-  const [selectedExercises, setSelectedExercises] = useState<Array<AddedExercise>>([]);
-  const localizer = momentLocalizer(moment);
+  const [searchValue, setSearchValue] = useState("");
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [isAlimentEndpoint, setIsAlimentEndpoint] = useState(false);
-  const [searchValue, setSearchValue] = useState("");
-  const [selectedFood, setSelectedFood] = useState<Array<AddedFood>>([])
+  const localizer = momentLocalizer(moment);
+  const key = getCookie("token")
+  
+  
 
 
   type Option = {
@@ -54,7 +61,11 @@ export default function ExercisesLibrary() {
       subOptions: ["body weight", "cable", "leverage machine", "assisted", "barbell", "medicine ball", "stability ball", "dumbbell", "ez barbell", "kettlebell", "weighted", "sled machine", "smith machine", "band"]
     }
   ];
-  
+  interface selectedUser {
+    id: number,
+    name: string,
+
+  }
   interface AddedExercise {
     id: number,
     name: string,
@@ -67,9 +78,13 @@ export default function ExercisesLibrary() {
     description: string,
   }
     
-  const handleClick = () => {
+  const handleClick = async () => {
+   
+   try {
+    const selectedUser = user.find((u) => u.name === selectedUsers)
     const dataToSend = {
-      date: selectedDate?.getTime(), // convertir la fecha en un número para enviarla
+      idTrainee: selectedUser?.id,
+      datePlan: selectedDate?.getTime(), // convertir la fecha en un número para enviarla
       activities: selectedExercises.map((ex) => ({
         idActivity: ex.id,
         series: parseInt((document.getElementById(`series-${ex.id}`) as HTMLSelectElement).value),
@@ -78,14 +93,24 @@ export default function ExercisesLibrary() {
       aliments: selectedFood.map((item) => ({
         idAliment: item.id,
         portion: parseInt((document.getElementById(`portion-${item.id}`) as HTMLSelectElement).value),
-        time: parseInt((document.getElementById(`time-${item.id}`) as HTMLSelectElement).value)
+        time: (document.getElementById(`time-${item.id}`) as HTMLSelectElement).value
+
       }))
 
-    };    
+    };   
+         await axios.post( `${process.env.NEXT_PUBLIC_API_URL}/trainers/plan`, dataToSend, { headers : {"x-access-token": key}} ).then((response) => {
+            console.log(response.data)})
+            
+        } 
+
+    catch (error) {
+      console.log(error)
+    }
     
     // Aquí se enviaría la información a través de una solicitud HTTP
-    console.log(dataToSend);
+    
   }
+  console.log(key)
 
   const formatDate = (date: Date): string => {
     const day = date.getDate().toString().padStart(2, '0');
@@ -113,36 +138,23 @@ export default function ExercisesLibrary() {
     setSelectedSubOption("");
     setShowSubOptions(true);
   };
+  const handleUser = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedUsers(event.target.value)
+  }
 
   const handleSubOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedSubOption(event.target.value);
   };
 
 
-  const fetchData = async (firstParam?: string, secondParam?: string, page?: number, isAlimentEndpoint?: boolean, name?:string) => {
-    try {
-      let url = isAlimentEndpoint 
-        ? `${process.env.NEXT_PUBLIC_API_URL}/aliment?page=${page}&name=${searchValue}`
-        : `${process.env.NEXT_PUBLIC_API_URL}/activity?page=${page}&name=${searchValue}`;
   
-      if (firstParam && secondParam && !isAlimentEndpoint) {
-        url = `${process.env.NEXT_PUBLIC_API_URL}/activity/filter/${firstParam}/${secondParam}?page=${page}`;
-      }
-  
-      const { data } = await axios(url);
-      console.log(data)
-      let seted = isAlimentEndpoint ? (setData(data), setRndExercises([])) : setRndExercises(data);
-      
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleButtonClick = () => {
     setFirstParam(selectedOption);
     setSecondParam(selectedSubOption);
     setCurrentPage(1);
     fetchData(selectedOption, selectedSubOption, currentPage, isAlimentEndpoint, searchValue);
+
   };
 
   const handleSearch = () => {
@@ -161,9 +173,51 @@ export default function ExercisesLibrary() {
     fetchData(undefined, undefined, 1)  ) : null
    
   }
+  const fetchUser = async (key: string) => {
+    try {
+      const users = await axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers/listTrainees`, {headers: {"x-access-token" : key}})
+      const memberships = users.data[0].memberships;
+      const selectedUsers: selectedUser[] = [];
+      for (let i = 0; i < memberships.length; i++) {
+        const membership = memberships[i];
+        const userData = membership.user;
+        const selectedUser: selectedUser = {
+          id: membership.traineeIdTrainee,
+          name: `${userData.first_name} ${userData.last_name}`,
+        };
+        selectedUsers.push(selectedUser);
+      }
+      
+      
+      let sets = setUser(selectedUsers);
+      
+      
+    } 
+    catch (error) {
+      console.log(error)
+    }
+  } 
+  const fetchData = async (firstParam?: string, secondParam?: string, page?: number, isAlimentEndpoint?: boolean, name?:string) => {
+    try {
+      let url = isAlimentEndpoint 
+        ? `${process.env.NEXT_PUBLIC_API_URL}/aliment?page=${page}&name=${searchValue}`
+        : `${process.env.NEXT_PUBLIC_API_URL}/activity?page=${page}&name=${searchValue}`;
   
+      if (firstParam && secondParam && !isAlimentEndpoint) {
+        url = `${process.env.NEXT_PUBLIC_API_URL}/activity/filter/${firstParam}/${secondParam}?page=${page}`;
+      }
+  
+      const { data } = await axios(url);
+      console.log(data)
+      let seted = isAlimentEndpoint ? (setData(data), setRndExercises([])) : setRndExercises(data);
+      
+    } catch (error) {
+      console.error(error);
+    }
+  };
   useEffect(() => {
     fetchData(firstParam, secondParam, currentPage, isAlimentEndpoint, searchValue);
+    fetchUser(key)
   }, [currentPage, firstParam, secondParam, isAlimentEndpoint]);
 
   const prevPage = () => {
@@ -322,6 +376,15 @@ export default function ExercisesLibrary() {
                 setSearchValue(''))}>
            {isAlimentEndpoint ? "Switch to Activity" : "Switch to Aliment"}
           </button>
+          <label className="px-2" htmlFor={`trainee`}>Select a Trainee:</label>
+        <select className="pl-0 border bg-black bg-opacity-50 text-white" id={`user`} value={selectedUsers} onChange={handleUser}>
+        <option className="border bg-black bg-opacity-50" value="">Select a Trainee</option>
+        {user && user.map((us) => (
+          <option key={us.id} value={us.name} className="backdrop-blur-md border bg-black bg-opacity-50">
+            {us.name}
+          </option>
+        ))}
+      </select>
           <button onClick={handleClick} className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500">Send Changes</button>
         </div>   
         <div className="pt-8">
