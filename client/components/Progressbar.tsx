@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
+import "react-circular-progressbar/dist/styles.css"; //move to _app.tsx
 import axios from "axios";
 import { getCookie } from "@/utils/cookieHandler";
 
@@ -13,7 +13,7 @@ const ProgressBar = () => {
   useEffect(() => {
     axios
       .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
-        headers: { "x-access-token": key },
+        headers: { "x-access-token": key }
       })
       .then((data) => {
         const startDateObj = new Date(data.data.membership.startDate);
@@ -21,12 +21,15 @@ const ProgressBar = () => {
         const currentDateObj = new Date();
 
         const totalDays = Math.round(
-          (endDateObj.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24)
+          (endDateObj.getTime() - startDateObj.getTime()) /
+            (1000 * 60 * 60 * 24)
         );
         const daysElapsed = Math.round(
-          (currentDateObj.getTime() - startDateObj.getTime()) / (1000 * 60 * 60 * 24)
+          (currentDateObj.getTime() - startDateObj.getTime()) /
+            (1000 * 60 * 60 * 24)
         );
-        const progressPercentage = (totalDays > 0) ? Math.round((daysElapsed / totalDays) * 100) : 0;
+        const progressPercentage =
+          totalDays > 0 ? Math.round((daysElapsed / totalDays) * 100) : 0;
 
         setProgress(progressPercentage);
         setPlanStart(`Plan starting date: ${data.data.membership.startDate}`);
@@ -40,12 +43,12 @@ const ProgressBar = () => {
         className="mt-0 h-[30vh] text-left"
         value={progress}
         text={`Plan progress ${progress}%`}
-        styles = {buildStyles({
-            textColor: "orange",
-            pathColor: "orange",
-            trailColor: "white",
-            textSize: "10px"
-          })}
+        styles={buildStyles({
+          textColor: "orange",
+          pathColor: "orange",
+          trailColor: "white",
+          textSize: "10px"
+        })}
       />
     </div>
   );
