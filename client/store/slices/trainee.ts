@@ -1,5 +1,4 @@
 // Types
-import { UserDetailsT } from "@/types/dash/user";
 import { TraineeCreator } from "@/types/zustand-types";
 import { getTraineeBasics, getTraineeDetails } from "@/utils/adminHelpers";
 
@@ -18,7 +17,17 @@ const createTraineeSlice: TraineeCreator = (set) => ({
     set({ traineeDetails });
   },
 
-  updateTraineeDetails: async (data: UserDetailsT) => {}
+  updateRating: async (
+    rating: number,
+    traineeId: string,
+    trainerId: string
+  ) => {
+    console.log("rating TODO", rating, traineeId, trainerId);
+  },
+
+  updateTraineeStatus: async (activeStatus: boolean, traineeId: string) => {
+    console.log("activeStatus TODO", activeStatus, traineeId);
+  }
 });
 
 export default createTraineeSlice;

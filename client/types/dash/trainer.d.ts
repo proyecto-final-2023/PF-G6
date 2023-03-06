@@ -15,6 +15,7 @@ export type TrainerResponse = {
     };
   };
   planTrainees: {
+    // this is the one to get the plans :D
     id_PlanTrainee: string;
     name: string;
     cost: string;
@@ -23,7 +24,7 @@ export type TrainerResponse = {
 };
 
 // ? --------------------------------------------------------------------------------------------
-// * TRAINERS STUFF
+// * TRAINEE STUFF
 // ? --------------------------------------------------------------------------------------------
 export type TraineeResponse = {
   membership: {
@@ -38,4 +39,12 @@ export type TraineeResponse = {
       imgURL: string;
     };
   };
+};
+
+// * A Plan the Trainer did for the Trainee
+export type TraineePlan = {
+  id_PlanTrainee: string;
+  name: string;
+  cost: string;
+  description: string;
 };

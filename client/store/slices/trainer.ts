@@ -1,7 +1,7 @@
 import { getTrainerBasics, getTrainerDetails } from "@/utils/adminHelpers";
 // Types
 import { TrainerCreator } from "@/types/zustand-types";
-import { UserDetailsT } from "@/types/dash/user";
+import { TraineePlan } from "@/types/dash/trainer";
 
 const createTrainerSlice: TrainerCreator = (set) => ({
   trainerBasicsArr: [{ user_id: "", name: "" }],
@@ -18,7 +18,17 @@ const createTrainerSlice: TrainerCreator = (set) => ({
     set({ trainerDetails });
   },
 
-  updateTrainerDetails: async (data: UserDetailsT) => {}
+  updateLogo: async (logoUrl: string, trainerId: string) => {
+    console.log("logoUrl TODO", logoUrl);
+  },
+
+  updatePlanData: async (
+    planData: TraineePlan,
+    planId: string,
+    trainerId: string
+  ) => {
+    console.log("planData TODO", planData);
+  }
 });
 
 export default createTrainerSlice;

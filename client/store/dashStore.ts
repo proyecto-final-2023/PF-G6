@@ -1,14 +1,15 @@
 import { create } from "zustand";
-import { Trainee, Trainer, UserZustand } from "../types/zustand-types";
+import { Trainee, Trainer } from "../types/zustand-types";
 import createTraineeSlice from "./slices/trainee";
 import createTrainerSlice from "./slices/trainer";
-import createUserSlice from "./slices/user";
 
-// const useStore = create<Trainer&User>()((...all) => ({
-const useStore = create<Trainer & Trainee & UserZustand>()((...all) => ({
+// ? Fields To modify
+// trainers: logo, datos plan,
+// trainees: post they did, rating they gave (rating), active status (remove plan they have)
+// memberships: our memberships to trainers
+const useStore = create<Trainer & Trainee>()((...all) => ({
   ...createTrainerSlice(...all),
-  ...createTraineeSlice(...all),
-  ...createUserSlice(...all)
+  ...createTraineeSlice(...all)
 }));
 
 export default useStore;
