@@ -14,12 +14,12 @@ export default function EmailConfirmed() {
 
   const [confirmation, setConfirmation] = useState<ConfirmationState>();
 
-  // localhost:3000/email-confirmed?hash=YOUR_HASH
+  // ${process.env.NEXT_PUBLIC_API_URL}/email-confirmed?hash=YOUR_HASH
   // useEffect(() => {
   //   try {
   //     (async () => {
   //       const { data } = await axios(
-  //         `https//:localhost:3001/confirm${router.query.token}`
+  //         `${process.env.NEXT_PUBLIC_API_URL}/confirm${router.query.token}`
   //       );
   //       setConfirmation("ok");
   //     })();
