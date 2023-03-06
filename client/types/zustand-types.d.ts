@@ -1,5 +1,8 @@
-import { StateCreator } from "zustand";
 import create from "zustand";
+import { StateCreator } from "zustand";
+import { EventInput } from "@fullcalendar/core";
+import { UserCardT, UserDetailsT } from "./dash/user";
+import { TraineePlan } from "./dash/trainer";
 
 export interface Post {
   post: {
@@ -21,6 +24,54 @@ export interface User {
   updateData: (imgURL: string, rol: string, fullName: string) => void;
 }
 
-export type PostCreator = StateCreator<Post & User, [], [], Post>;
+export interface CalendarState {
+  events: EventInput[];
+  addEvent: (event: EventInput) => void;
+  removeEvent: (eventId: string) => void;
+  updateEvent: (event: EventInput) => void;
+}
 
-export type UserCreator = StateCreator<Post & User, [], [], User>;
+// --------------------------------------------
+// ? Dashboard stuff
+// --------------------------------------------
+// * Makes trainnings (trainer)
+export interface Trainer {
+  trainerBasicsArr: UserCardT[];
+
+  trainerDetails: UserDetailsT;
+
+  fetchTrainerBasicsArr: (page: number) => Promise<void>;
+
+  fetchTrainerDetails: (id: string) => Promise<void>;
+
+  updateLogo: (logoUrl: string, userId: string) => Promise<void>;
+
+  updatePlanData: (
+    planData: TraineePlan,
+    planId: string,
+    trainerId: string
+  ) => Promise<void>;
+
+  deactivateAccount: (userId: string) => Promise<void>;
+}
+
+// * Does the actual exercise (trainee)
+export interface Trainee {
+  traineeBasicsArr: UserCardT[];
+
+  traineeDetails: UserDetailsT;
+
+  fetchTraineeBasicsArr: (page: number) => Promise<void>;
+
+  fetchTraineeDetails: (id: string) => Promise<void>;
+
+  removeComment: (commentId: string) => Promise<void>;
+
+  deactivateAccount: (userId: string) => Promise<void>;
+}
+
+export type TrainerCreator = StateCreator<Trainer & Trainee, [], [], Trainer>;
+
+export type TraineeCreator = StateCreator<Trainer & Trainee, [], [], Trainee>;
+
+export type CalendarCreator = StateCreator<CalendarState>;

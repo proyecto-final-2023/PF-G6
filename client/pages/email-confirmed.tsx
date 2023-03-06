@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useStore from "@/store";
+import useStore from "@/store/dashStore";
 
 type ConfirmationState = "ok" | "error" | "loading";
 
