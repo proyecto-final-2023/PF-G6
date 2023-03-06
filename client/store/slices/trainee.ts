@@ -17,16 +17,12 @@ const createTraineeSlice: TraineeCreator = (set) => ({
     set({ traineeDetails });
   },
 
-  updateRating: async (
-    rating: number,
-    traineeId: string,
-    trainerId: string
-  ) => {
-    console.log("rating TODO", rating, traineeId, trainerId);
+  removeComment: async (commentId: string) => {
+    console.log("rating TODO", commentId);
   },
 
-  updateTraineeStatus: async (activeStatus: boolean, traineeId: string) => {
-    console.log("activeStatus TODO", activeStatus, traineeId);
+  deactivateAccount: async (userId: string) => {
+    console.log("rating TODO", userId);
   }
 });
 

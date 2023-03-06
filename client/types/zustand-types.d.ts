@@ -44,17 +44,18 @@ export interface Trainer {
 
   fetchTrainerDetails: (id: string) => Promise<void>;
 
-  updateLogo: (logoUrl: string, trainerId: string) => Promise<void>;
+  updateLogo: (logoUrl: string, userId: string) => Promise<void>;
 
   updatePlanData: (
     planData: TraineePlan,
     planId: string,
     trainerId: string
   ) => Promise<void>;
+
+  deactivateAccount: (userId: string) => Promise<void>;
 }
 
 // * Does the actual exercise (trainee)
-
 export interface Trainee {
   traineeBasicsArr: UserCardT[];
 
@@ -64,16 +65,9 @@ export interface Trainee {
 
   fetchTraineeDetails: (id: string) => Promise<void>;
 
-  updateRating: (
-    rating: number,
-    traineeId: string,
-    trainerId: string
-  ) => Promise<void>;
+  removeComment: (commentId: string) => Promise<void>;
 
-  updateTraineeStatus: (
-    activeStatus: boolean,
-    traineeId: string
-  ) => Promise<void>;
+  deactivateAccount: (userId: string) => Promise<void>;
 }
 
 export type TrainerCreator = StateCreator<Trainer & Trainee, [], [], Trainer>;

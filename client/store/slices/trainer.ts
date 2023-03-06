@@ -18,8 +18,8 @@ const createTrainerSlice: TrainerCreator = (set) => ({
     set({ trainerDetails });
   },
 
-  updateLogo: async (logoUrl: string, trainerId: string) => {
-    console.log("logoUrl TODO", logoUrl);
+  updateLogo: async (logoUrl: string, userId: string) => {
+    console.log("logoUrl TODO", logoUrl, userId);
   },
 
   updatePlanData: async (
@@ -27,7 +27,11 @@ const createTrainerSlice: TrainerCreator = (set) => ({
     planId: string,
     trainerId: string
   ) => {
-    console.log("planData TODO", planData);
+    console.log("planData TODO", planData, planId, trainerId);
+  },
+
+  deactivateAccount: async (userId: string) => {
+    console.log("rating TODO", userId);
   }
 });
 
