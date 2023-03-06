@@ -15,6 +15,7 @@ import { getCookie } from "@/utils/cookieHandler";
 // import ProgressBar from "@/components/TraineeProgressbar";
 import Rating from "@/components/StarRating";
 import { SyntheticEvent } from "react";
+import { FiEdit } from "react-icons/fi";
 
 export default function Index() {
   const [user, setUser] = useAuthState(auth);
@@ -35,6 +36,7 @@ export default function Index() {
       comment: feedback
     };
 
+    console.log(comment);
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/comment`, comment, {
         headers: { "x-access-token": key }
@@ -85,18 +87,6 @@ export default function Index() {
       allDay: true,
       start: new Date(2023, 2, 10),
       end: new Date(2023, 2, 10)
-    },
-    {
-      title: "Lifting",
-      allDay: true,
-      start: new Date(2023, 2, 24),
-      end: new Date(2023, 2, 24)
-    },
-    {
-      title: "Legs",
-      allDay: true,
-      start: new Date(2023, 2, 7),
-      end: new Date(2023, 2, 7)
     }
   ];
 
@@ -128,28 +118,44 @@ export default function Index() {
   }
 
   return (
-    <div className="flex flex-col">
-      <div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
+    <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
+      <div className="mt-20 bg-black/60 -z-10 border-transparent border-2">
+        <div>
+          <Link
+            href="/dataupdate"
+            className="lg:left-[55vw] absolute left-[70vw] top-[17rem]"
+          >
+            <FiEdit size={20} />
+          </Link>
+        </div>
         {/* <ProgressBar /> deshabilitada temporalmente*/}
-        <div className="flex border-red-500 border-2 w-[25vw]">
+        <div className=" border-transparent border-2  h-[40rem] mt-10">
           <img
             className="rounded-full w-40 h-40"
             src={user1?.userImage}
             alt=""
             style={{ margin: "0 auto" }}
           ></img>
-          <div className="flex-col border-red-300 border-2 h-[20-vh]  w-[20vw] text-center">
-            <h1 className="text-3xl border-400">{user1?.display_name}</h1>
-            <h3 className="text-lg">{user1?.planStart}</h3>
-            <h3 className="text-lg">{user1?.planEnd}</h3>
+          <div className=" border-transparent mt-5 border-2 h-[20-vh] text-center">
+            <h1 className="text-3xl font-medium border-400">
+              {user1?.display_name}
+            </h1>
+            <h3 className="text-lg font-medium">{user1?.planStart}</h3>
+            <h3 className="text-lg font-medium">{user1?.planEnd}</h3>
           </div>
-          <div className="flex-col absolute top-0 right-0 transform translate-x-1/2 translate-y-1/2 border-2 w-80 mr-[12vw]">
-            <h2 className="text-3xl">Trainer: {user1?.trainer}</h2>
+          <Link
+            href="/trainee/health-data"
+            className="lg:left-[55vw] flex flex-row justify-center underline"
+          >
+            Click here to complete all your stats
+          </Link>
+          <div className="top-0 right-0 border-transparent flex flex-col items-center mt-10">
+            <h2 className="text-3xl font-medium ">Trainer: {user1?.trainer}</h2>
             <Rating />
-            <div className="flex-col mb-4">
-              <form onSubmit={handleSubmit}>
+            <div className="mb-4 bg-black/50 backdrop-blur-md rounded-lg p-6">
+              <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
                 <label
-                  className="block font-bold mb-2 text-white"
+                  className="block font-bold mb-2 pt-6 text-white"
                   htmlFor="feedback"
                 >
                   Feedback
@@ -159,35 +165,36 @@ export default function Index() {
                   value={feedback}
                   onChange={handleFeedbackChange}
                   placeholder="Write your feedback here."
+                  className="resize-none w-[15vw]"
                 />
                 <button type="submit">Enviar</button>
               </form>
             </div>
-            <a href={`https://wa.me/${user1?.trainerPhone}`}>
-              Contact me via WhatsApp!
+            <a className="underline" href={`https://wa.me/${user1?.trainerPhone}`}>
+              Click here to contact me via WhatsApp!
             </a>
           </div>
         </div>
-      </div>
-      <div>
-        <Link
-          href={`${process.env.NEXT_PUBLIC_API_URL}/food/`}
-          className="text-lg hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"
-        >
-          Food Library
-        </Link>
-        <div className="bg-gradient-to-r from-gray-800 via-orange-500 to-gray-800">
-          <div className="bg-[url('/bgs/logoblack.png')] bg-contain bg-no-repeat bg-center ">
-            <Calendar
-              localizer={localizer}
-              events={allEvents}
-              startAccessor="start"
-              endAccessor="end"
-              style={{ height: 500, margin: "50px" }}
-              defaultView="agenda"
-              views={{ month: false, week: false, day: true, agenda: true }}
-              className="text-3xl text-white"
-            />
+        <div className="flex flex-col mt-10">
+          <Link
+            href={`${process.env.NEXT_PUBLIC_API_URL}/food`}
+            className=" text-center mb-10 mt-10 text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300 "
+          >
+            Food Library
+          </Link>
+          <div className="bg-gradient-to-r from-gray-800 via-orange-500 to-gray-800">
+            <div className="bg-[url('/bgs/logoblack.png')] bg-contain bg-no-repeat bg-center ">
+              <Calendar
+                localizer={localizer}
+                events={allEvents}
+                startAccessor="start"
+                endAccessor="end"
+                style={{ height: 500, margin: "50px" }}
+                defaultView="agenda"
+                views={{ month: false, week: false, day: true, agenda: true }}
+                className="text-3xl text-white"
+              />
+            </div>
           </div>
         </div>
       </div>
