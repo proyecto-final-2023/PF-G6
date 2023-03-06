@@ -1,11 +1,37 @@
-import React from "react";
-import ReactStars from "react-stars";
+import React, { useState } from "react";
+import Stars from "react-stars";
+import axios from "axios";
+import { getCookie } from "@/utils/cookieHandler";
 
-export default function Rating() {
+interface RatingComponentProps {}
+
+const RatingComponent: React.FC<RatingComponentProps> = () => {
+  const [rating, setRating] = useState<number>(0);
+  const key = getCookie("token");
+
+  const handleRatingChange = async (newRating: number) => {
+    setRating(newRating);
+
+    try {
+      const response = await axios.put<{ value: number }>(
+        `${process.env.NEXT_PUBLIC_API_URL}/trainees/rating`,
+        { value: newRating },
+        {
+          headers: { "x-access-token": key }
+        }
+      );
+      console.log("Rating sent: ", response.data);
+    } catch (error) {
+      console.error("Error sending rating: ", error);
+    }
+  };
+
   return (
-    <div className="flex justify-center">
-      <p className="text-2xl self-center mr-1">Rate me: </p>
-      <ReactStars count={5} size={35} color2={"#ffd700"} />
+    <div>
+      <p>Rating: {rating}</p>
+      <Stars count={5} size={30} onChange={handleRatingChange} />
     </div>
   );
-}
+};
+
+export default RatingComponent;

@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "react-circular-progressbar/dist/styles.css";
-import {
-  Calendar,
-  dateFnsLocalizer
-} from "react-big-calendar";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
@@ -17,7 +14,7 @@ import { auth } from "../../firebase";
 import { getCookie } from "@/utils/cookieHandler";
 // import ProgressBar from "@/components/TraineeProgressbar";
 import Rating from "@/components/StarRating";
-import  { SyntheticEvent }  from "react";
+import { SyntheticEvent } from "react";
 
 export default function Index() {
   const [user, setUser] = useAuthState(auth);
@@ -27,7 +24,7 @@ export default function Index() {
   const [user1, setUser1] = useState<any>();
   const [feedback, setFeedback] = useState("");
 
-  function handleFeedbackChange(event:React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleFeedbackChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setFeedback(event.target.value);
   }
 
@@ -38,9 +35,9 @@ export default function Index() {
       comment: feedback
     };
 
-    console.log(comment)
+    console.log(comment);
     axios
-      .post("http://localhost:3001/trainees/comment", comment, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/comment`, comment, {
         headers: { "x-access-token": key }
       })
       .then((response) => {
@@ -58,7 +55,7 @@ export default function Index() {
   useEffect(() => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
-        headers: { "x-access-token": key },
+        headers: { "x-access-token": key }
       })
       .then((data) => {
         console.log(data.data);
@@ -140,51 +137,51 @@ export default function Index() {
   }
 
   return (
-    <div className="flex flex-col">
-      <div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
-        {/* <ProgressBar /> deshabilitada temporalmente*/} 
-        <div className="flex border-red-500 border-2 w-[25vw]">
+    <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
+      <div className="mt-20 bg-black/60 -z-10 border-transparent border-2">
+        {/* <ProgressBar /> deshabilitada temporalmente*/}
+        <div className=" border-transparent border-2  h-[40rem]">
           <img
             className="rounded-full w-40 h-40"
             src={user1?.userImage}
             alt=""
             style={{ margin: "0 auto" }}
           ></img>
-        <div className="flex-col border-red-300 border-2 h-[20-vh]  w-[20vw] text-center">
-          <h1 className="text-3xl border-400">{user1?.display_name}</h1>
-          <h3 className="text-lg">{user1?.planStart}</h3>
-          <h3 className="text-lg">{user1?.planEnd}</h3>
+          <div className=" border-transparent border-2 h-[20-vh] text-center">
+            <h1 className="text-3xl font-medium border-400">{user1?.display_name}</h1>
+            <h3 className="text-lg font-medium">{user1?.planStart}</h3>
+            <h3 className="text-lg font-medium">{user1?.planEnd}</h3>
           </div>
-          <div className="flex-col absolute top-0 right-0 transform translate-x-1/2 translate-y-1/2 border-2 w-80 mr-[12vw]">
-            <h2 className="text-3xl">Trainer: {user1?.trainer}</h2>
+          <div className="top-0 right-0 border-transparent flex flex-col items-center">
+            <h2 className="text-3xl font-medium ">Trainer: {user1?.trainer}</h2>
             <Rating />
-            <div className="flex-col mb-4">
-            <form onSubmit={handleSubmit}>
-              <label
-                className="block font-bold mb-2 text-white"
-                htmlFor="feedback"
-              >
-                Feedback
-              </label>
-              <textarea
-                name="feedback"
-                value={feedback}
-                onChange={handleFeedbackChange}
-                placeholder="Write your feedback here."
-              />
-              <button type="submit">Enviar</button>
-            </form>
+            <div className="mb-4 bg-black/50 backdrop-blur-md rounded-lg p-6">
+              <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
+                <label
+                  className="block font-bold mb-2 pt-6 text-white"
+                  htmlFor="feedback"
+                >
+                  Feedback
+                </label>
+                <textarea
+                  name="feedback"
+                  value={feedback}
+                  onChange={handleFeedbackChange}
+                  placeholder="Write your feedback here."
+                  className="resize-none w-[15vw]"
+                />
+                <button type="submit">Enviar</button>
+              </form>
             </div>
             <a href={`https://wa.me/${user1?.trainerPhone}`}>
-              Contact me via WhatsApp!
+              Click here to contact me via WhatsApp!
             </a>
           </div>
         </div>
-      </div>
-      <div>
+      <div className="flex flex-col">
         <Link
-          href={`${process.env.NEXT_PUBLIC_API_URL}/food/`}
-          className="text-lg hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300"
+          href={`${process.env.NEXT_PUBLIC_API_URL}/food`}
+          className=" text-center mb-10 mt-10 text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300 "
         >
           Food Library
         </Link>
@@ -202,6 +199,7 @@ export default function Index() {
             />
           </div>
         </div>
+      </div>
       </div>
     </div>
   );
