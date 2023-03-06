@@ -283,13 +283,13 @@ export default function ExercisesLibrary() {
 
   return (
     <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed">
-      <div className="h-auto pt-[82px]">
+      <div className="h-auto pt-[95px]">
        { rndExercises.length >= 1 ? 
        
         <div className=" flex justify-around  py-8 backdrop-blur-md bg-black bg-opacity-50 border  border-white border-l-0 border-r-0">
         <div className="flex"> 
         <div className=" px-4">
-        <input type="text" value={searchValue} onChange={e => setSearchValue(e.target.value)} placeholder="Search by name..." className="w-[150px] bg-transparent text-white border px-1 border-white focus:w-[180px] duration-[150ms]" />
+        <input type="text" value={searchValue} onChange={e => setSearchValue(e.target.value)} placeholder="Search by name..." className="w-[150px] bg-transparent text-white border px-1 border-white active:outline-none active:ring-0 focus:w-[180px] duration-[150ms]" />
         <button onClick={handleSearch} className="border border-l-0 px-2 border-white hover:text-amber-500" >Buscar</button>
         </div>
          <label className="px-2" htmlFor="option-select">Select a filter:</label>
@@ -367,7 +367,7 @@ export default function ExercisesLibrary() {
                     <option className="backdrop-blur-md border bg-black bg-opacity-50" value='13'>13</option>
                     <option className="backdrop-blur-md border bg-black bg-opacity-50" value='14'>14</option>
                     <option className="backdrop-blur-md border bg-black bg-opacity-50" value='15'>15</option>
-                    <option className="backdrop-blur-md border bg-black bg-opacity-50" value='Failure'>Failure</option>
+                    
                   </select>
                 </div>
                 <div>

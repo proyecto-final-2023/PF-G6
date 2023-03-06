@@ -32,7 +32,7 @@ const key=getCookie('token')
 
     dashboard: async () => {
       if(key){
-      await axios.post( `http://localhost:3001/user/perfil`, "hola",{headers: {"x-access-token": key} })
+      await axios.post( `${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, "hola",{headers: {"x-access-token": key} })
       .then(res=>{
         // console.log(res);
         const userRole=res?.data.role
