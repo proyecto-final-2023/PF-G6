@@ -2,11 +2,11 @@ import axios from "axios";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import {ExerciesResType} from '@/types/components/libraries'
+import { ExerciesResType } from "@/types/components/libraries";
 import useParam1Store from "@/store/state-lb";
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import moment from "moment";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CardData } from "@/components/Food";
 import { DiscoveryError } from "@auth0/nextjs-auth0/dist/auth0-session/utils/errors";
 import { getCookie } from "@/utils/cookieHandler";
@@ -43,22 +43,63 @@ export default function ExercisesLibrary() {
     label: string;
     subOptions: string[];
   };
-  
+
   const options: Option[] = [
     {
       value: "target",
       label: "Target",
-      subOptions: ["pectorals", "abs", "lats", "hamstrings", "triceps", "delts", "forearms", "calves", "cardiovascular system", "quads", "biceps", "upper back", "glutes", "traps", "spine" ],
+      subOptions: [
+        "pectorals",
+        "abs",
+        "lats",
+        "hamstrings",
+        "triceps",
+        "delts",
+        "forearms",
+        "calves",
+        "cardiovascular system",
+        "quads",
+        "biceps",
+        "upper back",
+        "glutes",
+        "traps",
+        "spine"
+      ]
     },
     {
       value: "bodyPart",
       label: "Body Part",
-      subOptions: ["waist", "back", "chest", "upper legs", "upper arms", "shoulders", "lower arms", "lower legs", "cardio"],
+      subOptions: [
+        "waist",
+        "back",
+        "chest",
+        "upper legs",
+        "upper arms",
+        "shoulders",
+        "lower arms",
+        "lower legs",
+        "cardio"
+      ]
     },
     {
-      value: 'equipment',
-      label: 'Equipment',
-      subOptions: ["body weight", "cable", "leverage machine", "assisted", "barbell", "medicine ball", "stability ball", "dumbbell", "ez barbell", "kettlebell", "weighted", "sled machine", "smith machine", "band"]
+      value: "equipment",
+      label: "Equipment",
+      subOptions: [
+        "body weight",
+        "cable",
+        "leverage machine",
+        "assisted",
+        "barbell",
+        "medicine ball",
+        "stability ball",
+        "dumbbell",
+        "ez barbell",
+        "kettlebell",
+        "weighted",
+        "sled machine",
+        "smith machine",
+        "band"
+      ]
     }
   ];
   interface selectedUser {
@@ -67,15 +108,15 @@ export default function ExercisesLibrary() {
 
   }
   interface AddedExercise {
-    id: number,
-    name: string,
-    target: string,
-    bodyPart: string,
-    gifUrl: string,
+    id: number;
+    name: string;
+    target: string;
+    bodyPart: string;
+    gifUrl: string;
   }
   interface AddedFood {
-    id: number,
-    description: string,
+    id: number;
+    description: string;
   }
     
   const handleClick = async () => {
@@ -87,8 +128,17 @@ export default function ExercisesLibrary() {
       datePlan: selectedDate?.getTime(), // convertir la fecha en un número para enviarla
       activities: selectedExercises.map((ex) => ({
         idActivity: ex.id,
-        series: parseInt((document.getElementById(`series-${ex.id}`) as HTMLSelectElement).value),
-        repetitions: parseInt((document.getElementById(`repeticiones-${ex.id}`) as HTMLSelectElement).value)
+        series: parseInt(
+          (document.getElementById(`series-${ex.id}`) as HTMLSelectElement)
+            .value
+        ),
+        repetitions: parseInt(
+          (
+            document.getElementById(
+              `repeticiones-${ex.id}`
+            ) as HTMLSelectElement
+          ).value
+        )
       })),
       aliments: selectedFood.map((item) => ({
         idAliment: item.id,
@@ -111,25 +161,23 @@ export default function ExercisesLibrary() {
 
 
   const formatDate = (date: Date): string => {
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear().toString();
     return `${day}/${month}/${year}`;
-  }
+  };
   const handleAddExercise = (ex: AddedExercise) => {
     setSelectedExercises([...selectedExercises, ex]);
   };
- 
+
   const handleAddFood = (item: AddedFood) => {
     setSelectedFood([...selectedFood, item]);
   };
- 
+
   const handleSelect = ({ start }: { start: Date }) => {
-    setSelectedDate(prevSelectedDate => start);
+    setSelectedDate((prevSelectedDate) => start);
   };
-  
-  
-  
+
   const handleOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedOptionValue = event.target.value;
     setSelectedOption(selectedOptionValue);
@@ -140,7 +188,9 @@ export default function ExercisesLibrary() {
     setSelectedUsers(event.target.value)
   }
 
-  const handleSubOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSubOptionChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setSelectedSubOption(event.target.value);
   };
 
@@ -156,10 +206,15 @@ export default function ExercisesLibrary() {
   };
 
   const handleSearch = () => {
-    console.log(searchValue)
-    fetchData(firstParam, secondParam, currentPage, isAlimentEndpoint, searchValue);
-  }
-  
+    fetchData(
+      firstParam,
+      secondParam,
+      currentPage,
+      isAlimentEndpoint,
+      searchValue
+    );
+  };
+
   const deleteFilterHandler = () => {
 
     secondParam? ( setFirstParam(''),
@@ -226,9 +281,8 @@ export default function ExercisesLibrary() {
     setCurrentPage((prev) => prev + 1);
   };
 
-
   return (
-      <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed">       
+    <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed">
       <div className="h-auto pt-[82px]">
        { rndExercises.length >= 1 ? 
        
@@ -475,8 +529,6 @@ export default function ExercisesLibrary() {
         </button>
       </div>
       </div>
-      
-  </div>
-    
+    </div>
   );
 }

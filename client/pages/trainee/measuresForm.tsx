@@ -1,8 +1,8 @@
-import { useState,useReducer } from "react";
+import { useState, useReducer } from "react";
 import axios from "axios";
 import neck from "@/assets/imgMeasuresForm/neck.jpg";
 import torso from "@/assets/imgMeasuresForm/torso.jpg";
-import Image, { StaticImageData } from "next/dist/client/image"
+import Image, { StaticImageData } from "next/dist/client/image";
 import chest from "@/assets/imgMeasuresForm/chest.jpg";
 import waist from "@/assets/imgMeasuresForm/waist.jpg";
 import arm from "@/assets/imgMeasuresForm/arm.jpg";
@@ -22,8 +22,11 @@ interface BodyPart {
   img: StaticImageData;
 }
 
-type BodyMeasurementsAction =
-  | { type: "ADD_MEASUREMENT"; bodyPart: string; measurement: number };
+type BodyMeasurementsAction = {
+  type: "ADD_MEASUREMENT";
+  bodyPart: string;
+  measurement: number;
+};
 
 // Define the reducer function to handle state updates
 function bodyMeasurementsReducer(
@@ -40,14 +43,14 @@ function bodyMeasurementsReducer(
         const updatedMeasurements = [...state];
         updatedMeasurements[existingMeasurementIndex] = {
           bodyPart: action.bodyPart,
-          measurement: action.measurement,
+          measurement: action.measurement
         };
         return updatedMeasurements;
       } else {
         // If no measurement for this body part exists, add a new one
         const newBodyMeasurement = {
           bodyPart: action.bodyPart,
-          measurement: action.measurement,
+          measurement: action.measurement
         };
         return [...state, newBodyMeasurement];
       }
@@ -84,13 +87,12 @@ const BodyMeasurements = () => {
     dispatch({
       type: "ADD_MEASUREMENT",
       bodyPart: selectedBodyPart,
-      measurement: measurement,
+      measurement: measurement
     });
 
     setSelectedBodyPart("");
     setMeasurement(null);
   };
-  console.log(bodyMeasurements);
   const bodyParts: BodyPart[] = [
     { name: "neck", img: neck },
     { name: "torso", img: torso },
@@ -101,7 +103,7 @@ const BodyMeasurements = () => {
     { name: "hip", img: hip },
     // { name: "glutes", img: glutes },
     { name: "thigh", img: thigh },
-    { name: "calf", img: calf },
+    { name: "calf", img: calf }
   ];
   return (
     <div className="h-[100vh] mt-20 ">
@@ -118,19 +120,25 @@ const BodyMeasurements = () => {
         ))}
       </div>
       {selectedBodyPart && (
-        <form className="flex flex-col content-center" onSubmit={(event)=>handleSubmit(event)}>
+        <form
+          className="flex flex-col content-center"
+          onSubmit={(event) => handleSubmit(event)}
+        >
           <label className="text-center mt-4">
             Measurement for {selectedBodyPart}:
             <input
               className="w-20"
               type="number"
               value={measurement || ""}
-              onChange={(event)=>handleMeasurementChange(event)}
+              onChange={(event) => handleMeasurementChange(event)}
             />
           </label>
           <Image
             className="self-center w-[50vw]"
-            src={bodyParts.find((b) => b.name === selectedBodyPart.toString())?.img || ""}
+            src={
+              bodyParts.find((b) => b.name === selectedBodyPart.toString())
+                ?.img || ""
+            }
             alt={selectedBodyPart}
           />
           <button
@@ -141,6 +149,8 @@ const BodyMeasurements = () => {
           </button>
         </form>
       )}
-</div>)}
+    </div>
+  );
+};
 
-export default BodyMeasurements
+export default BodyMeasurements;

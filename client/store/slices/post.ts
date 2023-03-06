@@ -6,9 +6,8 @@ const createPostSlice: PostCreator = (set) => ({
 
   fetchPost: async () => {
     const { data } = await axios("https://api-fp-server.onrender.com/activity");
-    console.log(data);
     set({ post: data });
-  },
+  }
 });
 
 export default createPostSlice;
