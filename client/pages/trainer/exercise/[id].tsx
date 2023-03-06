@@ -15,7 +15,7 @@ export default function ExerciseDetails() {
   };
 
   useEffect(() => {
-    axios(`${process.env.NEXT_PUBLIC_API_URL}/activity/${id}`).then(
+    axios(`http://localhost:3001/activity/${id}`).then(
       ({ data }) => setExerciseData(data)
     );
   }, []);

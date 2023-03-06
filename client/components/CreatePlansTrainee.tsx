@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Link from "next/link";
+
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 
 // crear los planes para trainees
 export default function CreatePlansTrainee() {
   //token user
   const key = getCookie("token");
-  console.log(key);
+ 
 
   const [formData, setFormData] = useState([
     {
@@ -16,16 +16,19 @@ export default function CreatePlansTrainee() {
       description: "",
     },
   ]);
-  console.log(formData);
+ 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`, formData, {
+      .post(`http://localhost:3001/plans/trainee`, formData, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-        console.log(data);
+        
+        if(data.status===200){
+          alert('successfully added')
+        }
       })
       .catch((error) => {
         window.alert("Error in" + error);

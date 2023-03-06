@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import CardPlans from "../components/CardPlans";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
-import { getCookie, setCookie } from "@/utils/cookieHandler";
+import { getCookie } from "@/utils/cookieHandler";
 //mostrar los planes para los trainers
 type PlansType = {
   id: number;
@@ -24,7 +24,7 @@ export default function plans() {
   );
 
   useEffect(() => {
-    axios(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`)
+    axios(`http://localhost:3001/plans/trainers`)
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
    
@@ -32,12 +32,11 @@ export default function plans() {
     const key = getCookie("token");
     
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}user/perfil`, null, {
+      .post(`http://localhost:3001/user/perfil`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-        if (data.data.role === "trainer") console.log(data.data.role);
-        if (data.data.role === "trainee") console.log(data.data.role);
+    
       });
   }, []);
   // plans

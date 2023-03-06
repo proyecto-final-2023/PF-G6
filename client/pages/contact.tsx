@@ -21,10 +21,10 @@ export default function RegisterForm() {
   // console.log(watch("example"));
 
   const onSubmit: SubmitHandler<ContactData> = async (data) => {
-    console.log("SUBMIT", data);
+    
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/contact`, data)
+      .post(`http://localhost:3001/contact`, data)
       .then((response) => {
         console.log(response.data);
       })

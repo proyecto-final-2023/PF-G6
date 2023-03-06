@@ -75,11 +75,11 @@ export const Login = () => {
   useEffect(() => {
     if (user !== null && info.email !== undefined) {
      
-      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/email`, { email: info.email })
+      axios.post(`http://localhost:3001/user/email`, { email: info.email })
         .then(response => {
-          console.log(response.data.verify)
+          
           if (response.data.verify === true) {
-            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, infoLoguin)
+            axios.post(`http://localhost:3001/auth`, infoLoguin)
               .then(response => {
                 setCookie("token", response.data.token)
                 
@@ -90,7 +90,7 @@ export const Login = () => {
                 console.log(error)
               });
           } else if (response.data.verify === false) {
-            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info)
+            axios.post(`http://localhost:3001/createuser`, info)
               .then(response => {
                 auth.signOut();
                

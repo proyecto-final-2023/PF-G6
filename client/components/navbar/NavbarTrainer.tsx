@@ -8,28 +8,33 @@ import { getCookie, setCookie } from "@/utils/cookieHandler";
 
 export default function () {
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState();
+  const [user1, setUser1] = useState('');
+  const [logo, setLogo] = useState('');
   const key = getCookie("token");
-  console.log(user?.displayName);
+
   useEffect(() => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+      .post(`http://localhost:3001/user/perfil`, null, {
         headers: {
           "x-access-token": key,
         },
       })
       .then((data) => {
-        console.log(data.data);
         setUser1({
           display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
         });
+        if(data.data.imgURL===null){
+          setLogo((data.data.membership.trainer.logo))
+        }else{
+          setLogo(data.data.imgURL)
+        }
+        
       });
   }, []);
-  console.log(user1);
-  console.log(user);
+
   return (
-    <div className=" top-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      <nav className="h-full px-3 py-4  bg-gray-50 dark:bg-gray-800">
+    <div className="  flex  flex-col z-40 w-60   ">
+      <nav className=" h-[100vh]  bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center text-white font-bold m-20">
           Trainer
         </div>
@@ -37,7 +42,7 @@ export default function () {
         <div className="items-center justify-center text-white font-bold m-10">
           <img
             className="rounded-lg justify-items-center"
-            src={user?.photoURL}
+            src={logo}
             alt="data"
           />
 
@@ -46,26 +51,11 @@ export default function () {
         <div className="flex flex-col ">
           <ul className="space-y-1 m-auto">
             <li>
-              <Link
-                href="/trainer"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                  <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                </svg>
-                <span className="ml-3">Dashboard</span>
-              </Link>
+       
             </li>
             <li>
               <Link
-                href="/trainer/routines"
+                href="/trainer/exercises-library"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
@@ -116,13 +106,13 @@ export default function () {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Trainee</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">Certification</span>
               </Link>
             </li>
 
             <li>
               <Link
-                href="#"
+                href=""
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
@@ -138,7 +128,7 @@ export default function () {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Libraries</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">Add Logo </span>
               </Link>
             </li>
     

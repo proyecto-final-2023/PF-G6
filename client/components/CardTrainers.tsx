@@ -16,11 +16,11 @@ const Card = ({ photo, first_name, last_name, id }) => {
     <div className="max-w-sm  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="flex   hover:drop-shadow-2xl  ">
         <img
-          className=" justify-center m-8 rounded-full w-80 "
+          className=" justify-center m-8 rounded-full w-60  "
           src={photo}
           alt=""
-          width={50}
-          height={50}
+          width={80}
+          height={80}
         />
       </div>
       <div className=" flex justify-center ">

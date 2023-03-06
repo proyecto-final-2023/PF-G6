@@ -26,11 +26,11 @@ export default function RegisterForm() {
   } = useForm<InputData>({ mode: "onBlur" });
   // console.log(watch("example"));
   const [user, setUser] = useAuthState(auth);
-  console.log(user)
+
   const onSubmit: SubmitHandler<InputData> = async (data) => {
     console.log("SUBMIT", data);
     data.imgURL="";
-    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, data)
+    await axios.post("http://localhost:3001/createuser",data)
     .then((data) => {
       console.log(data);
     });

@@ -1,25 +1,27 @@
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 import axios from "axios";
+import Link from "next/link";
 
 export default function TablePlans() {
   const key = getCookie("token");
   
+  
   const [plans, setPlans] = useState([]);
   useEffect(() => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+      .post(`http://localhost:3001/user/perfil`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-        console.log(data.data.membership);
+        
         setPlans(data.data.membership.trainer.planTrainees);
       })
       .catch((error) => console.log(error));
   }, []);
  
 
-  console.log(plans);
+  
   return (
     <div>
       <div className="relative overflow-x-auto">
@@ -39,14 +41,14 @@ export default function TablePlans() {
                 Price
               </th>
               <th scope="col" className="px-6 py-3">
-                tool
+                All Trainee
               </th>
             </tr>
           </thead>
           <tbody>
             {plans &&
               plans.map((e) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 className='row-span-2 m-auto border-2 border-rose-500   ">
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 className='row-span-2 m-auto border-2 border-rose-500    ">
                   <th className="px-8 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {e.name}
                   </th>
@@ -54,13 +56,11 @@ export default function TablePlans() {
                   <td className="px-6 py-4">{e.category}</td>
                   <td className="px-6 py-4">${e.cost}</td>
                   <td className="px-6 py-4">
-                    <button
-                      onClick={() => {}
-                      }
-                      className="font-medium text-red-600 dark:text-red-500 hover:text-red-400"
-                    >
-                      Remove
-                    </button>
+                    <Link replace href={`/trainer/trainee/${e.id_PlanTrainee}`} className="font-medium text-red-600 dark:text-red-500 hover:text-red-400">
+                       Get
+                    </Link>
+          
+                    
                   </td>
                 </tr>
               ))}

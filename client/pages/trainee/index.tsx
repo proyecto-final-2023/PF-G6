@@ -36,9 +36,7 @@ export default function Index() {
       })
       .then((data) => {
        
-        console.log(
-          data.data.membership.planTrainee.trainer.membership.user.phone
-        );
+       
         setUser1({
           display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
           userImage: data.data.imgURL,
@@ -51,7 +49,7 @@ export default function Index() {
       });
   }, []);
 
-  console.log(user1);
+  
 
   const locales = {
     "en-US": require("date-fns/locale/en-US"),

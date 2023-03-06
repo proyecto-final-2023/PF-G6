@@ -25,6 +25,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
   const router = useRouter();
   const { amountToPay, serviceName, idPlans } = props;
   const key = getCookie("token");
+
 ;
   //  const key=document.cookie.split(' ')[1].split('=')[1];
 
@@ -72,16 +73,15 @@ export default function PaypalButton(props: PaypalButtonProps) {
       //enviamos datos a membership
      
         try {
-          axios.post(`${process.env.NEXT_PUBLIC_API_URL}/membership`, data,{headers:{'x-access-token': key}})
+          axios.post(`http://localhost:3001/membership`, data,{headers:{'x-access-token': key}})
           .then((res) => {
-            console.log(res);
-            console.log(res.data);
+            
            
             
              // si el estado de role cambia te manda al das
-            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,null,{headers:{'x-access-token': key}})
+            axios.post(`http://localhost:3001/user/perfil`,null,{headers:{'x-access-token': key}})
             .then((data) => {
-              console.log(data.data.role);
+            
               if(data.data.role==='trainer')router.push("/trainer");
               if(data.data.role=== 'trainee')router.push("/trainee");
             })
@@ -91,7 +91,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
         console.log(error);
       }
 
-      console.log(data);
+      
       setBillingDetails(data);
       setSucceeded(true);
     });

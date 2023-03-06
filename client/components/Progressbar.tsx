@@ -12,11 +12,11 @@ const ProgressBar = () => {
 
   useEffect(() => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+      .post(`http://localhost:3001/user/perfil`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-        console.log(data.data);
+        
         const startDateObj = new Date(data.data.membership.startDate);
         const endDateObj = new Date(data.data.membership.finishDate);
         const currentDateObj = new Date();

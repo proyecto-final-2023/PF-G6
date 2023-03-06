@@ -13,14 +13,14 @@ export default function createPlans() {
     event.preventDefault();
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`, formData)
+      .post(`http://localhost:3001/plans/trainers`, formData)
       .then((data) => {
         console.log(data);
       })
       .catch((error) => {
         window.alert("Error in" + error);
       });
-    console.log(formData);
+    
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

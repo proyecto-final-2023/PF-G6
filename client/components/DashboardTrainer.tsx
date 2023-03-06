@@ -9,34 +9,33 @@ import CreatePlansTrainee from "./CreatePlansTrainee";
 export default function Dashboard() {
   
   const key = getCookie("token");
-  console.log(key)
+ 
 
   const [plans, setPlans] = useState([]);
   const [logo, setLogo] = useState([]);
   useEffect(() => {
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+      .post(`http://localhost:3001/user/perfil`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-        console.log(data.data.membership);
+        
         setPlans(data.data.membership);
         setLogo(data.data.membership.trainer.logo);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(plans);
-  console.log(logo);
+
   return (
-    <div className="grid grid-rows-2 grid-flow-col gap-2 min-h-full max-w-full">
-      <div className="row-span-3  ">
+    <div className="grid grid-rows-1 grid-flow-col  min-h-full max-w-full">
+      <div className="row-span-2 ">
         <NavbarTrainer />
       </div>
 
-      <div className=" flex items-center justify-center m-20  ">
-        <div className=" flex flex-col w-auto h-auto border-2  border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-          <div className="grid grid-cols-3 gap-4 mb-4">
+      <div className=" flex items-center justify-center m-20 gap-2  ">
+        <div className=" flex flex-col w-auto h-auto border-2  border-gray-200 border-double rounded-lg dark:border-gray-700">
+          <div className="grid grid-cols-3  ">
             <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
               <p className="text-2xl text-gray-400 dark:text-gray-500">
                 Start <br />

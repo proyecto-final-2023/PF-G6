@@ -1,40 +1,54 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../firebase";
 import axios from "axios";
 import CardPlans from "@/components/CardPlans";
-
 import ReactStars from "react-stars";
+type PlansType = {
+  id: number;
+  name: string;
+  photo: string;
+  first_name: string;
+  last_name: string;
+  imgURL: string;
+
+  
+};
+type UserType = {
+  first_name: string;
+  last_name: string;
+  role: string;
+  membership: {
+  trainer: { logo: string;
+     planTrainees: PlansType[]; };};
+  };
 
 export default function TraineeDetails() {
-  const [user, setUser] = useAuthState(auth);
 
-  console.log(user?.photoURL)
 
-  const [userData, setUserData] = useState([]);
-  const [plans, setPlan] = useState([]);
-  console.log(userData);
+  const [userData, setUserData] = useState<UserType[]>([]);
+  const [plans, setPlan] = useState<PlansType[]>([]);
+  
   const router = useRouter();
-  console.log(router.query.id);
+  
   const id = router.query.id;
+
   useEffect(() => {
     // make call to backend to fetch user data
-    axios(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
+    axios(`http://localhost:3001/user/${id}`)
       .then(({ data }) => {
-        console.log(data);
+       
         setUserData(data);
         setPlan(data.membership.trainer.planTrainees);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  console.log(userData);
+ 
   return (
-    <div className="flex flex-nowrap bg-[url('/tail-imgs/trainer.jpg')] bg-no-repeat bg-cover bg-right   ">
+    <div className="flex flex-nowrap   ">
     <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className=" flex justify-center ">
-            <img className="p-8  rounded-full" src={userData.imgURL||user?.photoURL} alt="product image" width={200}  height={100}/>
+            <img className="p-8  rounded-full" src={userData?.membership?.trainer?.logo} alt="product image" width={200}  height={100}/>
         </div>
         <div className="px-5 pb-5">
             <div>
@@ -61,7 +75,7 @@ export default function TraineeDetails() {
         <div className="px-10 pb-10   ">
             <div className=" flex flex-row gap-2   w-40">
             {plans &&
-            plans.map((e) => (
+            plans.map((e:any) => (
               <CardPlans
                 key={e.name}
                 idPlans={e.id_PlanTrainee}
