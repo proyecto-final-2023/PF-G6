@@ -28,6 +28,11 @@ module.exports = (sequelize) => {
         allowNull: false,
         defaultValue: "trainee",
       },
+      status: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
     },
     { timestamps: false }
   );

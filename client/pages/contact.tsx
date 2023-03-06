@@ -40,7 +40,7 @@ export default function RegisterForm() {
               label="Enter your name:"
               name="name"
               type="text"
-              options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/, validate:null }}
+              options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/, validate: null }}
               err={errors.name}
               {...{ register }}
             />
@@ -49,7 +49,8 @@ export default function RegisterForm() {
               label="Enter your email:"
               name="email"
               type="text"
-              options={{ required: false,validate:null }}
+              options={{ required: false, validate: null }}
+
               err={errors.email}
               {...{ register }}
             />
@@ -58,7 +59,7 @@ export default function RegisterForm() {
               label="Subject:"
               name="subject"
               type="text"
-              options={{ required: true, pattern: /^[a-zA-Z 0-9]{3,}$/,validate:null }}
+              options={{ required: true, pattern: /^[a-zA-Z 0-9]{3,}$/, validate: null }}
               err={errors.subject}
               {...{ register }}
             />
@@ -67,7 +68,7 @@ export default function RegisterForm() {
               label="Enter your message:"
               name="message"
               type="textarea"
-              options={{ required: false,validate:null}}
+              options={{ required: false, validate: null }}
               err={errors.message}
               {...{ register }}
             />
