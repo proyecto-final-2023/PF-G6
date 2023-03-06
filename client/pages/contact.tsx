@@ -50,6 +50,7 @@ export default function RegisterForm() {
               name="email"
               type="text"
               options={{ required: false, validate: null }}
+
               err={errors.email}
               {...{ register }}
             />
