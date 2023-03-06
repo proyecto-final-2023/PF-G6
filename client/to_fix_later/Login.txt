@@ -106,15 +106,8 @@ export const Login = () => {
       //   email: user?.email || email,
       //   password: user?.email || email,
       // };
-<<<<<<< HEAD
-    if(info)
-     {
-       axios.post("http://localhost:3001/createuser", info)
-          .then((data) => {
-=======
   if (info) {
     axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info).then((data) => {
->>>>>>> origin/dev
           });
       }
 
