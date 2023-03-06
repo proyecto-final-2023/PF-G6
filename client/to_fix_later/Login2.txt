@@ -31,7 +31,6 @@ export const Login2 = () => {
   const [email, setEmail] = useState(user?.email);
   const [inputValue, setInputValue] = useState("")
   const facebookAuth = new FacebookAuthProvider();
-  console.log(user)
 
 
   const login = async () => {
@@ -69,12 +68,10 @@ export const Login2 = () => {
   //     authExtern: true
   //   };
 
-  //   console.log(info)
   
   //   if (info.first_name) {
   //     axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info)
   //       .then((data) => {
-  //         console.log(data);
   //       });
   //   }
   // }, [user, email]);

@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import "react-circular-progressbar/dist/styles.css";
-import {
-  Calendar,
-  dateFnsLocalizer
-} from "react-big-calendar";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
@@ -17,7 +14,7 @@ import { auth } from "../../firebase";
 import { getCookie } from "@/utils/cookieHandler";
 // import ProgressBar from "@/components/TraineeProgressbar";
 import Rating from "@/components/StarRating";
-import  { SyntheticEvent }  from "react";
+import { SyntheticEvent } from "react";
 
 export default function Index() {
   const [user, setUser] = useAuthState(auth);
@@ -27,7 +24,7 @@ export default function Index() {
   const [user1, setUser1] = useState<any>();
   const [feedback, setFeedback] = useState("");
 
-  function handleFeedbackChange(event:React.ChangeEvent<HTMLTextAreaElement>) {
+  function handleFeedbackChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setFeedback(event.target.value);
   }
 
@@ -38,33 +35,26 @@ export default function Index() {
       comment: feedback
     };
 
-    console.log(comment)
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/comment`, comment, {
         headers: { "x-access-token": key }
       })
       .then((response) => {
-        console.log(response);
         alert("Feedback sent");
         setFeedback("");
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         alert("Error sending the feedback, try again");
       });
   }
 
-  console.log(key);
   useEffect(() => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
-        headers: { "x-access-token": key },
+        headers: { "x-access-token": key }
       })
       .then((data) => {
-        console.log(data.data);
-        console.log(
-          data.data.membership.planTrainee.trainer.membership.user.phone
-        );
         setUser1({
           display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
           userImage: data.data.imgURL,
@@ -76,8 +66,6 @@ export default function Index() {
         });
       });
   }, []);
-
-  console.log(user1);
 
   const locales = {
     "en-US": require("date-fns/locale/en-US")
@@ -142,7 +130,7 @@ export default function Index() {
   return (
     <div className="flex flex-col">
       <div className="mt-20 grid grid-cols-[200px_minmax(60vw,_1fr)_100px] items-start border-blue-300 border-2">
-        {/* <ProgressBar /> deshabilitada temporalmente*/} 
+        {/* <ProgressBar /> deshabilitada temporalmente*/}
         <div className="flex border-red-500 border-2 w-[25vw]">
           <img
             className="rounded-full w-40 h-40"
@@ -150,30 +138,30 @@ export default function Index() {
             alt=""
             style={{ margin: "0 auto" }}
           ></img>
-        <div className="flex-col border-red-300 border-2 h-[20-vh]  w-[20vw] text-center">
-          <h1 className="text-3xl border-400">{user1?.display_name}</h1>
-          <h3 className="text-lg">{user1?.planStart}</h3>
-          <h3 className="text-lg">{user1?.planEnd}</h3>
+          <div className="flex-col border-red-300 border-2 h-[20-vh]  w-[20vw] text-center">
+            <h1 className="text-3xl border-400">{user1?.display_name}</h1>
+            <h3 className="text-lg">{user1?.planStart}</h3>
+            <h3 className="text-lg">{user1?.planEnd}</h3>
           </div>
           <div className="flex-col absolute top-0 right-0 transform translate-x-1/2 translate-y-1/2 border-2 w-80 mr-[12vw]">
             <h2 className="text-3xl">Trainer: {user1?.trainer}</h2>
             <Rating />
             <div className="flex-col mb-4">
-            <form onSubmit={handleSubmit}>
-              <label
-                className="block font-bold mb-2 text-white"
-                htmlFor="feedback"
-              >
-                Feedback
-              </label>
-              <textarea
-                name="feedback"
-                value={feedback}
-                onChange={handleFeedbackChange}
-                placeholder="Write your feedback here."
-              />
-              <button type="submit">Enviar</button>
-            </form>
+              <form onSubmit={handleSubmit}>
+                <label
+                  className="block font-bold mb-2 text-white"
+                  htmlFor="feedback"
+                >
+                  Feedback
+                </label>
+                <textarea
+                  name="feedback"
+                  value={feedback}
+                  onChange={handleFeedbackChange}
+                  placeholder="Write your feedback here."
+                />
+                <button type="submit">Enviar</button>
+              </form>
             </div>
             <a href={`https://wa.me/${user1?.trainerPhone}`}>
               Contact me via WhatsApp!

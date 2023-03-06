@@ -16,7 +16,6 @@ const ProgressBar = () => {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-        console.log(data.data);
         const startDateObj = new Date(data.data.membership.startDate);
         const endDateObj = new Date(data.data.membership.finishDate);
         const currentDateObj = new Date();

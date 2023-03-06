@@ -39,7 +39,6 @@ export const Login = () => {
         }
       }
     } catch (error) {
-      console.log(error);
 
     }
     }
@@ -56,7 +55,6 @@ export const Login = () => {
     password: user?.email || email,
   };
 
-  console.log(info);
 
   const infoLoguin = {
     email: info.email,
@@ -66,34 +64,27 @@ export const Login = () => {
 
   useEffect(() => {
     if (user !== null && info.email !== undefined) {
-      console.log(info.email);
       axios
         .post(`${process.env.NEXT_PUBLIC_API_URL}/user/email`, { email: info.email })
         .then((response) => {
-          console.log(response.data.verify);
           if (response.data.verify === true) {
             axios
               .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, infoLoguin)
               .then((response) => {
                 setCookie("token", response.data.token);
-                console.log(response);
               })
               .catch((error) => {
-                console.log(error);
               });
           } else if (response.data.verify === false) {
             axios
               .post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info)
               .then((response) => {
-                console.log(response);
               })
               .catch((error) => {
-                console.log(error);
               });
           }
         })
         .catch((error) => {
-          console.log(error);
         });
     }
   }, [user?.email || info.email]);
@@ -115,18 +106,8 @@ export const Login = () => {
       //   email: user?.email || email,
       //   password: user?.email || email,
       // };
-<<<<<<< HEAD
-      console.log(info)
-    if(info)
-     {
-       axios.post("http://localhost:3001/createuser", info)
-          .then((data) => {
-=======
-  console.log(info);
   if (info) {
     axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info).then((data) => {
->>>>>>> origin/dev
-            console.log(data);
           });
       }
 
