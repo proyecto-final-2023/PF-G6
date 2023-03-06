@@ -32,7 +32,7 @@ export default function RegisterForm() {
   const onSubmit: SubmitHandler<InputData> = async (data) => {
     // console.log("SUBMIT", data);
     // data.imgURL = "";
-    await axios.post(`http://localhost:3001/createuser`, 
+    await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, 
     { first_name: data.first_name,
       last_name: data.last_name,
       email: data.email,
