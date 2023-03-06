@@ -9,7 +9,7 @@ export default function GenericInput(props: GenericInputProps) {
     <div className="p-1">
       <label className="gap-3 flex flex-col text-lg">
         {label}
-        <input className="rounded-md" {...{ type }} {...register(name as keyof InputData, options)} />
+        <input className="rounded-md h-5" {...{ type }} {...register(name as keyof InputData, options)} />
       </label>
 
       {err?.type && (

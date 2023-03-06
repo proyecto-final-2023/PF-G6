@@ -6,7 +6,7 @@ export default function createPlans() {
     name: "",
     cost: "",
     description: "",
-    cantTrainees: "",
+    cantTrainees: ""
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -14,13 +14,10 @@ export default function createPlans() {
 
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`, formData)
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => {})
       .catch((error) => {
         window.alert("Error in" + error);
       });
-    console.log(formData);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
