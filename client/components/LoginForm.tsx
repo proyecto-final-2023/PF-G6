@@ -5,9 +5,12 @@ import logoImg from "@/assets/images/placeholder-logo.png";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { setCookie } from "@/utils/cookieHandler";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase";
 
 export default function FormularioLogin() {
   const router = useRouter();
+  const [user, setUser] = useAuthState(auth)
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,12 +22,14 @@ export default function FormularioLogin() {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, formData)
       .then((data) => {
+        // console.log(data.config.data)
         setCookie("token", data.data.token);
-        router.push("/home");
+        window.location.href = "/home"
       })
       .catch((error) => {
         window.alert("Error Loggin in" + error);
       });
+
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
