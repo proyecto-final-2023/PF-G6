@@ -1,15 +1,9 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import useStore from "@/store";
 
 type ConfirmationState = "ok" | "error" | "loading";
 
 export default function EmailConfirmed() {
-  const { updateCock, userData } = useStore((state) => ({
-    userData: state.userData,
-    updateCock: state.updateConfirmed
-  }));
-
   const router = useRouter();
 
   const [confirmation, setConfirmation] = useState<ConfirmationState>();
@@ -32,9 +26,6 @@ export default function EmailConfirmed() {
 
   return (
     <div className="grid items-center">
-      <button onClick={() => updateCock(true)}>FETCH</button>
-      <h1>title {userData.confirmed}</h1>
-
       <div className="bg-slate-500 w-2/3 min-h-full">
         {confirmation === "ok" && (
           <div>
@@ -49,6 +40,7 @@ export default function EmailConfirmed() {
             </a>
           </div>
         )}
+        <button onClick={() => router.replace("/home")}>Go Home</button>
       </div>
     </div>
   );
