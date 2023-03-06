@@ -1,8 +1,9 @@
 const { Plantrainer } = require("../db");
 
 const postPlansTrainer = async (name, cost, description, cantTrainees) => {
-  const plans = await Plantrainer.findOne({ where: { name } });
-  if (plans) throw new Error("Este plan ya existe");
+  const plans = await Plantrainer.findOne({ where: { name, status:true } });
+  
+  if (plans && plans.status === true) throw new Error("Este plan ya existe");
   const result = await Plantrainer.create({
     name,
     cost,
@@ -13,8 +14,12 @@ const postPlansTrainer = async (name, cost, description, cantTrainees) => {
   return result;
 };
 
-const allPlans = async () => {
-  const all = await Plantrainer.findAll();
+const allPlans = async (page = 0, pageSize = 5) => {
+  const all = await Plantrainer.findAll({
+    where: { status: true }, // agregar condición
+    offset: page * pageSize,
+    limit: pageSize,
+  });
   return all.map((element) => {
     return {
       id: element.dataValues.id_planTrainer,

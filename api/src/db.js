@@ -49,6 +49,8 @@ const {
   Voucher,
   ActivitiesPlan,
   AlimentsPlan,
+  Comment,
+  Rating,
 } = sequelize.models;
 
 // User 1 a 1 con Login
@@ -97,7 +99,19 @@ ActivitiesPlan.belongsTo(Plan);
 Plan.hasMany(AlimentsPlan);
 AlimentsPlan.belongsTo(Plan);
 
-// Definir relación de muchos a muchos entre Plan y Aliment
+// Relación "Un Trainee puede dar varios comentarios a un Trainer"
+Comment.belongsTo(Trainer);
+Comment.belongsTo(Trainee);
+Trainer.hasMany(Comment);
+Trainee.hasMany(Comment);
+
+// Un Trainee pertenece a un Trainer
+
+Trainee.hasMany(Rating);
+Trainer.hasMany(Rating);
+
+Rating.belongsTo(Trainee);
+Rating.belongsTo(Trainer);
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

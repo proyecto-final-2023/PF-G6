@@ -12,6 +12,8 @@ const {
   ActivitiesPlan,
   AlimentsPlan,
   Plan,
+  Comment,
+  Rating,
 } = require("../db");
 const { generateBot } = require("./ExtractDB/generateBot");
 const jwt = require("jsonwebtoken");
@@ -23,7 +25,7 @@ const getPerfil = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    attributes: ["id", "first_name", "last_name", "nickname", "role", "imgURL"],
+    // attributes: ["id", "first_name", "last_name", "nickname", "role", "imgURL"],
     include: [
       {
         model: Logueo,
@@ -57,7 +59,11 @@ const getPerfil = async (id) => {
             attributes: {
               exclude: ["id_trainer"],
             },
-            include: [{ model: Certificates }, { model: SocialNetworks }],
+            include: [
+              // { model: Rating },
+              { model: Certificates },
+              { model: SocialNetworks },
+            ],
           },
           {
             model: Voucher,
@@ -133,7 +139,7 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    attributes: ["first_name", "last_name", "nickname", "role"],
+    attributes: ["first_name", "last_name", "nickname", "role","imgURL"],
     include: [
       {
         model: Logueo,
@@ -219,7 +225,7 @@ const userByName = async (name, page, limit) => {
 
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
-  console.log(decoded)
+  console.log(decoded);
   const [user] = await Logueo.findAll({
     where: { userId: decoded.id },
   });
@@ -252,6 +258,49 @@ const listEmail = async (email) => {
     return error;
   }
 };
+
+const addData = async (
+  id,
+  first_name,
+  last_name,
+  nickname,
+  imgURL,
+  gender,
+  phone
+) => {
+  const user = await User.findByPk(id);
+
+  if (!User) {
+    throw new Error(`No se encontró al usuario con ID ${id}.`);
+  }
+  await user.update({
+    id,
+    first_name,
+    last_name,
+    nickname,
+    imgURL,
+    gender,
+    phone,
+  });
+
+  return `Se actualizó los datos del Usuario  ${user.first_name}, ${user.last_name}`;
+};
+
+const statusAlter = async (id) => {
+  const planM = await Plantrainer.findByPk(id);
+  const planM2 = await PlanTrainee.findByPk(id);
+
+  if (planM) {
+    await planM.update({ status: !planM.status });
+    return `Plan ${planM.name} status:${status}`;
+  }
+  if (planM2) {
+    await planM2.update({ status: !planM2.status });
+    return `Plan ${planM2.name} status:${status}`;
+  }
+
+  return `No existe un plan con el ID ${id}`;
+};
 module.exports = {
   botUserAdd,
   getId,
@@ -260,4 +309,6 @@ module.exports = {
   setVerify,
   getPerfil,
   listEmail,
+  addData,
+  statusAlter,
 };

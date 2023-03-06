@@ -5,10 +5,32 @@ const {
   addSocial,
   addLogo,
   createPlan,
+  ratingTotal,
+  listComment,
+  listTrainees2,
+  listPlansTrainees,
 } = require("../controllers/trainersController");
 const { idExtract } = require("../middlewares/verifySignUp");
 
 const trainerRouter = Router();
+
+trainerRouter.get("/comment", async (req, res) => {
+  const id = await idExtract(req.headers["x-access-token"]);
+  try {
+    res.status(200).send(await listComment(id));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+trainerRouter.get("/rating", async (req, res) => {
+  const id = await idExtract(req.headers["x-access-token"]);
+  try {
+    res.status(200).send(await ratingTotal(id));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 
 trainerRouter.get("/", async (req, res) => {
   const { page } = req.query;
@@ -63,5 +85,20 @@ trainerRouter.post("/plan", async (req, res) => {
   }
 });
 
+trainerRouter.get("/listTrainees", async (req, res) => {
+  const id = await idExtract(req.headers["x-access-token"]);
+  try {
+    res.status(200).send(await listTrainees2(id));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+trainerRouter.get("/listPlansTrainees", async (req, res) => {
+  const id = await idExtract(req.headers["x-access-token"]);
+  try {
+    res.status(200).send(await listPlansTrainees(id));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
 module.exports = trainerRouter;
-

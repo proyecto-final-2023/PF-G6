@@ -3,7 +3,7 @@ import { PayPalButtons } from "@paypal/react-paypal-js";
 import { PaypalButtonProps } from "@/types/components";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { getCookie, setCookie } from "@/utils/cookieHandler";
+import { getCookie } from "@/utils/cookieHandler";
 
 /**
 sb-myogs25073529@personal.example.com
@@ -25,7 +25,6 @@ export default function PaypalButton(props: PaypalButtonProps) {
   const router = useRouter();
   const { amountToPay, serviceName, idPlans } = props;
   const key = getCookie("token");
-  console.log(key);
   //  const key=document.cookie.split(' ')[1].split('=')[1];
 
   const [succeeded, setSucceeded] = useState(false);
@@ -40,14 +39,14 @@ export default function PaypalButton(props: PaypalButtonProps) {
         purchase_units: [
           {
             amount: {
-              value: amountToPay,
-            },
-          },
+              value: amountToPay
+            }
+          }
         ],
 
         application_context: {
-          shipping_preference: "NO_SHIPPING",
-        },
+          shipping_preference: "NO_SHIPPING"
+        }
       })
       .then((orderID: string) => {
         setOrderID(orderID);
@@ -67,23 +66,19 @@ export default function PaypalButton(props: PaypalButtonProps) {
         idPago: payer_id,
         cost: Number(value),
         status: status,
-        fechaPago: update_time,
+        fechaPago: update_time
       };
-      //datos
-      console.log(data);
+      //enviamos datos a membership
       try {
         axios
-          .post("http://localhost:3001/membership", data, {
-            headers: { "x-access-token": key },
+          .post(`${process.env.NEXT_PUBLIC_API_URL}/membership`, data, {
+            headers: { "x-access-token": key }
           })
           .then((res) => {
-            console.log(res);
-            console.log(res.data);
-
             // aqui te manda
             axios
-              .post("http://localhost:3001/user/perfil", null, {
-                headers: { "x-access-token": key },
+              .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+                headers: { "x-access-token": key }
               })
               .then((data) => {
                 if (data.data.role === "trainer") router.push("/trainer");
@@ -91,10 +86,9 @@ export default function PaypalButton(props: PaypalButtonProps) {
               });
           });
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
 
-      console.log(data);
       setBillingDetails(data);
       setSucceeded(true);
     });
@@ -108,7 +102,6 @@ export default function PaypalButton(props: PaypalButtonProps) {
 
   if (succeeded) {
     // send them to their new home
-    console.log("PAYMENT SUCCESFULL");
   }
 
   if (paypalErrorMessage) {
@@ -125,7 +118,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
           shape: "rect",
           label: "paypal",
           tagline: false,
-          layout: "vertical",
+          layout: "vertical"
         }}
         createOrder={createOrder}
         onApprove={onApprove}

@@ -1,4 +1,4 @@
-import { create } from "zustand";
+import { create, State } from "zustand";
 
 type Param1State = {
   firstParam: string;

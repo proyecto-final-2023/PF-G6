@@ -3,6 +3,8 @@ const { Router } = require("express");
 const baseRouter = Router();
 
 baseRouter.get("/", (req, res) => {
+  const token = req.headers["x-access-token"];
+  console.log(token)
   try {
     res.status(200).send("prueba exitosa");
   } catch (error) {

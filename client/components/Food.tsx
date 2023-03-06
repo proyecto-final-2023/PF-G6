@@ -34,7 +34,7 @@ function CardList() {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get<CardData[]>(`http://localhost:3001/aliment?page=${page}`)
+      .get<CardData[]>(`${process.env.NEXT_PUBLIC_API_URL}/aliment?page=${page}`)
       .then((response) => {
         setData(response.data);
         setIsLoading(false);

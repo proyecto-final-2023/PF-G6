@@ -11,9 +11,112 @@ const {
   SocialNetworks,
   ActivitiesPlan,
   AlimentsPlan,
+  Rating,
+  Comment,
 } = require("../db");
+const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 
-const Sequelize = require("sequelize");
+const listTrainees2 = async (id) => {
+  const trai = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        // attributes: ["id_membership"],
+        include: [
+          {
+            model: PlanTrainee,
+            attributes: ["trainerIdTrainer"],
+          },
+        ],
+      },
+    ],
+  });
+
+  const trainerId = trai.membership.trainerIdTrainer;
+  if (!trainerId) throw Error("Trainer no Encontrado");
+  const traineesUser = await PlanTrainee.findAll({
+    attributes: ["id_PlanTrainee", "name"],
+    where: { trainerIdTrainer: trainerId },
+    include: [
+      {
+        model: Membership,
+        attributes: ["traineeIdTrainee"],
+        include: [
+          { model: User, attributes: ["first_name", "last_name", "imgURL"] },
+        ],
+      },
+    ],
+  });
+  return traineesUser;
+};
+
+const listComment = async (id) => {
+  const user = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["trainerIdTrainer"],
+      },
+    ],
+  });
+
+  const trainerId = user.membership.trainerIdTrainer;
+  if (!trainerId) throw Error("Trainer no Encontrado");
+
+  const comments = await Comment.findAll({
+    where: {
+      trainerIdTrainer: trainerId,
+    },
+    attributes: ["message"],
+    include: [
+      {
+        model: Trainee,
+        attributes: ["id_trainee"],
+        include: [
+          {
+            model: Membership,
+            attributes: ["id_membership"],
+            include: [
+              { model: User, attributes: ["id", "nickname", "imgURL"] },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  return comments;
+};
+
+const ratingTotal = async (id) => {
+  const trai = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["trainerIdTrainer"],
+      },
+    ],
+  });
+
+  const trainerId = trai.membership.trainerIdTrainer;
+  if (!trainerId) throw Error("Trainer no encontrado");
+
+  const rating = await Rating.findOne({
+    attributes: [[sequelize.fn("AVG", sequelize.col("value")), "rating"]],
+    where: {
+      trainerIdTrainer: trainerId,
+      value: {
+        [Op.gt]: 0,
+      },
+    },
+  });
+  if (!rating) throw Error("No lo han Calificado");
+  return rating;
+};
 const addLogo = async (id, logo) => {
   const user = await User.findByPk(id, {
     attributes: ["first_name", "last_name"],
@@ -47,7 +150,6 @@ const addSocial = async (id, name, url) => {
       },
     ],
   });
-
   const trainer = await Trainer.findByPk(user.membership.trainerIdTrainer);
 
   const social = await SocialNetworks.create({
@@ -96,7 +198,11 @@ const listTrainers = async (page, limit) => {
             },
           ],
         },
-        { model: PlanTrainee },
+        {
+          model: PlanTrainee,
+          where: { status: true },
+          attributes: ["id_PlanTrainee", "name", "cost", "description"],
+        },
       ],
       limit: limit,
       offset: (page - 1) * limit,
@@ -152,7 +258,7 @@ const createPlan = async (id, idTrainee, datePlan, activities, aliments) => {
     }
   );
 
-  trainee 
+  trainee;
 
   return plan;
 };
@@ -163,4 +269,7 @@ module.exports = {
   addSocial,
   addLogo,
   createPlan,
+  ratingTotal,
+  listComment,
+  listTrainees2,
 };
