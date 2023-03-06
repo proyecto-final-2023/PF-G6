@@ -65,7 +65,7 @@ export default function TraineeDetails() {
 
  
   return (
-    <div className="flex flex-nowrap   ">
+    <div className="flex flex-nowrap  bg-[url('/tail-imgs/trainer.jpg')] bg-no-repeat bg-cover  bg-bottom  ">
     <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className=" flex justify-center ">
             <img className="p-8  rounded-full" src={userData?.membership?.trainer?.logo} alt="product image" width={200}  height={100}/>
@@ -92,8 +92,8 @@ export default function TraineeDetails() {
               <span className="  text-3xl font-bold text-gray-900 dark:text-white">Plans</span>  
           
             </div>
-        <div className="px-10 pb-10   ">
-            <div className=" flex flex-row gap-2   w-40">
+        <div className="px-10 pb-10 h-screen m-20 ">
+            <div className=" flex flex-row gap-2 m-20  w-40">
             {plans &&
             plans.map((e:any) => (
               <CardPlans
