@@ -11,6 +11,7 @@ const membership = require("./membershipRoutes");
 const trainers = require("./trainersRouters");
 const data = require("./dataRoutes");
 const trainee = require("./traineesRouter");
+const admin = require("./adminRoutes");
 //----------------------------------------------------------
 const activityRouter = require("./activityRoutes");
 const alimentRouter = require("./alimentsRoutes");
@@ -35,5 +36,6 @@ indexRouter.use("/plans/trainee", plansTraineeRouter);
 indexRouter.use("/membership", membership);
 indexRouter.use("/trainers", trainers); // check
 indexRouter.use("/trainees", trainee); // check
+indexRouter.use("/admin", admin); // check
 
 module.exports = indexRouter;

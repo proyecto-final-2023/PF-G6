@@ -13,6 +13,60 @@ const {
 } = require("../db");
 const moment = require("moment");
 
+const checkMembership = async (action) => {
+  action = "delete";
+  let member = [];
+  const memberships = await Membership.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ["first_name", "last_name", "phone"],
+        include: [{ model: Logueo, attributes: ["email"] }],
+      },
+      {
+        model: Plantrainer,
+        attributes: ["name"],
+      },
+      {
+        model: PlanTrainee,
+        attributes: ["name"],
+      },
+    ],
+    attributes: ["userId", "id_membership", "startDate", "finishDate"],
+  });
+
+  memberships.forEach(async (membership) => {
+    const { finishDate, id_membership } = membership;
+    const finalDate = new Date(finishDate);
+    const now = new Date();
+    if (action === "delete") {
+      if (finalDate && finalDate < now) {
+        console.log(`Se elimino ${id_membership}`);
+        const x = membership.userId;
+        const userM = await User.findByPk(x);
+        member.push(userM);
+        userM.role = "user";
+        await userM.save();
+        try {
+          await membership.destroy();
+        } catch (error) {
+          console.log(
+            `Error eliminando membership ${membership.id_membership}: ${error}`
+          );
+        }
+      }
+    }
+    if (action === "view") {
+      if (finalDate && finalDate < now) {
+        member.push(membership);
+      }
+    }
+  });
+  if (member.length) return member;
+
+  return "Hoy no hay planes que terminen";
+};
+
 const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
   try {
     const userM = await User.findByPk(idUser);
@@ -160,4 +214,4 @@ const getMembership = async (id) => {
   return dataValues;
 };
 
-module.exports = { generateMembership, getMembership };
+module.exports = { generateMembership, getMembership, checkMembership };
