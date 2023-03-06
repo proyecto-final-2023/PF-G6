@@ -1,11 +1,10 @@
 import axios from "axios";
+import moment from "moment";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { ExerciesResType } from "@/types/components/libraries";
 import useParam1Store from "@/store/state-lb";
 import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CardData } from "@/components/Food";
 import { getCookie } from "@/utils/cookieHandler";
 

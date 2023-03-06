@@ -1,7 +1,6 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css"; //move to _app.tsx
-import axios from "axios";
 import { getCookie } from "@/utils/cookieHandler";
 
 const key = getCookie("token");

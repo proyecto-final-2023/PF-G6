@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import "react-circular-progressbar/dist/styles.css";
 import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
 import getDay from "date-fns/getDay";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
@@ -170,7 +167,10 @@ export default function Index() {
                 <button type="submit">Enviar</button>
               </form>
             </div>
-            <a className="underline" href={`https://wa.me/${user1?.trainerPhone}`}>
+            <a
+              className="underline"
+              href={`https://wa.me/${user1?.trainerPhone}`}
+            >
               Click here to contact me via WhatsApp!
             </a>
           </div>
