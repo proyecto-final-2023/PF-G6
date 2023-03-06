@@ -44,7 +44,7 @@ export default function trainee() {
 
     
   return (
-  <div className=' m-20 bg-gray-800 min-h-screen '>
+  <div className=" m-20 bg-[url('/tail-imgs/logo2.png')] bg-no-repeat bg-cover  bg-bottom min-h-screen ">
    <div>
    <h1 className="flex  justify-center text-5xl font-extrabold dark:text-white">Trainee - <span className="bg-blue-100 text-blue-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-gray-800 dark:text-gray-500 ml-2">{name.first_name}</span></h1>
    <Link href='/trainer' className="flex  justify-center text-5xl font-extrabold dark:text-white">Back</Link>

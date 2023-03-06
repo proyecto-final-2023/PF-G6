@@ -1,21 +1,18 @@
 import React from "react";
 import Link from "next/link";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
-import { AxiosResponse } from "axios";
 
 
-interface User {
-  display_name: string;
-}
+
+
 
 export default function Trainer() {
-  const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState();
+  const [user, setUser] = useState([]);
+
   const key = getCookie("token");
+
 
 
   useEffect(() => {
@@ -25,20 +22,14 @@ export default function Trainer() {
           "x-access-token": key,
         },
       })
-      .then((data: AxiosResponse<any, any>) => {
-        setUser1({
-          display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
-        });
-        if(data.data.imgURL===null){
-          setLogo((data.data.membership.trainer.logo))
-        }else{
-          setLogo(data.data.imgURL)
-        }
+      .then((data) => {
+        
+        setUser(data.data);
+      
         
       });
   }, []);
-  console.log(user1);
-  console.log(user);
+
   return (
     <div className="  flex  flex-col z-40 w-60   ">
       <nav className="  bg-gray-50 dark:bg-gray-800">
@@ -49,13 +40,13 @@ export default function Trainer() {
         <div className="items-center justify-center text-white font-bold m-10">
           <img
             className="rounded-lg justify-items-center"
-            src={logo}
+            src={user?.membership?.trainer?.logo}
             alt="data"
           />
         <div className="w-50">
         <Link href="/trainer/logo" className="inline-block w-full p-4 items-center bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">ADD</Link>
          </div>
-          <p>{user1?.display_name}</p>
+          <p>{`${user?.first_name} ${user?.last_name}`}</p>
         </div>
         <div className="flex flex-col ">
           <ul className="space-y-1 m-auto">

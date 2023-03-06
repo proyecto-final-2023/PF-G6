@@ -35,7 +35,7 @@ import homeSlides from "@/assets/home-slides";
       }[];
     }
 
-// mostrar los planes para los trainers
+
 type PlansType = {
   userId: string;
   user: {
@@ -101,10 +101,10 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
-              id={e.userId}
+              photo={e.logo}
+              first_name={e.membership.user.first_name}
+              last_name={e.membership.user.last_name}
+              id={e.membership.userId}
               rating={5}
             />
           ))}{" "}
@@ -117,10 +117,10 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
-              id={e.userId}
+              photo={e.logo}
+              first_name={e.membership.user.first_name}
+              last_name={e.membership.user.last_name}
+              id={e.membership.userId}
               rating={5}
             />
           ))}{" "}
@@ -135,12 +135,12 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
-              id={e.userId}
-              rating={5}
-            />
+            photo={e.logo}
+            first_name={e.membership.user.first_name}
+            last_name={e.membership.user.last_name}
+            id={e.membership.userId}
+            rating={5}
+          />
           ))}
       </div>
     </div>
