@@ -61,6 +61,7 @@ export default function plansTrainee() {
     axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
       .then((data) => setPlans(data.data))
       .catch((error) => console.error(error));
+      console.warn(plans)
   }, []);
   // plans
   return (
@@ -95,9 +96,9 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL || ""}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
               id={e.userId}
               rating={5}
             />
@@ -111,9 +112,9 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL || ""}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
               id={e.userId}
               rating={5}
             />
@@ -129,9 +130,9 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL || ""}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
               id={e.userId}
               rating={5}
             />

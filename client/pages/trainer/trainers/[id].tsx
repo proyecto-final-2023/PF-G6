@@ -34,6 +34,7 @@ export default function TraineeDetails() {
   const [plans, setPlan] = useState<tPlan[]>([]);
   const router = useRouter();
   const id = router.query.id;
+ 
   useEffect(() => {
     // make call to backend to fetch user data
     axios(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
