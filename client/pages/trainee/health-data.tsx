@@ -1,8 +1,8 @@
-import { useState,useReducer } from "react";
+import { useState, useReducer } from "react";
 import axios from "axios";
 import neck from "@/assets/imgMeasuresForm/neck.jpg";
 import torso from "@/assets/imgMeasuresForm/torso.jpg";
-import Image, { StaticImageData } from "next/dist/client/image"
+import Image, { StaticImageData } from "next/dist/client/image";
 import chest from "@/assets/imgMeasuresForm/chest.jpg";
 import waist from "@/assets/imgMeasuresForm/waist.jpg";
 import arm from "@/assets/imgMeasuresForm/arm.jpg";
@@ -22,8 +22,24 @@ interface BodyPart {
   img: StaticImageData;
 }
 
-type BodyMeasurementsAction =
-  | { type: "ADD_MEASUREMENT"; bodyPart: string; measurement: number };
+type BodyMeasurementsAction = {
+  type: "ADD_MEASUREMENT";
+  bodyPart: string;
+  measurement: number;
+};
+
+interface AdditionalInfo {
+  weight: number;
+  height: number;
+  allergies: string[];
+  surgeries: string[];
+  smoking: boolean;
+  alcoholConsumption: boolean;
+  drugConsumption: boolean;
+  steroidConsumption: boolean;
+  waterConsumption: number;
+  injuries: string[];
+}
 
 // Define the reducer function to handle state updates
 function bodyMeasurementsReducer(
@@ -40,14 +56,14 @@ function bodyMeasurementsReducer(
         const updatedMeasurements = [...state];
         updatedMeasurements[existingMeasurementIndex] = {
           bodyPart: action.bodyPart,
-          measurement: action.measurement,
+          measurement: action.measurement
         };
         return updatedMeasurements;
       } else {
         // If no measurement for this body part exists, add a new one
         const newBodyMeasurement = {
           bodyPart: action.bodyPart,
-          measurement: action.measurement,
+          measurement: action.measurement
         };
         return [...state, newBodyMeasurement];
       }
@@ -63,6 +79,18 @@ const BodyMeasurements = () => {
     bodyMeasurementsReducer,
     [] as BodyMeasurement[]
   );
+  const [additionalInfo, setAdditionalInfo] = useState<AdditionalInfo>({
+    weight: 0,
+    height: 0,
+    allergies: [],
+    surgeries: [],
+    smoking: false,
+    alcoholConsumption: false,
+    drugConsumption: false,
+    steroidConsumption: false,
+    waterConsumption: 0,
+    injuries: [],
+  });
 
   const handleBodyPartClick = (bodyPart: string) => {
     setSelectedBodyPart(bodyPart);
@@ -84,13 +112,12 @@ const BodyMeasurements = () => {
     dispatch({
       type: "ADD_MEASUREMENT",
       bodyPart: selectedBodyPart,
-      measurement: measurement,
+      measurement: measurement
     });
 
     setSelectedBodyPart("");
     setMeasurement(null);
   };
-  console.log(bodyMeasurements);
   const bodyParts: BodyPart[] = [
     { name: "neck", img: neck },
     { name: "torso", img: torso },
@@ -101,15 +128,15 @@ const BodyMeasurements = () => {
     { name: "hip", img: hip },
     // { name: "glutes", img: glutes },
     { name: "thigh", img: thigh },
-    { name: "calf", img: calf },
+    { name: "calf", img: calf }
   ];
   return (
-    <div className="h-[100vh] mt-20 ">
+    <div className="h-[100vh] mt-20 flex flex-row text-white">
       <h1 className="text-center">Body Measurements</h1>
       <div className="mt-2 flex   flex-wrap justify-center">
         {bodyParts.map((bodyPart) => (
           <button
-            className="border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white"
+            className="h-[5vh] border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white"
             key={bodyPart.name}
             onClick={() => handleBodyPartClick(bodyPart.name)}
           >
@@ -118,21 +145,77 @@ const BodyMeasurements = () => {
         ))}
       </div>
       {selectedBodyPart && (
-        <form className="flex flex-col content-center" onSubmit={(event)=>handleSubmit(event)}>
+        <form
+          className="flex flex-col content-center"
+          onSubmit={(event) => handleSubmit(event)}
+        >
           <label className="text-center mt-4">
             Measurement for {selectedBodyPart}:
             <input
               className="w-20"
               type="number"
               value={measurement || ""}
-              onChange={(event)=>handleMeasurementChange(event)}
+              onChange={(event) => handleMeasurementChange(event)}
             />
           </label>
+          <label>
+  Weight:
+  <input type="number" value={additionalInfo.weight} onChange={(e) => setAdditionalInfo({...additionalInfo, weight: Number(e.target.value)})} />
+</label>
+
+<label>
+  Height:
+  <input type="number" value={additionalInfo.height} onChange={(e) => setAdditionalInfo({...additionalInfo, height: Number(e.target.value)})} />
+</label>
+
+<label>
+  Allergies:
+  <input type="text" value={additionalInfo.allergies.join(", ")} onChange={(e) => setAdditionalInfo({...additionalInfo, allergies: e.target.value.split(", ")})} />
+</label>
+
+<label>
+  Surgeries:
+  <input type="text" value={additionalInfo.surgeries.join(", ")} onChange={(e) => setAdditionalInfo({...additionalInfo, surgeries: e.target.value.split(", ")})} />
+</label>
+
+<label>
+  Smoking:
+  <input type="checkbox" checked={additionalInfo.smoking} onChange={(e) => setAdditionalInfo({...additionalInfo, smoking: e.target.checked})} />
+</label>
+
+<label>
+  Alcohol Consumption:
+  <input type="checkbox" checked={additionalInfo.alcoholConsumption} onChange={(e) => setAdditionalInfo({...additionalInfo, alcoholConsumption: e.target.checked})} />
+</label>
+
+<label>
+  Drug Consumption:
+  <input type="checkbox" checked={additionalInfo.drugConsumption} onChange={(e) => setAdditionalInfo({...additionalInfo, drugConsumption: e.target.checked})} />
+</label>
+
+<label>
+  Steroid Consumption:
+  <input type="checkbox" checked={additionalInfo.steroidConsumption} onChange={(e) => setAdditionalInfo({...additionalInfo, steroidConsumption: e.target.checked})} />
+</label>
+
+<label>
+  Water Consumption (in ounces):
+  <input type="number" value={additionalInfo.waterConsumption} onChange={(e) => setAdditionalInfo({...additionalInfo, waterConsumption: Number(e.target.value)})} />
+</label>
+
+<label>
+  Injuries:
+  <input type="text" value={additionalInfo.injuries.join(", ")} onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value.split(", ")})} />
+</label>
           <Image
             className="self-center w-[50vw]"
-            src={bodyParts.find((b) => b.name === selectedBodyPart.toString())?.img || ""}
+            src={
+              bodyParts.find((b) => b.name === selectedBodyPart.toString())
+                ?.img || ""
+            }
             alt={selectedBodyPart}
           />
+         
           <button
             className="self-center border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
             type="submit"
@@ -141,6 +224,8 @@ const BodyMeasurements = () => {
           </button>
         </form>
       )}
-</div>)}
+    </div>
+  );
+};
 
-export default BodyMeasurements
+export default BodyMeasurements;

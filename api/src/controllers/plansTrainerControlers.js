@@ -1,7 +1,9 @@
 const { Plantrainer } = require("../db");
 
 const postPlansTrainer = async (name, cost, description, cantTrainees) => {
+
   const plans = await Plantrainer.findOne({ where: { name, status: true } });
+
 
   if (plans && plans.status === true) throw new Error("Este plan ya existe");
   const result = await Plantrainer.create({

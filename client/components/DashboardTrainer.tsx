@@ -24,7 +24,7 @@ export default function Dashboard() {
         setPlans(data.data.membership);
         setLogo(data.data.membership.trainer.logo);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, []);
 
   return (

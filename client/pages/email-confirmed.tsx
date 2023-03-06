@@ -7,27 +7,24 @@ type ConfirmationState = "ok" | "error" | "loading";
 export default function EmailConfirmed() {
   const { updateCock, userData } = useStore((state) => ({
     userData: state.userData,
-    updateCock: state.updateConfirmed,
+    updateCock: state.updateConfirmed
   }));
-
-  console.log(userData);
 
   const router = useRouter();
 
   const [confirmation, setConfirmation] = useState<ConfirmationState>();
 
-  // localhost:3000/email-confirmed?hash=YOUR_HASH
+  // ${process.env.NEXT_PUBLIC_API_URL}/email-confirmed?hash=YOUR_HASH
   // useEffect(() => {
   //   try {
   //     (async () => {
   //       const { data } = await axios(
-  //         `https//:localhost:3001/confirm${router.query.token}`
+  //         `${process.env.NEXT_PUBLIC_API_URL}/confirm${router.query.token}`
   //       );
   //       setConfirmation("ok");
   //     })();
   //   } catch (error) {
   //     setConfirmation("error");
-  //     console.log(error);
   //   }
   // }, []);
 

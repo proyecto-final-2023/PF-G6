@@ -52,8 +52,10 @@ const listTrainees2 = async (id) => {
   return traineesUser;
 };
 
+
 const listComment = async (id, page, pageSize) => {
   console.log(id);
+
   const user = await User.findByPk(id, {
     attributes: ["first_name", "last_name", "imgURL"],
     include: [

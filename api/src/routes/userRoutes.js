@@ -11,8 +11,10 @@ const {
   listEmail,
   addData,
   statusAlter,
+
   ratingTotal,
   listComment,
+
 } = require("../controllers/userController");
 
 const { token } = require("morgan");
@@ -106,7 +108,9 @@ userRoutes.put("/data", async (req, res) => {
   }
 });
 
+
 userRoutes.get("/status/:id", async (req, res) => {
+
   try {
     const { id } = req.params;
     const user = await statusAlter(id);
@@ -115,6 +119,7 @@ userRoutes.get("/status/:id", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
 
 userRoutes.get("/comment/:id", async (req, res) => {
   const { page } = req.query;
@@ -135,5 +140,6 @@ userRoutes.get("/rating/:id", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
 
 module.exports = userRoutes;
