@@ -16,25 +16,20 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ContactData>({ mode: "onChange" });
-  // console.log(watch("example"));
 
   const onSubmit: SubmitHandler<ContactData> = async (data) => {
-    
-
     axios
-      .post(`http://localhost:3001/contact`, data)
-      .then((response) => {
-        console.log(response.data);
-      })
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/contact`, data)
+      .then((response) => {})
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
   return (
-    <div className="h-[89.8vh] flex justify-center bg-[url('/bgs/contact.jpg')] bg-no-repeat bg-cover backdrop-blur-sm">
+    <div className="h-[89.5vh] flex justify-center bg-[url('/bgs/contact.jpg')] bg-no-repeat bg-cover backdrop-blur-sm">
       <div className="bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[30vw] m-auto text-m">
         <div className="grid grid-cols-1 gap-1 justify-items-center h-[70vh] py-11">
           <form
@@ -45,7 +40,7 @@ export default function RegisterForm() {
               label="Enter your name:"
               name="name"
               type="text"
-              options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/ }}
+              options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/, validate: null }}
               err={errors.name}
               {...{ register }}
             />
@@ -54,7 +49,8 @@ export default function RegisterForm() {
               label="Enter your email:"
               name="email"
               type="text"
-              options={{ required: false }}
+              options={{ required: false, validate: null }}
+
               err={errors.email}
               {...{ register }}
             />
@@ -63,7 +59,7 @@ export default function RegisterForm() {
               label="Subject:"
               name="subject"
               type="text"
-              options={{ required: true, pattern: /^[a-zA-Z 0-9]{3,}$/ }}
+              options={{ required: true, pattern: /^[a-zA-Z 0-9]{3,}$/, validate: null }}
               err={errors.subject}
               {...{ register }}
             />
@@ -72,7 +68,7 @@ export default function RegisterForm() {
               label="Enter your message:"
               name="message"
               type="textarea"
-              options={{ required: false }}
+              options={{ required: false, validate: null }}
               err={errors.message}
               {...{ register }}
             />

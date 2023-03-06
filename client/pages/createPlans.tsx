@@ -6,21 +6,18 @@ export default function createPlans() {
     name: "",
     cost: "",
     description: "",
-    cantTrainees: "",
+    cantTrainees: ""
   });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     axios
-      .post(`http://localhost:3001/plans/trainers`, formData)
-      .then((data) => {
-        console.log(data);
-      })
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`, formData)
+      .then((data) => {})
       .catch((error) => {
         window.alert("Error in" + error);
       });
-    
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

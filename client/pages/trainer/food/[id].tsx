@@ -6,7 +6,6 @@ import React, { useEffect, useState } from "react";
 export default function FoodDetails() {
   const router = useRouter();
   const { id } = router.query;
-  console.log(id);
 
   const [foodData, setFoodData] = useState<FoodResType>();
 

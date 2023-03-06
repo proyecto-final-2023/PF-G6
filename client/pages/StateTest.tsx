@@ -1,20 +1,16 @@
 import PaypalButton from "@/components/PaypalButton";
 import axios from "axios";
 
-const url = `${process.env.NEXT_PUBLIC_API_URL}base`;
+const url = `${process.env.NEXT_PUBLIC_API_URL}/base`;
 const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjRhZTM0NzBmLTViZjAtNDI0My04ZTYzLTNjMWE5MWI0OWRiYSIsImlhdCI6MTY3NzI4MjkwOCwiZXhwIjoxNjc3ODg3NzA4fQ.FYdSGY48y6OvWmUtVWVO25E3Ke9AKav6OvxLkxkiJwI`;
 
 export default function App(props: { res: string }) {
-  console.log(props.res);
-
   const testGet = async () => {
     const { data: res } = (await axios(url, {
       headers: {
-        "x-access-token": token,
-      },
+        "x-access-token": token
+      }
     })) || { data: "testing" };
-
-    console.log(res);
   };
 
   const testPost = async () => {
@@ -23,8 +19,6 @@ export default function App(props: { res: string }) {
       { name: "joe" },
       { headers: { "x-access-token": token } }
     )) || { data: "POSTING" };
-
-    console.log(res);
   };
 
   return (

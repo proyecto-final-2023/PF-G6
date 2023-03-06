@@ -6,34 +6,32 @@ import CardTrainers from "@/components/CardTrainers";
 import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import homeSlides from "@/assets/home-slides";
 
-
-
 /*  photo={e.user.imgURL || user?.photoURL}
     first_name={e.user.first_name}
     last_name={e.user.last_name}
     id={e.userId}
     rating={5} */
 
-    interface Trainer {
-      id_trainer: string;
-      logo: string;
-      membership: {
-        userId: string;
-        user: {
-          first_name: string;
-          last_name: string;
-          imgURL: string;
-        };
-      };
-      planTrainees: {
-        id_PlanTrainee: string;
-        name: string;
-        cost: string;
-        description: string;
-        category: string;
-        trainerIdTrainer: string;
-      }[];
-    }
+interface Trainer {
+  id_trainer: string;
+  logo: string;
+  membership: {
+    userId: string;
+    user: {
+      first_name: string;
+      last_name: string;
+      imgURL: string;
+    };
+  };
+  planTrainees: {
+    id_PlanTrainee: string;
+    name: string;
+    cost: string;
+    description: string;
+    category: string;
+    trainerIdTrainer: string;
+  }[];
+}
 
 
 type PlansType = {
@@ -44,12 +42,11 @@ type PlansType = {
     first_name: string;
     last_name: string;
     imgURL: string;
-  }
+  };
 };
 
 export default function plansTrainee() {
   const [plans, setPlans] = useState<PlansType[]>([]);
-
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
   );
@@ -58,17 +55,11 @@ export default function plansTrainee() {
   );
 
   useEffect(() => {
-    axios(`http://localhost:3001/trainers?page=1`)
-      .then((data) => {
-        
-        
-        setPlans(data.data)
-       
-      })
-      .catch((error) => console.log(error));
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
+      .then((data) => setPlans(data.data))
+      .catch((error) => console.error(error));
   }, []);
   // plans
-
   return (
     <div>
       <header className="plan ">

@@ -1,8 +1,7 @@
 {
   "dependencies": {
     "next-seo": "^5.15.0",
-    "sweetalert2": "^11.7.3",
-    "sweetalert2-react-content": "^5.0.7"
+    "react-router-dom": "^6.8.2"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",

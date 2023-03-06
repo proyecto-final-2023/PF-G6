@@ -12,19 +12,19 @@ export default function createPlans() {
     {
       name: "",
       cost: "",
-      description: "",
-    },
+      description: ""
+    }
   ]);
-  
+  console.log(formData);
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     axios
-      .post(`http://localhost:3001/plans/trainee`, formData, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`, formData, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-       
+        console.log(data);
       })
       .catch((error) => {
         window.alert("Error in" + error);

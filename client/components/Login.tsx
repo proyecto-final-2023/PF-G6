@@ -31,7 +31,7 @@ export const Login = () => {
   const [inputValue, setInputValue] = useState("");
   const auth1 = getAuth()
 
-
+// console.log(user?.email)
 
   const login = async (authType: AuthProvider) => {
     try {
@@ -64,7 +64,7 @@ export const Login = () => {
     password: user?.email || email,
   };
 
-
+  // console.log(info)
 
   const infoLoguin = {
     email: info.email,
@@ -74,15 +74,15 @@ export const Login = () => {
 
   useEffect(() => {
     if (user !== null && info.email !== undefined) {
-     
-      axios.post(`http://localhost:3001/user/email`, { email: info.email })
+      // console.log(info.email)
+      axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/email`, { email: info.email })
         .then(response => {
-          
+          // console.log(response.data.verify)
           if (response.data.verify === true) {
-            axios.post(`http://localhost:3001/auth`, infoLoguin)
+            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, infoLoguin)
               .then(response => {
                 setCookie("token", response.data.token)
-                
+                // console.log(response)
                 window.location.href = "/home"
           
               })
@@ -90,10 +90,10 @@ export const Login = () => {
                 console.log(error)
               });
           } else if (response.data.verify === false) {
-            axios.post(`http://localhost:3001/createuser`, info)
+            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info)
               .then(response => {
                 auth.signOut();
-               
+                // console.log(response)
                 window.location.reload()
               })
               .catch(error => {

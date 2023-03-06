@@ -15,18 +15,15 @@ export default function TablePlans() {
   const [plans, setPlans] = useState<Array<Plan>>([]);
   useEffect(() => {
     axios
-      .post(`http://localhost:3001/user/perfil`, null, {
-        headers: { "x-access-token": key },
+      .post("https://fp-server-cg2b.onrender.com/user/perfil", null, {
+        headers: { "x-access-token": key }
       })
       .then((data) => {
-        
         setPlans(data.data.membership.trainer.planTrainees);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, []);
- 
 
-  
   return (
     <div>
       <div className="relative overflow-x-auto">
@@ -52,7 +49,7 @@ export default function TablePlans() {
           </thead>
           <tbody>
             {plans &&
-              plans.map((e) => (
+              plans.map((e:any) => (
                 <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 className='row-span-2 m-auto border-2 border-rose-500    ">
                   <th className="px-8 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {e.name}

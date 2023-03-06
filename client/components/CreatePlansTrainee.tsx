@@ -3,11 +3,10 @@ import axios from "axios";
 
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 
-
-interface tData{
-    name: string;
-    cost: string;
-    description: string;
+interface tData {
+  name: string;
+  cost: string;
+  description: string;
 }
 
 // crear los planes para trainees
@@ -29,15 +28,10 @@ export default function CreatePlansTrainee() {
     event.preventDefault();
 
     axios
-      .post(`http://localhost:3001/plans/trainee`, formData, {
-        headers: { "x-access-token": key },
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`, formData, {
+        headers: { "x-access-token": key }
       })
-      .then((data) => {
-        
-        if(data.status===200){
-          alert('successfully added')
-        }
-      })
+      .then((data) => {})
       .catch((error) => {
         window.alert("Error in" + error);
       });
