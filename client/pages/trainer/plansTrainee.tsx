@@ -15,7 +15,7 @@ export default function createPlans() {
       description: ""
     }
   ]);
-  console.log(formData);
+ 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

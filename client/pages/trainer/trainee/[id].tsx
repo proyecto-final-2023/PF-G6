@@ -16,7 +16,7 @@ export default function trainee() {
     useEffect(()=>{
     //
     axios
-    .post("http://localhost:3001/user/perfil", null, {
+    .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
       headers: { "x-access-token": key },
     })
     .then((data) => {
@@ -28,7 +28,7 @@ export default function trainee() {
     .catch((error) => console.log(error));
     //
     axios
-    .post('http://localhost:3001/trainees/byplan?page=1', {
+    .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/byplan?page=1`, {
       idPlanTrainee: id,
     })
     .then((data) => {

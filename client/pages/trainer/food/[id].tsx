@@ -14,7 +14,7 @@ export default function FoodDetails() {
   };
 
   useEffect(() => {
-    axios(`http://localhost:3001/aliment/${id}`).then(({ data }) =>
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/${id}`).then(({ data }) =>
       setFoodData(data)
     );
   }, []);

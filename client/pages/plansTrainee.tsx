@@ -93,9 +93,9 @@ export default function plansTrainee() {
           plans.map((e:any) => (
             <CardTrainers
               photo={e.logo}
-              first_name={e.membership.user.first_name}
-              last_name={e.membership.user.last_name}
-              id={e.membership.userId}
+              first_name={e?.membership?.user?.first_name}
+              last_name={e?.membership?.user?.last_name}
+              id={e?.membership?.userId}
               rating={5}
             />
           ))}{" "}
@@ -108,11 +108,11 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
-              photo={e.logo}
-              first_name={e.membership.user.first_name}
-              last_name={e.membership.user.last_name}
-              id={e.membership.userId}
-              rating={5}
+            photo={e.logo}
+            first_name={e?.membership?.user?.first_name}
+            last_name={e?.membership?.user?.last_name}
+            id={e?.membership?.userId}
+            rating={5}
             />
           ))}{" "}
       </div>
@@ -127,10 +127,10 @@ export default function plansTrainee() {
           plans.map((e:any) => (
             <CardTrainers
             photo={e.logo}
-            first_name={e.membership.user.first_name}
-            last_name={e.membership.user.last_name}
-            id={e.membership.userId}
-            rating={5}
+              first_name={e?.membership?.user?.first_name}
+              last_name={e?.membership?.user?.last_name}
+              id={e?.membership?.userId}
+              rating={5}
           />
           ))}
       </div>

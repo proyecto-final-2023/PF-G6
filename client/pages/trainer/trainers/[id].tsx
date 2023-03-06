@@ -53,15 +53,16 @@ export default function TraineeDetails() {
 
   useEffect(() => {
     // make call to backend to fetch user data
-    axios(`http://localhost:3001/user/${id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
       .then(({ data }) => {
+        console.log(data);
         setUserData(data);
         setPlan(data.membership.trainer.planTrainees);
       })
       .catch((error) => console.error(error));
   }, []);
-
  
+  console.log(userData)
   return (
     <div className="flex flex-nowrap  bg-[url('/tail-imgs/trainer.jpg')] bg-no-repeat bg-cover  bg-bottom  ">
     <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -96,14 +97,7 @@ export default function TraineeDetails() {
           </button>
         </div>
       </div>
-      <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
-        <div className="flex  justify-center  justify-between">
-          <span className="  text-3xl font-bold text-gray-900 dark:text-white">
-            Plans
-          </span>
-        </div>
-    </div>
-    <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
+       <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
              <div className="flex  justify-center  justify-between">
               <span className="  text-3xl font-bold text-gray-900 dark:text-white">Plans</span>  
           
