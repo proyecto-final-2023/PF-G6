@@ -1,26 +1,17 @@
-import dynamic from "next/dynamic";
-
-// Dynamic imports for icons & disabled SSR, dunno
-const GiBanknote = dynamic(
-  () => import("react-icons/gi").then((mod) => mod.GiBanknote),
-  { ssr: false }
-);
-const GiBank = dynamic(
-  () => import("react-icons/gi").then((mod) => mod.GiBank),
-  { ssr: false }
-);
-const HiUserGroup = dynamic(
-  () => import("react-icons/hi").then((mod) => mod.HiUserGroup),
-  { ssr: false }
-);
-const FaUserAlt = dynamic(
-  () => import("react-icons/fa").then((mod) => mod.FaUserAlt),
-  { ssr: false }
-);
+// import dynamic from "next/dynamic";
+// // Dynamic imports for icons & disabled SSR, dunno
+// const FaUserAlt = dynamic(
+//   () => import("react-icons/fa").then((mod) => mod.FaUserAlt),
+//   { ssr: false }
+// );
 
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DataView from "./DataView";
+// please dont break T.T
+import { GiBanknote, GiBank } from "react-icons/gi";
+import { HiUserGroup } from "react-icons/hi";
+import { FaUserAlt } from "react-icons/fa";
 
 interface AxiosData {
   data: Data;
