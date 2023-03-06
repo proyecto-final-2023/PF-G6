@@ -22,11 +22,31 @@ type UserType = {
      planTrainees: PlansType[]; };};
   };
 
+interface tUser {
+  id: string;
+  status: boolean;
+  first_name: string;
+  last_name: string;
+  nickname: string;
+  role: string;
+  gender: string;
+  phone: string;
+  imgURL: string;
+}
+
+interface tPlan {
+  id_PlanTrainee: string;
+  name: string;
+  cost: number;
+  description: string;
+  category: string;
+}
+
 export default function TraineeDetails() {
 
 
-  const [userData, setUserData] = useState<UserType[]>([]);
-  const [plans, setPlan] = useState<PlansType[]>([]);
+  const [userData, setUserData] = useState<tUser[]>([]);
+  const [plans, setPlan] = useState<tPlan[]>([]);
   
   const router = useRouter();
   
@@ -52,14 +72,14 @@ export default function TraineeDetails() {
         </div>
         <div className="px-5 pb-5">
             <div>
-                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{userData.first_name}</h5>
-                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{userData.last_name}</h5>
+                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{userData?.first_name}</h5>
+                <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{userData?.last_name}</h5>
             </div>
             <div className="flex items-center mt-2.5 mb-5">
                <ReactStars count={5} size={20} color2={"#b96607"} />
             </div>
             <div className="flex items-center justify-between">
-                <span className="text-3xl font-bold text-gray-900 dark:text-white">{userData.role}</span>  
+                <span className="text-3xl font-bold text-gray-900 dark:text-white">{userData?.role}</span>  
                 <div className="flex items-center justify-between">
            </div>
                 

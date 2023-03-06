@@ -3,19 +3,27 @@ import axios from "axios";
 
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 
+
+interface tData{
+    name: string;
+    cost: string;
+    description: string;
+}
+
 // crear los planes para trainees
 export default function CreatePlansTrainee() {
   //token user
   const key = getCookie("token");
  
 
-  const [formData, setFormData] = useState([
+
+  const [formData, setFormData] = useState(
     {
       name: "",
       cost: "",
       description: "",
     },
-  ]);
+  );
  
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

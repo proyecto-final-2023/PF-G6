@@ -7,11 +7,11 @@ type CardTrainersProps = {
   photo: string;
   first_name: string;
   last_name: string;
-  description: string;
-  rating: number;
+  description?: string;
+  rating: number | undefined;
 };
 // card trainers
-const Card = ({ photo, first_name, last_name, id }) => {
+const Card = ({ photo, first_name, last_name, id }:CardTrainersProps) => {
   return (
     <div className="max-w-sm  rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
       <div className="flex   hover:drop-shadow-2xl  ">

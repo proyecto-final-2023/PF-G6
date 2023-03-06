@@ -25,8 +25,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
   const router = useRouter();
   const { amountToPay, serviceName, idPlans } = props;
   const key = getCookie("token");
-
-;
+  console.log(key);
   //  const key=document.cookie.split(' ')[1].split('=')[1];
 
   const [succeeded, setSucceeded] = useState(false);
@@ -73,13 +72,13 @@ export default function PaypalButton(props: PaypalButtonProps) {
       //enviamos datos a membership
      
         try {
-          axios.post(`http://localhost:3001/membership`, data,{headers:{'x-access-token': key}})
+          axios.post("https://fp-server-cg2b.onrender.com/membership", data,{headers:{'x-access-token': key}})
           .then((res) => {
             
            
             
              // si el estado de role cambia te manda al das
-            axios.post(`http://localhost:3001/user/perfil`,null,{headers:{'x-access-token': key}})
+            axios.post("https://fp-server-cg2b.onrender.com/user/perfil",null,{headers:{'x-access-token': key}})
             .then((data) => {
             
               if(data.data.role==='trainer')router.push("/trainer");

@@ -6,17 +6,46 @@ import CardTrainers from "@/components/CardTrainers";
 import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import homeSlides from "@/assets/home-slides";
 
+
+
+/*  photo={e.user.imgURL || user?.photoURL}
+    first_name={e.user.first_name}
+    last_name={e.user.last_name}
+    id={e.userId}
+    rating={5} */
+
+    interface Trainer {
+      id_trainer: string;
+      logo: string;
+      membership: {
+        userId: string;
+        user: {
+          first_name: string;
+          last_name: string;
+          imgURL: string;
+        };
+      };
+      planTrainees: {
+        id_PlanTrainee: string;
+        name: string;
+        cost: string;
+        description: string;
+        category: string;
+        trainerIdTrainer: string;
+      }[];
+    }
+
 // mostrar los planes para los trainers
 type PlansType = {
-  id: number;
-  name: string;
-  photo: string;
-  first_name: string;
-  last_name: string;
-  imgURL: string;
+  userId: string;
+  user: {
+    name: string;
+    photo: string;
+    first_name: string;
+    last_name: string;
+    imgURL: string;
+  }
 };
-// mostrar los planes para los trainers
-
 
 export default function plansTrainee() {
   const [plans, setPlans] = useState<PlansType[]>([]);
@@ -72,10 +101,10 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
-              photo={e.logo}
-              first_name={e.membership.user.first_name}
-              last_name={e.membership.user.last_name}
-              id={e.membership.userId}
+              photo={e.user.imgURL || user?.photoURL}
+              first_name={e.user.first_name}
+              last_name={e.user.last_name}
+              id={e.userId}
               rating={5}
             />
           ))}{" "}
@@ -88,10 +117,10 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
-              photo={e.logo}
-              first_name={e.membership.user.first_name}
-              last_name={e.membership.user.last_name}
-              id={e.membership.userId}
+              photo={e.user.imgURL || user?.photoURL}
+              first_name={e.user.first_name}
+              last_name={e.user.last_name}
+              id={e.userId}
               rating={5}
             />
           ))}{" "}
@@ -106,12 +135,12 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
-            photo={e.logo}
-            first_name={e.membership.user.first_name}
-            last_name={e.membership.user.last_name}
-            id={e.membership.userId}
-            rating={5}
-          />
+              photo={e.user.imgURL || user?.photoURL}
+              first_name={e.user.first_name}
+              last_name={e.user.last_name}
+              id={e.userId}
+              rating={5}
+            />
           ))}
       </div>
     </div>

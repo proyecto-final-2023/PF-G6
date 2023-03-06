@@ -19,7 +19,7 @@ export default function Navbar() {
   const [hovers, setHovers] = useState({ tools: false, user: false });
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState();
+  const [user1, setUser1] = useState<{display_name:string}>();
   const key =getCookie('token')
   const photo=user?.photoURL
   const name = user?.displayName;

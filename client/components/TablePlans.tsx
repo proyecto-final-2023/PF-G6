@@ -3,11 +3,16 @@ import { getCookie, setCookie } from "@/utils/cookieHandler";
 import axios from "axios";
 import Link from "next/link";
 
+interface Plan {
+  name: string;
+  description: string;
+  category: string;
+  cost: number;
+}
+
 export default function TablePlans() {
   const key = getCookie("token");
-  
-  
-  const [plans, setPlans] = useState([]);
+  const [plans, setPlans] = useState<Array<Plan>>([]);
   useEffect(() => {
     axios
       .post(`http://localhost:3001/user/perfil`, null, {

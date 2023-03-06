@@ -1,5 +1,8 @@
 import React from "react";
 import Link from "next/link";
+import { useState } from "react";
+import useParam1Store from "@/store/state-lb";
+
 
 
 export default function Routines() {
@@ -20,3 +23,4 @@ export default function Routines() {
       </Link>
   </div>;
 }
+

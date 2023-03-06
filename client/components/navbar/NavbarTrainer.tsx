@@ -5,12 +5,18 @@ import { auth } from "../../firebase";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
+import { AxiosResponse } from "axios";
 
-export default function () {
+
+interface User {
+  display_name: string;
+}
+
+export default function Trainer() {
   const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState('');
-  const [logo, setLogo] = useState('');
+  const [user1, setUser1] = useState();
   const key = getCookie("token");
+
 
   useEffect(() => {
     axios
@@ -19,7 +25,7 @@ export default function () {
           "x-access-token": key,
         },
       })
-      .then((data) => {
+      .then((data: AxiosResponse<any, any>) => {
         setUser1({
           display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
         });
@@ -31,7 +37,8 @@ export default function () {
         
       });
   }, []);
-
+  console.log(user1);
+  console.log(user);
   return (
     <div className="  flex  flex-col z-40 w-60   ">
       <nav className="  bg-gray-50 dark:bg-gray-800">
@@ -77,7 +84,7 @@ export default function () {
                 href="/trainer/blog"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <svg
+                <svg 
                   aria-className="true"
                   className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   fill="currentColor"
