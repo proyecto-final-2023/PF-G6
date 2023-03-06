@@ -34,7 +34,7 @@ export default function () {
 
   return (
     <div className="  flex  flex-col z-40 w-60   ">
-      <nav className=" h-[100vh]  bg-gray-50 dark:bg-gray-800">
+      <nav className="  bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center text-white font-bold m-20">
           Trainer
         </div>
@@ -45,7 +45,9 @@ export default function () {
             src={logo}
             alt="data"
           />
-
+        <div className="w-50">
+        <Link href="/trainer/logo" className="inline-block w-full p-4 items-center bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">ADD</Link>
+         </div>
           <p>{user1?.display_name}</p>
         </div>
         <div className="flex flex-col ">
