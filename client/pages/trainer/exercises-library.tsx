@@ -107,10 +107,8 @@ export default function ExercisesLibrary() {
       console.log(error)
     }
     
-    // Aquí se enviaría la información a través de una solicitud HTTP
-    
   }
-  console.log(key)
+
 
   const formatDate = (date: Date): string => {
     const day = date.getDate().toString().padStart(2, '0');
