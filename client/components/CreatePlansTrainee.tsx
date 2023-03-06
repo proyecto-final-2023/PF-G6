@@ -21,7 +21,7 @@ export default function CreatePlansTrainee() {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3001/plans/trainee", formData, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`, formData, {
         headers: { "x-access-token": key },
       })
       .then((data) => {

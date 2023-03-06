@@ -110,9 +110,9 @@ export default function ExercisesLibrary() {
     page: number
   ) => {
     try {
-      let url = "http://localhost:3001/activity?page=" + page;
+      let url = `${process.env.NEXT_PUBLIC_API_URL}/activity?page=` + page;
       if (firstParam && secondParam) {
-        url = `http://localhost:3001/activity/filter/${firstParam}/${secondParam}?page=${page}`;
+        url = `${process.env.NEXT_PUBLIC_API_URL}activity/filter/${firstParam}/${secondParam}?page=${page}`;
       }
       const { data } = await axios(url);
       setRndExercises(data);

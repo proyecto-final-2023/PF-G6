@@ -9,12 +9,13 @@ import CreatePlansTrainee from "./CreatePlansTrainee";
 export default function Dashboard() {
   
   const key = getCookie("token");
+  console.log(key)
 
   const [plans, setPlans] = useState([]);
   const [logo, setLogo] = useState([]);
   useEffect(() => {
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {

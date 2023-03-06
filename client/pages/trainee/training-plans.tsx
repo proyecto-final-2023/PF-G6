@@ -3,18 +3,11 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 //aqui tiene pra ver  los planes para trainee
 export default function TrainingPlans() {
-  //prueba
-  const plansTrainee=[{
-      id_PlanTrainee: "9885f13a-4f07-40d4-82c0-729dbd32c3cb",
-      name: "Bronce para Peso345",
-      cost: 5,
-      description: "Aqui la descripcion",
-      category: "trainee",
-      trainerIdTrainer: "3ecd5a1a-f6bc-49f4-99ab-971003de134a"
-  }]
+
+
 
   useEffect(() => {
-    axios("http://localhost:3001/plans/trainee")
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`)
       .then(({ data }) => console.log(data))
       .catch((error) => console.log(error));
   }, []);

@@ -31,7 +31,7 @@ export default function Index() {
  
   useEffect(() => {
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil/`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {

@@ -20,7 +20,7 @@ export default function TraineeDetails() {
   const id = router.query.id;
   useEffect(() => {
     // make call to backend to fetch user data
-    axios(`http://localhost:3001/user/${id}`)
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
       .then(({ data }) => {
         console.log(data);
         setUserData(data);

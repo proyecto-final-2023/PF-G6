@@ -1,3 +1,4 @@
+const { where } = require("sequelize");
 const {
   Trainee,
   Membership,
@@ -150,6 +151,8 @@ const listTrainees = async (page, limit) => {
   }
 };
 
+
+
 const addData = async (
   id,
   weight,
@@ -220,4 +223,5 @@ module.exports = {
   addData,
   addComment,
   updateRating,
+
 };

@@ -40,7 +40,7 @@ export default function Navbar() {
   // // aqui te manda
   useEffect(() => {
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
@@ -54,7 +54,7 @@ export default function Navbar() {
   const [viewportWidth, setViewportWidth] = useState(0);
     // aqui te manda 
  useEffect(()=>{
-  axios.post("http://localhost:3001/user/perfil",null,{headers:{'x-access-token': key}})
+  axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,null,{headers:{'x-access-token': key}})
   .then((data) => {
    console.log(data.data)
    setUser1({

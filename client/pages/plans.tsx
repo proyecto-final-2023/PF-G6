@@ -15,7 +15,7 @@ type PlansType = {
 
 export default function plans() {
   const [plans, setPlans] = useState<PlansType[]>([]);
-  console.log(plans);
+  
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
   );
@@ -24,15 +24,15 @@ export default function plans() {
   );
 
   useEffect(() => {
-    axios('http://localhost:3001/plans/trainers')
+    axios(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`)
       .then(({ data }) => setPlans(data))
       .catch((error) => console.log(error));
    
 
     const key = getCookie("token");
-    console.log(key);
+    
     axios
-      .post("http://localhost:3001/user/perfil", null, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}user/perfil`, null, {
         headers: { "x-access-token": key },
       })
       .then((data) => {
@@ -41,7 +41,7 @@ export default function plans() {
       });
   }, []);
   // plans
-  console.log(plans);
+  
   return (
     <div>
       <header className="plan">
