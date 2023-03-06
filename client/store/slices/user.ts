@@ -8,15 +8,12 @@ const createUserSlice: UserCreator = (set) => ({
     set((state) => ({ userData: { ...state.userData, confirmed: status } }));
   },
 
-  updateData: async (imgURL, rol, fullName) => {
-    console.log("poggers data");
-  },
+  updateData: async (imgURL, rol, fullName) => {},
 
   fetchPost: async () => {
     const { data } = await axios("https://api-fp-server.onrender.com/activity");
-    console.log(data);
     set({ post: data });
-  },
+  }
 });
 
 export default createUserSlice;

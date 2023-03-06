@@ -41,27 +41,21 @@ export default function Index() {
         headers: { "x-access-token": key }
       })
       .then((response) => {
-        console.log(response);
         alert("Feedback sent");
         setFeedback("");
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
         alert("Error sending the feedback, try again");
       });
   }
 
-  console.log(key);
   useEffect(() => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
         headers: { "x-access-token": key }
       })
       .then((data) => {
-        console.log(data.data);
-        console.log(
-          data.data.membership.planTrainee.trainer.membership.user.phone
-        );
         setUser1({
           display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
           userImage: data.data.imgURL,
@@ -73,8 +67,6 @@ export default function Index() {
         });
       });
   }, []);
-
-  console.log(user1);
 
   const locales = {
     "en-US": require("date-fns/locale/en-US")

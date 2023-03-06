@@ -16,20 +16,15 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors }
   } = useForm<ContactData>({ mode: "onChange" });
-  // console.log(watch("example"));
 
   const onSubmit: SubmitHandler<ContactData> = async (data) => {
-    console.log("SUBMIT", data);
-
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/contact`, data)
-      .then((response) => {
-        console.log(response.data);
-      })
+      .then((response) => {})
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -45,7 +40,7 @@ export default function RegisterForm() {
               label="Enter your name:"
               name="name"
               type="text"
-              options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/ }}
+              options={{ required: true, pattern: /^[a-zA-Z ]{3,}$/, validate: null }}
               err={errors.name}
               {...{ register }}
             />
@@ -54,7 +49,8 @@ export default function RegisterForm() {
               label="Enter your email:"
               name="email"
               type="text"
-              options={{ required: false }}
+              options={{ required: false, validate: null }}
+
               err={errors.email}
               {...{ register }}
             />
@@ -63,7 +59,7 @@ export default function RegisterForm() {
               label="Subject:"
               name="subject"
               type="text"
-              options={{ required: true, pattern: /^[a-zA-Z 0-9]{3,}$/ }}
+              options={{ required: true, pattern: /^[a-zA-Z 0-9]{3,}$/, validate: null }}
               err={errors.subject}
               {...{ register }}
             />
@@ -72,7 +68,7 @@ export default function RegisterForm() {
               label="Enter your message:"
               name="message"
               type="textarea"
-              options={{ required: false }}
+              options={{ required: false, validate: null }}
               err={errors.message}
               {...{ register }}
             />

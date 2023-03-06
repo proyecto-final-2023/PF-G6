@@ -63,29 +63,6 @@ const getPerfil = async (id) => {
               // { model: Rating },
               { model: Certificates },
               { model: SocialNetworks },
-              {
-                model: Comment,
-                attributes: ["message"],
-                include: [
-                  {
-                    model: Trainee,
-                    attributes: ["id_trainee"],
-
-                    include: [
-                      {
-                        model: Membership,
-                        attributes: ["id_membership"],
-                        include: [
-                          {
-                            model: User,
-                            attributes: ["first_name", "imgURL"],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
             ],
           },
           {
@@ -162,7 +139,7 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    attributes: ["first_name", "last_name", "nickname", "role", "imgURL"],
+    attributes: ["first_name", "last_name", "nickname", "role","imgURL"],
     include: [
       {
         model: Logueo,
@@ -309,6 +286,21 @@ const addData = async (
   return `Se actualizó los datos del Usuario  ${user.first_name}, ${user.last_name}`;
 };
 
+const statusAlter = async (id) => {
+  const planM = await Plantrainer.findByPk(id);
+  const planM2 = await PlanTrainee.findByPk(id);
+
+  if (planM) {
+    await planM.update({ status: !planM.status });
+    return `Plan ${planM.name} status:${status}`;
+  }
+  if (planM2) {
+    await planM2.update({ status: !planM2.status });
+    return `Plan ${planM2.name} status:${status}`;
+  }
+
+  return `No existe un plan con el ID ${id}`;
+};
 module.exports = {
   botUserAdd,
   getId,
@@ -318,4 +310,5 @@ module.exports = {
   getPerfil,
   listEmail,
   addData,
+  statusAlter,
 };

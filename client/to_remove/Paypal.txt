@@ -9,7 +9,6 @@ export function Paypal({ cost }) {
     setPrice(cost);
   }, []);
 
-  console.log(cost);
   return (
     <div>
       <PayPalScriptProvider
@@ -31,10 +30,8 @@ export function Paypal({ cost }) {
                 ],
               });
             } catch (error) {
-              console.log(error);
             }
           }}
-          onCancel={(data) => console.log("compra cancelada")}
           onApprove={(data, actions) => {
             actions.order.capture().then((details) => {
               const { email_address, payer_id } = details.payer;
@@ -44,7 +41,6 @@ export function Paypal({ cost }) {
               const { name } = details.purchase_units[0].shipping;
               const { id: transaccionId } = details;
 
-              console.log(details);
             });
           }}
           style={{ layout: "vertical", color: "silver" }}
