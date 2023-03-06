@@ -40,3 +40,15 @@ export type UserDetailsResponse = {
     };
   };
 };
+
+// ? --------------------------------------------------------------------------------------------
+// * Only for User - API/user
+// ? --------------------------------------------------------------------------------------------
+export type UserBasicsResponse = {
+  id: string;
+  first_name: string;
+  last_name: string;
+  nickname: string;
+  role: string;
+  imgURL: string;
+};

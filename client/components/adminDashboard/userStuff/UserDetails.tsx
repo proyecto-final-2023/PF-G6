@@ -1,99 +1,48 @@
-import { useEffect, useRef } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { User, UserDetailsT } from "@/types/components/dashboard";
 
-export default function UserDetails(props: UserDetailsT) {
-  const first_name = "John";
-  const last_name = "Doe";
-  const nickname = "Johnny";
-  const imgURL = "https://i.imgur.com/1Q1Z1Z1.png";
-  const requestType = useRef<"PUT" | "DELETE">("PUT");
-
+type ModifyUser = {
+  name: string;
+  role: string;
+};
+export default function UserDetails() {
   const {
     register,
     handleSubmit,
     watch,
     setValue,
     formState: { errors }
-  } = useForm<User>({
+  } = useForm<ModifyUser>({
     mode: "onChange",
     defaultValues: {
-      first_name: "",
-      last_name: "",
-      nickname: ""
+      name: "",
+      role: ""
     }
   });
 
-  const onSubmit: SubmitHandler<User> = async (data) => {
-    if (requestType.current === "PUT") {
-      // await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`, data);
-      console.log("READY TO UPDATE", data);
-    } else {
-      // await axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`);
-      console.log("READY TO LOGIC DELETE", data);
-    }
+  const onSubmit: SubmitHandler<ModifyUser> = async (data) => {
+    console.log("READY TO UPDATE", data);
   };
 
-  const updateValues = () => {
-    setValue("first_name", first_name);
-    setValue("last_name", last_name);
-    setValue("nickname", nickname || "");
-  };
-
-  useEffect(() => {
-    updateValues();
-  }, [first_name]);
+  const handleDelete = () => {};
 
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
         <label className="flex flex-col">
-          First Name:
-          <input
-            className="rounded-md"
-            type="text"
-            {...register("first_name", { required: true })}
-          />
-        </label>
-
-        <label className="flex flex-col">
-          Last Name:
-          <input
-            className="rounded-md"
-            type="text"
-            {...register("last_name", { required: true })}
-          />
-        </label>
-
-        <label className="flex flex-col">
           Nickname:
           <input
             className="rounded-md"
             type="text"
-            {...register("nickname", { required: true })}
+            {...register("name", { required: true })}
           />
         </label>
 
-        {imgURL && (
-          <label className="flex flex-col">
-            Logo:
-            <input
-              className="rounded-md"
-              type="file"
-              {...register("imgURL", { required: true })}
-            />
-          </label>
-        )}
-
         {/* BUTTONS :D */}
+        <button className="py-2 px-3 bg-green-700 rounded">Update</button>
+
         <button
-          onClick={() => (requestType.current = "PUT")}
-          className="py-2 px-3 bg-green-700 rounded"
-        >
-          Update
-        </button>
-        <button
-          onClick={() => (requestType.current = "DELETE")}
+          type="button"
+          onClick={() => handleDelete()}
           className="py-2 px-3 bg-red-700 rounded"
         >
           Delete

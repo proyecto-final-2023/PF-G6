@@ -6,7 +6,10 @@ export default function TrainerCard(props: UserCardT) {
   const updateTrainerDetails = useStore((state) => state.fetchTrainerDetails);
 
   return (
-    <button onClick={() => updateTrainerDetails(user_id)}>
+    <button
+      onClick={() => updateTrainerDetails(user_id)}
+      className="bg-slate-700 rounded cursor-pointer px-2 py-8"
+    >
       <p>{name}</p>
       <p>role: Trainer</p>
     </button>

@@ -1,6 +1,6 @@
+import create from "zustand";
 import { StateCreator } from "zustand";
 import { EventInput } from "@fullcalendar/core";
-import create from "zustand";
 import { UserCardT, UserDetailsT } from "./dash/user";
 
 export interface Post {
@@ -45,6 +45,7 @@ export interface Trainer {
 
   updateTrainerDetails: (data: UserDetailsT) => Promise<void>;
 }
+
 // * Does the actual exercise (trainee)
 export interface Trainee {
   traineeBasicsArr: UserCardT[];
@@ -58,12 +59,37 @@ export interface Trainee {
   updateTraineeDetails: (data: UserDetailsT) => Promise<void>;
 }
 
-export type TrainerCreator = StateCreator<Trainer & Trainee, [], [], Trainer>;
+export interface UserZustand {
+  userBasicsArr: UserCardT[];
 
-export type TraineeCreator = StateCreator<Trainer & Trainee, [], [], Trainee>;
+  userDetails: UserDetailsT;
 
-// export type PostCreator = StateCreator<Post & User, [], [], Post>;
+  fetchUserBasicsArr: (page: number) => Promise<void>;
 
-// export type UserCreator = StateCreator<Post & User, [], [], User>;
+  fetchUserDetails: (id: string) => Promise<void>;
+
+  updateUserDetails: (data: UserDetailsT) => Promise<void>;
+}
+
+export type TrainerCreator = StateCreator<
+  Trainer & Trainee & UserZustand,
+  [],
+  [],
+  Trainer
+>;
+
+export type TraineeCreator = StateCreator<
+  Trainer & Trainee & UserZustand,
+  [],
+  [],
+  Trainee
+>;
+
+export type UserCreator = StateCreator<
+  Trainer & Trainee & UserZustand,
+  [],
+  [],
+  UserZustand
+>;
 
 export type CalendarCreator = StateCreator<CalendarState>;

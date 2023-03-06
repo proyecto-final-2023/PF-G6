@@ -1,15 +1,16 @@
-import { UserCardT } from "@/types/components/dashboard";
+import useStore from "@/store/dashStore";
 
-export default function UserCard(props: UserCardT) {
-  const { first_name, clickHandler, id, role } = props;
+export default function UserCard(props: { user_id: string; name: string }) {
+  const { user_id, name } = props;
+  const fetchUserDetails = useStore((state) => state.fetchUserDetails);
 
   return (
     <button
       className="bg-slate-700 rounded cursor-pointer px-2 py-8"
-      onClick={() => clickHandler(id)}
+      onClick={() => fetchUserDetails(user_id)}
     >
-      <p>First name {first_name}</p>
-      <p>role: {role} </p>
+      <p>Name: {name}</p>
+      <p>o.o</p>
     </button>
   );
 }

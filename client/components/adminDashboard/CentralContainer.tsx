@@ -9,7 +9,7 @@ export default function CentralContainer() {
     <div className="w-4/5 mx-1/10 mt-20">
       {/* <MembershipsContainer /> */}
       {/* <PlanContainer /> */}
-      {/* <UserContainer /> */}
+      <UserContainer />
       <TraineeContainer />
       <TrainerContainer />
     </div>

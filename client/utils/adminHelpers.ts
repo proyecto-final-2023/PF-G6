@@ -2,10 +2,60 @@ import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
 import { TrainerResponse } from "@/types/dash/trainer";
 import {
+  UserBasicsResponse,
   UserCardT,
   UserDetailsResponse,
   UserDetailsT
 } from "@/types/dash/user";
+import { async } from "@firebase/util";
+
+// ----------------------------------------------------------------
+// ? Users
+// ----------------------------------------------------------------
+function parseOneUser(data: UserBasicsResponse): UserCardT {
+  const first_name = data.first_name || "no-first-name";
+  const last_name = data.last_name || "no-last-name";
+  const name = first_name ? `${first_name} ${last_name}` : "";
+  const user_id = data.id || "no-id";
+
+  return {
+    user_id,
+    name
+  };
+}
+
+// * @store/slices/user.ts
+export async function getUserBasics(page: number): Promise<UserCardT[]> {
+  try {
+    const { data }: { data: UserBasicsResponse[] | any[] } = await axios(
+      `${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`
+    );
+
+    const parsedData = data.map((user: UserBasicsResponse) =>
+      parseOneUser(user)
+    );
+
+    return parsedData;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+}
+
+export async function getUserDetails(id: string) {
+  try {
+    const { data }: { data: UserDetailsResponse } = await axios(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
+    );
+
+    const parsedData = parseOneUserDetails(data, id);
+
+    return parsedData;
+  } catch (error) {
+    console.error(error);
+    return { user_id: "", name: "", email: "" };
+  }
+}
 
 // ----------------------------------------------------------------
 // ? Trainer Helpers & Trainee Helpers (Users)
