@@ -37,7 +37,6 @@ const verifyTrainee = async (req, res, next) => {
 //verifica que tenga token y sea un trainer
 const verifyTrainer = async (req, res, next) => {
   const token = req.headers["x-access-token"];
-  console.log(token);
   if (!token) return res.status(403).json({ message: "no se recibió token" });
 
   const decoded = jwt.verify(token, config.SECRET);

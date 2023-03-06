@@ -5,7 +5,6 @@ import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import Link from "next/link";
 
 export default function Home() {
-
   return (
     <>
       <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed  backdrop-blur-sm">
@@ -32,7 +31,7 @@ export default function Home() {
         <h2 className="text-center font-bold text-yellow-700  ">
           Find the Best Trainer For You!
         </h2>
-       <Link replace href="/plans"> 
+        <Link replace href="/plans">
           <div className=" bg-gray-800 max-w-sm rounded overflow-hidden shadow-lg">
             <div className="px-6 py-4">
               <div className="text-yellow-800 font-bold text-xl mb-2">
@@ -42,7 +41,7 @@ export default function Home() {
             </div>
           </div>
         </Link>
-        <Link replace href="/plansTrainee"> 
+        <Link replace href="/plansTrainee">
           <div className=" bg-gray-800 max-w-sm rounded overflow-hidden shadow-lg">
             <div className="px-6 py-4">
               <div className="text-yellow-800 font-bold text-xl mb-2">
@@ -53,7 +52,7 @@ export default function Home() {
           </div>
         </Link>
 
-        <SwiperCarousel slidesArr={homeSlides} /> 
+        <SwiperCarousel slidesArr={homeSlides} />
       </div>
     </>
   );
