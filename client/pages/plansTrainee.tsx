@@ -95,9 +95,9 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL || ""}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
               id={e.userId}
               rating={5}
             />
@@ -111,9 +111,9 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL || ""}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
               id={e.userId}
               rating={5}
             />
@@ -129,9 +129,9 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e) => (
             <CardTrainers
-              photo={e.user.imgURL || user?.photoURL || ""}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
               id={e.userId}
               rating={5}
             />
