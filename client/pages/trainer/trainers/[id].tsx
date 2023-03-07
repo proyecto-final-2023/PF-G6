@@ -32,6 +32,11 @@ interface tUser {
   gender: string;
   phone: string;
   imgURL: string;
+  membership:{
+    trainer:{
+      logo:string;
+    }
+  }
 }
 
 interface tPlan {
@@ -50,19 +55,18 @@ export default function TraineeDetails() {
   const router = useRouter();
   
   const id = router.query.id;
-
   useEffect(() => {
     // make call to backend to fetch user data
     axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
       .then(({ data }) => {
-        console.log(data);
+        //console.log(data);
         setUserData(data);
         setPlan(data.membership.trainer.planTrainees);
       })
       .catch((error) => console.error(error));
   }, []);
  
-  console.log(userData)
+  //console.log(userData)
   return (
     <div className="flex flex-nowrap  bg-[url('/tail-imgs/trainer.jpg')] bg-no-repeat bg-cover  bg-bottom  ">
     <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">

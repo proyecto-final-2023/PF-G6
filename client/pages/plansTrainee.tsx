@@ -58,6 +58,7 @@ export default function plansTrainee() {
     axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
       .then((data) => setPlans(data.data))
       .catch((error) => console.error(error));
+      console.warn(plans)
   }, []);
   // plans
   return (
@@ -92,11 +93,18 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
+<<<<<<< HEAD
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
+              id={e.userId}
+=======
               photo={e.logo}
               first_name={e?.membership?.user?.first_name}
               last_name={e?.membership?.user?.last_name}
               id={e?.membership?.userId}
 
+>>>>>>> e0b2b08a37552991475920ad3e31c30cdc6b49ed
               rating={5}
             />
           ))}{" "}
@@ -109,12 +117,20 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
+<<<<<<< HEAD
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
+              id={e.userId}
+              rating={5}
+=======
             photo={e.logo}
             first_name={e?.membership?.user?.first_name}
             last_name={e?.membership?.user?.last_name}
             id={e?.membership?.userId}
             rating={5}
 
+>>>>>>> e0b2b08a37552991475920ad3e31c30cdc6b49ed
             />
           ))}{" "}
       </div>
@@ -128,11 +144,18 @@ export default function plansTrainee() {
         {plans &&
           plans.map((e:any) => (
             <CardTrainers
+<<<<<<< HEAD
+              photo={e.user?.imgURL || user?.photoURL || ""}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
+              id={e.userId}
+=======
             photo={e.logo}
               first_name={e?.membership?.user?.first_name}
               last_name={e?.membership?.user?.last_name}
               id={e?.membership?.userId}
 
+>>>>>>> e0b2b08a37552991475920ad3e31c30cdc6b49ed
               rating={5}
           />
           ))}
