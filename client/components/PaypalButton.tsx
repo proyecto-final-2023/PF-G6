@@ -25,6 +25,7 @@ export default function PaypalButton(props: PaypalButtonProps) {
   const router = useRouter();
   const { amountToPay, serviceName, idPlans } = props;
   const key = getCookie("token");
+  
   //  const key=document.cookie.split(' ')[1].split('=')[1];
 
   const [succeeded, setSucceeded] = useState(false);

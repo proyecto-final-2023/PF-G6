@@ -15,14 +15,17 @@ export default function createPlans() {
       description: ""
     }
   ]);
+ 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`, formData, {
-        headers: { "x-access-token": key }
+        headers: { "x-access-token": key },
       })
-      .then((data) => {})
+      .then((data) => {
+        console.log(data);
+      })
       .catch((error) => {
         window.alert("Error in" + error);
       });

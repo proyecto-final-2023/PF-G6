@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 import axios from "axios";
+import Link from "next/link";
 
 interface Plan {
   name: string;
@@ -42,14 +43,14 @@ export default function TablePlans() {
                 Price
               </th>
               <th scope="col" className="px-6 py-3">
-                tool
+                All Trainee
               </th>
             </tr>
           </thead>
           <tbody>
             {plans &&
-              plans.map((e) => (
-                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 className='row-span-2 m-auto border-2 border-rose-500   ">
+              plans.map((e:any) => (
+                <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 className='row-span-2 m-auto border-2 border-rose-500    ">
                   <th className="px-8 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                     {e.name}
                   </th>
@@ -57,12 +58,11 @@ export default function TablePlans() {
                   <td className="px-6 py-4">{e.category}</td>
                   <td className="px-6 py-4">${e.cost}</td>
                   <td className="px-6 py-4">
-                    <button
-                      onClick={() => {}}
-                      className="font-medium text-red-600 dark:text-red-500 hover:text-red-400"
-                    >
-                      Remove
-                    </button>
+                    <Link replace href={`/trainer/trainee/${e.id_PlanTrainee}`} className="font-medium text-red-600 dark:text-red-500 hover:text-red-400">
+                       Get
+                    </Link>
+          
+                    
                   </td>
                 </tr>
               ))}
