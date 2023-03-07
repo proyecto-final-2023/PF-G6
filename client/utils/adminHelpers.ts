@@ -27,7 +27,12 @@ export function parseOneUser(data: UserBasicsResponse): UserCardT {
 export async function getUserBasics(page: number): Promise<UserCardT[]> {
   try {
     const { data }: { data: UserBasicsResponse[] | any[] } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
     const parsedData = data.map((user: UserBasicsResponse) =>
@@ -44,7 +49,12 @@ export async function getUserBasics(page: number): Promise<UserCardT[]> {
 export async function getUserDetails(id: string) {
   try {
     const { data }: { data: UserDetailsResponse } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
     const parsedData = parseOneUserDetails(data, id);
@@ -80,7 +90,12 @@ export function parseOneUserDetails(
 export async function removeUserMembership(userId: string): Promise<Boolean> {
   try {
     await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/membership/${userId}`
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/membership/${userId}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
     return true;
   } catch (error) {
@@ -112,7 +127,12 @@ export async function getTrainerBasics(
 ): Promise<TrainerResponse[]> {
   try {
     const { data }: { data: TrainerResponse[] | any[] } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`
+      `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
     return data;
@@ -128,7 +148,12 @@ export async function getTrainerDetails(
 ): Promise<UserDetailsResponse | Boolean> {
   try {
     const { data }: { data: UserDetailsResponse } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
     return data;
@@ -143,9 +168,17 @@ export async function updateTrainerLogo(
   userId: string
 ): Promise<Boolean> {
   try {
-    await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/admin/logo/${userId}`, {
-      logo: logoUrl
-    });
+    await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/logo/${userId}`,
+      {
+        logo: logoUrl
+      },
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
+    );
     return true;
   } catch (error) {
     console.error(error);
@@ -175,7 +208,12 @@ export async function getTraineeBasics(
 ): Promise<TraineeResponse[]> {
   try {
     const { data }: { data: TraineeResponse[] } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/trainees?page=${page}`
+      `${process.env.NEXT_PUBLIC_API_URL}/trainees?page=${page}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
     return data;
@@ -191,7 +229,12 @@ export async function getTraineeDetails(
 ): Promise<UserDetailsResponse | Boolean> {
   try {
     const { data }: { data: UserDetailsResponse | any } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
     return data;
   } catch (error) {
@@ -205,7 +248,12 @@ export async function removeTraineeComment(
 ): Promise<Boolean> {
   try {
     await axios.delete(
-      `${process.env.NEXT_PUBLIC_API_URL}/admin/comment/${commentId}`
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/comment/${commentId}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
     return true;
   } catch (error) {

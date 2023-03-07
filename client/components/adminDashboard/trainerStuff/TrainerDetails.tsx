@@ -1,27 +1,27 @@
-import useStore from "@/store/dashStore";
 import axios from "axios";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
+import useStore from "@/store/dashStore";
 
-// ? Only be able to change Logo & Plan Details
-// changeTrainerDetails: () => void;
-// deleteTrainer: () => void;
-// updateTrainer: () => void;
 export default function TrainerDetails({ user_id }: { user_id: string }) {
-  const [image, setImage] = useState("");
   const [imgUrl, setImgUrl] = useState("");
+  const imgRef = useRef<HTMLInputElement | null>(null);
   const trainerDetails = useStore((state) => state.trainerDetails);
   const deactivateTrainer = useStore((state) => state.deactivateAccount);
   const updateLogo = useStore((state) => state.updateLogo);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formImage = imgRef.current?.files?.[0];
 
     await axios
-      .post("https://api.cloudinary.com/v1_1/gymapp/image/upload", {
-        file: image,
-        upload_preset: "basic-img",
-        cloud_name: "dfixfnldt"
-      })
+      .post(
+        "cloudinary://251359677135396:eKSfHg5oI4Gne4ycURrowN7k3oI@dfixfnldt",
+        {
+          file: formImage,
+          upload_preset: "basic-img",
+          cloud_name: "dfixfnldt"
+        }
+      )
       .then((res) => {
         setImgUrl(res.data.secure_url);
       });
@@ -35,10 +35,21 @@ export default function TrainerDetails({ user_id }: { user_id: string }) {
       console.error("Could not delete user");
   };
 
+  console.log(imgUrl, "imgUrl");
+
   return (
-    <form onSubmit={(e) => handleSubmit} className="flex flex-col relative">
+    <form onSubmit={handleSubmit} className="flex flex-col relative">
       <p>Name: {trainerDetails.name}</p>
       <p>Role: Trainer</p>
+
+      <label>
+        Profile image
+        <input type="file" ref={imgRef} />
+      </label>
+
+      {imgUrl && (
+        <img src={imgUrl} alt="profile" className="w-20 h-20 rounded-full" />
+      )}
 
       <button className="py-2 px-3 bg-green-700 rounded">Update</button>
 
