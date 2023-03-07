@@ -15,8 +15,10 @@ import { getCookie } from "@/utils/cookieHandler";
 // import ProgressBar from "@/components/TraineeProgressbar";
 import Rating from "@/components/StarRating";
 import { SyntheticEvent } from "react";
+import WithPrivateRouter from "../../components/WithPrivateRoute";
 
-export default function Index() {
+
+ function Index() {
   const [user, setUser] = useAuthState(auth);
   const photo = user?.photoURL;
   const name = user?.displayName;
@@ -194,3 +196,5 @@ export default function Index() {
     </div>
   );
 }
+
+export default WithPrivateRouter(Index);

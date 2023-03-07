@@ -1,16 +1,17 @@
 import { useState, useReducer } from "react";
 import axios from "axios";
-import neck from "@/assets/imgMeasuresForm/neck.jpg";
-import torso from "@/assets/imgMeasuresForm/torso.jpg";
+import neck from "@/assets/imgMeasuresForm/neck.png";
+import torso from "@/assets/imgMeasuresForm/torso.png";
 import Image, { StaticImageData } from "next/dist/client/image";
-import chest from "@/assets/imgMeasuresForm/chest.jpg";
-import waist from "@/assets/imgMeasuresForm/waist.jpg";
-import arm from "@/assets/imgMeasuresForm/arm.jpg";
-import wrist from "@/assets/imgMeasuresForm/wrist.jpg";
-import hip from "@/assets/imgMeasuresForm/hip.jpg";
-// import glutes from "@/assets/imgMeasuresForm/glutes.jpg";
-import thigh from "@/assets/imgMeasuresForm/thigh.jpg";
-import calf from "@/assets/imgMeasuresForm/calf.jpg";
+import chest from "@/assets/imgMeasuresForm/chest.png";
+import waist from "@/assets/imgMeasuresForm/waist.png";
+import arm from "@/assets/imgMeasuresForm/arm.png";
+import wrist from "@/assets/imgMeasuresForm/wrist.png";
+import hip from "@/assets/imgMeasuresForm/hip.png";
+// import glutes from "@/assets/imgMeasuresForm/glutes.png";
+import thigh from "@/assets/imgMeasuresForm/thigh.png";
+import calf from "@/assets/imgMeasuresForm/calf.png";
+import fondo from "../../public/bgs/contact.jpg"
 
 interface BodyMeasurement {
   bodyPart: string;
@@ -131,9 +132,90 @@ const BodyMeasurements = () => {
     { name: "calf", img: calf }
   ];
   return (
-    <div className="h-[100vh] mt-20 flex flex-row text-white">
-      <h1 className="text-center">Body Measurements</h1>
-      <div className="mt-2 flex   flex-wrap justify-center">
+    <div className="grid grid-cols-2 bg-[url('/bgs/contact.jpg')]">
+    <div className="h-[100vh] mt-20 text-white leading-10 border-blue-200 border-2">
+      <div className="py-10  mt-10 w-[48vw] -z-10 h-[95vh] border-white border-1 bg-slate-800 opacity-80 ">
+      <h1 className="text-center z-30">Health Data Form</h1>
+      <div className="flex flex-col px-20">
+       <label>
+  Weight:
+  <input type="number" 
+  className="h-[3vh]"
+  value={additionalInfo.weight} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, weight: Number(e.target.value)})} />
+</label>
+
+<label>
+  Height:
+  <input type="number" 
+  className="h-[3vh]"
+  value={additionalInfo.height} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, height: Number(e.target.value)})} />
+</label>
+
+<label>
+  Allergies:
+  <input type="text" 
+  className="h-[3vh]"
+  value={additionalInfo.allergies.join(", ")} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, allergies: e.target.value.split(", ")})} />
+</label>
+
+<label>
+  Surgeries:
+  <input type="text" 
+  className="h-[3vh]"
+  value={additionalInfo.surgeries.join(", ")} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, surgeries: e.target.value.split(", ")})} />
+</label>
+
+<label>
+  Smoking:
+  <input type="checkbox" 
+  checked={additionalInfo.smoking} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, smoking: e.target.checked})} />
+</label>
+
+<label>
+  Alcohol Consumption:
+  <input type="checkbox" 
+  checked={additionalInfo.alcoholConsumption} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, alcoholConsumption: e.target.checked})} />
+</label>
+
+<label>
+  Drug Consumption:
+  <input type="checkbox" 
+  checked={additionalInfo.drugConsumption} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, drugConsumption: e.target.checked})} />
+</label>
+
+<label>
+  Steroid Consumption:
+  <input type="checkbox" 
+  checked={additionalInfo.steroidConsumption} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, steroidConsumption: e.target.checked})} />
+</label>
+
+<label>
+  Water Consumption (in litres):
+  <input type="number" 
+  className="h-[3vh]"
+  value={additionalInfo.waterConsumption} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, waterConsumption: Number(e.target.value)})} />
+</label>
+
+<label>
+  Injuries:
+  <input type="text" 
+  className="h-[3vh]"
+  value={additionalInfo.injuries.join(", ")} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value.split(", ")})} />
+</label>
+</div>
+      <div className="flex flex-col px-20">
+      <h1 className="text-left">Body Measurements</h1>
+      <div className="mt-2 flex   flex-wrap justify-start">
         {bodyParts.map((bodyPart) => (
           <button
             className="h-[5vh] border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white"
@@ -146,84 +228,48 @@ const BodyMeasurements = () => {
       </div>
       {selectedBodyPart && (
         <form
-          className="flex flex-col content-center"
+          className="flex flex-col"
           onSubmit={(event) => handleSubmit(event)}
         >
-          <label className="text-center mt-4">
+          <label className=" h-[5vh]">
             Measurement for {selectedBodyPart}:
             <input
-              className="w-20"
+              className=" h-[3vh]"
               type="number"
               value={measurement || ""}
               onChange={(event) => handleMeasurementChange(event)}
             />
           </label>
-          <label>
-  Weight:
-  <input type="number" value={additionalInfo.weight} onChange={(e) => setAdditionalInfo({...additionalInfo, weight: Number(e.target.value)})} />
-</label>
-
-<label>
-  Height:
-  <input type="number" value={additionalInfo.height} onChange={(e) => setAdditionalInfo({...additionalInfo, height: Number(e.target.value)})} />
-</label>
-
-<label>
-  Allergies:
-  <input type="text" value={additionalInfo.allergies.join(", ")} onChange={(e) => setAdditionalInfo({...additionalInfo, allergies: e.target.value.split(", ")})} />
-</label>
-
-<label>
-  Surgeries:
-  <input type="text" value={additionalInfo.surgeries.join(", ")} onChange={(e) => setAdditionalInfo({...additionalInfo, surgeries: e.target.value.split(", ")})} />
-</label>
-
-<label>
-  Smoking:
-  <input type="checkbox" checked={additionalInfo.smoking} onChange={(e) => setAdditionalInfo({...additionalInfo, smoking: e.target.checked})} />
-</label>
-
-<label>
-  Alcohol Consumption:
-  <input type="checkbox" checked={additionalInfo.alcoholConsumption} onChange={(e) => setAdditionalInfo({...additionalInfo, alcoholConsumption: e.target.checked})} />
-</label>
-
-<label>
-  Drug Consumption:
-  <input type="checkbox" checked={additionalInfo.drugConsumption} onChange={(e) => setAdditionalInfo({...additionalInfo, drugConsumption: e.target.checked})} />
-</label>
-
-<label>
-  Steroid Consumption:
-  <input type="checkbox" checked={additionalInfo.steroidConsumption} onChange={(e) => setAdditionalInfo({...additionalInfo, steroidConsumption: e.target.checked})} />
-</label>
-
-<label>
-  Water Consumption (in ounces):
-  <input type="number" value={additionalInfo.waterConsumption} onChange={(e) => setAdditionalInfo({...additionalInfo, waterConsumption: Number(e.target.value)})} />
-</label>
-
-<label>
-  Injuries:
-  <input type="text" value={additionalInfo.injuries.join(", ")} onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value.split(", ")})} />
-</label>
-          <Image
-            className="self-center w-[50vw]"
-            src={
-              bodyParts.find((b) => b.name === selectedBodyPart.toString())
-                ?.img || ""
-            }
-            alt={selectedBodyPart}
-          />
          
           <button
-            className="self-center border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
+            className="self-start justify-start border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
             type="submit"
           >
             Save Measurement
           </button>
+          <div>
+           <button
+            className="self-start justify-start border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
+            type="submit"
+          >
+            Submit Form
+          </button>
+          </div>
         </form>
       )}
+      </div>
+    </div>
+    </div>
+      <div className="flex flex-row justify-center">
+      <Image
+        className=" self-center  w-auto h-[80vh]"
+        src={
+          bodyParts.find((b) => b.name === selectedBodyPart.toString())
+            ?.img || ""
+        }
+        alt={selectedBodyPart}
+      />
+      </div>
     </div>
   );
 };

@@ -42,7 +42,10 @@ export default function RegisterForm() {
         // console.log(data);
         alert("User created successfully! please verify the confirmation E-mail.");
         window.location.href = "/login"
-      });
+      })
+      .catch((err)=>{
+        console.log(err)
+      })
    
 
   };
