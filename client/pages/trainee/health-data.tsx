@@ -132,15 +132,15 @@ const BodyMeasurements = () => {
     { name: "calf", img: calf }
   ];
   return (
-    <div className="grid grid-cols-2 bg-[url('/bgs/contact.jpg')]">
-    <div className="h-[100vh] mt-20 text-white leading-10 border-blue-200 border-2">
-      <div className="py-10  mt-10 w-[48vw] -z-10 h-[95vh] border-white border-1 bg-slate-800 opacity-80 ">
+    <div className="bg-[url('/bgs/contact.jpg')]">
+    <div className=" text-white leading-10 bg-[#6f6f70]/60 border-blue-200 border-2">
+      <div className="-z-10 h-[95vh] border-white border-1">
       <h1 className="text-center z-30">Health Data Form</h1>
-      <div className="flex flex-col px-20">
+      <div className="px-20">
        <label>
   Weight:
   <input type="number" 
-  className="h-[3vh]"
+  className="h-[3vh] w-[10ch]"
   value={additionalInfo.weight} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, weight: Number(e.target.value)})} />
 </label>
@@ -148,7 +148,7 @@ const BodyMeasurements = () => {
 <label>
   Height:
   <input type="number" 
-  className="h-[3vh]"
+  className="h-[3vh] w-[10ch]"
   value={additionalInfo.height} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, height: Number(e.target.value)})} />
 </label>
@@ -156,7 +156,7 @@ const BodyMeasurements = () => {
 <label>
   Allergies:
   <input type="text" 
-  className="h-[3vh]"
+  className="h-[3vh] w-[10ch]"
   value={additionalInfo.allergies.join(", ")} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, allergies: e.target.value.split(", ")})} />
 </label>
@@ -164,7 +164,7 @@ const BodyMeasurements = () => {
 <label>
   Surgeries:
   <input type="text" 
-  className="h-[3vh]"
+  className="h-[3vh] w-[20ch]"
   value={additionalInfo.surgeries.join(", ")} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, surgeries: e.target.value.split(", ")})} />
 </label>
@@ -186,13 +186,15 @@ const BodyMeasurements = () => {
 <label>
   Drug Consumption:
   <input type="checkbox" 
+  className="w-[4ch]"
   checked={additionalInfo.drugConsumption} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, drugConsumption: e.target.checked})} />
 </label>
 
 <label>
   Steroid Consumption:
-  <input type="checkbox" 
+  <input type="checkbox"
+  className=" w-[4ch]" 
   checked={additionalInfo.steroidConsumption} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, steroidConsumption: e.target.checked})} />
 </label>
@@ -200,7 +202,7 @@ const BodyMeasurements = () => {
 <label>
   Water Consumption (in litres):
   <input type="number" 
-  className="h-[3vh]"
+  className="h-[3vh] w-[10ch]"
   value={additionalInfo.waterConsumption} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, waterConsumption: Number(e.target.value)})} />
 </label>
@@ -208,14 +210,14 @@ const BodyMeasurements = () => {
 <label>
   Injuries:
   <input type="text" 
-  className="h-[3vh]"
+  className="h-[3vh] w-[20ch]"
   value={additionalInfo.injuries.join(", ")} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value.split(", ")})} />
 </label>
 </div>
-      <div className="flex flex-col px-20">
+      <div className=" px-20 ">
       <h1 className="text-left">Body Measurements</h1>
-      <div className="mt-2 flex   flex-wrap justify-start">
+      <div className="mt-2">
         {bodyParts.map((bodyPart) => (
           <button
             className="h-[5vh] border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white"
@@ -228,13 +230,13 @@ const BodyMeasurements = () => {
       </div>
       {selectedBodyPart && (
         <form
-          className="flex flex-col"
+          className=""
           onSubmit={(event) => handleSubmit(event)}
         >
           <label className=" h-[5vh]">
             Measurement for {selectedBodyPart}:
             <input
-              className=" h-[3vh]"
+              className=" h-[3vh] w-[10ch]"
               type="number"
               value={measurement || ""}
               onChange={(event) => handleMeasurementChange(event)}
@@ -242,14 +244,14 @@ const BodyMeasurements = () => {
           </label>
          
           <button
-            className="self-start justify-start border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
+            className=" border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
             type="submit"
           >
             Save Measurement
           </button>
           <div>
            <button
-            className="self-start justify-start border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
+            className=" border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
             type="submit"
           >
             Submit Form
@@ -260,9 +262,9 @@ const BodyMeasurements = () => {
       </div>
     </div>
     </div>
-      <div className="flex flex-row justify-center">
+      <div className=" bg-[#6f6f70]/60">
       <Image
-        className=" self-center  w-auto h-[80vh]"
+        className="w-auto h-[80vh] p-6"
         src={
           bodyParts.find((b) => b.name === selectedBodyPart.toString())
             ?.img || ""
