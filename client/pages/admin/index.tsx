@@ -2,7 +2,7 @@ import DataViewContainer from "@/components/adminDashboard/DataViewContainer";
 import GraphContainer from "@/components/adminDashboard/GraphContainer";
 import OptionMenu from "@/components/adminDashboard/OptionMenu";
 import CentralContainer from "@/components/adminDashboard/CentralContainer";
-import EditableTable from "@/components/adminDashboard/editableUser";
+import EditableTable from "@/components/adminDashboard/EditableUser";
 
 export default function AdminIndex() {
   return (

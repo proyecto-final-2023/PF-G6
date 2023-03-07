@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { ReactEventHandler, useEffect, useState } from "react";
 import axios from 'axios';
 
 interface tData {
@@ -20,20 +20,23 @@ const EditableTable = () => {
     axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${ind}`)
     .then(data=> setTableData(data.data))
     .catch(error=> console.log(error));
-  })
+  },[]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    rowIndex: number,
-    //columnId: keyof typeof data[0]
-  ) => {
-    const updatedData = [...tableData];
-    updatedData[rowIndex]/*[columnId]*/ = e.target.value;
-    setTableData(updatedData);
-  };
+ 
 
-  const handleClick=(e)=>{
-    alert(e.target.value);
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index:number) => {
+    const target = e.currentTarget as HTMLButtonElement;
+    if(target.value='update'){
+      //logica del update va por aqui
+      const upd={...tableData[index]};
+      console.log(upd);
+    }
+    if(target.value='delete'){
+      //logica del delete
+      const id= tableData[index].id;
+      console.log(id)
+    }
+
   }
 
   return (
@@ -67,48 +70,48 @@ const EditableTable = () => {
             </td>
             <td>
               <input
+              name='first_name'
                 type="text"
                 value={row.first_name}
-                onChange={(e) => handleChange(e, rowIndex)}
               />
             </td>
             <td>
               <input
+              name='last_name'
                 type="text"
                 value={row.last_name}
-                onChange={(e) => handleChange(e, rowIndex, )}
               />
             </td>
             <td>
               <input
+              name='nickname'
                 type="text"
                 value={row.nickname}
-                onChange={(e) => handleChange(e, rowIndex,)}
               />
             </td>
             <td>
               <input
+              name='role'
                 type="text"
                 value={row.role}
-                onChange={(e) => handleChange(e, rowIndex,)}
               />
             </td>
             <td>
               <input
+              name='imgURL'
                 type="text"
                 value={row.imgURL}
-                onChange={(e) => handleChange(e, rowIndex, )}
               />
             </td>
             <td>
               <input
+              name='membership'
                 type="text"
                 value={row.membership}
-                onChange={(e) => handleChange(e, rowIndex, )}
               />
             </td>
-            <button value='update' onClick={handleClick}>Update</button>
-            <button value='delete' onClick={handleClick}>Delete</button>
+            <button  value='update' onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{handleClick(e, rowIndex)}}>Update</button>
+            <button  value='delete' onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{handleClick(e, rowIndex)}}>Delete</button>
           </tr>
         ))}
       </tbody>
