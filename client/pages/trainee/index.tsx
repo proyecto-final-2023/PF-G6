@@ -25,9 +25,8 @@ export default function Index() {
   const [idAliment, setIdAliment] = useState<Array<selectedAliments>>([]);
   const [idExercise, setIdExercise] = useState<Array<selectedExers>>([])
   const [dates, setDates] = useState([]);
-  console.log(idAliment)
-  console.log(dates)
-  
+
+
   interface selectedExers {
     datePlan: string,
     idActivities: number,

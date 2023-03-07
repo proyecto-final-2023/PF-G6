@@ -12,6 +12,7 @@ type UserData = {
   phone: string;
 };
 
+
 const UpdateUserForm: React.FC = () => {
   const [userData, setUserData] = useState<UserData>({
     first_name: "",
@@ -22,9 +23,26 @@ const UpdateUserForm: React.FC = () => {
     phone: ""
   });
 
+  useEffect(() => {
+    const getUserData = async () => {
+      try {
+        const key = getCookie("token");
+        const { data } = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, '', {
+          headers: {
+            "x-access-token": key
+          }
+        });
+        const { first_name, last_name, nickname, imgURL, phone, gender } = data
+        setUserData({first_name, last_name, nickname, imgURL, phone, gender});
+      } catch (error) {
+        console.error(error);
+      }  
+    };
+    getUserData();
+  }, []);
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('datos')
     try {
       const key = getCookie("token");
       await axios.put(
@@ -61,7 +79,7 @@ const UpdateUserForm: React.FC = () => {
 
   return (
     <div className="flex flex-col justify-center items-center h-[89.5vh] bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed">
-      <div className="flex flex-col w-[20%] font-semibold bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 m-auto text-m p-10">
+      <div className="flex flex-col w-[80%] md:w-[40%] font-semibold bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 m-auto text-m p-10">
           <form onSubmit={handleSubmit}>
             <label className="text-white">
               First Name:
@@ -115,7 +133,7 @@ const UpdateUserForm: React.FC = () => {
             </label>
             <label>
               Gender:
-              <select name="gender" className="my-3 ml-2 rounded-md" onChange={handleChange}>
+              <select name="gender" className="my-3 ml-2 rounded-md" value={userData.gender} onChange={handleChange}>
                 <option value="">Select</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -124,7 +142,7 @@ const UpdateUserForm: React.FC = () => {
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-[10vw] self-center rounded-xl hover:w-60 ease-in-out duration-300 mt-5"
+                className="text-xl w-[30vw] md:w-[10rem] hover:text-orange-500 border-4 bg-slate-600 items-center self-center rounded-xl hover:w-60 ease-in-out duration-300 mt-5"
               >
                 Submit
               </button>
