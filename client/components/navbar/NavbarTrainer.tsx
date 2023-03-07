@@ -5,6 +5,16 @@ import axios from "axios";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 
 
+interface tUser{
+user:{
+    membership:{
+      trainer:{
+        logo:string;
+      }
+    }
+  }
+}
+
 
 
 
