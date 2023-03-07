@@ -1,26 +1,19 @@
 import {
   getTrainerBasics,
   getTrainerDetails,
-  parseOneTrainer,
-  parseOneUserDetails,
   removeUserMembership,
   updateTrainerLogo
-} from "@/utils/adminHelpers";
+} from "@/utils/dashboard/trainerHelpers";
 // Types
 import { TrainerCreator } from "@/types/zustand-types";
-import { TraineePlan } from "@/types/dash/trainer";
-import { UserDetailsResponse } from "@/types/dash/user";
 
 const createTrainerSlice: TrainerCreator = (set) => ({
   trainerBasicsArr: [{ user_id: "", name: "" }],
 
-  trainerDetails: { user_id: "", name: "", logo: "", email: "" },
+  trainerDetails: { trainer_id: "", user_id: "", name: "", logo: "" },
 
   fetchTrainerBasicsArr: async (page: number) => {
-    const trainerResponse = await getTrainerBasics(page);
-    const trainerBasicsArr = trainerResponse.map((trainer) =>
-      parseOneTrainer(trainer)
-    );
+    const trainerBasicsArr = await getTrainerBasics(page);
 
     set({ trainerBasicsArr });
   },
@@ -28,11 +21,8 @@ const createTrainerSlice: TrainerCreator = (set) => ({
   fetchTrainerDetails: async (id: string) => {
     const response = await getTrainerDetails(id);
     if (typeof response === "boolean") return;
-    const trainerDetails = parseOneUserDetails(
-      response as UserDetailsResponse,
-      id
-    );
-    set({ trainerDetails });
+
+    set({ trainerDetails: response });
   },
 
   updateLogo: async (logoUrl: string, userId: string) => {
@@ -65,7 +55,7 @@ const createTrainerSlice: TrainerCreator = (set) => ({
   },
 
   updatePlanData: async (
-    planData: TraineePlan,
+    planData: string,
     planId: string,
     trainerId: string
   ) => {
