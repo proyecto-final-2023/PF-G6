@@ -96,6 +96,7 @@ export default function plansTrainee() {
               first_name={e?.membership?.user?.first_name}
               last_name={e?.membership?.user?.last_name}
               id={e?.membership?.userId}
+
               rating={5}
             />
           ))}{" "}
@@ -113,6 +114,7 @@ export default function plansTrainee() {
             last_name={e?.membership?.user?.last_name}
             id={e?.membership?.userId}
             rating={5}
+
             />
           ))}{" "}
       </div>
@@ -130,6 +132,7 @@ export default function plansTrainee() {
               first_name={e?.membership?.user?.first_name}
               last_name={e?.membership?.user?.last_name}
               id={e?.membership?.userId}
+
               rating={5}
           />
           ))}
