@@ -1,13 +1,8 @@
 import axios from "axios";
 import { useState } from "react";
 
-type UploadImgProps = {
-  imgUrl: string;
-  updateImgUrl: (url: string) => void;
-};
-
-export default function BasicCloudy(props: UploadImgProps) {
-  const { imgUrl, updateImgUrl } = props;
+export default function BasicCloudy() {
+  const [imgUrl, setimgUrl] = useState("");
   const [image, setImage] = useState<File>();
 
   const uploadImage = () => {
@@ -22,7 +17,7 @@ export default function BasicCloudy(props: UploadImgProps) {
     axios
       .post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, data)
       .then((res) => {
-        updateImgUrl(res.data.secure_url);
+        setimgUrl(res.data.secure_url);
       })
       .catch((err) => console.log(err));
   };
@@ -44,10 +39,7 @@ export default function BasicCloudy(props: UploadImgProps) {
         ></input>
         <button onClick={uploadImage}>Upload</button>
       </div>
-      {/* <div>
-        <h1>Uploaded image will be displayed here</h1>
-        <img src={imgUrl} />
-      </div> */}
+      <img src={imgUrl} alt="" />
     </div>
   );
 }

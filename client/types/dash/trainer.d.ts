@@ -1,8 +1,8 @@
 // ? --------------------------------------------------------------------------------------------
 // * TRAINERS STUFF
 // ? --------------------------------------------------------------------------------------------
-export type TrainerResponse = {
-  trainer_id: string;
+export type TrainerBasicsRes = {
+  id_trainer: string;
   //the one he gets when buys a plan
   logo: string;
   membership: {
@@ -23,28 +23,24 @@ export type TrainerResponse = {
   }[];
 };
 
-// ? --------------------------------------------------------------------------------------------
-// * TRAINEE STUFF
-// ? --------------------------------------------------------------------------------------------
-export type TraineeResponse = {
-  membership: {
-    userId: string;
-    traineeIdTrainee: string;
-    planTrainee: {
-      name: string;
-    };
-    user: {
-      first_name: string;
-      last_name: string;
-      imgURL: string;
-    };
-  };
+export type ParsedTrainer = {
+  user_id: string;
+  trainer_id: string;
+  name: string;
+  logo: string;
 };
 
-// * A Plan the Trainer did for the Trainee
-export type TraineePlan = {
-  id_PlanTrainee: string;
-  name: string;
-  cost: string;
-  description: string;
+export type TrainerDetailsRes = {
+  first_name: string;
+  last_name: string;
+  nickname: string;
+  role: string;
+  imgURL: string;
+  status: boolean;
+  logueo: {
+    email: string;
+  };
+  membership: {
+    trainerIdTrainer: string;
+  };
 };

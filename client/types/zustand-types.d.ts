@@ -3,6 +3,8 @@ import { StateCreator } from "zustand";
 import { EventInput } from "@fullcalendar/core";
 import { UserCardT, UserDetailsT } from "./dash/user";
 import { TraineePlan } from "./dash/trainer";
+import { ParsedTrainer } from "@/utils/adminHelpers";
+import { ParsedTrainee } from "@/utils/dashboard/traineeHelpers";
 
 export interface Post {
   post: {
@@ -36,9 +38,9 @@ export interface CalendarState {
 // --------------------------------------------
 // * Makes trainnings (trainer)
 export interface Trainer {
-  trainerBasicsArr: UserCardT[];
+  trainerBasicsArr: ParsedTrainer[];
 
-  trainerDetails: UserDetailsT;
+  trainerDetails: ParsedTrainer;
 
   fetchTrainerBasicsArr: (page: number) => Promise<void>;
 
@@ -57,9 +59,9 @@ export interface Trainer {
 
 // * Does the actual exercise (trainee)
 export interface Trainee {
-  traineeBasicsArr: UserCardT[];
+  traineeBasicsArr: ParsedTrainee[];
 
-  traineeDetails: UserDetailsT;
+  traineeDetails: ParsedTrainee;
 
   fetchTraineeBasicsArr: (page: number) => Promise<void>;
 
