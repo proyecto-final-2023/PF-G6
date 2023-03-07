@@ -82,7 +82,8 @@ export default function PaypalButton(props: PaypalButtonProps) {
                 headers: { "x-access-token": key }
               })
               .then((data) => {
-            
+                if (data.data.role === "trainer") router.push("/trainer");
+                if (data.data.role === "trainee") router.push("/trainee");
               });
           });
       } catch (error) {

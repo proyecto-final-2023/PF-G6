@@ -37,7 +37,7 @@ export default function Navbar() {
   const name = user?.displayName;
 
 
-  console.log(user);
+
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
@@ -62,14 +62,14 @@ export default function Navbar() {
   //       });
   //     });
   // }, []);
-  console.log("@navbar/Navbar", user1);
+ 
   const [viewportWidth, setViewportWidth] = useState(0);
     // aqui te manda  datos de user
     // console.log(key)
  useEffect(()=>{
   axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,null,{headers:{'x-access-token': key}})
   .then((data) => {
-   console.log(data.data)
+   
    setUser1({
      display_name:` ${data.data.first_name}  ${data.data.last_name}`
    })
