@@ -52,7 +52,6 @@ const listTrainees2 = async (id) => {
   return traineesUser;
 };
 
-
 const listComment = async (id, page, pageSize) => {
   console.log(id);
 
@@ -110,7 +109,7 @@ const ratingTotal = async (id) => {
   const trainerId = trai.membership.trainerIdTrainer;
   if (!trainerId) throw Error("Trainer no encontrado");
 
-  const rating = await Rating.findOne({
+  let rating = await Rating.findOne({
     attributes: [[sequelize.fn("AVG", sequelize.col("value")), "rating"]],
     where: {
       trainerIdTrainer: trainerId,
@@ -119,7 +118,7 @@ const ratingTotal = async (id) => {
       },
     },
   });
-  if (!rating) throw Error("No lo han Calificado");
+
   return rating;
 };
 const addLogo = async (id, logo) => {
