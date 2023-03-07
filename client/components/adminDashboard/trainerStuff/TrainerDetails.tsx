@@ -1,78 +1,51 @@
 import useStore from "@/store/dashStore";
-import { SubmitHandler, useForm } from "react-hook-form";
-
-export type ModifyTrainerDetails = {
-  logo: string;
-  email: string;
-};
+import axios from "axios";
+import { FormEvent, useState } from "react";
 
 // ? Only be able to change Logo & Plan Details
 // changeTrainerDetails: () => void;
 // deleteTrainer: () => void;
 // updateTrainer: () => void;
 export default function TrainerDetails({ user_id }: { user_id: string }) {
+  const [image, setImage] = useState("");
+  const [imgUrl, setImgUrl] = useState("");
   const trainerDetails = useStore((state) => state.trainerDetails);
+  const deactivateTrainer = useStore((state) => state.deactivateAccount);
+  const updateLogo = useStore((state) => state.updateLogo);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting }
-  } = useForm<ModifyTrainerDetails>({
-    mode: "onChange",
-    defaultValues: {
-      logo: trainerDetails.logo,
-      email: trainerDetails.email
-    }
-  });
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-  const onSubmit: SubmitHandler<ModifyTrainerDetails> = async (data) => {
-    // update stuff
-    console.log("update", data);
+    await axios
+      .post("https://api.cloudinary.com/v1_1/gymapp/image/upload", {
+        file: image,
+        upload_preset: "basic-img",
+        cloud_name: "dfixfnldt"
+      })
+      .then((res) => {
+        setImgUrl(res.data.secure_url);
+      });
+    updateLogo(imgUrl, trainerDetails.user_id).catch((err) =>
+      console.error(err + "could not upload image")
+    );
   };
 
-  const handleDelete = () => {
-    // delete stuff
-    console.log("delete");
+  const handleDelete = async () => {
+    if (!(await deactivateTrainer(user_id)))
+      console.error("Could not delete user");
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+    <form onSubmit={(e) => handleSubmit} className="flex flex-col relative">
       <p>Name: {trainerDetails.name}</p>
       <p>Role: Trainer</p>
-      {/* ---- Logo ---- */}
-      <label className="flex flex-col">
-        Logo:
-        <input
-          className="rounded-md"
-          type="text"
-          {...register("logo", { required: true, minLength: 3 })}
-        />
-      </label>
 
-      {/* ---- Email ---- */}
-      <label className="flex flex-col">
-        Email:
-        <input
-          className="rounded-md"
-          type="text"
-          {...register("email", { required: true, minLength: 3 })}
-        />
-      </label>
-
-      {/* ---- Buttons ---- */}
-      <button
-        disabled={isSubmitting}
-        className="py-2 px-3 bg-green-700 rounded"
-      >
-        Update
-      </button>
+      <button className="py-2 px-3 bg-green-700 rounded">Update</button>
 
       <button
         type="button"
-        disabled={isSubmitting}
         onClick={handleDelete}
-        className="py-2 px-3 bg-red-700 rounded"
+        className="py-2 px-3 bg-red-700 rounded absolute top-0 right-0"
       >
         Delete
       </button>
