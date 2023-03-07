@@ -62,7 +62,7 @@ export default function Navbar() {
   //       });
   //     });
   // }, []);
-  console.log("@navbar/Navbar", user1);
+  //console.log("@navbar/Navbar", user1);
   const [viewportWidth, setViewportWidth] = useState(0);
     // aqui te manda  datos de user
     // console.log(key)
