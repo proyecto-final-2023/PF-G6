@@ -34,10 +34,12 @@ export default function ExercisesLibrary() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const localizer = momentLocalizer(moment);
   const key = getCookie("token")
-  
+  const [error, setError] = useState<string>("")
   
 
-
+  interface LocalError {
+    error: string
+  }
   type Option = {
     value: string;
     label: string;
@@ -154,8 +156,9 @@ export default function ExercisesLibrary() {
         } 
 
     catch (error) {
+      setError(error.response.data.error.toString())
       console.log(error)
-    }
+    } 
     
   }
 
@@ -265,7 +268,8 @@ export default function ExercisesLibrary() {
       let seted = isAlimentEndpoint ? (setData(data), setRndExercises([])) : setRndExercises(data);
       
     } catch (error) {
-      console.error(error);
+      
+      console.log(error);
     }
   };
   useEffect(() => {
@@ -344,11 +348,11 @@ export default function ExercisesLibrary() {
                 className="text-white"
                 />
             </div>
-            <div className="backdrop-blur-md bg-black bg-opacity-50 border  border-white h-[56px] my-auto text-center px-2"> <p className="text-center py-3">Fecha seleccionada:  {selectedDate && formatDate(selectedDate)}</p> </div>
+            <div className="backdrop-blur-md bg-black bg-opacity-50 border  border-white h-[56px] my-auto text-center px-2"> <p className="text-center py-3">Fecha seleccionada: {selectedDate ? formatDate(selectedDate) : error == 'Desbes ingresar la fecha a realizar la actividad' ?  <p className="text-red-500">PLEASE SELECT A DATE</p>: null}</p> </div>
               <ul className="backdrop-blur-md  bg-black bg-opacity-50 border border-white h-auto  overflow-hidden">
                <p className="m-2 py-2 mx-5 text-center  ">My routine:</p> 
                 <div className="flex flex-wrap border justify-center gap-1">
-                {selectedExercises && selectedExercises.map((ex) =><li className='min-w-min px-5 py-1' key={ex.id}>Name: '{ex.name}'
+                {selectedExercises.length >= 1 ?  selectedExercises.map((ex) =><li className='min-w-min px-5 py-1' key={ex.id}>Name: '{ex.name}'
                  <div>
                   <label className="px-1" htmlFor={`repeticiones-${ex.id}`}>Repeticiones:</label>
                   <select className="pl-0 border bg-black bg-opacity-50 text-white" name={`repeticiones-${ex.id}`} id={`repeticiones-${ex.id}`}>
@@ -381,14 +385,14 @@ export default function ExercisesLibrary() {
                   </select>
                   
                 </div></li> )
-                 }
+                : error == 'Debes ingresar almenos una actividad' ? <p className="py-1 text-red-500">PLEASE ADD AN ACTIVITY</p> : null }
                 </div>
                
               </ul>
               <ul className="backdrop-blur-md  bg-black bg-opacity-50 border border-white h-auto  overflow-hidden">
               <p className="m-2 py-2 mx-5 text-center ">My diet:</p> 
               <div className="flex flex-wrap border justify-center gap-4">
-              {selectedFood ? selectedFood.map((item) => {return(
+              {selectedFood.length >= 1 ? selectedFood.map((item) => {return(
                 <li id={`${item.id}`} className='min-w-min px-5 py-1'>
                   Name: {item.description}
                   <div>
@@ -411,7 +415,7 @@ export default function ExercisesLibrary() {
                     </select>
                   </div>
                 </li>
-              )}) : ''}
+              )}) : error == 'Debes ingresar almenos un alimento' ? <p className="py-1 text-red-500">PLEASE ADD AN ALIMENT</p> : null}
               </div>
               
               </ul>
@@ -435,7 +439,9 @@ export default function ExercisesLibrary() {
           <option key={us.id} value={us.name} className="backdrop-blur-md border bg-black bg-opacity-50">
             {us.name}
           </option>
-        ))}
+        ))} {
+          selectedUsers.length >= 1 ? null : error == "Trainee no encontrado" ? <p className="text-red-500">PLEASE SELECT A TRAINEE</p> : null
+        }
       </select>
           <button onClick={handleClick} className="mx-auto text-center border border-white bg-black bg-opacity-50 backdrop-blur-md px-2 py-1 hover:text-amber-500">Send Changes</button>
         </div>   
