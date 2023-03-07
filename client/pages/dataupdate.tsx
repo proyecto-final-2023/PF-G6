@@ -36,7 +36,8 @@ const UpdateUserForm: React.FC = () => {
           }
         }
       );
-      console.log("Data uploaded");
+      alert('Data updated');
+      window.history.back()
     } catch (error) {
       console.error(error);
     }

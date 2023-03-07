@@ -21,11 +21,33 @@ export default function Index() {
   const key = getCookie("token");
   const [user1, setUser1] = useState<any>();
   const [feedback, setFeedback] = useState("");
+  const [data, setData] = useState()
+  const [idAliment, setIdAliment] = useState<Array<selectedAliments>>([]);
+  const [idExercise, setIdExercise] = useState<Array<selectedExers>>([])
+  const [dates, setDates] = useState([]);
+  console.log(idAliment)
+  console.log(dates)
+  
+  interface selectedExers {
+    datePlan: string,
+    idActivities: number,
+    series: number,
+    repetitions: number
+  }
+  interface selectedAliments {
+    datePlan: string,
+    id: number,
+    portion: string,
+    name: string
+  }
+  
+
 
   function handleFeedbackChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setFeedback(event.target.value);
   }
 
+    
   function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
@@ -48,6 +70,40 @@ export default function Index() {
       });
   }
 
+  console.log(data)
+
+  const extractIds = (data) => {
+    const datos = data.membership.trainee.plans.map(e => e)
+    console.log(datos)
+    
+const selectedExercises = datos.map(plan => {
+   const activities = plan.ActivitiesPlans.map(activity => ({
+    datePlan: plan.datePlan,
+    idActivities: activity.idActivity,
+    series: activity.series,
+    repetitions: activity.repetitions
+  }));
+  return activities;
+});
+
+setIdExercise(selectedExercises);
+
+
+const selectedAliments = datos.map(plan => {
+   const aliments = plan.AlimentsPlans.map(aliment => ({
+    datePlan: plan.datePlan,
+    id: aliment.idAliment,
+    portion: aliment.portion,
+    time: aliment.time }));
+  return aliments;
+});
+
+// Guardar la información en el estado idAliment
+setIdAliment(selectedAliments);
+
+  };
+  
+
   useEffect(() => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
@@ -61,11 +117,13 @@ export default function Index() {
           planStart: `Plan starting date: ${data.data.membership.startDate}`,
           planEnd: `Plan finishing date: ${data.data.membership.finishDate}`,
           trainerPhone:
-            data.data.membership.planTrainee.trainer.membership.user.phone,
-        });
+            data.data.membership.planTrainee.trainer.membership.user.phone
+        }),
+       setData(data.data),
+       extractIds(data.data)
+       ;
       });
   }, []);
-
 
   const locales = {
     "en-US": require("date-fns/locale/en-US")
@@ -178,7 +236,7 @@ export default function Index() {
         </div>
         <div className="flex flex-col mt-10">
           <Link
-            href={`${process.env.NEXT_PUBLIC_FRONT_DEPLOY}/food`}
+            href={`${process.env.NEXT_PUBLIC_API_URL}/food`}
             className=" text-center mb-10 mt-10 text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300 "
           >
             Food Library
