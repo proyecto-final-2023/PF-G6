@@ -44,15 +44,15 @@ export interface Trainer {
 
   fetchTrainerDetails: (id: string) => Promise<void>;
 
-  updateLogo: (logoUrl: string, userId: string) => Promise<void>;
+  updateLogo: (logoUrl: string, userId: string) => Promise<Boolean>;
+
+  deactivateAccount: (userId: string) => Promise<Boolean>;
 
   updatePlanData: (
     planData: TraineePlan,
     planId: string,
     trainerId: string
   ) => Promise<void>;
-
-  deactivateAccount: (userId: string) => Promise<void>;
 }
 
 // * Does the actual exercise (trainee)
@@ -65,9 +65,9 @@ export interface Trainee {
 
   fetchTraineeDetails: (id: string) => Promise<void>;
 
-  removeComment: (commentId: string) => Promise<void>;
+  removeComment: (commentId: string) => Promise<Boolean>;
 
-  deactivateAccount: (userId: string) => Promise<void>;
+  deactivateAccount: (userId: string) => Promise<Boolean>;
 }
 
 export type TrainerCreator = StateCreator<Trainer & Trainee, [], [], Trainer>;

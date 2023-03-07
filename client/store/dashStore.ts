@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { Trainee, Trainer } from "../types/zustand-types";
-import createTraineeSlice from "./slices/trainee";
 import createTrainerSlice from "./slices/trainer";
+import createTraineeSlice from "./slices/trainee";
 
 // ? Fields To modify
 // trainers: logo, datos plan,

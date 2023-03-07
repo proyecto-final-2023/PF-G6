@@ -1,9 +1,18 @@
-import DragAndDrop from "@/components/imgUpload/DragAndDrop";
+import BasicCloudy from "@/components/BasicCloudy";
+import { useState } from "react";
 
 export default function Xcloud() {
+  const [imgUrl, setImgUrl] = useState("");
+
+  const updateImgUrl = (url: string) => {
+    setImgUrl(url);
+  };
+
   return (
-    <div className="mt-20">
-      <DragAndDrop />
+    <div>
+      <h1>Upload Image</h1>
+      <BasicCloudy {...{ imgUrl }} {...{ updateImgUrl }} />
+      <h1>{imgUrl}</h1>
     </div>
   );
 }

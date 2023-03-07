@@ -1,18 +1,17 @@
 import axios from "axios";
 import { Dispatch, SetStateAction } from "react";
-import { TrainerResponse } from "@/types/dash/trainer";
+import { TraineeResponse, TrainerResponse } from "@/types/dash/trainer";
 import {
   UserBasicsResponse,
   UserCardT,
   UserDetailsResponse,
   UserDetailsT
 } from "@/types/dash/user";
-import { async } from "@firebase/util";
 
 // ----------------------------------------------------------------
 // ? Users
 // ----------------------------------------------------------------
-function parseOneUser(data: UserBasicsResponse): UserCardT {
+export function parseOneUser(data: UserBasicsResponse): UserCardT {
   const first_name = data.first_name || "no-first-name";
   const last_name = data.last_name || "no-last-name";
   const name = first_name ? `${first_name} ${last_name}` : "";
@@ -28,7 +27,12 @@ function parseOneUser(data: UserBasicsResponse): UserCardT {
 export async function getUserBasics(page: number): Promise<UserCardT[]> {
   try {
     const { data }: { data: UserBasicsResponse[] | any[] } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
     const parsedData = data.map((user: UserBasicsResponse) =>
@@ -45,7 +49,12 @@ export async function getUserBasics(page: number): Promise<UserCardT[]> {
 export async function getUserDetails(id: string) {
   try {
     const { data }: { data: UserDetailsResponse } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
     const parsedData = parseOneUserDetails(data, id);
@@ -61,7 +70,7 @@ export async function getUserDetails(id: string) {
 // ? Trainer Helpers & Trainee Helpers (Users)
 // ----------------------------------------------------------------
 // * Helps parse TrainerDetailsResponse & TraineeDetailsResponse
-function parseOneUserDetails(
+export function parseOneUserDetails(
   data: UserDetailsResponse,
   id: string
 ): UserDetailsT {
@@ -78,11 +87,28 @@ function parseOneUserDetails(
   };
 }
 
+export async function removeUserMembership(userId: string): Promise<Boolean> {
+  try {
+    await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/membership/${userId}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
+    );
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
 // ----------------------------------------------------------------
 // ? Trainer Helpers
 // ----------------------------------------------------------------
 // * Used inside a map, to help parse TrainerResponse[]
-function parseOneTrainer(data: TrainerResponse): UserCardT {
+export function parseOneTrainer(data: TrainerResponse): UserCardT {
   const first_name = data.membership.user.first_name || "no-first-name";
   const last_name = data.membership.user.last_name || "no-last-name";
 
@@ -96,17 +122,20 @@ function parseOneTrainer(data: TrainerResponse): UserCardT {
 }
 
 // * @store/slices/trainer.ts
-export async function getTrainerBasics(page: number): Promise<UserCardT[]> {
+export async function getTrainerBasics(
+  page: number
+): Promise<TrainerResponse[]> {
   try {
     const { data }: { data: TrainerResponse[] | any[] } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`
+      `${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
-    const parsedData = data.map((trainer) => {
-      return parseOneTrainer(trainer);
-    });
-
-    return parsedData;
+    return data;
   } catch (error) {
     console.error(error);
     return [];
@@ -114,18 +143,46 @@ export async function getTrainerBasics(page: number): Promise<UserCardT[]> {
 }
 
 // * @store/slices/trainer.ts - here I use the shared parseOneUserDetails()
-export async function getTrainerDetails(id: string): Promise<UserDetailsT> {
+export async function getTrainerDetails(
+  id: string
+): Promise<UserDetailsResponse | Boolean> {
   try {
-    const { data }: { data: UserDetailsResponse | any } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
+    const { data }: { data: UserDetailsResponse } = await axios(
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
-    const trainerDetails = parseOneUserDetails(data, id);
-
-    return trainerDetails;
+    return data;
   } catch (error) {
     console.error(error);
-    return { user_id: "", name: "", email: "" };
+    return false;
+  }
+}
+
+export async function updateTrainerLogo(
+  logoUrl: string,
+  userId: string
+): Promise<Boolean> {
+  try {
+    await axios.put(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/logo/${userId}`,
+      {
+        logo: logoUrl
+      },
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
+    );
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
   }
 }
 
@@ -133,9 +190,9 @@ export async function getTrainerDetails(id: string): Promise<UserDetailsT> {
 // ? Trainee Helpers
 // ----------------------------------------------------------------
 // * Used inside a map, to help parse TraineeResponse[]
-function parseOneTrainee(data: TrainerResponse): UserCardT {
+export function parseOneTrainee(data: TraineeResponse): UserCardT {
   const first_name = data.membership.user.first_name || "no-first-name";
-  const last_name = data.membership.user.last_name || "no-last-name";
+  const last_name = data.membership.user?.last_name || "no-last-name";
   const name = first_name ? `${first_name} ${last_name}` : "";
   const user_id = data.membership.userId || "no-id";
 
@@ -146,17 +203,20 @@ function parseOneTrainee(data: TrainerResponse): UserCardT {
 }
 
 // * @store/slices/trainee.ts
-export async function getTraineeBasics(page: number): Promise<UserCardT[]> {
+export async function getTraineeBasics(
+  page: number
+): Promise<TraineeResponse[]> {
   try {
-    const { data }: { data: TrainerResponse[] | any[] } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/trainees?page=${page}`
+    const { data }: { data: TraineeResponse[] } = await axios(
+      `${process.env.NEXT_PUBLIC_API_URL}/trainees?page=${page}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
 
-    const parsedData = data.map((trainee) => {
-      return parseOneTrainee(trainee);
-    });
-
-    return parsedData;
+    return data;
   } catch (error) {
     console.error(error);
     return [];
@@ -164,24 +224,47 @@ export async function getTraineeBasics(page: number): Promise<UserCardT[]> {
 }
 
 // * @store/slices/trainee.ts - here I use the shared parseOneUserDetails()
-export async function getTraineeDetails(id: string): Promise<UserDetailsT> {
+export async function getTraineeDetails(
+  id: string
+): Promise<UserDetailsResponse | Boolean> {
   try {
     const { data }: { data: UserDetailsResponse | any } = await axios(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`
+      `${process.env.NEXT_PUBLIC_API_URL}/user/${id}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
     );
-
-    const traineeDetails = parseOneUserDetails(data, id);
-
-    return traineeDetails;
+    return data;
   } catch (error) {
     console.error(error);
-    return { user_id: "", name: "", email: "" };
+    return false;
   }
 }
+
+export async function removeTraineeComment(
+  commentId: string
+): Promise<Boolean> {
+  try {
+    await axios.delete(
+      `${process.env.NEXT_PUBLIC_API_URL}/admin/comment/${commentId}`,
+      {
+        headers: {
+          "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+        }
+      }
+    );
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
 // ------------------------------------------------------------
 // ? MAY DO SOME STUFF LATER WITH THIS
 // ------------------------------------------------------------
-
 type BasicInfo = {
   user_id: string;
   name: string;

@@ -5,6 +5,10 @@
 Hack to make @pages/admin/index <DataViewContainer /> work
 \_\_NEXT_SKIP_CLIENT_HYDRATION=true
 
+## How to cloudinary
+
+https://medium.com/geekculture/how-to-upload-images-to-cloudinary-with-a-react-app-f0dcc357999c
+
 ### Use a key that was modified before to acces an object
 
 ```ts
