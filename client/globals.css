@@ -153,6 +153,7 @@ body {
   flex-direction:row;
  justify-content: center;
   gap:30px;
+  margin: 20px;
 }
 
 /* .divImg1 {

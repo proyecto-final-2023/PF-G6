@@ -1,4 +1,5 @@
 
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
@@ -72,4 +73,5 @@ export default function blog() {
       </div>
     </div>
   );
+
 }

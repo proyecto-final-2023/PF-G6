@@ -133,7 +133,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
     if (planM2) {
       const cantTrainees = planM2.trainer.membership.plantrainer.cantTrainees;
       const idTrainer = planM2.trainerIdTrainer;
-      console.log(idTrainer); //e1305e9b-f5c7-4a8a-b023-aa9a16e97902
       const plansT = await PlanTrainee.findAll({
         where: {
           trainerIdTrainer: idTrainer,
@@ -157,8 +156,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
         await membership.setUser(idUser);
         await membership.setPlanTrainee(idPlan);
         const trainerM = await Trainee.create({});
-        // console.log(trainerM.id_trainee);
-        // console.log(planM2.trainerIdTrainer);
+
         await trainerM.setMembership(membership.id_membership);
         userM.role = "trainee";
         await userM.save();
