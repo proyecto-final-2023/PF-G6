@@ -6,7 +6,8 @@ import Image from "next/image";
 
 
 
-export default function CardTraineePlans( {first_name,last_name,imgURL} ) {
+export default function CardTraineePlans( {first_name,last_name,imgURL}:{first_name:string,last_name:string,imgURL:string} ) {
+
  
   return (
     <div>
