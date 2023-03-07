@@ -56,6 +56,45 @@ const updateRating = async (id, value) => {
   return ratings;
 };
 
+const getRating = async (id, value) => {
+  const user = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["traineeIdTrainee"],
+      },
+    ],
+  });
+  const trai = await User.findByPk(id, {
+    attributes: ["first_name", "last_name", "imgURL"],
+    include: [
+      {
+        model: Membership,
+        attributes: ["id_membership"],
+        include: [
+          {
+            model: PlanTrainee,
+            attributes: ["trainerIdTrainer"],
+          },
+        ],
+      },
+    ],
+  });
+  const traineeId = user.membership.traineeIdTrainee;
+  const trainerId = trai.membership.planTrainee.trainerIdTrainer;
+
+  const filters = {
+    where: {
+      traineeIdTrainee: traineeId,
+      trainerIdTrainer: trainerId,
+    },
+  };
+  const ratings = await Rating.findOne(filters);
+
+  return { value: ratings.value };
+};
+
 const addComment = async (id, comment) => {
   const user = await User.findByPk(id, {
     attributes: ["first_name", "last_name", "imgURL"],
@@ -151,8 +190,6 @@ const listTrainees = async (page, limit) => {
   }
 };
 
-
-
 const addData = async (
   id,
   weight,
@@ -223,5 +260,5 @@ module.exports = {
   addData,
   addComment,
   updateRating,
-
+  getRating,
 };
