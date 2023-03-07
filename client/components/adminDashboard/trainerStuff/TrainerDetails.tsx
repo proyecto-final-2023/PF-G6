@@ -1,78 +1,62 @@
+import axios from "axios";
+import { FormEvent, useRef, useState } from "react";
 import useStore from "@/store/dashStore";
-import { SubmitHandler, useForm } from "react-hook-form";
 
-export type ModifyTrainerDetails = {
-  logo: string;
-  email: string;
-};
-
-// ? Only be able to change Logo & Plan Details
-// changeTrainerDetails: () => void;
-// deleteTrainer: () => void;
-// updateTrainer: () => void;
 export default function TrainerDetails({ user_id }: { user_id: string }) {
+  const [imgUrl, setImgUrl] = useState("");
+  const imgRef = useRef<HTMLInputElement | null>(null);
   const trainerDetails = useStore((state) => state.trainerDetails);
+  const deactivateTrainer = useStore((state) => state.deactivateAccount);
+  const updateLogo = useStore((state) => state.updateLogo);
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors, isSubmitting }
-  } = useForm<ModifyTrainerDetails>({
-    mode: "onChange",
-    defaultValues: {
-      logo: trainerDetails.logo,
-      email: trainerDetails.email
-    }
-  });
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formImage = imgRef.current?.files?.[0];
 
-  const onSubmit: SubmitHandler<ModifyTrainerDetails> = async (data) => {
-    // update stuff
-    console.log("update", data);
+    await axios
+      .post(
+        "cloudinary://251359677135396:eKSfHg5oI4Gne4ycURrowN7k3oI@dfixfnldt",
+        {
+          file: formImage,
+          upload_preset: "basic-img",
+          cloud_name: "dfixfnldt"
+        }
+      )
+      .then((res) => {
+        setImgUrl(res.data.secure_url);
+      });
+    updateLogo(imgUrl, trainerDetails.user_id).catch((err) =>
+      console.error(err + "could not upload image")
+    );
   };
 
-  const handleDelete = () => {
-    // delete stuff
-    console.log("delete");
+  const handleDelete = async () => {
+    if (!(await deactivateTrainer(user_id)))
+      console.error("Could not delete user");
   };
+
+  console.log(imgUrl, "imgUrl");
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
+    <form onSubmit={handleSubmit} className="flex flex-col relative">
       <p>Name: {trainerDetails.name}</p>
       <p>Role: Trainer</p>
-      {/* ---- Logo ---- */}
-      <label className="flex flex-col">
-        Logo:
-        <input
-          className="rounded-md"
-          type="text"
-          {...register("logo", { required: true, minLength: 3 })}
-        />
+
+      <label>
+        Profile image
+        <input type="file" ref={imgRef} />
       </label>
 
-      {/* ---- Email ---- */}
-      <label className="flex flex-col">
-        Email:
-        <input
-          className="rounded-md"
-          type="text"
-          {...register("email", { required: true, minLength: 3 })}
-        />
-      </label>
+      {imgUrl && (
+        <img src={imgUrl} alt="profile" className="w-20 h-20 rounded-full" />
+      )}
 
-      {/* ---- Buttons ---- */}
-      <button
-        disabled={isSubmitting}
-        className="py-2 px-3 bg-green-700 rounded"
-      >
-        Update
-      </button>
+      <button className="py-2 px-3 bg-green-700 rounded">Update</button>
 
       <button
         type="button"
-        disabled={isSubmitting}
         onClick={handleDelete}
-        className="py-2 px-3 bg-red-700 rounded"
+        className="py-2 px-3 bg-red-700 rounded absolute top-0 right-0"
       >
         Delete
       </button>
