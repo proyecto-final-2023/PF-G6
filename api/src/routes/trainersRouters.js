@@ -15,9 +15,10 @@ const { idExtract } = require("../middlewares/verifySignUp");
 const trainerRouter = Router();
 
 trainerRouter.get("/comment", async (req, res) => {
+  const { page } = req.query;
   const id = await idExtract(req.headers["x-access-token"]);
   try {
-    res.status(200).send(await listComment(id));
+    res.status(200).send(await listComment(id, page, 5));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

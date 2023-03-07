@@ -1,5 +1,10 @@
 ## TS stuff
 
+### Pseudo-fix to hydration error
+
+Hack to make @pages/admin/index <DataViewContainer /> work
+\_\_NEXT_SKIP_CLIENT_HYDRATION=true
+
 ### Use a key that was modified before to acces an object
 
 ```ts
@@ -12,7 +17,7 @@ export type RouteMapping = {
 const optionsUrlMapping: RouteMapping = {
   imc: "/guest/imc-calculator",
   dietsplanning: "/guest/diet-planning",
-  register: "/login/register",
+  register: "/login/register"
 };
 
 const option = "imc ".trim();
@@ -40,11 +45,11 @@ type Test = {
 
 const myTest: Test = {
   "en-EN": {
-    title: "JHON",
+    title: "JHON"
   },
   "es-ES": {
-    title: "JUAN",
-  },
+    title: "JUAN"
+  }
 };
 
 export default function Home() {

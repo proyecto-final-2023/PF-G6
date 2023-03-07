@@ -2,6 +2,7 @@ const { Router } = require("express");
 const {
   generateMembership,
   getMembership,
+  checkMembership,
 } = require("../controllers/membershipController");
 const { idExtract } = require("../middlewares/verifySignUp");
 const membershipRouter = Router();
@@ -19,6 +20,14 @@ membershipRouter.post("/", async (req, res) => {
     } else {
       res.status(404).send("El pago no a sido completado");
     }
+  } catch (error) {
+    res.status(400).send({ error: error.message });
+  }
+});
+
+membershipRouter.get("/check", async (req, res) => {
+  try {
+    res.status(200).send(await checkMembership((action = "view")));
   } catch (error) {
     res.status(400).send({ error: error.message });
   }

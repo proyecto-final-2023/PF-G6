@@ -125,7 +125,7 @@ export default function ExercisesLibrary() {
     const selectedUser = user.find((u) => u.name === selectedUsers)
     const dataToSend = {
       idTrainee: selectedUser?.id,
-      datePlan: selectedDate?.getTime(), // convertir la fecha en un número para enviarla
+      datePlan: selectedDate?.getTime(), // convertir la fecha en un nÃºmero para enviarla
       activities: selectedExercises.map((ex) => ({
         idActivity: ex.id,
         series: parseInt(

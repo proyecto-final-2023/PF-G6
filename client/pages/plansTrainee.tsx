@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
 import CardTrainers from "@/components/CardTrainers";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../firebase";
 import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import homeSlides from "@/assets/home-slides";
 
@@ -35,7 +33,7 @@ interface Trainer {
   }[];
 }
 
-// mostrar los planes para los trainers
+
 type PlansType = {
   userId: string;
   user: {
@@ -48,7 +46,6 @@ type PlansType = {
 };
 
 export default function plansTrainee() {
-  const [user, setUser] = useAuthState(auth);
   const [plans, setPlans] = useState<PlansType[]>([]);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
@@ -88,18 +85,26 @@ export default function plansTrainee() {
         <p className="text-2xl">¡I bought your plan now!</p>
       </div>
 
-      <div className="bg-black  ">
-        <h1 className="text-center text-3xl">Top</h1>
+      <div className=" bg-[url('/tail-imgs/1zLe.gif')] bg-no-repeat bg-cover bg-bottom ">
+        <h1 className="text-center text-5xl">Top</h1>
       </div>
 
       <div className="   outline-offset-3 justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2">
         {plans &&
-          plans.map((e) => (
+          plans.map((e:any) => (
             <CardTrainers
+<<<<<<< HEAD
               photo={e.user?.imgURL || user?.photoURL || ""}
               first_name={e.user?.first_name}
               last_name={e.user?.last_name}
               id={e.userId}
+=======
+              photo={e.logo}
+              first_name={e?.membership?.user?.first_name}
+              last_name={e?.membership?.user?.last_name}
+              id={e?.membership?.userId}
+
+>>>>>>> e0b2b08a37552991475920ad3e31c30cdc6b49ed
               rating={5}
             />
           ))}{" "}
@@ -108,15 +113,24 @@ export default function plansTrainee() {
         <h1 className="text-center text-3xl">Top 10</h1>
       </div>
       <SwiperCarousel slidesArr={homeSlides} />
-      <div className=" bg-black justify-items-center grid grid-cols-4  m-20 gap-x-2 gap-y-2">
+      <div className=" justify-items-center grid grid-cols-4  m-20 gap-x-2 gap-y-2">
         {plans &&
-          plans.map((e) => (
+          plans.map((e:any) => (
             <CardTrainers
+<<<<<<< HEAD
               photo={e.user?.imgURL || user?.photoURL || ""}
               first_name={e.user?.first_name}
               last_name={e.user?.last_name}
               id={e.userId}
               rating={5}
+=======
+            photo={e.logo}
+            first_name={e?.membership?.user?.first_name}
+            last_name={e?.membership?.user?.last_name}
+            id={e?.membership?.userId}
+            rating={5}
+
+>>>>>>> e0b2b08a37552991475920ad3e31c30cdc6b49ed
             />
           ))}{" "}
       </div>
@@ -128,14 +142,22 @@ export default function plansTrainee() {
       )}
       <div className=" justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2 ">
         {plans &&
-          plans.map((e) => (
+          plans.map((e:any) => (
             <CardTrainers
+<<<<<<< HEAD
               photo={e.user?.imgURL || user?.photoURL || ""}
               first_name={e.user?.first_name}
               last_name={e.user?.last_name}
               id={e.userId}
+=======
+            photo={e.logo}
+              first_name={e?.membership?.user?.first_name}
+              last_name={e?.membership?.user?.last_name}
+              id={e?.membership?.userId}
+
+>>>>>>> e0b2b08a37552991475920ad3e31c30cdc6b49ed
               rating={5}
-            />
+          />
           ))}
       </div>
     </div>
