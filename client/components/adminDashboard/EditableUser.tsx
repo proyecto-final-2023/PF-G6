@@ -1,43 +1,44 @@
 import React, { ReactEventHandler, useEffect, useState } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 interface tData {
-    id: string;
-    status: boolean;
-    first_name: string;
-    last_name: string;
-    nickname: string;
-    role: string;
-    imgURL:string;
-    membership:string;
-  };
+  id: string;
+  status: boolean;
+  first_name: string;
+  last_name: string;
+  nickname: string;
+  role: string;
+  imgURL: string;
+  membership: string;
+}
 
 const EditableTable = () => {
   const [tableData, setTableData] = useState<tData[]>([]);
 
-  useEffect(()=>{
-    let ind:number=1;
-    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${ind}`)
-    .then(data=> setTableData(data.data))
-    .catch(error=> console.log(error));
-  },[]);
+  useEffect(() => {
+    let ind: number = 1;
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${ind}`)
+      .then((data) => setTableData(data.data))
+      .catch((error) => console.log(error));
+  }, []);
 
- 
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index:number) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    index: number
+  ) => {
     const target = e.currentTarget as HTMLButtonElement;
-    if(target.value='update'){
+    if ((target.value = "update")) {
       //logica del update va por aqui
-      const upd={...tableData[index]};
+      const upd = { ...tableData[index] };
       console.log(upd);
     }
-    if(target.value='delete'){
+    if ((target.value = "delete")) {
       //logica del delete
-      const id= tableData[index].id;
-      console.log(id)
+      const id = tableData[index].id;
+      console.log(id);
     }
-
-  }
+  };
 
   return (
     <table>
@@ -70,48 +71,92 @@ const EditableTable = () => {
             </td>
             <td>
               <input
-              name='first_name'
+                name="first_name"
                 type="text"
                 value={row.first_name}
+                onChange={(e) => {
+                  const updatedData = [...tableData];
+                  updatedData[rowIndex].first_name = e.target.value;
+                  setTableData(updatedData);
+                }}
               />
             </td>
             <td>
               <input
-              name='last_name'
+                name="last_name"
                 type="text"
                 value={row.last_name}
+                onChange={(e) => {
+                  const updatedData = [...tableData];
+                  updatedData[rowIndex].last_name = e.target.value;
+                  setTableData(updatedData);
+                }}
               />
             </td>
             <td>
               <input
-              name='nickname'
+                name="nickname"
                 type="text"
                 value={row.nickname}
+                onChange={(e) => {
+                  const updatedData = [...tableData];
+                  updatedData[rowIndex].nickname = e.target.value;
+                  setTableData(updatedData);
+                }}
               />
             </td>
             <td>
               <input
-              name='role'
+                name="role"
                 type="text"
                 value={row.role}
+                onChange={(e) => {
+                  const updatedData = [...tableData];
+                  updatedData[rowIndex].role = e.target.value;
+                  setTableData(updatedData);
+                }}
               />
             </td>
             <td>
               <input
-              name='imgURL'
+                name="imgURL"
                 type="text"
                 value={row.imgURL}
+                onChange={(e) => {
+                  const updatedData = [...tableData];
+                  updatedData[rowIndex].first_name = e.target.value;
+                  setTableData(updatedData);
+                }}
               />
             </td>
             <td>
               <input
-              name='membership'
+                name="membership"
                 type="text"
                 value={row.membership}
+                onChange={(e) => {
+                  const updatedData = [...tableData];
+                  updatedData[rowIndex].membership = e.target.value;
+                  setTableData(updatedData);
+                }}
               />
             </td>
-            <button  value='update' onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{handleClick(e, rowIndex)}}>Update</button>
-            <button  value='delete' onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{handleClick(e, rowIndex)}}>Delete</button>
+            <button
+              value="update"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                handleClick(e, rowIndex);
+              }}
+            >
+              Update
+            </button>
+            <button
+              value="delete"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                handleClick(e, rowIndex);
+              }}
+            >
+              Delete
+            </button>
           </tr>
         ))}
       </tbody>
