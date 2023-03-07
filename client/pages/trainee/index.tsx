@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import { Calendar, momentLocalizer} from "react-big-calendar";
 import format from "date-fns/format";
 import parse from "date-fns/parse";
 import startOfWeek from "date-fns/startOfWeek";
@@ -13,6 +13,7 @@ import { getCookie } from "@/utils/cookieHandler";
 import Rating from "@/components/StarRating";
 import { SyntheticEvent } from "react";
 import { FiEdit } from "react-icons/fi";
+import moment from 'moment'
 
 export default function Index() {
   const [user, setUser] = useAuthState(auth);
@@ -25,7 +26,15 @@ export default function Index() {
   const [idAliment, setIdAliment] = useState<Array<selectedAliments>>([]);
   const [idExercise, setIdExercise] = useState<Array<selectedExers>>([])
   const [dates, setDates] = useState([]);
-
+  const [sortedAliments, setSortedAliments] = useState<any>();
+  const [sortedExercises, setSortedExercises] = useState<any>();
+  const [verRutina, setVerRutina] = useState(false)
+  
+  // const [events, setEvents] = useState<any>();
+  
+  console.log(idAliment)
+  console.log(sortedAliments)
+  console.log(sortedExercises)
 
   interface selectedExers {
     datePlan: string,
@@ -40,8 +49,22 @@ export default function Index() {
     name: string
   }
   
+  const exerciseEvents = sortedExercises?.map((day: any) => ({
+    title: 'Rutina',
+    start: new Date(day.date),
+    end: new Date(day.date),
+    activities: day.activities
+  }));
+  
+  const mealsEvents = sortedAliments?.map((day: any) => ({
+    title: 'Comidas',
+    start: new Date(day.date),
+    end: new Date(day.date),
+    meals: day.meals
+  }));
 
-
+  const allEvents = exerciseEvents?.concat(mealsEvents);
+  console.log(allEvents)
   function handleFeedbackChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     setFeedback(event.target.value);
   }
@@ -69,14 +92,12 @@ export default function Index() {
       });
   }
 
-  console.log(data)
+  
 
-  const extractIds = (data) => {
-    const datos = data.membership.trainee.plans.map(e => e)
-    console.log(datos)
-    
-const selectedExercises = datos.map(plan => {
-   const activities = plan.ActivitiesPlans.map(activity => ({
+  const extractIds = async(data: any) => {
+    const datos = await data.membership.trainee.plans.map((e: any) => e)
+    const selectedExercises = await datos.map((plan: any) => {
+    const activities =  plan.ActivitiesPlans.map((activity: any) => ({
     datePlan: plan.datePlan,
     idActivities: activity.idActivity,
     series: activity.series,
@@ -88,8 +109,8 @@ const selectedExercises = datos.map(plan => {
 setIdExercise(selectedExercises);
 
 
-const selectedAliments = datos.map(plan => {
-   const aliments = plan.AlimentsPlans.map(aliment => ({
+const selectedAliments = await datos.map((plan: any) => {
+   const aliments = plan.AlimentsPlans.map((aliment: any) => ({
     datePlan: plan.datePlan,
     id: aliment.idAliment,
     portion: aliment.portion,
@@ -101,6 +122,73 @@ const selectedAliments = datos.map(plan => {
 setIdAliment(selectedAliments);
 
   };
+  
+  
+  function groupByDate(data: any) {
+    if (!data) {
+      console.log('data is undefined');
+      return;
+    }
+  
+    const groupedData = new Map();
+  
+    data.forEach((day: any) => {
+      day.forEach((meal:any) => {
+        if (groupedData.has(meal.datePlan)) {
+          const existingDay = groupedData.get(meal.datePlan);
+          existingDay.push({
+            id: meal.id,
+            portion: meal.portion,
+            time: meal.time
+          });
+        } else {
+          groupedData.set(meal.datePlan, [{
+            id: meal.id,
+            portion: meal.portion,
+            time: meal.time
+          }]);
+        }
+      });
+    });
+  
+    const result = Array.from(groupedData, ([date, meals]) => ({ date, meals }));
+    
+    return result;
+  }
+  
+  function groupByDateExer(data: any) {
+    if (!data) {
+      console.log('data is undefined');
+      return;
+    }
+  
+    const groupedData = new Map();
+  
+    data.forEach((day: any) => {
+      day.forEach((activity: any) => {
+        if (groupedData.has(activity.datePlan)) {
+          const existingDay = groupedData.get(activity.datePlan);
+          existingDay.push({
+            idActivities: activity.idActivities,
+            series: activity.series,
+            repetitions: activity.repetitions
+          });
+        } else {
+          groupedData.set(activity.datePlan, [{
+            idActivities: activity.idActivities,
+            series: activity.series,
+            repetitions: activity.repetitions
+          }]);
+        }
+      });
+    });
+  
+    const result = Array.from(groupedData, ([date, activities]) => ({ date, activities }));
+  
+    return result;
+  }
+  
+  
   
 
   useEffect(() => {
@@ -118,60 +206,30 @@ setIdAliment(selectedAliments);
           trainerPhone:
             data.data.membership.planTrainee.trainer.membership.user.phone
         }),
-       setData(data.data),
        extractIds(data.data)
+       setSortedAliments(groupByDate(idAliment)),
+       setSortedExercises(groupByDateExer(idExercise))
+      
        ;
-      });
+      })
   }, []);
 
   const locales = {
     "en-US": require("date-fns/locale/en-US")
   };
 
-  const localizer = dateFnsLocalizer({
-    format,
-    parse,
-    startOfWeek,
-    getDay,
-    locales
-  });
+  const localizer = momentLocalizer(moment)
 
-  const events = [
-    {
-      title: "Cardio",
-      allDay: true,
-      start: new Date(2023, 2, 10),
-      end: new Date(2023, 2, 10)
+  const handleSelectCalendar = (event : any) => {
+    if (event.title === 'Rutina') {
+      const rutinaReturn = event.activities
+      console.log(rutinaReturn)
+    } else if (event.title === 'Comidas'){
+      const ComidaReturn = event.meals
+      console.log(ComidaReturn)
     }
-  ];
-
-  const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
-  const [allEvents, setAllEvents] = useState(events);
-
-  function handleAddEvent() {
-    for (let i = 0; i < allEvents.length; i++) {
-      const d1 = new Date(allEvents[i].start);
-      const d2 = new Date(newEvent.start);
-      const d3 = new Date(allEvents[i].end);
-      const d4 = new Date(newEvent.end);
-
-      if ((d1 <= d2 && d2 <= d3) || (d1 <= d4 && d4 <= d3)) {
-        alert("There is already an activity on that date, it will clash.");
-        // break
-        return;
-      }
-    }
-
-    const parsedNewEvent = {
-      title: newEvent.title,
-      start: new Date(newEvent.start),
-      end: new Date(newEvent.end),
-      allDay: true
-    };
-
-    setAllEvents((prev) => [...prev, parsedNewEvent]);
   }
-
+  
   return (
     <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
       <div className="mt-20 bg-black/60 -z-10 border-transparent border-2">
@@ -245,8 +303,7 @@ setIdAliment(selectedAliments);
               <Calendar
                 localizer={localizer}
                 events={allEvents}
-                startAccessor="start"
-                endAccessor="end"
+                onSelectEvent={handleSelectCalendar}
                 style={{ height: 500, margin: "50px" }}
                 defaultView="agenda"
                 views={{ month: false, week: false, day: true, agenda: true }}
