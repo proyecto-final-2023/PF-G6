@@ -140,7 +140,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
       const trainerE = await Trainer.findOne({ where: { userId: userM.id } });
 
       if (trainerE) {
-        console.log("renew membership");
         const membership = await Membership.create({
           startDate,
           finishDate,
@@ -159,7 +158,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
         });
         await membership.setVoucher(voucher);
       } else {
-        console.log("new membership");
         const membership = await Membership.create({
           startDate,
           finishDate,
@@ -209,10 +207,8 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
 
         const trainerE = await Trainee.findOne({ where: { userId: userM.id } });
-        console.log(trainerE);
 
         if (trainerE) {
-          console.log("renew Trainee");
           const membership = await Membership.create({
             startDate,
             finishDate,
@@ -231,7 +227,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
           });
           await membership.setVoucher(voucher);
         } else {
-          console.log("new Trainee");
           const membership = await Membership.create({
             startDate,
             finishDate,
