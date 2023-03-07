@@ -1,55 +1,82 @@
 import axios from "axios";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useState } from "react";
 import useStore from "@/store/dashStore";
 
-export default function TrainerDetails({ user_id }: { user_id: string }) {
-  const [imgUrl, setImgUrl] = useState("");
-  const imgRef = useRef<HTMLInputElement | null>(null);
+export default function TrainerDetails() {
+  const [image, setImage] = useState<File>();
   const trainerDetails = useStore((state) => state.trainerDetails);
   const deactivateTrainer = useStore((state) => state.deactivateAccount);
-  const updateLogo = useStore((state) => state.updateLogo);
+
+  const uploadImage = () => {
+    if (!image) {
+      console.error("No image to upload");
+      return;
+    }
+
+    const cloudName = process.env.NEXT_PUBLIC_CLOUDY_NAME || "no cloud name";
+
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "basic-img-preset");
+    data.append("cloud_name", cloudName);
+
+    axios
+      .post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, data)
+      .then((res) => {
+        const imgUrl = res.data.secure_url;
+        if (!imgUrl || !trainerDetails.user_id) {
+          console.error("Could not update logo");
+          return;
+        }
+        // updateLogo(imgUrl, trainerDetails.user_id);
+        updateDbLogo(imgUrl);
+        window.alert("Updated logo :D");
+      })
+      .catch((err) => console.error(err));
+  };
+
+  const updateDbLogo = async (url: string) => {
+    try {
+      await axios.put(
+        `${process.env.NEXT_PUBLIC_API_URL}/admin/logo/${trainerDetails.trainer_id}`,
+        { logo: url },
+        {
+          headers: {
+            "x-access-token": process.env.NEXT_PUBLIC_ADMIN_KEY
+          }
+        }
+      );
+
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formImage = imgRef.current?.files?.[0];
-
-    await axios
-      .post(
-        "cloudinary://251359677135396:eKSfHg5oI4Gne4ycURrowN7k3oI@dfixfnldt",
-        {
-          file: formImage,
-          upload_preset: "basic-img",
-          cloud_name: "dfixfnldt"
-        }
-      )
-      .then((res) => {
-        setImgUrl(res.data.secure_url);
-      });
-    updateLogo(imgUrl, trainerDetails.user_id).catch((err) =>
-      console.error(err + "could not upload image")
-    );
+    uploadImage();
   };
 
   const handleDelete = async () => {
-    if (!(await deactivateTrainer(user_id)))
+    if (!(await deactivateTrainer(trainerDetails.user_id)))
       console.error("Could not delete user");
   };
-
-  console.log(imgUrl, "imgUrl");
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col relative">
       <p>Name: {trainerDetails.name}</p>
       <p>Role: Trainer</p>
 
-      <label>
-        Profile image
-        <input type="file" ref={imgRef} />
-      </label>
-
-      {imgUrl && (
-        <img src={imgUrl} alt="profile" className="w-20 h-20 rounded-full" />
-      )}
+      <div>
+        <p>Profile image</p>
+        <input
+          type="file"
+          onChange={(e) => setImage(e.target.files?.[0])}
+          className="text-red-100"
+        ></input>
+      </div>
 
       <button className="py-2 px-3 bg-green-700 rounded">Update</button>
 
