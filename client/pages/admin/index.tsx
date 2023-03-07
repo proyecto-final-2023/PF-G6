@@ -6,14 +6,14 @@ import EditableTable from "@/components/adminDashboard/EditableUser";
 
 export default function AdminIndex() {
   return (
-    <div>
-      <div className="grid grid-cols-[33%_66%] mt-20">
+    <div className="mt-20">
+      <div className="flex gap-10">
         <OptionMenu />
         <div>
-          {/* <CentralContainer /> */}
           <EditableTable />
         </div>
       </div>
+      <CentralContainer />
       <DataViewContainer />
       <GraphContainer />
     </div>
