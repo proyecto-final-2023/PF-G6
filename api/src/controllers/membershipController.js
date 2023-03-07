@@ -14,7 +14,6 @@ const {
 const moment = require("moment");
 
 const checkMembership = async (action) => {
-  action = "delete";
   let member = [];
   const memberships = await Membership.findAll({
     include: [
@@ -36,6 +35,40 @@ const checkMembership = async (action) => {
   });
 
   memberships.forEach(async (membership) => {
+    const membershipx = await Membership.findByPk(id, {
+      include: [
+        {
+          model: User,
+          attributes: ["first_name", "last_name", "phone"],
+          include: [{ model: Logueo, attributes: ["email"] }],
+        },
+        {
+          model: PlanTrainee,
+          attributes: ["name"],
+        },
+        {
+          model: Plantrainer,
+          attributes: ["name"],
+        },
+        {
+          model: Trainer,
+          include: [
+            {
+              model: PlanTrainee,
+            },
+          ],
+        },
+      ],
+      attributes: ["userId", "id_membership", "startDate", "finishDate"],
+    });
+
+    const plansTrainerx = membershipx.trainer.planTrainees;
+
+    plansTrainerx.forEach(async (plan) => {
+      plan.status = false;
+      await plan.save();
+    });
+
     const { finishDate, id_membership } = membership;
     const finalDate = new Date(finishDate);
     const now = new Date();
@@ -107,7 +140,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
       const trainerE = await Trainer.findOne({ where: { userId: userM.id } });
 
       if (trainerE) {
-        console.log("renew membership");
         const membership = await Membership.create({
           startDate,
           finishDate,
@@ -126,7 +158,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
         });
         await membership.setVoucher(voucher);
       } else {
-        console.log("new membership");
         const membership = await Membership.create({
           startDate,
           finishDate,
@@ -176,10 +207,8 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
 
 
         const trainerE = await Trainee.findOne({ where: { userId: userM.id } });
-        console.log(trainerE);
 
         if (trainerE) {
-          console.log("renew Trainee");
           const membership = await Membership.create({
             startDate,
             finishDate,
@@ -197,9 +226,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
             cost: cost,
           });
           await membership.setVoucher(voucher);
-
         } else {
-          console.log("new Trainee");
           const membership = await Membership.create({
             startDate,
             finishDate,

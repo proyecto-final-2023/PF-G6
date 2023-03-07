@@ -25,15 +25,30 @@ const deleteMembership = async (id) => {
         include: [{ model: Logueo, attributes: ["email"] }],
       },
       {
+        model: PlanTrainee,
+        attributes: ["name"],
+      },
+      {
         model: Plantrainer,
         attributes: ["name"],
       },
       {
-        model: PlanTrainee,
-        attributes: ["name"],
+        model: Trainer,
+        include: [
+          {
+            model: PlanTrainee,
+          },
+        ],
       },
     ],
     attributes: ["userId", "id_membership", "startDate", "finishDate"],
+  });
+
+  const plansTrainer = membership.trainer.planTrainees;
+
+  plansTrainer.forEach(async (plan) => {
+    plan.status = false;
+    await plan.save();
   });
 
   const x = membership.userId;
