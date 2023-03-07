@@ -9,7 +9,9 @@ export default function trainee() {
   const router = useRouter();
   const id = router.query.id;
   const [user, setData] = useState([]);
-  const [name, setName] = useState([]);
+  const [name, setName] = useState<{ first_name: string }>({
+    first_name: ""
+  });
   const key = getCookie("token");
 
   useEffect(() => {
