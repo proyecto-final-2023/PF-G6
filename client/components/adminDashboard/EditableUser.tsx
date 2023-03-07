@@ -36,7 +36,11 @@ const EditableTable = () => {
     if ((target.value = "delete")) {
       //logica del delete
       const id = tableData[index].id;
-      console.log(id);
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/user/status/${id}`)
+        .then((data) => setTableData(data.data))
+        .catch((error) => console.log(error));
+      alert("usuario desactivado");
     }
   };
 
