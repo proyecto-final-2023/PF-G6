@@ -64,10 +64,11 @@ export default function Index() {
           planStart: `Plan starting date: ${data.data.membership.startDate}`,
           planEnd: `Plan finishing date: ${data.data.membership.finishDate}`,
           trainerPhone:
-            data.data.membership.planTrainee.trainer.membership.user.phone
+            data.data.membership.planTrainee.trainer.membership.user.phone,
         });
       });
   }, []);
+
 
   const locales = {
     "en-US": require("date-fns/locale/en-US")
@@ -177,7 +178,7 @@ export default function Index() {
         </div>
         <div className="flex flex-col mt-10">
           <Link
-            href={`${process.env.NEXT_PUBLIC_API_URL}/food`}
+            href={`${process.env.NEXT_PUBLIC_FRONT_DEPLOY}/food`}
             className=" text-center mb-10 mt-10 text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300 "
           >
             Food Library
