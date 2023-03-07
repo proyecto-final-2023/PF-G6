@@ -8,9 +8,9 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { CardData } from "@/components/Food";
-import { DiscoveryError } from "@auth0/nextjs-auth0/dist/auth0-session/utils/errors";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
-export default function ExercisesLibrary() {
+ function ExercisesLibrary() {
   const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
   const [data, setData] = useState<CardData[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -576,3 +576,5 @@ export default function ExercisesLibrary() {
     </div>
   );
 }
+
+export default WithPrivateRouter(ExercisesLibrary)

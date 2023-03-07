@@ -1,7 +1,8 @@
 import Dashboard from '@/components/DashboardTrainer'
+import WithPrivateRouter from '@/components/WithPrivateRoute';
 
 
-export default function index() {
+ function index() {
   return (
     <div >
       <Dashboard />
@@ -9,3 +10,4 @@ export default function index() {
     </div>
   );
 }
+export default WithPrivateRouter(index)

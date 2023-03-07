@@ -3,8 +3,10 @@ import Link from "next/link";
 import { GrClose } from "react-icons/gr";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../firebase";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
-export default function CalculateCalories() {
+
+ function CalculateCalories() {
   const [age, setAge] = useState("");
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
@@ -12,7 +14,7 @@ export default function CalculateCalories() {
   const [activityLevel, setActivityLevel] = useState("1.2");
   const [goal, setGoal] = useState("lose");
   const [result, setResult] = useState(0);
-  const [user, setUser] = useAuthState(auth)
+
 
   const calculate = () => {
     // amountt of energy needed to survive (BMR)
@@ -35,12 +37,12 @@ export default function CalculateCalories() {
 
     setResult(PlusEnergyEx);
   };
-  if (!user) {
-    return(
-    <div>
-    <h1 className="flex flex-col justify-center text-xl text-center h-[100vh]">Ops!Debes iniciar sesión para ver esta página</h1>;
-    </div>
-  )}
+  // if (!user) {
+  //   return(
+  //   <div>
+  //   <h1 className="flex flex-col justify-center text-xl text-center h-[100vh]">Ops!Debes iniciar sesión para ver esta página</h1>;
+  //   </div>
+  // )}
 
   return (
     <div className="h-[89.8vh] flex justify-center bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm">
@@ -128,3 +130,5 @@ export default function CalculateCalories() {
     </div>
   );
 }
+
+export default WithPrivateRouter(CalculateCalories);

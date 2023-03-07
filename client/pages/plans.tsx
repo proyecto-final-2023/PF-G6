@@ -3,7 +3,8 @@ import React, { useEffect, useState } from "react";
 import CardPlans from "../components/CardPlans";
 import logo from "@/assets/images/logoDePlan.png";
 import Image from "next/image";
-import { getCookie, setCookie } from "@/utils/cookieHandler";
+import { getCookie } from "@/utils/cookieHandler";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 //mostrar los planes para los trainers
 type PlansType = {
   id: string;
@@ -13,7 +14,7 @@ type PlansType = {
   description: string;
 };
 
-export default function plans() {
+ function plans() {
   const [plans, setPlans] = useState<PlansType[]>([]);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
@@ -83,3 +84,5 @@ export default function plans() {
     </div>
   );
 }
+
+export default WithPrivateRouter(plans)

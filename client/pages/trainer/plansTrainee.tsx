@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import axios from "axios";
 import NavbarTrainer from "@/components/navbar/NavbarTrainer";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
 // crear los planes para trainees
-export default function createPlans() {
+function createPlans() {
   //token user
   const key = getCookie("token");
 
@@ -82,3 +83,5 @@ export default function createPlans() {
     </div>
   );
 }
+
+export default WithPrivateRouter(createPlans)

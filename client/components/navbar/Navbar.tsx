@@ -130,7 +130,7 @@ export default function Navbar() {
           </li>
 
           <li className="justify-center flex items-center">
-            <Link replace href="/guest/trainning-list" className={linkStyles}>
+            <Link replace href="/trainer/plansTrainee" className={linkStyles}>
               Trainers
             </Link>
           </li>
