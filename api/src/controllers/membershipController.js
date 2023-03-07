@@ -207,6 +207,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
         const finishTrainee = start.add(7, "day");
         const finishDate = finishTrainee.format("YYYY-MM-DD");
 
+
         const trainerE = await Trainee.findOne({ where: { userId: userM.id } });
         console.log(trainerE);
 
@@ -257,6 +258,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
             trainerIdTrainer: planM2.trainerIdTrainer,
           });
         }
+
         return `Felicidades ${userM.first_name}  ${userM.last_name} acabas de adquirir el plan ${planM2.name}`;
       } else {
         const nameTrainer =
