@@ -195,6 +195,7 @@ const listTrainers = async (page, limit) => {
       include: [
         {
           model: Membership,
+
           attributes: ["userId"],
           include: [
             {
@@ -212,13 +213,43 @@ const listTrainers = async (page, limit) => {
       limit: limit,
       offset: (page - 1) * limit,
     });
+    console.log(listTrainers);
     return listTrainers;
   } catch (error) {
+    console.log(error);
     return error;
   }
 };
 
 const createPlan = async (id, idTrainee, datePlan, activities, aliments) => {
+  if (!datePlan)
+    throw Error("Desbes ingresar la fecha a realizar la actividad");
+
+  const finalDate = new Date(datePlan);
+  const fecha = new Date().toISOString().substring(0, 10);
+  const now = new Date(fecha);
+  console.log(finalDate, now, finalDate < now);
+  if (finalDate && finalDate < now)
+    throw Error(`Desbes ingresar una fecha mayor o igual a la actual ${now}`);
+
+  if (!activities.length) throw Error("Debes ingresar almenos una actividad");
+  if (!aliments.length) throw Error("Debes ingresar almenos un alimento");
+
+  activities.map((activity, index) => {
+    if (!activity.idActivity) throw Error(`La actividad ${index + 1} vacia`);
+    if (!activity.series)
+      throw Error(`Las series de la actividad ${index + 1} vacia`);
+    if (!activity.repetitions)
+      throw Error(`Las repeticiones de la actividad ${index + 1} vacia`);
+  });
+
+  aliments.map((aliment, index) => {
+    if (!aliment.idAliment) throw Error(`El alimento ${index + 1} vacio`);
+    if (!aliment.portion)
+      throw Error(`La porcion del alimento ${index + 1} vacio`);
+    if (!aliment.time) throw Error(`El tiempo del alimento ${index + 1} vacio`);
+  });
+
   const user = await User.findByPk(id, {
     attributes: ["first_name", "last_name"],
     include: [
