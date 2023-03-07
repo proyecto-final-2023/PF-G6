@@ -119,7 +119,7 @@ userRoutes.get("/status/:id", async (req, res) => {
 userRoutes.get("/comment/:id", async (req, res) => {
   const { page } = req.query;
   const { id } = req.params;
-  console.log(page, id);
+
   try {
     res.status(200).send(await listComment(id, page, 5));
   } catch (error) {
