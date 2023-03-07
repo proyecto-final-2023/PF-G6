@@ -299,6 +299,7 @@ const addData = async (
 
 const statusAlter = async (id) => {
   const planM = await Plantrainer.findByPk(id);
+
   if (planM) {
     await planM.update({ status: !planM.status });
     return `Plan ${planM.name} status:${planM.status}`;
@@ -368,6 +369,7 @@ const ratingTotal = async (id) => {
   return rating;
 };
 
+
 module.exports = {
   botUserAdd,
   getId,
@@ -380,4 +382,5 @@ module.exports = {
   statusAlter,
   ratingTotal,
   listComment,
+
 };
