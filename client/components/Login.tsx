@@ -74,15 +74,15 @@ export const Login = () => {
 
   useEffect(() => {
     if (user !== null && info.email !== undefined) {
-      console.log(info.email)
+      // console.log(info.email)
       axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/email`, { email: info.email })
         .then(response => {
-          console.log(response.data.verify)
+          // console.log(response.data.verify)
           if (response.data.verify === true) {
             axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth`, infoLoguin)
               .then(response => {
                 setCookie("token", response.data.token)
-                console.log(response)
+                // console.log(response)
                 window.location.href = "/home"
 
               })
