@@ -4,39 +4,33 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 
+// src={user?.membership?.trainer?.logo}
+// <p>{`${user?.first_name} ${user?.last_name}`}</p>
 
-interface tUser{
-user:{
-    membership:{
-      trainer:{
-        logo:string;
-      }
-    }
-  }
+interface UserTrainer {
+  membership: {
+    trainer: {
+      logo: string;
+    };
+  };
+  first_name: string;
+  last_name: string;
 }
 
-
-
-
 export default function Trainer() {
-  const [user, setUser] = useState([]);
+  const [user, setUser] = useState<UserTrainer>();
 
   const key = getCookie("token");
-
-
 
   useEffect(() => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
         headers: {
-          "x-access-token": key,
-        },
+          "x-access-token": key
+        }
       })
       .then((data) => {
-        
         setUser(data.data);
-      
-        
       });
   }, []);
 
@@ -53,16 +47,19 @@ export default function Trainer() {
             src={user?.membership?.trainer?.logo}
             alt="data"
           />
-        <div className="w-50">
-        <Link href="/trainer/logo" className="inline-block w-full p-4 items-center bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700">ADD</Link>
-         </div>
+          <div className="w-50">
+            <Link
+              href="/trainer/logo"
+              className="inline-block w-full p-4 items-center bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+              ADD
+            </Link>
+          </div>
           <p>{`${user?.first_name} ${user?.last_name}`}</p>
         </div>
         <div className="flex flex-col ">
           <ul className="space-y-1 m-auto">
-            <li>
-       
-            </li>
+            <li></li>
             <li>
               <Link
                 href="/trainer/exercises-library"
@@ -85,7 +82,7 @@ export default function Trainer() {
                 href="/trainer/blog"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <svg 
+                <svg
                   aria-className="true"
                   className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   fill="currentColor"
@@ -116,7 +113,9 @@ export default function Trainer() {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Certification</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">
+                  Certification
+                </span>
               </Link>
             </li>
 
@@ -141,7 +140,6 @@ export default function Trainer() {
                 <span className="flex-1 ml-3 whitespace-nowrap">Add Logo </span>
               </Link>
             </li>
-    
           </ul>
         </div>
       </nav>
