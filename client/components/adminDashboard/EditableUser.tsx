@@ -1,49 +1,55 @@
-import React, { ReactEventHandler, useEffect, useState } from "react";
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
 
 interface tData {
-    id: string;
-    status: boolean;
-    first_name: string;
-    last_name: string;
-    nickname: string;
-    role: string;
-    imgURL:string;
-    membership:string;
-  };
+  id: string;
+  status: boolean;
+  first_name: string;
+  last_name: string;
+  nickname: string;
+  role: string;
+  imgURL: string;
+  membership: string;
+}
 
 const EditableTable = () => {
   const [tableData, setTableData] = useState<tData[]>([]);
 
-  useEffect(()=>{
-    let ind:number=1;
-    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${ind}`)
-    .then(data=> setTableData(data.data))
-    .catch(error=> console.log(error));
-  },[]);
+  useEffect(() => {
+    let ind: number = 1;
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${ind}`)
+      .then((data) => setTableData(data.data))
+      .catch((error) => console.log(error));
+  }, []);
 
- 
-
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>, index:number) => {
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    index: number
+  ) => {
     const target = e.currentTarget as HTMLButtonElement;
-    if(target.value='update'){
+    if ((target.value = "update")) {
       //logica del update va por aqui
-      const upd={...tableData[index]};
+      const upd = { ...tableData[index] };
       console.log(upd);
     }
-    if(target.value='delete'){
+    if ((target.value = "delete")) {
       //logica del delete
-      const id= tableData[index].id;
-      console.log(id)
+      const id = tableData[index].id;
+      console.log(id);
     }
+  };
 
-  }
+  const className = "bg-gray-800 border-b-gray-200 text-white m-1 w-[6rem]";
 
   return (
-    <table>
+    <table className="hidden md:block">
+      <div className="block md:hidden">
+        <h1>Cannot use admin panel in {`<=`} 768px sreen, upgrade</h1>
+      </div>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Status</th>
           <th>First Name</th>
           <th>Last Name</th>
@@ -56,62 +62,71 @@ const EditableTable = () => {
       <tbody>
         {tableData?.map((row, rowIndex) => (
           <tr key={row.id}>
-            <td>{row.id}</td>
             <td>
               <input
-                type="checkbox"
-                checked={row.status}
-                onChange={(e) => {
-                  const updatedData = [...tableData];
-                  updatedData[rowIndex].status = e.target.checked;
-                  setTableData(updatedData);
-                }}
-              />
-            </td>
-            <td>
-              <input
-              name='first_name'
+                name="first_name"
                 type="text"
                 value={row.first_name}
+                className={className}
               />
             </td>
             <td>
               <input
-              name='last_name'
+                name="last_name"
                 type="text"
                 value={row.last_name}
+                className={className}
               />
             </td>
             <td>
               <input
-              name='nickname'
+                name="nickname"
                 type="text"
                 value={row.nickname}
+                className={className}
               />
             </td>
             <td>
               <input
-              name='role'
+                name="role"
                 type="text"
                 value={row.role}
+                className={className}
               />
             </td>
             <td>
               <input
-              name='imgURL'
+                name="imgURL"
                 type="text"
                 value={row.imgURL}
+                className={className}
               />
             </td>
             <td>
               <input
-              name='membership'
+                name="membership"
                 type="text"
                 value={row.membership}
+                className={className}
               />
             </td>
-            <button  value='update' onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{handleClick(e, rowIndex)}}>Update</button>
-            <button  value='delete' onClick={(e: React.MouseEvent<HTMLButtonElement>)=>{handleClick(e, rowIndex)}}>Delete</button>
+            <button
+              className=""
+              value="update"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                handleClick(e, rowIndex);
+              }}
+            >
+              <AiOutlineEdit size={25} fill="green" />
+            </button>
+            <button
+              value="delete"
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                handleClick(e, rowIndex);
+              }}
+            >
+              <AiOutlineDelete size={25} fill="red" />
+            </button>
           </tr>
         ))}
       </tbody>
