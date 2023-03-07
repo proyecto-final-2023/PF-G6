@@ -1,11 +1,26 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../firebase";
 import axios from "axios";
 import CardPlans from "@/components/CardPlans";
-
 import ReactStars from "react-stars";
+type PlansType = {
+  id: number;
+  name: string;
+  photo: string;
+  first_name: string;
+  last_name: string;
+  imgURL: string;
+
+  
+};
+type UserType = {
+  first_name: string;
+  last_name: string;
+  role: string;
+  membership: {
+  trainer: { logo: string;
+     planTrainees: PlansType[]; };};
+  };
 
 interface tUser {
   id: string;
@@ -28,33 +43,31 @@ interface tPlan {
 }
 
 export default function TraineeDetails() {
-  const [user, setUser] = useAuthState(auth);
 
   const [userData, setUserData] = useState<tUser>();
   const [plans, setPlan] = useState<tPlan[]>([]);
+  
   const router = useRouter();
+  
   const id = router.query.id;
+
   useEffect(() => {
     // make call to backend to fetch user data
-    axios(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
       .then(({ data }) => {
+        console.log(data);
         setUserData(data);
         setPlan(data.membership.trainer.planTrainees);
       })
       .catch((error) => console.error(error));
   }, []);
-
+ 
+  console.log(userData)
   return (
-    <div className="flex flex-nowrap bg-[url('/tail-imgs/trainer.jpg')] bg-no-repeat bg-cover bg-right   ">
-      <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="flex flex-nowrap  bg-[url('/tail-imgs/trainer.jpg')] bg-no-repeat bg-cover  bg-bottom  ">
+    <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className=" flex justify-center ">
-          <img
-            className="p-8  rounded-full"
-            src={userData?.imgURL || user?.photoURL || ""}
-            alt="product image"
-            width={200}
-            height={100}
-          />
+            <img className="p-8  rounded-full" src={userData?.membership?.trainer?.logo} alt="product image" width={200}  height={100}/>
         </div>
         <div className="px-5 pb-5">
           <div>
@@ -84,26 +97,26 @@ export default function TraineeDetails() {
           </button>
         </div>
       </div>
-      <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
-        <div className="flex  justify-center  justify-between">
-          <span className="  text-3xl font-bold text-gray-900 dark:text-white">
-            Plans
-          </span>
-        </div>
-        <div className="px-10 pb-10   ">
-          <div className=" flex flex-row gap-2   w-40">
+       <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
+             <div className="flex  justify-center  justify-between">
+              <span className="  text-3xl font-bold text-gray-900 dark:text-white">Plans</span>  
+          
+            </div>
+        <div className="px-10 pb-10 h-screen m-20 ">
+            <div className=" flex flex-row gap-2 m-20  w-40">
             {plans &&
-              plans.map((e) => (
-                <CardPlans
-                  key={e.name}
-                  idPlans={e.id_PlanTrainee}
-                  name={e.name}
-                  cost={e.cost}
-                  description={e.description}
-                  category={e.category}
-                />
-              ))}
-          </div>
+            plans.map((e:any) => (
+              <CardPlans
+                key={e.name}
+                idPlans={e.id_PlanTrainee}
+                name={e.name}
+                cost={e.cost}
+                description={e.description}
+                category={e.category}
+              />
+            ))}
+            </div>
+  
         </div>
       </div>
     </div>
