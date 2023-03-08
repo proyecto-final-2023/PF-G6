@@ -30,14 +30,13 @@ export default function blog() {
 
   const fetchInfo = async () => {
     try {
-      const response = await axios.get("https://fp-server-cg2b.onrender.com/trainers/comment", {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/comment/dd3a9601-b038-4604-a75c-d4e00b501e11?page=1`, {
         headers: { "x-access-token": key }
       });
 
       const data: BlogPost[] = response.data;
       const newMessages: string[] = data.map((post) => post.message);
       const newMembers: string[] = data.map((post) => post.trainee.membership.user.nickname);
-
       setMembers(newMembers);
       setMessages(newMessages);
     } catch (error) {
@@ -73,5 +72,4 @@ export default function blog() {
       </div>
     </div>
   );
-
 }
