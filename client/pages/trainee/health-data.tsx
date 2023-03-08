@@ -1,5 +1,4 @@
 import { useState, useReducer } from "react";
-import axios from "axios";
 import neck from "@/assets/imgMeasuresForm/neck.png";
 import torso from "@/assets/imgMeasuresForm/torso.png";
 import Image, { StaticImageData } from "next/dist/client/image";
@@ -11,7 +10,7 @@ import hip from "@/assets/imgMeasuresForm/hip.png";
 // import glutes from "@/assets/imgMeasuresForm/glutes.png";
 import thigh from "@/assets/imgMeasuresForm/thigh.png";
 import calf from "@/assets/imgMeasuresForm/calf.png";
-import fondo from "../../public/bgs/contact.jpg";
+import fondo from "/public/bgs/contact.jpg";
 
 interface BodyMeasurement {
   bodyPart: string;
@@ -43,7 +42,7 @@ export type AdditionalInfo = {
 };
 
 // Define the reducer function to handle state updates
-export default function bodyMeasurementsReducer(
+function bodyMeasurementsReducer(
   state: BodyMeasurement[],
   action: BodyMeasurementsAction
 ) {
@@ -75,7 +74,7 @@ export default function bodyMeasurementsReducer(
   }
 }
 
-const BodyMeasurements = () => {
+export default function BodyMeasurements() {
   const [selectedBodyPart, setSelectedBodyPart] = useState<string>("");
   const [measurement, setMeasurement] = useState<number | null>(null);
   const [bodyMeasurements, dispatch] = useReducer(
@@ -337,4 +336,4 @@ const BodyMeasurements = () => {
       </div>
     </div>
   );
-};
+}

@@ -3,15 +3,18 @@ import { FormEvent, useState } from "react";
 import useStore from "@/store/dashStore";
 
 export default function TrainerDetails() {
-  const [image, setImage] = useState<File>();
   const trainerDetails = useStore((state) => state.trainerDetails);
   const deactivateTrainer = useStore((state) => state.deactivateAccount);
+
+  const [image, setImage] = useState<File>();
+  const [uploading, setUploading] = useState(false);
 
   const uploadImage = () => {
     if (!image) {
       console.error("No image to upload");
       return;
     }
+    setUploading(true);
 
     const cloudName = process.env.NEXT_PUBLIC_CLOUDY_NAME || "no cloud name";
 
@@ -29,8 +32,10 @@ export default function TrainerDetails() {
           return;
         }
         // updateLogo(imgUrl, trainerDetails.user_id);
-        updateDbLogo(imgUrl);
-        window.alert("Updated logo :D");
+        updateDbLogo(imgUrl).then(() => {
+          setUploading(false);
+          window.alert("Updated logo :D");
+        });
       })
       .catch((err) => console.error(err));
   };
@@ -56,12 +61,14 @@ export default function TrainerDetails() {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    uploadImage();
+    uploadImage(); //does a bunch of stuff w/.then
   };
 
   const handleDelete = async () => {
+    setUploading(true);
     if (!(await deactivateTrainer(trainerDetails.user_id)))
       console.error("Could not delete user");
+    setUploading(false);
   };
 
   return (
@@ -78,12 +85,15 @@ export default function TrainerDetails() {
         ></input>
       </div>
 
-      <button className="py-2 px-3 bg-green-700 rounded">Update</button>
+      <button className="py-2 px-3 bg-green-700 rounded disabled:bg-green-900">
+        Update
+      </button>
 
       <button
+        disabled={uploading}
         type="button"
         onClick={handleDelete}
-        className="py-2 px-3 bg-red-700 rounded absolute top-0 right-0"
+        className="py-2 px-3 bg-red-700 disabled:bg-red-900 rounded absolute top-0 right-0"
       >
         Delete
       </button>
