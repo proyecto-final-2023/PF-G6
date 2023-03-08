@@ -10,13 +10,16 @@ const WithPrivateRouter = <P extends object>(
 ): ComponentType<P & Props> => {
   const PrivateRouteWrapper = (props: P & Props) => {
     const [user, setUser] = useState(null);
+    const [user1,setuser1]=useState(null)
 
     useEffect(() => {
       const key = getCookie("token");
+      const key2=getCookie("")
       setUser(key);
+      setuser1(key2)
     }, []);
 
-    if (user ==="null") {
+    if (user ==="null" ||user1==="" ) {
       return (
         <div className="flex flex-col h-[100vh] w-[100vw] justify-center">
           <h1 className="text-center">Oops! You must be logged in to see this page</h1>
