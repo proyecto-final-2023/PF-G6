@@ -35,11 +35,7 @@ export default function TraineeContainer() {
           })}
       </div>
 
-      <div>
-        {traineeDetails.user_id && (
-          <TraineeDetails user_id={traineeDetails.user_id} />
-        )}
-      </div>
+      <div>{traineeDetails.trainee_id && <TraineeDetails />}</div>
     </div>
   );
 }

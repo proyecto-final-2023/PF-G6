@@ -1,36 +1,31 @@
 // Types
-import { UserDetailsResponse } from "@/types/dash/user";
 import { TraineeCreator } from "@/types/zustand-types";
 import {
   getTraineeBasics,
-  getTraineeDetails,
-  parseOneTrainee,
-  parseOneUserDetails,
-  removeTraineeComment,
-  removeUserMembership
-} from "@/utils/adminHelpers";
+  getTraineeDetails
+} from "@/utils/dashboard/traineeHelpers";
+import { removeUserMembership } from "@/utils/dashboard/trainerHelpers";
 
 const createTraineeSlice: TraineeCreator = (set) => ({
-  traineeBasicsArr: [{ user_id: "", name: "" }],
+  traineeBasicsArr: [{ user_id: "", trainee_id: "", profileImg: "", name: "" }],
 
-  traineeDetails: { user_id: "", name: "", logo: "", email: "" },
+  traineeDetails: { user_id: "", trainee_id: "", profileImg: "", name: "" },
 
   fetchTraineeBasicsArr: async (page: number) => {
-    const res = await getTraineeBasics(page);
-    const traineeBasicsArr = res.map((trainee) => parseOneTrainee(trainee));
+    const traineeBasicsArr = await getTraineeBasics(page);
+
     set({ traineeBasicsArr });
   },
 
   fetchTraineeDetails: async (id: string) => {
-    const res = await getTraineeDetails(id);
-    if (typeof res === "boolean") return;
-    const traineeDetails = parseOneUserDetails(res as UserDetailsResponse, id);
+    const result = await getTraineeDetails(id);
+    if (typeof result === "boolean") return;
 
-    set({ traineeDetails });
+    set({ traineeDetails: result });
   },
 
   removeComment: async (commentId: string) => {
-    return await removeTraineeComment(commentId);
+    return true;
   },
 
   deactivateAccount: async (userId: string) => {

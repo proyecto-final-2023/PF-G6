@@ -221,6 +221,7 @@ const listTrainers = async (page, limit) => {
 };
 
 const createPlan = async (id, idTrainee, datePlan, activities, aliments) => {
+  console.log(datePlan);
   if (!datePlan)
     throw Error("Desbes ingresar la fecha a realizar la actividad");
 

@@ -102,7 +102,7 @@ export default function TraineeDetails() {
         </div>
       </div>
        <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
-             <div className="flex  justify-center  justify-between">
+             <div className="flex  justify-center">
               <span className="  text-3xl font-bold text-gray-900 dark:text-white">Plans</span>  
           
             </div>
