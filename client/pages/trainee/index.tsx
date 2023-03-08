@@ -15,9 +15,10 @@ import { SyntheticEvent } from "react";
 import { FiEdit } from "react-icons/fi";
 import moment from 'moment'
 import { loginHandler } from "@auth0/nextjs-auth0/dist/auth0-session";
-
-export default function Index() {
 import WithPrivateRouter from "@/components/WithPrivateRoute";
+
+
+
 
 function Index() {
   const [user, setUser] = useAuthState(auth);
