@@ -1,7 +1,7 @@
-import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
 
 type UserFormData = {
   id: string;
@@ -14,7 +14,7 @@ type UserFormData = {
   membership: string;
 };
 
-export default function EditableTable() {
+export default function TrainerTable() {
   const [tableData, setTableData] = useState<UserFormData[]>([]);
   const [page, setPage] = useState(1);
 
@@ -23,7 +23,7 @@ export default function EditableTable() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=${page}`)
       .then((data) => setTableData(data.data))
       .catch((error) => console.log(error));
   }, [page]);
