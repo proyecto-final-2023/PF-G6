@@ -5,7 +5,7 @@ import Image from "next/image";
 import CardTrainers from "@/components/CardTrainers";
 import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import homeSlides from "@/assets/home-slides";
-
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 /*  photo={e.user.imgURL || user?.photoURL}
     first_name={e.user.first_name}
     last_name={e.user.last_name}
@@ -44,7 +44,7 @@ type PlansType = {
   };
 };
 
-export default function plansTrainee() {
+ function plansTrainee() {
   const [plans, setPlans] = useState<PlansType[]>([]);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
@@ -137,3 +137,5 @@ export default function plansTrainee() {
     </div>
   );
 }
+
+export default WithPrivateRouter(plansTrainee)

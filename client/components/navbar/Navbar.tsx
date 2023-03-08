@@ -145,7 +145,7 @@ export default function Navbar() {
           </li>
 
           <li className="justify-center flex items-center">
-            <Link replace href="/trainer/plansTrainee" className={linkStyles}>
+            <Link replace href="/plansTrainee" className={linkStyles}>
               Trainers
             </Link>
           </li>
