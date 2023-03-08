@@ -6,16 +6,17 @@ import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 type UserFormData = {
   id: string;
+  membership: string;
   status: boolean;
   first_name: string;
   last_name: string;
-  nickname: string;
-  role: string;
-  imgURL: string | 'imagen';
-  membership: string;
+  imgURL: string;
+  email: string;
+  logo:string;
 };
 
-export default function EditableTableUser() {
+export default function EditableTableTrainer() {
+
   const router = useRouter();
   const [tableData, setTableData] = useState<UserFormData[]>([]);
   const [page, setPage] = useState(1);
@@ -25,32 +26,28 @@ export default function EditableTableUser() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/trainers?page=${page}`)
       .then((data) => setTableData(data.data))
       .catch((error) => console.log(error));
-      console.log(tableData)
   }, [page]);
-
 
   const handleClick = (index: number, actionType: string) => {
     if (actionType === "update") {
       //todo: add update logic
       const upd = { ...tableData[index] };
       console.log(upd);
-      axios.put(`${process.env.NEXT_PUBLIC_API_URL}/admin/users`,upd)
-      .then(data=> router.reload())
-      .catch(error=> console.error(error));
+      axios
+      .put(`${process.env.NEXT_PUBLIC_API_URL}/admin/trainers`, upd)
+      .then((data) => {
+        console.log(data.data)
+        router.reload()
+      })
+      .catch((error) => console.log(error));
     }
     if (actionType === "delete") {
       //todo: add delete logic
       const id = tableData[index].id;
-      axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/status/${id}`)
-      .then((data) => {
-        console.log(data.data);
-        router.reload();
-      })
-      .catch((error) => console.log(error));
+      console.log(id);
     }
   };
 
@@ -69,12 +66,12 @@ export default function EditableTableUser() {
       <table>
         <thead>
           <tr>
+            <th>Membership</th>
             <th>First Name</th>
             <th>Last Name</th>
-            <th>Nickname</th>
-            <th>Role</th>
             <th>imgURL</th>
-            <th>membership</th>
+            <th>email</th>
+            <th>logo</th>
           </tr>
         </thead>
         <tbody>
@@ -83,9 +80,24 @@ export default function EditableTableUser() {
               <td>
                 <input
                   className={className}
+                  name="membership"
+                  type="text"
+                  value={row.membership}
+                  readOnly
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].membership = e.target.value;
+                    setTableData(updatedData);
+                  }}
+                />
+              </td>
+              <td>
+                <input
+                  className={className}
                   name="first_name"
                   type="text"
                   value={row.first_name}
+                  readOnly
                   onChange={(e) => {
                     const updatedData = [...tableData];
                     updatedData[rowIndex].first_name = e.target.value;
@@ -99,6 +111,7 @@ export default function EditableTableUser() {
                   name="last_name"
                   type="text"
                   value={row.last_name}
+                  readOnly
                   onChange={(e) => {
                     const updatedData = [...tableData];
                     updatedData[rowIndex].last_name = e.target.value;
@@ -109,35 +122,10 @@ export default function EditableTableUser() {
               <td>
                 <input
                   className={className}
-                  name="nickname"
-                  type="text"
-                  value={row.nickname ?? 'nickname'}
-                  onChange={(e) => {
-                    const updatedData = [...tableData];
-                    updatedData[rowIndex].nickname = e.target.value;
-                    setTableData(updatedData);
-                  }}
-                />
-              </td>
-              <td>
-                <input
-                  className={className}
-                  name="role"
-                  type="text"
-                  value={row.role}
-                  onChange={(e) => {
-                    const updatedData = [...tableData];
-                    updatedData[rowIndex].role = e.target.value;
-                    setTableData(updatedData);
-                  }}
-                />
-              </td>
-              <td>
-                <input
-                  className={className}
                   name="imgURL"
                   type="text"
-                  value={row.imgURL ?? 'imagen'}
+                  value={row.imgURL}
+                  readOnly
                   onChange={(e) => {
                     const updatedData = [...tableData];
                     updatedData[rowIndex].first_name = e.target.value;
@@ -145,7 +133,33 @@ export default function EditableTableUser() {
                   }}
                 />
               </td>
-             
+              <td>
+                <input
+                  className={className}
+                  name="email"
+                  type="text"
+                  value={row.email}
+                  readOnly
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].email = e.target.value;
+                    setTableData(updatedData);
+                  }}
+                />
+              </td>
+              <td>
+                <input
+                  className={className}
+                  name="logo"
+                  type="text"
+                  value={row.logo}
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].logo = e.target.value;
+                    setTableData(updatedData);
+                  }}
+                />
+              </td>
 
               <div className="flex gap-3 justify-around">
                 <button

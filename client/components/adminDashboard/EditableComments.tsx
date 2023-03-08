@@ -1,6 +1,5 @@
 import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
 import axios from "axios";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
@@ -11,46 +10,34 @@ type UserFormData = {
   last_name: string;
   nickname: string;
   role: string;
-  imgURL: string | 'imagen';
+  imgURL: string;
   membership: string;
 };
 
-export default function EditableTableUser() {
-  const router = useRouter();
+export default function EditableTableComments() {
   const [tableData, setTableData] = useState<UserFormData[]>([]);
   const [page, setPage] = useState(1);
 
   const nextPage = () => setPage((prev) => prev + 1);
   const prevPage = () => setPage((prev) => prev - 1);
 
-  useEffect(() => {
+  useEffect(() => {///admin/comment?page=1
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/comment?page=${page}`)
       .then((data) => setTableData(data.data))
       .catch((error) => console.log(error));
-      console.log(tableData)
   }, [page]);
-
 
   const handleClick = (index: number, actionType: string) => {
     if (actionType === "update") {
       //todo: add update logic
       const upd = { ...tableData[index] };
       console.log(upd);
-      axios.put(`${process.env.NEXT_PUBLIC_API_URL}/admin/users`,upd)
-      .then(data=> router.reload())
-      .catch(error=> console.error(error));
     }
     if (actionType === "delete") {
       //todo: add delete logic
       const id = tableData[index].id;
-      axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/status/${id}`)
-      .then((data) => {
-        console.log(data.data);
-        router.reload();
-      })
-      .catch((error) => console.log(error));
+      console.log(id);
     }
   };
 
@@ -69,6 +56,7 @@ export default function EditableTableUser() {
       <table>
         <thead>
           <tr>
+            <th>Status</th>
             <th>First Name</th>
             <th>Last Name</th>
             <th>Nickname</th>
@@ -111,7 +99,7 @@ export default function EditableTableUser() {
                   className={className}
                   name="nickname"
                   type="text"
-                  value={row.nickname ?? 'nickname'}
+                  value={row.nickname}
                   onChange={(e) => {
                     const updatedData = [...tableData];
                     updatedData[rowIndex].nickname = e.target.value;
@@ -137,7 +125,7 @@ export default function EditableTableUser() {
                   className={className}
                   name="imgURL"
                   type="text"
-                  value={row.imgURL ?? 'imagen'}
+                  value={row.imgURL}
                   onChange={(e) => {
                     const updatedData = [...tableData];
                     updatedData[rowIndex].first_name = e.target.value;
@@ -145,7 +133,19 @@ export default function EditableTableUser() {
                   }}
                 />
               </td>
-             
+              <td>
+                <input
+                  className={className}
+                  name="membership"
+                  type="text"
+                  value={row.membership}
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].membership = e.target.value;
+                    setTableData(updatedData);
+                  }}
+                />
+              </td>
 
               <div className="flex gap-3 justify-around">
                 <button

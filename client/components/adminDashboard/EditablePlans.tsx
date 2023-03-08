@@ -4,18 +4,17 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
+
 type UserFormData = {
   id: string;
-  status: boolean;
-  first_name: string;
-  last_name: string;
-  nickname: string;
-  role: string;
-  imgURL: string | 'imagen';
-  membership: string;
+  name: String | "";
+  cost: string;
+  category: string;
+  description: string;
+  cantTrainees: string;
 };
 
-export default function EditableTableUser() {
+export default function EditableTablePlans() {
   const router = useRouter();
   const [tableData, setTableData] = useState<UserFormData[]>([]);
   const [page, setPage] = useState(1);
@@ -25,36 +24,39 @@ export default function EditableTableUser() {
 
   useEffect(() => {
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`)
       .then((data) => setTableData(data.data))
       .catch((error) => console.log(error));
-      console.log(tableData)
   }, [page]);
-
 
   const handleClick = (index: number, actionType: string) => {
     if (actionType === "update") {
       //todo: add update logic
       const upd = { ...tableData[index] };
-      console.log(upd);
-      axios.put(`${process.env.NEXT_PUBLIC_API_URL}/admin/users`,upd)
-      .then(data=> router.reload())
-      .catch(error=> console.error(error));
+      axios
+      .put(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers/`, upd)
+      .then((data) => {
+        console.log(data.data)
+        router.reload()
+      })
+      .catch((error) => console.log(error));
     }
     if (actionType === "delete") {
       //todo: add delete logic
       const id = tableData[index].id;
-      axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/status/${id}`)
-      .then((data) => {
-        console.log(data.data);
-        router.reload();
-      })
-      .catch((error) => console.log(error));
+      console.log(id);
     }
   };
 
   const className = "bg-gray-800 border-b-gray-200 text-white m-1 w-[9rem]";
+  // {
+//   "id": "042134d5-cc86-468c-bfef-bc077a244f9c",
+//   "name": "Plata",
+//   "cost": "25",
+//   "category": "trainer",
+//   "description": "Este plan de entrenamiento es ideal para aquellos que desean generan un cambio en sus Trainees",
+//   "cantTrainees": "15"
+// },
 
   return (
     <>
@@ -69,12 +71,11 @@ export default function EditableTableUser() {
       <table>
         <thead>
           <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Nickname</th>
-            <th>Role</th>
-            <th>imgURL</th>
-            <th>membership</th>
+            <th>Name</th>
+            <th>Cost</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Cant. Trainees</th>
           </tr>
         </thead>
         <tbody>
@@ -83,12 +84,12 @@ export default function EditableTableUser() {
               <td>
                 <input
                   className={className}
-                  name="first_name"
+                  name="name"
                   type="text"
-                  value={row.first_name}
+                  value={String(row.name)}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].first_name = e.target.value;
+                    updatedData[rowIndex].name = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
@@ -96,12 +97,12 @@ export default function EditableTableUser() {
               <td>
                 <input
                   className={className}
-                  name="last_name"
+                  name="cost"
                   type="text"
-                  value={row.last_name}
+                  value={row.cost}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].last_name = e.target.value;
+                    updatedData[rowIndex].cost = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
@@ -111,10 +112,10 @@ export default function EditableTableUser() {
                   className={className}
                   name="nickname"
                   type="text"
-                  value={row.nickname ?? 'nickname'}
+                  value={row.category}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].nickname = e.target.value;
+                    updatedData[rowIndex].category = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
@@ -124,10 +125,10 @@ export default function EditableTableUser() {
                   className={className}
                   name="role"
                   type="text"
-                  value={row.role}
+                  value={row.description}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].role = e.target.value;
+                    updatedData[rowIndex].description = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
@@ -137,15 +138,15 @@ export default function EditableTableUser() {
                   className={className}
                   name="imgURL"
                   type="text"
-                  value={row.imgURL ?? 'imagen'}
+                  value={row.cantTrainees}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].first_name = e.target.value;
+                    updatedData[rowIndex].cantTrainees = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
               </td>
-             
+
 
               <div className="flex gap-3 justify-around">
                 <button
@@ -155,14 +156,6 @@ export default function EditableTableUser() {
                   }}
                 >
                   <AiOutlineEdit size={25} fill="green" />
-                </button>
-                <button
-                  value="delete"
-                  onClick={() => {
-                    handleClick(rowIndex, "delete");
-                  }}
-                >
-                  <AiOutlineDelete size={25} fill="red" />
                 </button>
               </div>
             </tr>
