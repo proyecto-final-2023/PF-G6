@@ -4,6 +4,7 @@ import OptionMenu from "@/components/adminDashboard/OptionMenu";
 import CentralContainer from "@/components/adminDashboard/CentralContainer";
 import EditableTable from "@/components/adminDashboard/EditableUser";
 import { useState } from "react";
+import EditableTableUser from "@/components/adminDashboard/EditableUser";
 
 export default function AdminIndex() {
   const [option, setOption] = useState("");
@@ -14,15 +15,15 @@ export default function AdminIndex() {
 
   return (
     <div className="mt-20">
-      <div className="flex gap-10">
-        <OptionMenu optionChanger={changeOption} currSelection={option} />
-        <div>
-          <EditableTable />
-        </div>
-      </div>
-      <CentralContainer />
       <DataViewContainer />
       <GraphContainer />
+      <div className="flex gap-10">
+  
+        <OptionMenu optionChanger={changeOption} currSelection={option} />
+        <div>
+          <EditableTableUser />
+        </div>
+      </div>
     </div>
   );
 }

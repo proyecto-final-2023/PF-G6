@@ -14,12 +14,12 @@ const buttonsMapping = [
     compareText: "trainees"
   },
   {
-    text: "Memberships",
-    compareText: "memberships"
+    text: "Planes Trainer",
+    compareText: "Planes Trainer"
   },
   {
-    text: "All trainers plans",
-    compareText: "allTrainersPlans"
+    text: "Comments",
+    compareText: "Comments"
   }
 ];
 

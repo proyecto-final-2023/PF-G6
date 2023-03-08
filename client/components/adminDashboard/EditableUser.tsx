@@ -14,7 +14,7 @@ type UserFormData = {
   membership: string;
 };
 
-export default function EditableTable() {
+export default function EditableTableUser() {
   const [tableData, setTableData] = useState<UserFormData[]>([]);
   const [page, setPage] = useState(1);
 
