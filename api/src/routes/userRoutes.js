@@ -124,7 +124,7 @@ userRoutes.get("/status/:id", async (req, res) => {
 userRoutes.get("/comment/:id", async (req, res) => {
   const { page } = req.query;
   const { id } = req.params;
-  console.log(page, id);
+
   try {
     res.status(200).send(await listComment(id, page, 5));
   } catch (error) {
@@ -133,9 +133,10 @@ userRoutes.get("/comment/:id", async (req, res) => {
 });
 
 userRoutes.get("/rating/:id", async (req, res) => {
+  const idL = await idExtract(req.headers["x-access-token"]);
   const { id } = req.params;
   try {
-    res.status(200).send(await ratingTotal(id));
+    res.status(200).send(await ratingTotal(id, idL));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

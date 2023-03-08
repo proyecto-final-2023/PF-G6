@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 import axios from "axios";
 import CreatePlansTrainee from "@/components/CreatePlansTrainee";
+import WithPrivateRouter from '@/components/WithPrivateRoute';
 
 interface Plan {
   name: string;
@@ -17,7 +18,7 @@ interface Plan {
   };
 }
 
-export default function Dashboard(): JSX.Element {
+ function Dashboard(): JSX.Element {
   const key = getCookie("token");
 
   const [plans, setPlans] = useState<Plan[]>([]);
@@ -100,3 +101,4 @@ export default function Dashboard(): JSX.Element {
     </>
   );
 }
+export default WithPrivateRouter(Dashboard)

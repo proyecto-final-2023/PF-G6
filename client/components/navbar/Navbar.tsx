@@ -62,17 +62,21 @@ export default function Navbar() {
   //       });
   //     });
   // }, []);
-  console.log("@navbar/Navbar", user1);
+  //console.log("@navbar/Navbar", user1);
   const [viewportWidth, setViewportWidth] = useState(0);
     // aqui te manda  datos de user
-    // console.log(key)
+   
  useEffect(()=>{
+  if(key!=="null"&&key!==undefined)
   axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,null,{headers:{'x-access-token': key}})
   .then((data) => {
-   
+  
    setUser1({
      display_name:` ${data.data.first_name}  ${data.data.last_name}`
    })
+  })
+  .catch((err)=>{
+    console.log(err)
   })
  },[])
  
@@ -141,7 +145,7 @@ export default function Navbar() {
           </li>
 
           <li className="justify-center flex items-center">
-            <Link replace href="/guest/trainning-list" className={linkStyles}>
+            <Link replace href="/trainer/plansTrainee" className={linkStyles}>
               Trainers
             </Link>
           </li>
@@ -161,7 +165,7 @@ export default function Navbar() {
           />
 
           {/* {user && <li className="m-5">Hello {user?.display_name}</li>} */}
-          {user1 && <li className="m-5">Hello {user1?.display_name}</li>}
+          {user1 && <li className="m-5">Hello, {user1?.display_name}</li>}
           <HoverLi
             imgUrl={photo||userImg}
             text="user"

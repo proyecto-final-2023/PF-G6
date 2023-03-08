@@ -37,7 +37,7 @@ function GraphContainer() {
   useEffect(() => {
     axios("https://fp-server-cg2b.onrender.com/data")
       .then((res: AxiosData) => setDataset(res.data))
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }, []);
 
   //------------------------------------------------------------
@@ -49,7 +49,7 @@ function GraphContainer() {
   const scores1Cast: (number | undefined)[] = [
     dataset?.user?.cantUser,
     dataset?.user?.cantTrainer,
-    dataset?.user?.cantTrainee,
+    dataset?.user?.cantTrainee
   ];
   let scores1: number[] = [];
   if (!scores1Cast.every(Boolean)) scores1 = [1];
@@ -59,33 +59,31 @@ function GraphContainer() {
 
   const title2 = "Trainers Memberships";
   let labels2: string[] = [];
-  let scores2:number[]=[];
+  let scores2: number[] = [];
   const label2 = "Trainers";
   const result = dataset?.membership?.countsTrainer;
   if (result) {
     labels2 = Object.keys(result);
-    scores2=Object.values(result);
-    console.log("result",result)
-  }
-  else labels2 = ["Waiting data"];
+    scores2 = Object.values(result);
+    // console.log("result",result)
+  } else labels2 = ["Waiting data"];
   //---------------------------------------------------------
   const title3 = "Popular Trainees plans";
-  let labels3:string[]=[];
-  let scores3:number[]=[];
+  let labels3: string[] = [];
+  let scores3: number[] = [];
   const label3 = "Trainees";
   const result3 = dataset?.membership?.countsTrainee;
-  if(result3){
-    labels3= Object.keys(result3);
-    scores3=Object.values(result3)
-  }
-  else{
-    labels3=[];
-    scores3=[];
+  if (result3) {
+    labels3 = Object.keys(result3);
+    scores3 = Object.values(result3);
+  } else {
+    labels3 = [];
+    scores3 = [];
   }
 
   return (
     <div className="flex justify-around flex-wrap pt-20 gap-8">
-      <GraficBar 
+      <GraficBar
         scores={scores1}
         labels={labels1}
         label={label1}

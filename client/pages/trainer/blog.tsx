@@ -1,3 +1,5 @@
+
+
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
@@ -35,7 +37,6 @@ export default function blog() {
       const data: BlogPost[] = response.data;
       const newMessages: string[] = data.map((post) => post.message);
       const newMembers: string[] = data.map((post) => post.trainee.membership.user.nickname);
-    
       setMembers(newMembers);
       setMessages(newMessages);
     } catch (error) {

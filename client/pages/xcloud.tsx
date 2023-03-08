@@ -1,9 +1,5 @@
-import DragAndDrop from "@/components/imgUpload/DragAndDrop";
+import React from "react";
 
-export default function Xcloud() {
-  return (
-    <div className="mt-20">
-      <DragAndDrop />
-    </div>
-  );
+export default function xcloud() {
+  return <div>xcloud</div>;
 }

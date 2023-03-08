@@ -40,7 +40,6 @@ async function signUP(obj) {
       last_name,
       role: "user",
     });
-    // console.log(create);
   }
 
   await create.setLogueo(logueo);
@@ -65,7 +64,7 @@ async function signIn(email, password, extern) {
   if (!user) throw new Error("Usuario no existe");
   if (!user.user.status) throw new Error("Cuenta desactivada");
   if (extern) {
-    return token(user.dataValues.userId) ;
+    return token(user.dataValues.userId);
   }
   if (!user.dataValues.verify) throw new Error("Usuario no verificado"); //si el usuario no esta verificado no puede loguear
   const exist = await comparePassword(user.dataValues.password, password);
@@ -77,6 +76,36 @@ async function signIn(email, password, extern) {
   }
 }
 
+async function signInAndCreate(first_name, last_name, email) {
+  const hashedPass = await encPassword("parangacutimiricuaro");
+  let create;
+  let logueo;
+  try {
+    if (!!email) {
+      logueo = await Logueo.create({
+        email: email,
+        password: hashedPass,
+        verify: true,
+      });
+    }
+    if (!!logueo) {
+      create = await User.create({
+        first_name,
+        last_name,
+        role: "user",
+      });
+    }
+    await create.setLogueo(logueo);
+    const user = await Logueo.findOne({
+      where: { email: email },
+      include: { model: User },
+    });
+    return token(user.dataValues.userId);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 function token(id) {
   //genera el token
   if (!id) throw new Error({ message: "Debe enviar un id" });
@@ -84,4 +113,4 @@ function token(id) {
   return { token: tok };
 }
 
-module.exports = { signIn, signUP, encPassword };
+module.exports = { signIn, signUP, encPassword, signInAndCreate };

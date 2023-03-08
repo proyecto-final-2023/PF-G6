@@ -3,6 +3,8 @@ import { StateCreator } from "zustand";
 import { EventInput } from "@fullcalendar/core";
 import { UserCardT, UserDetailsT } from "./dash/user";
 import { TraineePlan } from "./dash/trainer";
+import { ParsedTrainer } from "@/utils/adminHelpers";
+import { ParsedTrainee } from "@/utils/dashboard/traineeHelpers";
 
 export interface Post {
   post: {
@@ -36,38 +38,38 @@ export interface CalendarState {
 // --------------------------------------------
 // * Makes trainnings (trainer)
 export interface Trainer {
-  trainerBasicsArr: UserCardT[];
+  trainerBasicsArr: ParsedTrainer[];
 
-  trainerDetails: UserDetailsT;
+  trainerDetails: ParsedTrainer;
 
   fetchTrainerBasicsArr: (page: number) => Promise<void>;
 
   fetchTrainerDetails: (id: string) => Promise<void>;
 
-  updateLogo: (logoUrl: string, userId: string) => Promise<void>;
+  updateLogo: (logoUrl: string, userId: string) => Promise<Boolean>;
+
+  deactivateAccount: (userId: string) => Promise<Boolean>;
 
   updatePlanData: (
     planData: TraineePlan,
     planId: string,
     trainerId: string
   ) => Promise<void>;
-
-  deactivateAccount: (userId: string) => Promise<void>;
 }
 
 // * Does the actual exercise (trainee)
 export interface Trainee {
-  traineeBasicsArr: UserCardT[];
+  traineeBasicsArr: ParsedTrainee[];
 
-  traineeDetails: UserDetailsT;
+  traineeDetails: ParsedTrainee;
 
   fetchTraineeBasicsArr: (page: number) => Promise<void>;
 
   fetchTraineeDetails: (id: string) => Promise<void>;
 
-  removeComment: (commentId: string) => Promise<void>;
+  removeComment: (commentId: string) => Promise<Boolean>;
 
-  deactivateAccount: (userId: string) => Promise<void>;
+  deactivateAccount: (userId: string) => Promise<Boolean>;
 }
 
 export type TrainerCreator = StateCreator<Trainer & Trainee, [], [], Trainer>;

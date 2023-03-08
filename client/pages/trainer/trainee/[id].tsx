@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { getCookie, setCookie } from "@/utils/cookieHandler";
-import CardTraineePlans from '@/components/CardTraineePlans';
+import CardTraineePlans from "@/components/CardTraineePlans";
 import { useRouter } from "next/router";
 import Link from 'next/link';
 

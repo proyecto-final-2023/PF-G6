@@ -1,37 +1,66 @@
-import { getTrainerBasics, getTrainerDetails } from "@/utils/adminHelpers";
+import {
+  getTrainerBasics,
+  getTrainerDetails,
+  removeUserMembership,
+  updateTrainerLogo
+} from "@/utils/dashboard/trainerHelpers";
 // Types
 import { TrainerCreator } from "@/types/zustand-types";
-import { TraineePlan } from "@/types/dash/trainer";
 
 const createTrainerSlice: TrainerCreator = (set) => ({
   trainerBasicsArr: [{ user_id: "", name: "" }],
 
-  trainerDetails: { user_id: "", name: "", logo: "", email: "" },
+  trainerDetails: { trainer_id: "", user_id: "", name: "", logo: "" },
 
   fetchTrainerBasicsArr: async (page: number) => {
     const trainerBasicsArr = await getTrainerBasics(page);
+
     set({ trainerBasicsArr });
   },
 
   fetchTrainerDetails: async (id: string) => {
-    const trainerDetails = await getTrainerDetails(id);
-    set({ trainerDetails });
+    const response = await getTrainerDetails(id);
+    if (typeof response === "boolean") return;
+
+    set({ trainerDetails: response });
   },
 
   updateLogo: async (logoUrl: string, userId: string) => {
-    console.log("logoUrl TODO", logoUrl, userId);
-  },
+    const result = await updateTrainerLogo(logoUrl, userId);
+    if (!result) return false;
 
-  updatePlanData: async (
-    planData: TraineePlan,
-    planId: string,
-    trainerId: string
-  ) => {
-    console.log("planData TODO", planData, planId, trainerId);
+    // if updated in db, update state
+    set((state) => ({
+      trainerDetails: {
+        ...state.trainerDetails,
+        logo: logoUrl
+      }
+    }));
+
+    return true;
   },
 
   deactivateAccount: async (userId: string) => {
-    console.log("rating TODO", userId);
+    // if removed from db, update to remove from state
+    const result = await removeUserMembership(userId);
+    if (!result) return false;
+
+    set((state) => ({
+      trainerBasicsArr: state.trainerBasicsArr.filter(
+        (user) => user.user_id !== userId
+      )
+    }));
+
+    return true;
+  },
+
+  updatePlanData: async (
+    planData: string,
+    planId: string,
+    trainerId: string
+  ) => {
+    // TODO: update plan data in db
+    console.log("planData TODO", planData, planId, trainerId);
   }
 });
 

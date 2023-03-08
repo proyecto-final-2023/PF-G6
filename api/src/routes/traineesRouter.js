@@ -5,6 +5,7 @@ const {
   addData,
   addComment,
   updateRating,
+  getRating,
 } = require("../controllers/traineeControlers");
 const { idExtract } = require("../middlewares/verifySignUp");
 
@@ -15,6 +16,15 @@ traineeRouter.put("/rating", async (req, res) => {
   const id = await idExtract(req.headers["x-access-token"]);
   try {
     res.status(200).send(await updateRating(id, value));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+traineeRouter.get("/rating", async (req, res) => {
+  const id = await idExtract(req.headers["x-access-token"]);
+  try {
+    res.status(200).send(await getRating(id));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

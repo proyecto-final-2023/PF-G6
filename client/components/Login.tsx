@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { auth } from "../firebase";
-import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, AuthProvider} from "firebase/auth";
+import { signInWithPopup, GoogleAuthProvider, FacebookAuthProvider, AuthProvider } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import axios from 'axios'
 import { setCookie } from "@/utils/cookieHandler";
@@ -10,20 +10,20 @@ import { getAuth, updateEmail } from "firebase/auth";
 
 
 
- 
-  interface UserInfo {
-    displayName: string | null;
-    email: string | null;
-    phoneNumber: string | null;
-    photoURL: string | null;
-    providerId: string;
-    uid: string;
+
+interface UserInfo {
+  displayName: string | null;
+  email: string | null;
+  phoneNumber: string | null;
+  photoURL: string | null;
+  providerId: string;
+  uid: string;
 }
 
 
 export const Login = () => {
 
-  const [user,setUser] = useAuthState(auth)
+  const [user, setUser] = useAuthState(auth)
   const googleAuth = new GoogleAuthProvider();
   const facebookAuth = new FacebookAuthProvider()
   const [isOpen, setIsOpen] = useState(false);
@@ -31,7 +31,7 @@ export const Login = () => {
   const [inputValue, setInputValue] = useState("");
   const auth1 = getAuth()
 
-// console.log(user?.email)
+  // console.log(user?.email)
 
   const login = async (authType: AuthProvider) => {
     try {
@@ -39,7 +39,7 @@ export const Login = () => {
         const result = await signInWithPopup(auth, authType);
       }
       if (user && !user?.email) {
-      setIsOpen(true)
+        setIsOpen(true)
       }
 
     }
@@ -53,7 +53,7 @@ export const Login = () => {
 
 
   useEffect(() => {
-    setEmail(user?.email||"no Email");
+    setEmail(user?.email || "no Email");
   }, [user]);
 
 
@@ -83,8 +83,9 @@ export const Login = () => {
               .then(response => {
                 setCookie("token", response.data.token)
                 // console.log(response)
+                alert('Login successful')
                 window.location.href = "/home"
-          
+
               })
               .catch(error => {
                 console.log(error)
@@ -94,7 +95,7 @@ export const Login = () => {
               .then(response => {
                 auth.signOut();
                 // console.log(response)
-                window.location.reload()
+                alert('Account created successfully! Please confirm your e-mail before login')
               })
               .catch(error => {
                 console.log(error)
@@ -137,7 +138,7 @@ export const Login = () => {
       });
     }
   }, [email]);
- 
+
   return (
     <>
       <div className="flex flex-col">

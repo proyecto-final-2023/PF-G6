@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
 
 
 
 type StoppedTimes = { time: number; timestamp: number };
 
-export default function StopWatch() {
+function StopWatch() {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [stoppedTimes, setStoppedTimes] = useState<StoppedTimes[]>([]);
@@ -43,7 +44,7 @@ export default function StopWatch() {
 
   return (
     <div className="h-[89.8vh] flex justify-center bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm">
-      <div className=" bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[30vw] m-auto text-m">
+      <div className=" bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[60rem] md:w-[30rem] m-auto text-m">
         <div className="grid grid-cols-1 gap-1 justify-items-center h-[70vh] py-11">
         <h1 className="text-center text-4xl font-bold" >Stop watch</h1>
       <p className="text-center text-xl">Time elapsed:
@@ -82,3 +83,5 @@ export default function StopWatch() {
     </div>
   );
 }
+
+export default WithPrivateRouter(StopWatch)

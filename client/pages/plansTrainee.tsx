@@ -33,7 +33,6 @@ interface Trainer {
   }[];
 }
 
-
 type PlansType = {
   userId: string;
   user: {
@@ -58,6 +57,7 @@ export default function plansTrainee() {
     axios(`${process.env.NEXT_PUBLIC_API_URL}/trainers?page=1`)
       .then((data) => setPlans(data.data))
       .catch((error) => console.error(error));
+    console.warn(plans);
   }, []);
 
 
@@ -92,7 +92,7 @@ export default function plansTrainee() {
 
       <div className="   outline-offset-3 justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2">
         {plans &&
-          plans.map((e:any) => (
+          plans.map((e: any) => (
             <CardTrainers
               photo={e.logo}
               first_name={e?.membership?.user?.first_name}
@@ -100,7 +100,7 @@ export default function plansTrainee() {
               id={e?.membership?.userId}
               rating={5}
             />
-          ))}{" "}
+          ))}
       </div>
       <div className="bg-black  ">
         <h1 className="text-center text-3xl">Top 10</h1>
@@ -108,7 +108,7 @@ export default function plansTrainee() {
       <SwiperCarousel slidesArr={homeSlides} />
       <div className=" justify-items-center grid grid-cols-4  m-20 gap-x-2 gap-y-2">
         {plans &&
-          plans.map((e:any) => (
+          plans.map((e: any) => (
             <CardTrainers
             photo={e.logo}
             first_name={e?.membership?.user?.first_name}
@@ -116,7 +116,7 @@ export default function plansTrainee() {
             id={e?.membership?.userId}
             rating={5}
             />
-          ))}{" "}
+          ))}
       </div>
       {promocion2 && (
         <div className="bg-gradient-to-r from-yellow-200 via-orange-400 to-rose-500 text-center text-gray-800 h-40">
@@ -126,14 +126,14 @@ export default function plansTrainee() {
       )}
       <div className=" justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2 ">
         {plans &&
-          plans.map((e:any) => (
+          plans.map((e: any) => (
             <CardTrainers
             photo={e.logo}
               first_name={e?.membership?.user?.first_name}
               last_name={e?.membership?.user?.last_name}
               id={e?.membership?.userId}
               rating={5}
-          />
+            />
           ))}
       </div>
     </div>

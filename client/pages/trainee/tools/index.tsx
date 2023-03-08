@@ -1,7 +1,8 @@
 import Link from "next/dist/client/link";
 import React from "react";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
-export default function ToolsIndex() {
+ function ToolsIndex() {
   return (
     <div className="h-[89.8vh] flex justify-center bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm]">
       <div className="w-[78vw] m-auto text-m">
@@ -35,3 +36,4 @@ export default function ToolsIndex() {
     </div>
   );
 }
+export default WithPrivateRouter(ToolsIndex)
