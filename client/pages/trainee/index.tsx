@@ -154,7 +154,6 @@ function Index() {
 
   const extractIds = async(data: any) => {
     const datos = await data.membership.trainee.plans.map((e: any) => e)
-    console.log("esto es datos",datos);
     const selectedExercises = await datos.map((plan: any) => {
     const activities =  plan.ActivitiesPlans.map((activity: any) => ({
     datePlan: plan.datePlan,
@@ -162,7 +161,6 @@ function Index() {
     series: activity.series,
     repetitions: activity.repetitions
   }));
-      console.log("activities:", activities);
   return activities;
 });
 
@@ -299,6 +297,7 @@ const groupByDateExer = async (data : any) => {
       setModalIsOpen(true)
     }
   } 
+  console.log("esto es idExercises:",idExercise)
   
   return (
     <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
