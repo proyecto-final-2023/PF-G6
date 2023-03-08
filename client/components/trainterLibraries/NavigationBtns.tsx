@@ -2,7 +2,7 @@ type LibraryContainer = {
   currentPage: number;
   prevPage: () => void;
   nextPage: () => void;
-  length: number;
+  length?: number;
 };
 
 const BtnStyles =
@@ -12,7 +12,7 @@ export default function NavigationBtns(props: LibraryContainer) {
   const { currentPage, prevPage, nextPage, length } = props;
 
   return (
-    <div className="flex justify-between items-center w-full pt-[115px] px-36">
+    <div className="flex justify-between items-center w-full pt-[15px] px-36">
       <button
         onClick={prevPage}
         disabled={currentPage === 1}

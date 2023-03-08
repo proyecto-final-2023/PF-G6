@@ -1,39 +1,42 @@
 import React from "react";
 import Link from "next/link";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../firebase";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
-import { AxiosResponse } from "axios";
 
+// src={user?.membership?.trainer?.logo}
+// <p>{`${user?.first_name} ${user?.last_name}`}</p>
 
-interface User {
-  display_name: string;
+interface UserTrainer {
+  membership: {
+    trainer: {
+      logo: string;
+    };
+  };
+  first_name: string;
+  last_name: string;
 }
 
 export default function Trainer() {
-  const [user, setUser] = useAuthState(auth);
-  const [user1, setUser1] = useState<User | undefined>(undefined);
-  const key = getCookie("token");
+  const [user, setUser] = useState<UserTrainer>();
 
+  const key = getCookie("token");
 
   useEffect(() => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
         headers: {
-          "x-access-token": key,
-        },
+          "x-access-token": key
+        }
       })
-      .then((data: AxiosResponse<any, any>) => {
-        setUser1({
-          display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
-        });
+      .then((data) => {
+        setUser(data.data);
       });
   }, []);
+
   return (
-    <div className=" top-20 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0">
-      <nav className="h-full px-3 py-4  bg-gray-50 dark:bg-gray-800">
+    <div className="  flex  flex-col z-40 w-60   ">
+      <nav className="  bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center text-white font-bold m-20">
           Trainer
         </div>
@@ -41,35 +44,25 @@ export default function Trainer() {
         <div className="items-center justify-center text-white font-bold m-10">
           <img
             className="rounded-lg justify-items-center"
-            src={user?.photoURL ?? ""}
+            src={user?.membership?.trainer?.logo}
             alt="data"
           />
-
-          <p>{user1?.display_name}</p>
+          <div className="w-50">
+            <Link
+              href="/trainer/logo"
+              className="inline-block w-full p-4 items-center bg-white hover:text-gray-700 hover:bg-gray-50 focus:ring-4 focus:ring-blue-300 focus:outline-none dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700"
+            >
+              ADD
+            </Link>
+          </div>
+          <p>{`${user?.first_name} ${user?.last_name}`}</p>
         </div>
         <div className="flex flex-col ">
           <ul className="space-y-1 m-auto">
+            <li></li>
             <li>
               <Link
-                href="/trainer"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"></path>
-                  <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"></path>
-                </svg>
-                <span className="ml-3">Dashboard</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/trainer/routines"
+                href="/trainer/exercises-library"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
@@ -89,7 +82,7 @@ export default function Trainer() {
                 href="/trainer/blog"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
-                <svg 
+                <svg
                   aria-className="true"
                   className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   fill="currentColor"
@@ -104,7 +97,7 @@ export default function Trainer() {
             </li>
             <li>
               <Link
-                href="#"
+                href="trainer/trainee"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
@@ -120,13 +113,15 @@ export default function Trainer() {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Trainee</span>
+                <span className="flex-1 ml-3 whitespace-nowrap">
+                  Certification
+                </span>
               </Link>
             </li>
 
             <li>
               <Link
-                href="#"
+                href=""
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
@@ -142,30 +137,7 @@ export default function Trainer() {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Libraries</span>
-              </Link>
-            </li>
-            <li>
-              <Link
-                href="/trainer/plansTrainee"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
-              >
-                <svg
-                  aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    fill-rule="evenodd"
-                    d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z"
-                    clip-rule="evenodd"
-                  ></path>
-                </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">
-                  Create-plans
-                </span>
+                <span className="flex-1 ml-3 whitespace-nowrap">Add Logo </span>
               </Link>
             </li>
           </ul>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import Link from "next/link";
+
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 
 interface tData {
@@ -13,17 +13,22 @@ interface tData {
 export default function CreatePlansTrainee() {
   //token user
   const key = getCookie("token");
+ 
 
-  const [formData, setFormData] = useState({
-    name: "",
-    cost: "",
-    description: ""
-  });
+
+  const [formData, setFormData] = useState(
+    {
+      name: "",
+      cost: "",
+      description: "",
+    },
+  );
+ 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3001/plans/trainee", formData, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainee`, formData, {
         headers: { "x-access-token": key }
       })
       .then((data) => {})

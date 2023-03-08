@@ -1,7 +1,7 @@
 const { PlanTrainee, User, Membership, Trainer } = require("../db");
 
 const postPlansTrainee = async (name, cost, description, idUser) => {
-  const plans = await PlanTrainee.findOne({ where: { name } });
+  const plans = await PlanTrainee.findOne({ where: { name, status: true } });
   const user = await User.findByPk(idUser, {
     attributes: [],
     include: [
@@ -23,4 +23,16 @@ const postPlansTrainee = async (name, cost, description, idUser) => {
   return result;
 };
 
-module.exports = { postPlansTrainee };
+const putPlansTrainee = async (id_PlanTrainee, name, cost, description) => {
+  const plans = await PlanTrainee.findByPk(id_PlanTrainee);
+  if (!plans) throw new Error("Plan no encontrado");
+  await plans.update({
+    name,
+    cost,
+    description,
+  });
+
+  return plans;
+};
+
+module.exports = { postPlansTrainee, putPlansTrainee };

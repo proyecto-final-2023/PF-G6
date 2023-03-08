@@ -20,6 +20,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../../config");
 const Sequelize = require("sequelize");
 const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 
 const getPerfil = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
@@ -63,29 +64,6 @@ const getPerfil = async (id) => {
               // { model: Rating },
               { model: Certificates },
               { model: SocialNetworks },
-              {
-                model: Comment,
-                attributes: ["message"],
-                include: [
-                  {
-                    model: Trainee,
-                    attributes: ["id_trainee"],
-
-                    include: [
-                      {
-                        model: Membership,
-                        attributes: ["id_membership"],
-                        include: [
-                          {
-                            model: User,
-                            attributes: ["first_name", "imgURL"],
-                          },
-                        ],
-                      },
-                    ],
-                  },
-                ],
-              },
             ],
           },
           {
@@ -162,7 +140,14 @@ const getId = async (id) => {
   if (!id) throw new Error("Debe ingresar una ID válida");
 
   const dataValues = await User.findByPk(id, {
-    attributes: ["first_name", "last_name", "nickname", "role","imgURL"],
+    attributes: [
+      "first_name",
+      "last_name",
+      "nickname",
+      "role",
+      "imgURL",
+      "status",
+    ],
     include: [
       {
         model: Logueo,
@@ -191,6 +176,7 @@ const getId = async (id) => {
     ],
   });
   if (!dataValues) throw new Error("Usuario inexistente");
+  if (!dataValues.status) throw new Error("Usuario desactivado");
 
   return dataValues;
 };
@@ -199,6 +185,7 @@ const getListUser = async (page) => {
   try {
     const offset = (page - 1) * 10;
     const listUser = await User.findAll({
+      where: { status: true },
       attributes: [
         "id",
         "first_name",
@@ -207,6 +194,7 @@ const getListUser = async (page) => {
         "role",
         "imgURL",
       ],
+      include: [{ model: Membership }],
       limit: 10,
       offset,
     });
@@ -248,7 +236,6 @@ const userByName = async (name, page, limit) => {
 
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
-  console.log(decoded);
   const [user] = await Logueo.findAll({
     where: { userId: decoded.id },
   });
@@ -293,7 +280,7 @@ const addData = async (
 ) => {
   const user = await User.findByPk(id);
 
-  if (!User) {
+  if (!user) {
     throw new Error(`No se encontró al usuario con ID ${id}.`);
   }
   await user.update({
@@ -309,6 +296,78 @@ const addData = async (
   return `Se actualizó los datos del Usuario  ${user.first_name}, ${user.last_name}`;
 };
 
+const statusAlter = async (id) => {
+  const planM = await Plantrainer.findByPk(id);
+  if (planM) {
+    await planM.update({ status: !planM.status });
+    return `Plan ${planM.name} status:${planM.status}`;
+  }
+
+  const planM2 = await PlanTrainee.findByPk(id);
+  if (planM2) {
+    await planM2.update({ status: !planM2.status });
+    return `Plan ${planM2.name} status:${planM2.status}`;
+  }
+
+  const user = await User.findByPk(id);
+  if (user) {
+    await user.update({ status: !user.status });
+    return `Usuario ${user.first_name} ${user.last_name} status:${user.status}`;
+  }
+
+  return `No existe asociación con el ID ${id}`;
+};
+
+const listComment = async (id, page, pageSize) => {
+  const trainerId = id;
+  if (!trainerId) throw Error("Trainer no Encontrado");
+
+  const comments = await Comment.findAll({
+    where: {
+      trainerIdTrainer: trainerId,
+    },
+    attributes: ["id", "message"],
+    include: [
+      {
+        model: Trainee,
+        attributes: ["id_trainee"],
+        include: [
+          {
+            model: Membership,
+            attributes: ["id_membership"],
+            include: [
+              { model: User, attributes: ["id", "nickname", "imgURL"] },
+            ],
+          },
+        ],
+      },
+    ],
+    offset: (page - 1) * pageSize,
+    limit: pageSize,
+  });
+
+  return comments;
+};
+
+const ratingTotal = async (id) => {
+  const trainerId = id;
+  if (!trainerId) throw Error("Trainer no encontrado");
+
+  const rating = await Rating.findOne({
+    attributes: [[sequelize.fn("AVG", sequelize.col("value")), "rating"]],
+    where: {
+      trainerIdTrainer: trainerId,
+      value: {
+        [Op.gt]: 0,
+      },
+    },
+  });
+  if (!rating) throw Error("No lo han Calificado");
+  return rating;
+};
+
+
+
 module.exports = {
   botUserAdd,
   getId,
@@ -318,4 +377,7 @@ module.exports = {
   getPerfil,
   listEmail,
   addData,
+  statusAlter,
+  ratingTotal,
+  listComment,
 };

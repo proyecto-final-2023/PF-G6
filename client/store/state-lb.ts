@@ -1,5 +1,4 @@
-
-import { create, State } from 'zustand';
+import { create, State } from "zustand";
 
 type Param1State = {
   firstParam: string;
@@ -10,9 +9,9 @@ type Param1State = {
 
 const useParam1Store = create<Param1State>((set) => ({
   firstParam: "",
-  setFirstParam: (param1) => set({firstParam: param1}),
+  setFirstParam: (param1) => set({ firstParam: param1 }),
   secondParam: "",
-  setSecondParam: (param2) => set({secondParam: param2})
+  setSecondParam: (param2) => set({ secondParam: param2 })
 }));
 
 export default useParam1Store;

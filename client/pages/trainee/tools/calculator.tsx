@@ -46,10 +46,10 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
 
   return (
     <div className="h-[89.8vh] flex justify-center bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm">
-      <div className="bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[30vw] m-auto text-m">
+      <div className="bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[60rem] md:w-[30rem] m-auto text-m">
         <div className="grid grid-cols-1 gap-1 justify-items-center h-[70vh] py-11">
           <h1 className="text-4xl font-bold px-1">Calories-Calculator</h1>
-          <h2 className="text-2xl font-bold px-1">Enter your data in the following formulary</h2>
+          <h2 className="text-2xl font-bold px-1 text-center">Enter your data in the following formulary</h2>
           <div className="pl-16">
             <label className="text-xl">Age: </label>
             <input
@@ -60,7 +60,7 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
               placeholder="Enter your age"
             />
           </div>
-          <div>
+          <div className="pl-16">
             <label className="text-xl">Weight (kg): </label>
             <input
               className="rounded-md"
@@ -70,7 +70,7 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
               placeholder="Enter your weight"
             />
           </div>
-          <div>
+          <div className="pl-16">
             <label className="text-xl">Height (cm): </label>
             <input
               className="rounded-md"

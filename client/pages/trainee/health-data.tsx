@@ -1,5 +1,4 @@
 import { useState, useReducer } from "react";
-import axios from "axios";
 import neck from "@/assets/imgMeasuresForm/neck.png";
 import torso from "@/assets/imgMeasuresForm/torso.png";
 import Image, { StaticImageData } from "next/dist/client/image";
@@ -11,7 +10,7 @@ import hip from "@/assets/imgMeasuresForm/hip.png";
 // import glutes from "@/assets/imgMeasuresForm/glutes.png";
 import thigh from "@/assets/imgMeasuresForm/thigh.png";
 import calf from "@/assets/imgMeasuresForm/calf.png";
-import fondo from "../../public/bgs/contact.jpg"
+import fondo from "/public/bgs/contact.jpg";
 
 interface BodyMeasurement {
   bodyPart: string;
@@ -29,7 +28,7 @@ type BodyMeasurementsAction = {
   measurement: number;
 };
 
-interface AdditionalInfo {
+export type AdditionalInfo = {
   weight: number;
   height: number;
   allergies: string[];
@@ -40,14 +39,16 @@ interface AdditionalInfo {
   steroidConsumption: boolean;
   waterConsumption: number;
   injuries: string[];
-}
+};
 
 // Define the reducer function to handle state updates
 function bodyMeasurementsReducer(
   state: BodyMeasurement[],
   action: BodyMeasurementsAction
 ) {
-  switch (action.type) {
+  const options = "ADD_MEASUREMENT";
+
+  switch (options) {
     case "ADD_MEASUREMENT":
       const existingMeasurementIndex = state.findIndex(
         (measurement) => measurement.bodyPart === action.bodyPart
@@ -90,7 +91,7 @@ const BodyMeasurements = () => {
     drugConsumption: false,
     steroidConsumption: false,
     waterConsumption: 0,
-    injuries: [],
+    injuries: []
   });
 
   const handleBodyPartClick = (bodyPart: string) => {
@@ -286,6 +287,4 @@ const BodyMeasurements = () => {
       </div>
     </div>
   );
-};
-
-export default BodyMeasurements;
+}

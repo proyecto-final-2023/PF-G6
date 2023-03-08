@@ -137,7 +137,7 @@ export type BurgerProps = {
 
 // @ Components/CardPlans
 export type CardPlansProps = {
-  idPlans: number;
+  idPlans: string;
   name: string;
   cost: number;
   category: string;
@@ -149,6 +149,6 @@ export type CardPlansProps = {
 export type PaypalButtonProps = {
   amountToPay: number;
   serviceName: string;
-  idPlans: number;
+  idPlans: string;
   idUser: number;
 };
