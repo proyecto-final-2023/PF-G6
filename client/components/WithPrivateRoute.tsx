@@ -1,5 +1,5 @@
 import { getCookie } from "@/utils/cookieHandler";
-import { ComponentType } from "react";
+import { ComponentType, useEffect, useState } from "react";
 
 interface Props {
   children: React.ReactNode;
@@ -9,13 +9,18 @@ const WithPrivateRouter = <P extends object>(
   Component: ComponentType<P>
 ): ComponentType<P & Props> => {
   const PrivateRouteWrapper = (props: P & Props) => {
-    const key = getCookie("token");
+    const [user, setUser] = useState(null);
 
-    if (!key) {
+    useEffect(() => {
+      const key = getCookie("token");
+      setUser(key);
+    }, []);
+
+    if (user ==="null") {
       return (
-        <>
-          <h1 className="h-[100vh] w-[100vw] z-40">Página prohibida</h1>
-        </>
+        <div className="flex flex-col h-[100vh] w-[100vw] justify-center">
+          <h1 className="text-center">Oops! You must be logged in to see this page</h1>
+        </div>
       );
     }
 

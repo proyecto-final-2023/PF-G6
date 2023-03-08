@@ -24,10 +24,11 @@ export default function FormularioLogin() {
       .then((data) => {
         // console.log(data.config.data)
         setCookie("token", data.data.token);
+        alert('Login Success!')
         window.location.href = "/home"
       })
       .catch((error) => {
-        window.alert("Error Loggin in" + error);
+        window.alert("Email not registered or incorrect password.");
       });
 
   };

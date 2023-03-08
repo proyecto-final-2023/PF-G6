@@ -1,11 +1,12 @@
 import React, { useState, useRef } from "react";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
 
 
 
 type StoppedTimes = { time: number; timestamp: number };
 
-export default function StopWatch() {
+function StopWatch() {
   const [timeElapsed, setTimeElapsed] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
   const [stoppedTimes, setStoppedTimes] = useState<StoppedTimes[]>([]);
@@ -82,3 +83,5 @@ export default function StopWatch() {
     </div>
   );
 }
+
+export default WithPrivateRouter(StopWatch)
