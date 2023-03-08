@@ -162,7 +162,7 @@ export default function Navbar() {
           />
 
           {/* {user && <li className="m-5">Hello {user?.display_name}</li>} */}
-          {user1 && <li className="m-5">Hello {user1?.display_name}</li>}
+          {user1 && <li className="m-5">Hello, {user1?.display_name}</li>}
           <HoverLi
             imgUrl={photo||userImg}
             text="user"
