@@ -13,7 +13,7 @@ const {
 } = require("../db");
 const moment = require("moment");
 
-
+const checkMembership = async (action) => {
   try {
     let member = [];
     const memberships = await Membership.findAll({
@@ -90,7 +90,6 @@ const moment = require("moment");
               `Error eliminando membership ${membership.id_membership}: ${error}`
             );
           }
-
         }
       }
       if (action === "view") {
