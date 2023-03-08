@@ -67,9 +67,10 @@ export default function Navbar() {
     // aqui te manda  datos de user
     // console.log(key)
  useEffect(()=>{
+  if(key!=="null"&&key!==undefined)
   axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,null,{headers:{'x-access-token': key}})
   .then((data) => {
-   //console.log(data.data)
+  //  console.log(data.data)
    setUser1({
      display_name:` ${data.data.first_name}  ${data.data.last_name}`
    })
