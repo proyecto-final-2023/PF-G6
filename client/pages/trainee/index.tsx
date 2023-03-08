@@ -19,6 +19,7 @@ import ReactModal from "react-modal";
 import { id } from "date-fns/locale";
 import { ExerciesResType } from "@/types/components/libraries";
 import { CardData } from "@/components/Food";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
 function Index() {
   const [user, setUser] = useAuthState(auth);
