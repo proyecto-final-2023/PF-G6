@@ -3,16 +3,18 @@ import useStore from "@/store/dashStore";
 import axios from "axios";
 
 export default function TraineeDetails() {
-  // make a request to get the user details
-  const [image, setImage] = useState<File>();
   const traineeDetails = useStore((state) => state.traineeDetails);
   const deactivateTrainee = useStore((state) => state.deactivateAccount);
+
+  const [image, setImage] = useState<File>();
+  const [uploading, setUploading] = useState(false);
 
   const uploadImage = () => {
     if (!image) {
       console.error("No image to upload");
       return;
     }
+    setUploading(true);
 
     const cloudName = process.env.NEXT_PUBLIC_CLOUDY_NAME || "no cloud name";
 
@@ -31,6 +33,7 @@ export default function TraineeDetails() {
         }
 
         updateDbLogo(imgUrl).then(() => {
+          setUploading(false);
           window.alert("Updated logo :D");
         });
       })
@@ -62,11 +65,11 @@ export default function TraineeDetails() {
   };
 
   const handleDelete = async () => {
+    setUploading(true);
     if (!(await deactivateTrainee(traineeDetails.user_id)))
       console.error("Could not delete user");
+    setUploading(false);
   };
-
-  // console.log("trainee details", traineeDetails);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col relative">
@@ -82,12 +85,18 @@ export default function TraineeDetails() {
         ></input>
       </div>
 
-      <button className="py-2 px-3 bg-green-700 rounded">Update</button>
+      <button
+        disabled={uploading}
+        className="py-2 px-3 bg-green-700 rounded disabled:bg-green-900"
+      >
+        Update
+      </button>
 
       <button
         type="button"
+        disabled={uploading}
         onClick={handleDelete}
-        className="py-2 px-3 bg-red-700 rounded absolute top-0 right-0"
+        className="py-2 px-3 bg-red-700 disabled:bg-red-900 rounded absolute top-0 right-0"
       >
         Delete
       </button>
