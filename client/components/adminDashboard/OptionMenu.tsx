@@ -15,11 +15,11 @@ const buttonsMapping = [
   },
   {
     text: "Planes Trainer",
-    compareText: "Planes Trainer"
+    compareText: "planes trainer"
   },
   {
     text: "Comments",
-    compareText: "Comments"
+    compareText: "comments"
   }
 ];
 

@@ -2,16 +2,22 @@ import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+// {
+//   "id": 2,
+//   "trainee": "JP",
+//   "fotoTrainee": "https://res.cloudinary.com/dfixfnldt/image/upload/v1678251857/cpuzd4wrfrounvj9hego.jpg",
+//   "message": "Nice trainer!",
+//   "trainer": "redbird288",
+//   "fotoTrainer": "https://randomuser.me/api/portraits/women/21.jpg"
+// }
 
 type UserFormData = {
-  id: string;
-  status: boolean;
-  first_name: string;
-  last_name: string;
-  nickname: string;
-  role: string;
-  imgURL: string;
-  membership: string;
+  id: number;
+  trainee: string;
+  fotoTrainee: string;
+  message: string;
+  trainer: string;
+  fotoTrainer: string;
 };
 
 export default function EditableTableComments() {
@@ -42,6 +48,12 @@ export default function EditableTableComments() {
   };
 
   const className = "bg-gray-800 border-b-gray-200 text-white m-1 w-[9rem]";
+  // id: number;
+  // trainee: string;
+  // fotoTrainee: string;
+  // message: string;
+  // trainer: string;
+  // fotoTrainer: string;
 
   return (
     <>

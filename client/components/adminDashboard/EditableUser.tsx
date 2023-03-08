@@ -27,7 +27,7 @@ export default function EditableTableUser() {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`)
       .then((data) => setTableData(data.data))
-      .catch((error) => console.log(error));
+      .catch((error) => setTableData([]));
       console.log(tableData)
   }, [page]);
 
