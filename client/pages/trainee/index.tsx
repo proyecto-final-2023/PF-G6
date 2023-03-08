@@ -301,7 +301,7 @@ const groupByDateExer = async (data : any) => {
   
   return (
     <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
-      <div className="mt-20 bg-black/60 -z-10 border-transparent border-2">
+      <div className="pt-20 bg-black/60 -z-10 border-transparent border-2">
         <div>
           <Link
             href="/dataupdate"
@@ -332,7 +332,7 @@ const groupByDateExer = async (data : any) => {
             Click here to complete all your stats
           </Link>
           <div className="top-0 right-0 border-transparent flex flex-col items-center mt-10">
-            <h2 className="text-3xl font-medium ">Trainer: {user1?.trainer}</h2>
+            <h2 className="text-3xl font-medium text-center">Trainer: {user1?.trainer}</h2>
             <Rating />
             <div className="mb-4 bg-black/50 backdrop-blur-md rounded-lg p-6">
               <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -363,7 +363,7 @@ const groupByDateExer = async (data : any) => {
         <div className="flex flex-col mt-10">
           <Link
             href={`${process.env.NEXT_PUBLIC_API_URL}/food`}
-            className=" text-center mb-10 mt-10 text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300 "
+            className=" text-center mb-10 mt-20 text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300 "
           >
             Food Library
           </Link>
