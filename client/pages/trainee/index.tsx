@@ -14,6 +14,7 @@ import Rating from "@/components/StarRating";
 import { SyntheticEvent } from "react";
 import { FiEdit } from "react-icons/fi";
 import moment from 'moment'
+import { loginHandler } from "@auth0/nextjs-auth0/dist/auth0-session";
 
 export default function Index() {
   const [user, setUser] = useAuthState(auth);
@@ -26,50 +27,26 @@ export default function Index() {
   const [idAliment, setIdAliment] = useState<Array<selectedAliments>>([]);
   const [idExercise, setIdExercise] = useState<Array<selectedExers>>([])
   const [dates, setDates] = useState([]);
-  const [sortedAliments, setSortedAliments] = useState<any>();
-  const [sortedExercises, setSortedExercises] = useState<any>();
-  const [verRutina, setVerRutina] = useState(false)
+  const [sortedAliments, setSortedAliments] = useState<any>([]);
+  const [sortedExercises, setSortedExercises] = useState<any>([]);
+  const [verRutina, setVerRutina] = useState<any>([])
+  const [verFood, setVerFood] = useState <any>([])
+  const [events, setEvents] = useState<any>([]);
   
-  // const [events, setEvents] = useState<any>();
-  
-  console.log(idAliment)
-  console.log(sortedAliments)
-  console.log(sortedExercises)
-
   interface selectedExers {
     datePlan: string,
     idActivities: number,
     series: number,
     repetitions: number
   }
+
   interface selectedAliments {
     datePlan: string,
     id: number,
     portion: string,
     name: string
   }
-  
-  const exerciseEvents = sortedExercises?.map((day: any) => ({
-    title: 'Rutina',
-    start: new Date(day.date),
-    end: new Date(day.date),
-    activities: day.activities
-  }));
-  
-  const mealsEvents = sortedAliments?.map((day: any) => ({
-    title: 'Comidas',
-    start: new Date(day.date),
-    end: new Date(day.date),
-    meals: day.meals
-  }));
-
-  const allEvents = exerciseEvents?.concat(mealsEvents);
-  console.log(allEvents)
-  function handleFeedbackChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
-    setFeedback(event.target.value);
-  }
-
-    
+     
   function handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
@@ -90,9 +67,75 @@ export default function Index() {
         console.error(error);
         alert("Error sending the feedback, try again");
       });
-  }
+  } 
+
+  useEffect(() => {
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+        headers: { "x-access-token": key }
+      })
+      .then((res) => {
+        setUser1({
+          display_name: ` ${res.data.first_name}  ${res.data.last_name}`,
+          userImage: res.data.imgURL,
+          trainer: ` ${res.data.membership.planTrainee.trainer.membership.user.first_name} ${res.data.membership.planTrainee.trainer.membership.user.last_name}`,
+          planStart: `Plan starting date: ${res.data.membership.startDate}`,
+          planEnd: `Plan finishing date: ${res.data.membership.finishDate}`,
+          trainerPhone:
+            res.data.membership.planTrainee.trainer.membership.user.phone
+        }),
+        setData(res.data);
+      })
+
+  }, []);
+  
+
+  useEffect(() => {
+    if (data) {
+      extractIds(data)
+    }
+    
+  }, [data])
+
+  useEffect (() => {
+    if(idAliment && idExercise){
+    groupByDate(setSortedAliments(idAliment)),
+   groupByDateExer(setSortedExercises(idExercise))}
+  }, [idAliment, idExercise])
 
   
+  useEffect(() => {
+    const exerciseEvents = verRutina.map((day: any) => {
+      const { date, activities } = day;
+
+      const start = moment(`${date}T00:00:00Z`).toDate();
+      const end = moment(`${date}T00:00:00Z`).toDate();
+      return {
+        title: 'Rutina',
+        start,
+        end,
+        activities
+      };
+    });
+
+    const FoodEvents = verFood.map((day: any) => {
+      const { date, meals } = day;
+
+      const start = moment(`${date}T00:00:00Z`).toDate();
+      const end = moment(`${date}T00:00:00Z`).toDate();
+      return {
+        title: 'Diet',
+        start,
+        end,
+        meals
+      };
+    });
+
+    const allEventos = FoodEvents.concat(exerciseEvents)
+    setEvents(allEventos);
+  }, [verRutina, verFood]);
+
+
 
   const extractIds = async(data: any) => {
     const datos = await data.membership.trainee.plans.map((e: any) => e)
@@ -117,118 +160,78 @@ const selectedAliments = await datos.map((plan: any) => {
     time: aliment.time }));
   return aliments;
 });
-
-// Guardar la información en el estado idAliment
 setIdAliment(selectedAliments);
 
   };
   
+ const groupByDate = async(data : any) => {
+  const data1 = await idAliment;
+  const groupedData = new Map();
   
-  function groupByDate(data: any) {
-    if (!data) {
-      console.log('data is undefined');
-      return;
-    }
-  
-    const groupedData = new Map();
-  
-    data.forEach((day: any) => {
-      day.forEach((meal:any) => {
-        if (groupedData.has(meal.datePlan)) {
-          const existingDay = groupedData.get(meal.datePlan);
-          existingDay.push({
-            id: meal.id,
-            portion: meal.portion,
-            time: meal.time
-          });
-        } else {
-          groupedData.set(meal.datePlan, [{
-            id: meal.id,
-            portion: meal.portion,
-            time: meal.time
-          }]);
-        }
-      });
+  data1?.forEach((day: any) => {
+    day.forEach((meal:any) => {
+      if (groupedData.has(meal.datePlan)) {
+        const existingDay = groupedData.get(meal.datePlan);
+        existingDay.push({
+          id: meal.id,
+          portion: meal.portion,
+          time: meal.time
+        });
+      } else {
+        groupedData.set(meal.datePlan, [{
+          id: meal.id,
+          portion: meal.portion,
+          time: meal.time
+        }]);
+      }
     });
+  });
+
+  const result = Array.from(groupedData, ([date, meals]) => ({ date, meals }));
+
+   setVerFood(result);
+ }
   
-    const result = Array.from(groupedData, ([date, meals]) => ({ date, meals }));
-    
-    return result;
-  }
-  
-  function groupByDateExer(data: any) {
-    if (!data) {
-      console.log('data is undefined');
-      return;
-    }
-  
-    const groupedData = new Map();
-  
-    data.forEach((day: any) => {
-      day.forEach((activity: any) => {
-        if (groupedData.has(activity.datePlan)) {
-          const existingDay = groupedData.get(activity.datePlan);
-          existingDay.push({
-            idActivities: activity.idActivities,
-            series: activity.series,
-            repetitions: activity.repetitions
-          });
-        } else {
-          groupedData.set(activity.datePlan, [{
-            idActivities: activity.idActivities,
-            series: activity.series,
-            repetitions: activity.repetitions
-          }]);
-        }
-      });
+const groupByDateExer = async (data : any) => {
+  const data2 = await idExercise;
+  const groupedData = new Map();
+  data2?.forEach((day: any) => {
+    day.forEach((activity: any) => {
+      if (groupedData.has(activity.datePlan)) {
+        const existingDay = groupedData.get(activity.datePlan);
+        existingDay.push({
+          idActivities: activity.idActivities,
+          series: activity.series,
+          repetitions: activity.repetitions
+        });
+      } else {
+        groupedData.set(activity.datePlan, [{
+          idActivities: activity.idActivities,
+          series: activity.series,
+          repetitions: activity.repetitions
+        }]);
+      }
     });
-  
-    const result = Array.from(groupedData, ([date, activities]) => ({ date, activities }));
-  
-    return result;
-  }
-  
-  
-  
+  });
 
-  useEffect(() => {
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
-        headers: { "x-access-token": key }
-      })
-      .then((data) => {
-        setUser1({
-          display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
-          userImage: data.data.imgURL,
-          trainer: ` ${data.data.membership.planTrainee.trainer.membership.user.first_name} ${data.data.membership.planTrainee.trainer.membership.user.last_name}`,
-          planStart: `Plan starting date: ${data.data.membership.startDate}`,
-          planEnd: `Plan finishing date: ${data.data.membership.finishDate}`,
-          trainerPhone:
-            data.data.membership.planTrainee.trainer.membership.user.phone
-        }),
-       extractIds(data.data)
-       setSortedAliments(groupByDate(idAliment)),
-       setSortedExercises(groupByDateExer(idExercise))
-      
-       ;
-      })
-  }, []);
-
-  const locales = {
-    "en-US": require("date-fns/locale/en-US")
-  };
+  const result = Array.from(groupedData, ([date, activities]) => ({ date, activities }));
+ setVerRutina(result);
+}
 
   const localizer = momentLocalizer(moment)
 
+  function handleFeedbackChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
+    setFeedback(event.target.value);
+  } 
   const handleSelectCalendar = (event : any) => {
     if (event.title === 'Rutina') {
       const rutinaReturn = event.activities
       console.log(rutinaReturn)
-    } else if (event.title === 'Comidas'){
+    } else if (event.title === 'Diet'){
       const ComidaReturn = event.meals
       console.log(ComidaReturn)
     }
-  }
+  } 
   
   return (
     <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
@@ -302,7 +305,13 @@ setIdAliment(selectedAliments);
             <div className="bg-[url('/bgs/logoblack.png')] bg-contain bg-no-repeat bg-center ">
               <Calendar
                 localizer={localizer}
-                events={allEvents}
+                events={events.map((event: any) => ({
+                  start: new Date(event.start),
+                  end: new Date(event.end),
+                  title: event.title,
+                  meals: event.meals ? event.meals : '',
+                  activities: event.activities ? event.activities : ''
+                }))}
                 onSelectEvent={handleSelectCalendar}
                 style={{ height: 500, margin: "50px" }}
                 defaultView="agenda"
