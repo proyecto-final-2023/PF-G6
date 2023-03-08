@@ -288,14 +288,13 @@ const groupByDateExer = async (data : any) => {
       const rutinaReturn = event.activities
       setUrl(true)
       setModalIsOpen(true)
-      
       setGetIdRoutines(rutinaReturn)
     } else if (event.title === 'Diet'){
       const ComidaReturn = event.meals
       console.log(ComidaReturn)
       setUrl(false)
-      setGetIdRoutines(ComidaReturn)
       setModalIsOpen(true)
+      setGetIdRoutines(ComidaReturn)
     }
   } 
   
