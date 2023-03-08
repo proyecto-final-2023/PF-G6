@@ -23,7 +23,7 @@ export default function Trainer() {
         },
       })
       .then((data) => {
-        
+      
         setUser(data.data);
       
         
@@ -31,7 +31,7 @@ export default function Trainer() {
   }, []);
 
   return (
-    <div className="  flex  flex-col z-40 w-60   ">
+    <div className="  flex  flex-col z-40 w-60 max-sm:flex-row max-sm:w-[100vw] ">
       <nav className="  bg-gray-50 dark:bg-gray-800">
         <div className="flex items-center justify-center text-white font-bold m-20">
           Trainer
@@ -90,7 +90,7 @@ export default function Trainer() {
             </li>
             <li>
               <Link
-                href="trainer/trainee"
+                href="/trainer/certificates"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
@@ -112,7 +112,7 @@ export default function Trainer() {
 
             <li>
               <Link
-                href=""
+                href="/dataupdate"
                 className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
@@ -128,7 +128,7 @@ export default function Trainer() {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Add Logo </span>
+                <span className="flex-1 ml-3 whitespace-nowrap">Edit </span>
               </Link>
             </li>
     

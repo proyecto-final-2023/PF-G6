@@ -148,7 +148,8 @@ export default function ExercisesLibrary() {
       }))
 
     };   
-         await axios.post( `${process.env.NEXT_PUBLIC_API_URL}/trainers/plan`, dataToSend, { headers : {"x-access-token": key}} ).then((response) => {
+         await axios.post( `${process.env.NEXT_PUBLIC_API_URL}/trainers/plan`, dataToSend, { headers : {"x-access-token": key}} )
+         .then((response) => {
             console.log(response.data)})
             
         } 

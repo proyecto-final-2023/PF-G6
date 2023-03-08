@@ -59,6 +59,8 @@ export default function plansTrainee() {
       .then((data) => setPlans(data.data))
       .catch((error) => console.error(error));
   }, []);
+
+
   // plans
   return (
     <div>

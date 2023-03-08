@@ -80,7 +80,7 @@ export default function Index() {
 
   const events = [
     {
-      title: "Cardio",
+      title: "Cardio q",
       allDay: true,
       start: new Date(2023, 2, 10),
       end: new Date(2023, 2, 10)

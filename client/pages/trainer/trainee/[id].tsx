@@ -12,6 +12,7 @@ export default function trainee() {
     const[user,setData]=useState([])
     const[name,setName]=useState([])
     const key =getCookie('token')
+  
 
     useEffect(()=>{
     //
@@ -23,7 +24,6 @@ export default function trainee() {
      
       setName(data.data);
       
-      
     })
     .catch((error) => console.log(error));
     //
@@ -32,6 +32,7 @@ export default function trainee() {
       idPlanTrainee: id,
     })
     .then((data) => {
+      console.log(data);
       setData(data?.data.memberships.map((e:any) => e.user));
     })
     .catch((error) => console.log(error));
@@ -42,7 +43,7 @@ export default function trainee() {
     
 
 
-    
+    console.log(user)
   return (
   <div className=" m-20 bg-[url('/tail-imgs/logo2.png')] bg-no-repeat bg-cover  bg-bottom min-h-screen ">
    <div>

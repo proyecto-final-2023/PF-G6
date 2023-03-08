@@ -11,6 +11,7 @@ export default function Dashboard() {
   
   const key = getCookie("token");
  
+ 
 
   const [plans, setPlans] = useState([]);
 
@@ -27,36 +28,45 @@ export default function Dashboard() {
       .catch((error) => console.log(error));
   }, []);
 
-
+console.log(plans.plantrainer)
   return (
     
     <>
     
-      <nav  className=" grid grid-cols-2  absolute  w-90 h-screen transition-transform -translate-x-full sm:translate-x-0" >
-      <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
+      <nav  className=" grid grid-cols-2  absolute  w-90 h-screen transition-transform -translate-x-0 sm:translate-x-0 max-sm:flex-row"  >
+      <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800 max-sm:flex flex-row max-sm:w-[100vw] max-sm:h-[20vh]">
       <NavbarTrainer />
        </div>
       </nav>
 
-<div className=" flex flex-col bg-black pt-20 h-screen m-auto sm:ml-64">
+<div className=" flex flex-col  bg-[url('/bgs/contact.jpg')]  bg-no-repeat bg-cover pt-20 h-screen m-auto sm:ml-64">
    <div className="p-4  ">
       <div className="grid grid-cols-3 gap-4 mb-4">
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">{plans?.startDate}</p>
+         <div className="flex items-center justify-center h-24 rounded bg-gray-50 opacity-90 dark:bg-gray-800">
+            <p className="text-2xl text-gray-400 dark:text-gray-500">{plans?.plantrainer?.name}</p>
          </div>
-         <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-            <p className="text-2xl text-gray-400 dark:text-gray-500">{plans.finishDate}</p>
+         <div className="flex items-center justify-center h-24 rounded opacity-90 bg-gray-50 dark:bg-gray-800">
+            <p className="text-2xl text-white dark:text-gray-500">{plans?.plantrainer?.category}</p>
+         </div>
+         <div className="flex items-center justify-center h-24 rounded bg-gray-50 opacity-90 dark:bg-gray-800">
+            <p className="text-2xl text-white dark:text-gray-500">CantTrainees:{plans?.plantrainer?.cantTrainees}</p>
+         </div>
+         <div className="flex items-center justify-center h-24 rounded bg-gray-50 opacity-90 dark:bg-gray-800">
+            <p className="text-2xl text-white dark:text-gray-500">{plans?.startDate}</p>
+         </div>
+         <div className="flex items-center justify-center h-24 rounded bg-gray-50 opacity-90 dark:bg-gray-800">
+            <p className="text-2xl text-white dark:text-gray-500">{plans.finishDate}</p>
          </div>
          <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
             <img src={plans?.trainer?.logo} className='rounded-full' width={90}  height={90}/>
          </div>
       </div>
-      <div className="flex items-center justify-center h-60 mb-4 rounded bg-gray-50 dark:bg-gray-800">
+      <div className="flex items-center justify-center  h-60 mb-4 rounded bg-gray-50 dark:bg-gray-800">
          <div ><TablePlans/></div>
       </div>
-      <div className="grid grid-cols-2 gap-4 mb-4">
-         <div className="flex items-center justify-center rounded bg-gray-50 h-80 dark:bg-gray-800">
-            <div><CreatePlansTrainee/></div>
+      <div className="grid grid-cols-2 gap-4 ">
+         <div className="flex items-center justify-center rounded bg-gray-50 h-80  dark:bg-gray-800">
+            <div ><CreatePlansTrainee/></div>
          </div>
          <div className="flex items-center justify-center rounded bg-gray-50 h-80 dark:bg-gray-800">
             <div ><ProgressBar/></div>
