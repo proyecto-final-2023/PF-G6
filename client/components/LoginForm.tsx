@@ -24,7 +24,7 @@ export default function FormularioLogin() {
       .then((data) => {
         // console.log(data.config.data)
         setCookie("token", data.data.token);
-        alert('Login Success!')
+        alert('Login Successfully!')
         window.location.href = "/home"
       })
       .catch((error) => {
