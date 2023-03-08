@@ -11,10 +11,12 @@ import { CardData } from "@/components/Food";
 import { DiscoveryError } from "@auth0/nextjs-auth0/dist/auth0-session/utils/errors";
 import { getCookie } from "@/utils/cookieHandler";
 import { access } from "fs";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
-export default function ExercisesLibrary() {
-  const { setFirstParam, setSecondParam, firstParam, secondParam } =
-    useParam1Store();
+ function ExercisesLibrary() {
+  const { setFirstParam, setSecondParam, firstParam, secondParam } = useParam1Store();
+
+
   const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
   const [data, setData] = useState<CardData[]>([]);
   const [user, setUser] = useState<Array<selectedUser>>([]);
@@ -857,3 +859,5 @@ export default function ExercisesLibrary() {
     </div>
   );
 }
+
+export default WithPrivateRouter(ExercisesLibrary)

@@ -15,8 +15,13 @@ import { SyntheticEvent } from "react";
 import { FiEdit } from "react-icons/fi";
 import moment from 'moment'
 import { loginHandler } from "@auth0/nextjs-auth0/dist/auth0-session";
+import ReactModal from "react-modal";
+import { id } from "date-fns/locale";
+import { ExerciesResType } from "@/types/components/libraries";
+import { CardData } from "@/components/Food";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
-export default function Index() {
+function Index() {
   const [user, setUser] = useAuthState(auth);
   const photo = user?.photoURL;
   const name = user?.displayName;
@@ -32,6 +37,15 @@ export default function Index() {
   const [verRutina, setVerRutina] = useState<any>([])
   const [verFood, setVerFood] = useState <any>([])
   const [events, setEvents] = useState<any>([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [urlset, setUrl] = useState (false)
+  const [getIdRoutines, setGetIdRoutines] = useState<any>([])
+  const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
+  const [rndFoods, setrndFoodsData] = useState<CardData[]>([]);
+
+  //console.log(modalIsOpen);
+  //console.log(rndFoods);
+  
   
   interface selectedExers {
     datePlan: string,
@@ -54,7 +68,7 @@ export default function Index() {
       comment: feedback
     };
 
-    console.log(comment);
+    //console.log(comment);
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/comment`, comment, {
         headers: { "x-access-token": key }
@@ -75,6 +89,7 @@ export default function Index() {
         headers: { "x-access-token": key }
       })
       .then((res) => {
+      console.log("perfil de user:",res.data);
         setUser1({
           display_name: ` ${res.data.first_name}  ${res.data.last_name}`,
           userImage: res.data.imgURL,
@@ -218,6 +233,50 @@ const groupByDateExer = async (data : any) => {
  setVerRutina(result);
 }
 
+  const fetchDataModal = async () => {
+    try {
+      let url = urlset ? `${process.env.NEXT_PUBLIC_API_URL}/activity` : `${process.env.NEXT_PUBLIC_API_URL}/aliment`
+      console.log(url);
+      console.log(getIdRoutines);
+     
+      if(url == `${process.env.NEXT_PUBLIC_API_URL}/activity`) {
+        let exercisesArray: any = []
+      
+        for( let i = 0; i < getIdRoutines.length; i++) {
+          await axios (`${url}/${getIdRoutines[i].idActivities}`, {headers : {"x-access-token": key}})
+          .then((data) => exercisesArray.push(data.data));
+          
+        }
+
+        setRndExercises(exercisesArray)
+      }  
+
+      else if (url == `${process.env.NEXT_PUBLIC_API_URL}/aliment` ) {
+        let FoodArray : any = []; 
+        for( let i = 0; i < getIdRoutines.length; i++) {
+          await axios( `${url}/${getIdRoutines[i].id}`, {headers : {"x-access-token": key}})
+          .then((data) => FoodArray.push(data.data))
+        }
+        setrndFoodsData(FoodArray)
+        
+        
+      }
+      
+      
+    
+    }
+   catch (error) {
+    console.log(error);
+    
+  }
+  }
+ useEffect(() => {
+
+    fetchDataModal()
+
+ }
+     , [modalIsOpen === true])
+
   const localizer = momentLocalizer(moment)
 
   function handleFeedbackChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
@@ -226,12 +285,19 @@ const groupByDateExer = async (data : any) => {
   const handleSelectCalendar = (event : any) => {
     if (event.title === 'Rutina') {
       const rutinaReturn = event.activities
-      console.log(rutinaReturn)
+      setUrl(true)
+      setModalIsOpen(true)
+      
+      setGetIdRoutines(rutinaReturn)
     } else if (event.title === 'Diet'){
       const ComidaReturn = event.meals
       console.log(ComidaReturn)
+      setUrl(false)
+      setGetIdRoutines(ComidaReturn)
+      setModalIsOpen(true)
     }
   } 
+  console.log("esto es idExercises:",idExercise)
   
   return (
     <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
@@ -325,3 +391,5 @@ const groupByDateExer = async (data : any) => {
     </div>
   );
 }
+
+export default WithPrivateRouter(Index)

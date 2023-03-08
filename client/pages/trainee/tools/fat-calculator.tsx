@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { useState } from "react";
-import { GrClose } from "react-icons/gr";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../firebase";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
+
+
+
 
 const CalculateFatPercentage = () => {
   const [neck, setNeck] = useState("");
@@ -11,7 +12,11 @@ const CalculateFatPercentage = () => {
   const [height, setHeight] = useState("");
   const [gender, setGender] = useState("male");
   const [result, setResult] = useState(0);
-  const [user, setUser] = useAuthState(auth);
+
+  
+
+
+
 
   const calculate = () => {
     let bodyFatPercentage = 0;
@@ -30,16 +35,8 @@ const CalculateFatPercentage = () => {
 
     setResult(Math.round(bodyFatPercentage));
   };
-  if (!user) {
-    return (
-      <div>
-        <h1 className="flex flex-col justify-center text-xl text-center h-[100vh]">
-          Ops!Debes iniciar sesión para ver esta página
-        </h1>
-        ;
-      </div>
-    );
-  }
+ 
+
   return (
     <div className="h-[100vh] bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm">
       <div className="flex flex-col h-[100vh]">
@@ -122,7 +119,10 @@ const CalculateFatPercentage = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )}
 
-export default CalculateFatPercentage;
+  
+
+
+
+export default WithPrivateRouter(CalculateFatPercentage)
