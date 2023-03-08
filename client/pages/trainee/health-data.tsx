@@ -74,7 +74,7 @@ function bodyMeasurementsReducer(
   }
 }
 
-const BodyMeasurements = () => {
+export const BodyMeasurements = () => {
   const [selectedBodyPart, setSelectedBodyPart] = useState<any>("");
   const [measurement, setMeasurement] = useState<number | null>(null);
   const [bodyMeasurements, dispatch] = useReducer(
