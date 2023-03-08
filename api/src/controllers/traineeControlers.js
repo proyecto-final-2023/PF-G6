@@ -8,7 +8,8 @@ const {
   Trainer,
   Rating,
 } = require("../db");
-
+const sequelize = require("sequelize");
+const { Op } = require("sequelize");
 const updateRating = async (id, value) => {
   if (value < 0 || value > 5) {
     throw Error("El valor de la calificación debe estar entre 1 y 5");
@@ -56,7 +57,7 @@ const updateRating = async (id, value) => {
   return ratings;
 };
 
-const getRating = async (id, value) => {
+const getRating = async (id) => {
   const user = await User.findByPk(id, {
     attributes: ["first_name", "last_name", "imgURL"],
     include: [
@@ -81,6 +82,7 @@ const getRating = async (id, value) => {
       },
     ],
   });
+
   const traineeId = user.membership.traineeIdTrainee;
   const trainerId = trai.membership.planTrainee.trainerIdTrainer;
 
@@ -92,7 +94,17 @@ const getRating = async (id, value) => {
   };
   const ratings = await Rating.findOne(filters);
 
-  return { value: ratings.value };
+  const rating = await Rating.findOne({
+    attributes: [[sequelize.fn("AVG", sequelize.col("value")), "rating"]],
+    where: {
+      trainerIdTrainer: trainerId,
+      value: {
+        [Op.gt]: 0,
+      },
+    },
+  });
+
+  return { value: ratings.value, rating};
 };
 
 const addComment = async (id, comment) => {

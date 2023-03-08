@@ -236,7 +236,6 @@ const userByName = async (name, page, limit) => {
 
 const setVerify = async (token) => {
   const decoded = jwt.verify(token, config.SECRET);
-  console.log(decoded);
   const [user] = await Logueo.findAll({
     where: { userId: decoded.id },
   });
@@ -281,7 +280,7 @@ const addData = async (
 ) => {
   const user = await User.findByPk(id);
 
-  if (!User) {
+  if (!user) {
     throw new Error(`No se encontró al usuario con ID ${id}.`);
   }
   await user.update({
@@ -320,7 +319,6 @@ const statusAlter = async (id) => {
 };
 
 const listComment = async (id, page, pageSize) => {
-  console.log(id);
   const trainerId = id;
   if (!trainerId) throw Error("Trainer no Encontrado");
 
