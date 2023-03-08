@@ -23,6 +23,7 @@ export default function Trainer() {
   const key = getCookie("token");
 
   useEffect(() => {
+    if(key!=="null")
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
         headers: {
@@ -31,6 +32,9 @@ export default function Trainer() {
       })
       .then((data) => {
         setUser(data.data);
+      })
+      .catch((err)=>{
+        console.log(err)
       });
   }, []);
 
