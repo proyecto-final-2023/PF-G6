@@ -28,7 +28,7 @@ type BodyMeasurementsAction = {
   measurement: number;
 };
 
-export type AdditionalInfo = {
+ type AdditionalInfo = {
   weight: number;
   height: number;
   allergies: string[];
@@ -74,8 +74,8 @@ function bodyMeasurementsReducer(
   }
 }
 
-export default function BodyMeasurements() {
-  const [selectedBodyPart, setSelectedBodyPart] = useState<string>("");
+ export default function BodyMeasurements() {
+  const [selectedBodyPart, setSelectedBodyPart] = useState<any>("");
   const [measurement, setMeasurement] = useState<number | null>(null);
   const [bodyMeasurements, dispatch] = useReducer(
     bodyMeasurementsReducer,
@@ -97,7 +97,6 @@ export default function BodyMeasurements() {
   const handleBodyPartClick = (bodyPart: string) => {
     setSelectedBodyPart(bodyPart);
   };
-
   const handleMeasurementChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -133,207 +132,160 @@ export default function BodyMeasurements() {
     { name: "calf", img: calf }
   ];
   return (
-    <div className="bg-[url('/bgs/contact.jpg')] -z-10">
-      <div className="bg-[#6f6f70]/60 border-pink-400">
-        <div className="border-white border-1">
-          <h1 className="text-center">Health Data Form</h1>
-          <div className="">
-            <label>
-              Weight:
-              <input
-                type="number"
-                className=""
-                value={additionalInfo.weight}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    weight: Number(e.target.value)
-                  })
-                }
-              />
-            </label>
+    <div className="grid grid-cols-2 bg-[url('/bgs/contact.jpg')]">
+    <div className="h-[100vh] pt-20 max-sm:pt-0 text-white leading-10">
+      <div className="py-10 ml-5 max-sm:py-0  max-sm:w-[55vw] mt-10 w-[48vw] -z-10 h-[80-vh] bg-slate-800 opacity-80 ">
+      <h1 className="text-center z-30 font-bold">Health Data Form</h1>
+      <div className="flex flex-col px-[5vw]">
+        <div className="flex flex-row">
+<label className="flex flex-row items-center">
+  Weight:
+  <input type="number" 
+  className="ml-2 h-[3vh] w-[4ch]"
+  value={additionalInfo.weight} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, weight: Number(e.target.value)})} />
+</label>
 
-            <label>
-              Height:
-              <input
-                type="number"
-                className=""
-                value={additionalInfo.height}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    height: Number(e.target.value)
-                  })
-                }
-              />
-            </label>
+<label className="ml-2 flex flex-row items-center">
+  Height:
+  <input type="number" 
+  className="ml-2 h-[3vh] w-[4ch]"
+  value={additionalInfo.height} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, height: Number(e.target.value)})} />
+</label>
+</div>
+<div className="flex flex-col">
+<label className="flex flex-row items-center">
+  Allergies:
+  <input type="text" 
+  className="ml-2 h-[3vh] w-[20vw]"
+  value={additionalInfo.allergies.join(", ")} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, allergies: e.target.value.split(", ")})} />
+</label>
 
-            <label>
-              Allergies:
-              <input
-                type="text"
-                className=""
-                value={additionalInfo.allergies.join(", ")}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    allergies: e.target.value.split(", ")
-                  })
-                }
-              />
-            </label>
+<label className="flex flex-row items-center">
+  Injuries:
+  <input type="text" 
+  className="ml-2 h-[3vh] w-[20vw]"
+  value={additionalInfo.injuries.join(", ")} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value.split(", ")})} />
+</label>
 
-            <label>
-              Surgeries:
-              <input
-                type="text"
-                className=""
-                value={additionalInfo.surgeries.join(", ")}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    surgeries: e.target.value.split(", ")
-                  })
-                }
-              />
-            </label>
+<label className="flex flex-row items-center">
+  Surgeries:
+  <input type="text" 
+  className="ml-2 h-[3vh] w-[20vw]"
+  value={additionalInfo.surgeries.join(", ")} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, surgeries: e.target.value.split(", ")})} />
+</label>
+</div>
+<div className="flex flex-row max-sm:flex-col">
+<h1 className="font-bold">Consumption: </h1>
+<label className="ml-1 flex flex-row w-[8vw]">
+  Smoking:
+  <input type="checkbox" 
+  className="ml-1 w-[2ch]"
+  checked={additionalInfo.smoking} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, smoking: e.target.checked})} />
+</label>
 
-            <label>
-              Smoking:
-              <input
-                type="checkbox"
-                checked={additionalInfo.smoking}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    smoking: e.target.checked
-                  })
-                }
-              />
-            </label>
+<label className="ml-1 flex flex-row w-[8vw]">
+  Alcohol:
+  <input type="checkbox" 
+   className="ml-1 w-[2ch]"
+  checked={additionalInfo.alcoholConsumption} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, alcoholConsumption: e.target.checked})} />
+</label>
 
-            <label>
-              Alcohol Consumption:
-              <input
-                type="checkbox"
-                checked={additionalInfo.alcoholConsumption}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    alcoholConsumption: e.target.checked
-                  })
-                }
-              />
-            </label>
+<label className="ml-1 flex flex-row w-[8vw]">
+  Drugs:
+  <input type="checkbox" 
+   className="ml-1 w-[2ch]"
+  checked={additionalInfo.drugConsumption} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, drugConsumption: e.target.checked})} />
+</label>
 
-            <label>
-              Drug Consumption:
-              <input
-                type="checkbox"
-                className=""
-                checked={additionalInfo.drugConsumption}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    drugConsumption: e.target.checked
-                  })
-                }
-              />
-            </label>
+<label className="ml-1 flex flex-row w-[8vw]">
+  Steroids:
+  <input type="checkbox" 
+  className="ml-1 w-[2ch]"
+  checked={additionalInfo.steroidConsumption} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, steroidConsumption: e.target.checked})} />
+</label>
+</div>
 
-            <label>
-              Steroid Consumption:
-              <input
-                type="checkbox"
-                className=" "
-                checked={additionalInfo.steroidConsumption}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    steroidConsumption: e.target.checked
-                  })
-                }
-              />
-            </label>
+<label className="flex flex-row items-center">
+  Water (in liters):
+  <input type="number" 
+  className="ml-1 h-[3vh] w-[4ch]"
+  value={additionalInfo.waterConsumption} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, waterConsumption: Number(e.target.value)})} />
+</label>
 
-            <label>
-              Water Consumption (in litres):
-              <input
-                type="number"
-                className=""
-                value={additionalInfo.waterConsumption}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    waterConsumption: Number(e.target.value)
-                  })
-                }
-              />
-            </label>
 
-            <label>
-              Injuries:
-              <input
-                type="text"
-                className=""
-                value={additionalInfo.injuries.join(", ")}
-                onChange={(e) =>
-                  setAdditionalInfo({
-                    ...additionalInfo,
-                    injuries: e.target.value.split(", ")
-                  })
-                }
-              />
-            </label>
-          </div>
-          <div className="">
-            <h1 className="">Body Measurements</h1>
-            <div className="">
-              {bodyParts.map((bodyPart) => (
-                <button
-                  className=""
-                  key={bodyPart.name}
-                  onClick={() => handleBodyPartClick(bodyPart.name)}
-                >
-                  {bodyPart.name}
-                </button>
-              ))}
-            </div>
-            {selectedBodyPart && (
-              <form className="" onSubmit={(event) => handleSubmit(event)}>
-                <label className="">
-                  Measurement for {selectedBodyPart}:
-                  <input
-                    className=""
-                    type="number"
-                    value={measurement || ""}
-                    onChange={(event) => handleMeasurementChange(event)}
-                  />
-                </label>
-
-                <button className="bg-gray-800 border-white" type="submit">
-                  Save Measurement
-                </button>
-                <div>
-                  <button className="bg-gray-800 border-white" type="submit">
-                    Submit Form
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
-        </div>
+</div>
+      <div className="flex flex-col pl-[4.8vw]">
+      <h1 className="font-bold text-left">Body Measurements</h1>
+      <div className="mt-2 flex   flex-wrap ">
+        {bodyParts.map((bodyPart) => (
+          <button
+            className="h-[5vh] justify-evenly border-2 ml-2  px-2 rounded-lg bg-gray-800 border-white"
+            key={bodyPart.name}
+            onClick={() => handleBodyPartClick(bodyPart.name)}
+          >
+            {bodyPart.name}
+          </button>
+        ))}
       </div>
-      <div className="bg-[#6f6f70]/60 -z-10">
-        <Image
-          className="h-[80vh] p-6"
-          src={
-            bodyParts.find((b) => b.name === selectedBodyPart.toString())
-              ?.img || ""
-          }
-          alt={selectedBodyPart}
-        />
+      {selectedBodyPart && (
+        <form
+          className="flex flex-col"
+          onSubmit={(event) => handleSubmit(event)}
+        >
+          <div>
+          <label className=" h-[5vh]">
+            Measurement for {selectedBodyPart}:
+            <input
+              className="ml-1 h-[3vh] w-[5ch]"
+              type="number"
+              value={measurement || ""}
+              onChange={(event) => handleMeasurementChange(event)}
+            />
+          </label>
+         
+          <button
+            className="self-start text-xs justify-start border-2 ml-2 p-1 rounded-lg bg-gray-800 border-white w-fit "
+            type="submit"
+          >
+            Save Measurement
+          </button>
+          </div>
+          <div>
+            <div className="flex flex-row items-center h-[15vh] justify-center">
+           <button
+            className=" border-2 -ml-[8vw] p-1 rounded-lg bg-gray-800 border-white w-fit "
+            type="submit"
+          >
+            Submit Form
+          </button>
+          </div>
+          </div>
+        </form>
+      )}
+      </div>
+    </div>
+    </div>
+      <div className="flex flex-row pt-[8vh] justify-center">
+      <Image
+        className=" ml-4 self-center  md:h-[80vh] w-[auto] max-sm:h-[40vh]"
+        src={
+          bodyParts.find((b) => b.name === selectedBodyPart.toString())
+            ?.img || ""
+        }
+        alt={selectedBodyPart}
+      />
       </div>
     </div>
   );
 }
+
