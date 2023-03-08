@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 import axios from "axios";
 import CreatePlansTrainee from "@/components/CreatePlansTrainee";
+import WithPrivateRouter from '@/components/WithPrivateRoute';
 
 type PlansDash = {
   startDate: string;
@@ -14,12 +15,11 @@ type PlansDash = {
   };
 };
 
-export default function Dashboard() {
+function Dashboard() {
   const key = getCookie("token");
 
   const [plans, setPlans] = useState<PlansDash>();
-import Dashboard from '@/components/DashboardTrainer'
-import WithPrivateRouter from '@/components/WithPrivateRoute';
+
 
   useEffect(() => {
     axios
@@ -84,4 +84,4 @@ import WithPrivateRouter from '@/components/WithPrivateRoute';
     </>
   );
 }
-export default WithPrivateRouter(index)
+export default WithPrivateRouter(Dashboard)
