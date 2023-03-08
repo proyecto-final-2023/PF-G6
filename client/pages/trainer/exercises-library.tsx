@@ -36,10 +36,6 @@ export default function ExercisesLibrary() {
   const key = getCookie("token")
   const [error, setError] = useState<string>("")
   
-
-  interface LocalError {
-    error: string
-  }
   type Option = {
     value: string;
     label: string;
@@ -155,13 +151,12 @@ export default function ExercisesLibrary() {
             
         } 
 
-    catch (error) {
-      setError(error.response.data.error.toString())
+    catch (error: any) {
+    setError(error.response.data.error)
       console.log(error)
     } 
     
   }
-
 
   const formatDate = (date: Date): string => {
     const day = date.getDate().toString().padStart(2, "0");
