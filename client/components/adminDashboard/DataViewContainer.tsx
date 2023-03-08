@@ -45,9 +45,9 @@ interface Data {
     moneyMes: number;
   };
   user: {
-    countUser: number;
-    countTrainer: number;
-    countTrainee: number;
+    cantUser: number;
+    cantTrainer: number;
+    cantTrainee: number;
   };
   membership: MembershipCounts;
   bestPlans: BestPlans;
@@ -83,12 +83,12 @@ function DataViewContainer() {
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white">
         <HiUserGroup />
-        <DataView title={"Active Trainers"} />
+        <DataView title={"Active Trainers"} money={dataset?.user?.cantTrainer ?? 0} />
       </div>
 
       <div className="bg-slate-400 text-7xl mt-20 w-1/5 flex flex-col justify-center items-center rounded border-2 border-white">
         <FaUserAlt />
-        <DataView title={"Active Trainee"} />
+        <DataView title={"Active Trainee"} money={dataset?.user?.cantTrainee ?? 0} />
       </div>
     </div>
   );
