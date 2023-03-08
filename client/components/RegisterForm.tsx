@@ -45,6 +45,7 @@ export default function RegisterForm() {
       })
       .catch((err)=>{
         console.log(err)
+        alert(" Error:The email may already be registered.")
       })
    
 

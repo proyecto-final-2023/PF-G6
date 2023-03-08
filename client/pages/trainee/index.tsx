@@ -20,7 +20,7 @@ import { id } from "date-fns/locale";
 import { ExerciesResType } from "@/types/components/libraries";
 import { CardData } from "@/components/Food";
 
-export default function Index() {
+function Index() {
   const [user, setUser] = useAuthState(auth);
   const photo = user?.photoURL;
   const name = user?.displayName;
@@ -390,3 +390,5 @@ const groupByDateExer = async (data : any) => {
     </div>
   );
 }
+
+export default WithPrivateRouter(Index)

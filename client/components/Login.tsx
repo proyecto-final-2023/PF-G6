@@ -83,6 +83,7 @@ export const Login = () => {
               .then(response => {
                 setCookie("token", response.data.token)
                 // console.log(response)
+                alert('Login success')
                 window.location.href = "/home"
 
               })
@@ -94,6 +95,7 @@ export const Login = () => {
               .then(response => {
                 auth.signOut();
                 // console.log(response)
+                alert('Create account success!Please confirm your Email and login')
                 window.location.reload()
               })
               .catch(error => {

@@ -3,8 +3,10 @@ import homeSlides from "@/assets/home-slides";
 import logoImg from "@/assets/images/placeholder-logo.png";
 import SwiperCarousel from "@/components/Carousel/SwiperCarousel";
 import Link from "next/link";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
-export default function Home() {
+ function Home() {
+
   return (
     <>
       <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed  backdrop-blur-sm">
@@ -57,3 +59,5 @@ export default function Home() {
     </>
   );
 }
+
+export default WithPrivateRouter(Home)
