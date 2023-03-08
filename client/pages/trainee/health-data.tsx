@@ -28,7 +28,7 @@ type BodyMeasurementsAction = {
   measurement: number;
 };
 
-export type AdditionalInfo = {
+ type AdditionalInfo = {
   weight: number;
   height: number;
   allergies: string[];
@@ -74,7 +74,7 @@ function bodyMeasurementsReducer(
   }
 }
 
-export const BodyMeasurements = () => {
+ const BodyMeasurements = () => {
   const [selectedBodyPart, setSelectedBodyPart] = useState<any>("");
   const [measurement, setMeasurement] = useState<number | null>(null);
   const [bodyMeasurements, dispatch] = useReducer(
@@ -288,3 +288,5 @@ export const BodyMeasurements = () => {
     </div>
   );
 }
+
+export default BodyMeasurements
