@@ -19,7 +19,7 @@ type MembershipT = {
   };
 };
 
-export default function Trainee() {
+export default function DynamicTrainee() {
   const router = useRouter();
   const { id } = router.query;
   const [user, setUser] = useState<MembershipT[]>([]);
