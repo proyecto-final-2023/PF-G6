@@ -122,7 +122,7 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
       const selectedUser = user.find((u) => u.name === selectedUsers);
       const dataToSend = {
         idTrainee: selectedUser?.id,
-        datePlan: selectedDate?.getTime(), // convertir la fecha en un nÃºmero para enviarla
+         datePlan: formatDate(selectedDate? selectedDate : new Date()), // convertir la fecha en un nÃºmero para enviarla
         activities: selectedExercises.map((ex) => ({
           idActivity: ex.id,
           series: parseInt(

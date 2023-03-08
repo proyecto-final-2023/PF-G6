@@ -43,10 +43,8 @@ function Index() {
   const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
   const [rndFoods, setrndFoodsData] = useState<CardData[]>([]);
 
-  console.log(
-    modalIsOpen
-  );
-  console.log(rndFoods);
+  //console.log(modalIsOpen);
+  //console.log(rndFoods);
   
   
   interface selectedExers {
@@ -70,7 +68,7 @@ function Index() {
       comment: feedback
     };
 
-    console.log(comment);
+    //console.log(comment);
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/comment`, comment, {
         headers: { "x-access-token": key }
@@ -91,6 +89,7 @@ function Index() {
         headers: { "x-access-token": key }
       })
       .then((res) => {
+      console.log("perfil de user:",res.data);
         setUser1({
           display_name: ` ${res.data.first_name}  ${res.data.last_name}`,
           userImage: res.data.imgURL,
@@ -298,6 +297,7 @@ const groupByDateExer = async (data : any) => {
       setModalIsOpen(true)
     }
   } 
+  console.log("esto es idExercises:",idExercise)
   
   return (
     <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
