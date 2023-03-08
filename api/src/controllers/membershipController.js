@@ -61,7 +61,6 @@ const checkMembership = async (action) => {
         ],
         attributes: ["userId", "id_membership", "startDate", "finishDate"],
       });
-
       const plansTrainerx =
         membershipx.trainer && membershipx.trainer.planTrainees
           ? membershipx.trainer.planTrainees
