@@ -225,8 +225,12 @@ const createPlan = async (id, idTrainee, datePlan, activities, aliments) => {
     throw Error("Desbes ingresar la fecha a realizar la actividad");
 
   const finalDate = new Date(datePlan);
-  const fecha = new Date().toISOString().substring(0, 10);
-  const now = new Date(fecha);
+
+  const fecha = new Date();
+  fecha.setDate(fecha.getDate() - 1);
+  const fechaAyer = fecha.toISOString().substring(0, 10);
+
+  const now = new Date(fechaAyer);
   console.log(finalDate, now, finalDate < now);
 
   aliments.map((aliment, index) => {

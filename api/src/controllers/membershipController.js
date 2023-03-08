@@ -90,7 +90,6 @@ const checkMembership = async (action) => {
               `Error eliminando membership ${membership.id_membership}: ${error}`
             );
           }
-
         }
       }
       if (action === "view") {
