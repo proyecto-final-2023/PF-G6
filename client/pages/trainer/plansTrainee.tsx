@@ -24,7 +24,7 @@ export default function createPlans() {
         headers: { "x-access-token": key },
       })
       .then((data) => {
-        console.log(data);
+        
       })
       .catch((error) => {
         window.alert("Error in" + error);

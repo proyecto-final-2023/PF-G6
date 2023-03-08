@@ -109,6 +109,9 @@ const listTraineesbyPlan = async (idPlanTrainee, page, limit) => {
             {
               model: User,
               attributes: ["first_name", "last_name", "imgURL"],
+              include:[
+                Trainee
+              ]
             },
           ],
         },

@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 import { IoCloudUpload } from "react-icons/io5";
 
-export default function logo() {
-  const [imgUrl, setimgUrl] = useState("");
-  const [image, setImage] = useState<File>();
+export default function Logo() {
+  const [imgUrl, setImgUrl] = useState<string>("");
+  const [image, setImage] = useState<File | undefined>();
   const key = getCookie("token");
 
-  const uploadImage = () => {
+  const uploadImage = (): void => {
     if (!image) return;
     const cloudName = process.env.NEXT_PUBLIC_CLOUDY_NAME || "";
 
@@ -19,10 +19,13 @@ export default function logo() {
     try {
       // subimos la imagen a cloudy
       axios
-        .post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, data)
+        .post<{ secure_url: string }>(
+          `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,
+          data
+        )
         .then((res) => {
           alert("successfully");
-          setimgUrl(res.data.secure_url);
+          setImgUrl(res.data.secure_url);
           console.log(res.data.secure_url);
           // subimos la url a la base de datos
           axios
@@ -30,11 +33,11 @@ export default function logo() {
               `${process.env.NEXT_PUBLIC_API_URL}/trainers/logo`,
               { logo: res.data.secure_url },
               {
-                headers: { "x-access-token": key }
+                headers: { "x-access-token": key },
               }
             )
             .then((res) => {
-              alert("listo");
+              alert("  successfully");
             });
         });
     } catch (error) {
@@ -42,7 +45,7 @@ export default function logo() {
     }
   };
 
-  const updateImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const updateImage = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const file = event.target.files?.[0];
     if (file) {
       setImage(file);
@@ -53,7 +56,7 @@ export default function logo() {
     <div className="flex flex-col  items-center justify-center bg-[url('/tail-imgs/logo2.png')] bg-no-repeat bg-cover  bg-bottom min-h-screen">
       <label className="flex flex-col items-center justify-center w-80 h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
         <div className="flex flex-col items-center justify-center pt-5 pb-6">
-          <img src={imgUrl} alt="" />
+          <img src={imgUrl} alt="" width={60} height={60}/>
           <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">FIT-U</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">
             PDF, PNG, JPG or GIF (MAX. 1080x72/0px)

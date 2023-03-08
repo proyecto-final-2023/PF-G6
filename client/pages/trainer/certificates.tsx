@@ -1,12 +1,19 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 import { getCookie } from "@/utils/cookieHandler";
 import { IoCloudUpload } from "react-icons/io5";
 
+interface Certificate {
+  name: string;
+  type: string;
+  description: string;
+  url: string;
+}
+
 export default function Certificates() {
-  const [imgUrl, setimgUrl] = useState("");
+  const [imgUrl, setImgUrl] = useState<string>("");
   const [image, setImage] = useState<File>();
-  const [certi, setCerti] = useState({
+  const [certi, setCerti] = useState<Certificate>({
     name: "",
     type: "",
     description: "",
@@ -23,12 +30,12 @@ export default function Certificates() {
     data.append("upload_preset", "basic-img-preset");
     data.append("cloud_name", cloudName);
     try {
-      // subimos la imagen a cloudy
+      // subimos la imagen a Cloudinary
       axios
         .post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, data)
         .then((res) => {
           alert("successfully");
-          setimgUrl(res.data.secure_url);
+          setImgUrl(res.data.secure_url);
           setCerti({
             name: "",
             type: "",
@@ -41,20 +48,21 @@ export default function Certificates() {
     }
   };
 
-  const updateImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const updateImage = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       setImage(file);
     }
   };
-  const handleChange = (e) => {
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setCerti({ ...certi, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      // subimos la imagen  a la base de datos
+      // subimos la imagen a la base de datos
       if (certi.url) {
         axios
           .post(
@@ -65,7 +73,7 @@ export default function Certificates() {
             }
           )
           .then((res) => {
-            alert("listo");
+            alert(" successfully");
             console.log(res.data);
           });
       } else {
@@ -75,19 +83,17 @@ export default function Certificates() {
       console.error(err);
     }
   };
-
   return (
     <div className="flex flex-col  items-center justify-center bg-[url('/tail-imgs/logo2.png')] bg-no-repeat bg-cover  bg-bottom min-h-screen ">
       <label className="flex flex-col  m-auto h-64 border-2 border-gray-300 border-dashed rounded-lg  bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-800 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
         <div className="flex flex-col items-center  justify-center pt-5 pb-6">
-          <img src={imgUrl} alt="" />
+          <img src={imgUrl}  alt="" width={80} height={80}/>
           <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">FIT-U</p>
           <p className="text-xs text-gray-500 dark:text-gray-400">
             PDF, PNG, JPG or GIF (MAX. 1080x72/0px)
           </p>
         </div>
         <button onClick={uploadImage}>
-          {" "}
           <IoCloudUpload /> <br />
           Upload
         </button>
