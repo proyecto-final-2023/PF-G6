@@ -22,10 +22,9 @@ traineeRouter.put("/rating", async (req, res) => {
 });
 
 traineeRouter.get("/rating", async (req, res) => {
-  const { value } = req.body;
   const id = await idExtract(req.headers["x-access-token"]);
   try {
-    res.status(200).send(await getRating(id, value));
+    res.status(200).send(await getRating(id));
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

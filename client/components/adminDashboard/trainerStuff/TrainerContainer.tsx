@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
+import useStore from "@/store/dashStore";
 import TrainerCard from "./TrainerCard";
 import TrainerDetails from "./TrainerDetails";
-import useStore from "@/store/dashStore";
 
 export default function TrainerContainer() {
   const trainers = useStore((state) => state.trainerBasicsArr);
@@ -35,11 +35,7 @@ export default function TrainerContainer() {
           })}
       </div>
 
-      <div className="d7">
-        {trainerDetails.user_id && (
-          <TrainerDetails user_id={trainerDetails.user_id} />
-        )}
-      </div>
+      <div className="d7">{trainerDetails.user_id && <TrainerDetails />}</div>
     </div>
   );
 }
