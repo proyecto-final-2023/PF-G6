@@ -11,7 +11,12 @@ const {
   listEmail,
   addData,
   statusAlter,
+
+  ratingTotal,
+  listComment,
+
 } = require("../controllers/userController");
+
 const { token } = require("morgan");
 
 const userRoutes = Router();
@@ -77,7 +82,7 @@ userRoutes.post("/perfil", async (req, res) => {
     const user = await getPerfil(id);
     res.status(200).json(user);
   } catch (error) {
-    res.status(400).json( {error:error.message});
+    res.status(400).json({ error: error.message });
   }
 });
 
@@ -103,7 +108,9 @@ userRoutes.put("/data", async (req, res) => {
   }
 });
 
-userRoutes.get("/satusplans/:id", async (req, res) => {
+
+userRoutes.get("/status/:id", async (req, res) => {
+
   try {
     const { id } = req.params;
     const user = await statusAlter(id);
@@ -112,5 +119,27 @@ userRoutes.get("/satusplans/:id", async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 });
+
+
+userRoutes.get("/comment/:id", async (req, res) => {
+  const { page } = req.query;
+  const { id } = req.params;
+  console.log(page, id);
+  try {
+    res.status(200).send(await listComment(id, page, 5));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
+userRoutes.get("/rating/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    res.status(200).send(await ratingTotal(id));
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+});
+
 
 module.exports = userRoutes;

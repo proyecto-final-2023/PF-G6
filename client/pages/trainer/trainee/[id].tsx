@@ -32,7 +32,7 @@ export default function trainee() {
       idPlanTrainee: id,
     })
     .then((data) => {
-      console.log(data);
+      console.log(data.data);
       setData(data?.data.memberships.map((e:any) => e.user));
     })
     .catch((error) => console.log(error));

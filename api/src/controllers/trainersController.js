@@ -52,7 +52,10 @@ const listTrainees2 = async (id) => {
   return traineesUser;
 };
 
-const listComment = async (id) => {
+
+const listComment = async (id, page, pageSize) => {
+  console.log(id);
+
   const user = await User.findByPk(id, {
     attributes: ["first_name", "last_name", "imgURL"],
     include: [
@@ -86,6 +89,8 @@ const listComment = async (id) => {
         ],
       },
     ],
+    offset: (page - 1) * pageSize,
+    limit: pageSize,
   });
 
   return comments;
@@ -137,7 +142,7 @@ const addLogo = async (id, logo) => {
   await trainer.update({ logo });
 
   // Devolvemos un mensaje de confirmación
-  return `Se actualizó el logo del entrenador  ${user.first_name}, ${user.last_name}`;
+  return `Se actualizó el logo del entrenador  ${user.first_name} ${user.last_name}`;
 };
 
 const addSocial = async (id, name, url) => {
