@@ -391,7 +391,7 @@ const groupByDateExer = async (data : any) => {
               <Modal ariaHideApp={false} isOpen={modalIsOpen} className='flex flex-col justify-center text-center h-[80vh]'>
               <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 mx-auto px-9">
             {rndExercises.length > 1
-              ? rndExercises.slice(0, 30).map((ex) => {
+              ? rndExercises.slice(0, 30).map((ex, index) => {
                   return (
                     <li className="w-auto rounded-lg p-4 m-5 bg-black">
                       <Image
@@ -402,11 +402,12 @@ const groupByDateExer = async (data : any) => {
                         height={300}
                       />
                       <p>Name: {ex.name}</p>
-                      <p></p>
+                      <p> {ex.id == getIdRoutines[index].idActivities ?  `Series: ${getIdRoutines[index].series}` : ''}</p>
+                      <p>{ex.id == getIdRoutines[index].idActivities ? `Reps: ${getIdRoutines[index].repetitions}` : ''} </p>
                     </li>
                   );
                 })
-              : rndFoods?.map((item) => {
+              : rndFoods?.map((item, index) => {
                   return (
                     <li
                       key={item.id}
@@ -445,9 +446,17 @@ const groupByDateExer = async (data : any) => {
                           <p>
                             Energy: {item.energyAmount} {item.energyUnit}
                           </p>
+                          
                         </div>
+                      
+                      
                       </div>
-                     
+                      <div className=" w-[50%]">
+                          <p>{item.id == getIdRoutines[index].id ? `Portion: ${getIdRoutines[index].portion}` : ''}</p>
+                        </div>
+                        <div  className=" w-[50%]">
+                          <p> {item.id == getIdRoutines[index].id ? `Time: ${getIdRoutines[index].time}` : ''} </p>
+                        </div>
                     </li>
                   );
                 })}
