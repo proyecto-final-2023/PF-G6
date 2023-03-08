@@ -74,7 +74,7 @@ function bodyMeasurementsReducer(
 }
 
 const BodyMeasurements = () => {
-  const [selectedBodyPart, setSelectedBodyPart] = useState<string>("");
+  const [selectedBodyPart, setSelectedBodyPart] = useState<any>("");
   const [measurement, setMeasurement] = useState<number | null>(null);
   const [bodyMeasurements, dispatch] = useReducer(
     bodyMeasurementsReducer,
@@ -96,7 +96,6 @@ const BodyMeasurements = () => {
   const handleBodyPartClick = (bodyPart: string) => {
     setSelectedBodyPart(bodyPart);
   };
-
   const handleMeasurementChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -133,92 +132,103 @@ const BodyMeasurements = () => {
   ];
   return (
     <div className="grid grid-cols-2 bg-[url('/bgs/contact.jpg')]">
-    <div className="h-[100vh] mt-20 text-white leading-10 border-blue-200 border-2">
-      <div className="py-10  mt-10 w-[48vw] -z-10 h-[95vh] border-white border-1 bg-slate-800 opacity-80 ">
-      <h1 className="text-center z-30">Health Data Form</h1>
-      <div className="flex flex-col px-20">
-       <label>
+    <div className="h-[100vh] pt-20 max-sm:pt-0 text-white leading-10">
+      <div className="py-10 ml-5 max-sm:py-0  max-sm:w-[55vw] mt-10 w-[48vw] -z-10 h-[80-vh] bg-slate-800 opacity-80 ">
+      <h1 className="text-center z-30 font-bold">Health Data Form</h1>
+      <div className="flex flex-col px-[5vw]">
+        <div className="flex flex-row">
+<label className="flex flex-row items-center">
   Weight:
   <input type="number" 
-  className="h-[3vh]"
+  className="ml-2 h-[3vh] w-[4ch]"
   value={additionalInfo.weight} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, weight: Number(e.target.value)})} />
 </label>
 
-<label>
+<label className="ml-2 flex flex-row items-center">
   Height:
   <input type="number" 
-  className="h-[3vh]"
+  className="ml-2 h-[3vh] w-[4ch]"
   value={additionalInfo.height} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, height: Number(e.target.value)})} />
 </label>
-
-<label>
+</div>
+<div className="flex flex-col">
+<label className="flex flex-row items-center">
   Allergies:
   <input type="text" 
-  className="h-[3vh]"
+  className="ml-2 h-[3vh] w-[20vw]"
   value={additionalInfo.allergies.join(", ")} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, allergies: e.target.value.split(", ")})} />
 </label>
 
-<label>
+<label className="flex flex-row items-center">
+  Injuries:
+  <input type="text" 
+  className="ml-2 h-[3vh] w-[20vw]"
+  value={additionalInfo.injuries.join(", ")} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value.split(", ")})} />
+</label>
+
+<label className="flex flex-row items-center">
   Surgeries:
   <input type="text" 
-  className="h-[3vh]"
+  className="ml-2 h-[3vh] w-[20vw]"
   value={additionalInfo.surgeries.join(", ")} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, surgeries: e.target.value.split(", ")})} />
 </label>
-
-<label>
+</div>
+<div className="flex flex-row max-sm:flex-col">
+<h1 className="font-bold">Consumption: </h1>
+<label className="ml-1 flex flex-row w-[8vw]">
   Smoking:
   <input type="checkbox" 
+  className="ml-1 w-[2ch]"
   checked={additionalInfo.smoking} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, smoking: e.target.checked})} />
 </label>
 
-<label>
-  Alcohol Consumption:
+<label className="ml-1 flex flex-row w-[8vw]">
+  Alcohol:
   <input type="checkbox" 
+   className="ml-1 w-[2ch]"
   checked={additionalInfo.alcoholConsumption} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, alcoholConsumption: e.target.checked})} />
 </label>
 
-<label>
-  Drug Consumption:
+<label className="ml-1 flex flex-row w-[8vw]">
+  Drugs:
   <input type="checkbox" 
+   className="ml-1 w-[2ch]"
   checked={additionalInfo.drugConsumption} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, drugConsumption: e.target.checked})} />
 </label>
 
-<label>
-  Steroid Consumption:
+<label className="ml-1 flex flex-row w-[8vw]">
+  Steroids:
   <input type="checkbox" 
+  className="ml-1 w-[2ch]"
   checked={additionalInfo.steroidConsumption} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, steroidConsumption: e.target.checked})} />
 </label>
+</div>
 
-<label>
-  Water Consumption (in litres):
+<label className="flex flex-row items-center">
+  Water (in liters):
   <input type="number" 
-  className="h-[3vh]"
+  className="ml-1 h-[3vh] w-[4ch]"
   value={additionalInfo.waterConsumption} 
   onChange={(e) => setAdditionalInfo({...additionalInfo, waterConsumption: Number(e.target.value)})} />
 </label>
 
-<label>
-  Injuries:
-  <input type="text" 
-  className="h-[3vh]"
-  value={additionalInfo.injuries.join(", ")} 
-  onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value.split(", ")})} />
-</label>
+
 </div>
-      <div className="flex flex-col px-20">
-      <h1 className="text-left">Body Measurements</h1>
-      <div className="mt-2 flex   flex-wrap justify-start">
+      <div className="flex flex-col pl-[4.8vw]">
+      <h1 className="font-bold text-left">Body Measurements</h1>
+      <div className="mt-2 flex   flex-wrap ">
         {bodyParts.map((bodyPart) => (
           <button
-            className="h-[5vh] border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white"
+            className="h-[5vh] justify-evenly border-2 ml-2  px-2 rounded-lg bg-gray-800 border-white"
             key={bodyPart.name}
             onClick={() => handleBodyPartClick(bodyPart.name)}
           >
@@ -231,10 +241,11 @@ const BodyMeasurements = () => {
           className="flex flex-col"
           onSubmit={(event) => handleSubmit(event)}
         >
+          <div>
           <label className=" h-[5vh]">
             Measurement for {selectedBodyPart}:
             <input
-              className=" h-[3vh]"
+              className="ml-1 h-[3vh] w-[5ch]"
               type="number"
               value={measurement || ""}
               onChange={(event) => handleMeasurementChange(event)}
@@ -242,27 +253,30 @@ const BodyMeasurements = () => {
           </label>
          
           <button
-            className="self-start justify-start border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
+            className="self-start text-xs justify-start border-2 ml-2 p-1 rounded-lg bg-gray-800 border-white w-fit "
             type="submit"
           >
             Save Measurement
           </button>
+          </div>
           <div>
+            <div className="flex flex-row items-center h-[15vh] justify-center">
            <button
-            className="self-start justify-start border-2 ml-2 p-2 rounded-lg bg-gray-800 border-white w-fit "
+            className=" border-2 -ml-[8vw] p-1 rounded-lg bg-gray-800 border-white w-fit "
             type="submit"
           >
             Submit Form
           </button>
+          </div>
           </div>
         </form>
       )}
       </div>
     </div>
     </div>
-      <div className="flex flex-row justify-center">
+      <div className="flex flex-row pt-[8vh] justify-center">
       <Image
-        className=" self-center  w-auto h-[80vh]"
+        className=" ml-4 self-center  md:h-[80vh] w-[auto] max-sm:h-[40vh]"
         src={
           bodyParts.find((b) => b.name === selectedBodyPart.toString())
             ?.img || ""
