@@ -13,7 +13,7 @@ const {
 } = require("../db");
 const moment = require("moment");
 
-
+const checkMembership = async (action) => {
   try {
     let member = [];
     const memberships = await Membership.findAll({
