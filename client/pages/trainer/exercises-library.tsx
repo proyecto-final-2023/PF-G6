@@ -122,7 +122,9 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
       const selectedUser = user.find((u) => u.name === selectedUsers);
       const dataToSend = {
         idTrainee: selectedUser?.id,
-         datePlan: formatDate(selectedDate? selectedDate : new Date()), // convertir la fecha en un nÃºmero para enviarla
+
+        datePlan: formatDate(selectedDate ? selectedDate : new Date()), // convertir la fecha en un nÃºmero para enviarla
+
         activities: selectedExercises.map((ex) => ({
           idActivity: ex.id,
           series: parseInt(
@@ -167,7 +169,7 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
     const day = date.getDate().toString().padStart(2, "0");
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const year = date.getFullYear().toString();
-    return `${day}/${month}/${year}`;
+    return `${year}-${month}-${day}`;
   };
   const handleAddExercise = (ex: AddedExercise) => {
     setSelectedExercises([...selectedExercises, ex]);
