@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 import NavigationBtns from "../trainterLibraries/NavigationBtns";
 
 interface tData {
@@ -18,13 +18,8 @@ const EditableTable = () => {
   const [tableData, setTableData] = useState<tData[]>([]);
   const [page, setPage] = useState(1);
 
-  const nextPage = () => {
-    setPage((prev) => prev + 1);
-  };
-
-  const prevPage = () => {
-    setPage((prev) => prev - 1);
-  };
+  const nextPage = () => setPage((prev) => prev + 1);
+  const prevPage = () => setPage((prev) => prev - 1);
 
   useEffect(() => {
     axios
@@ -54,17 +49,15 @@ const EditableTable = () => {
 
   return (
     <>
-      <div className="my-10">
+      <div className="my-7">
         <NavigationBtns
           currentPage={page}
           {...{ nextPage }}
           {...{ prevPage }}
         />
       </div>
-      <table className="hidden md:block">
-        <div className="block md:hidden">
-          <h1>Cannot use admin panel in {`<=`} 768px sreen, upgrade</h1>
-        </div>
+
+      <table>
         <thead>
           <tr>
             <th>Status</th>
@@ -81,69 +74,101 @@ const EditableTable = () => {
             <tr key={row.id}>
               <td>
                 <input
+                  className={className}
                   name="first_name"
                   type="text"
                   value={row.first_name}
-                  className={className}
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].first_name = e.target.value;
+                    setTableData(updatedData);
+                  }}
                 />
               </td>
               <td>
                 <input
+                  className={className}
                   name="last_name"
                   type="text"
                   value={row.last_name}
-                  className={className}
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].last_name = e.target.value;
+                    setTableData(updatedData);
+                  }}
                 />
               </td>
               <td>
                 <input
+                  className={className}
                   name="nickname"
                   type="text"
                   value={row.nickname}
-                  className={className}
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].nickname = e.target.value;
+                    setTableData(updatedData);
+                  }}
                 />
               </td>
               <td>
                 <input
+                  className={className}
                   name="role"
                   type="text"
                   value={row.role}
-                  className={className}
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].role = e.target.value;
+                    setTableData(updatedData);
+                  }}
                 />
               </td>
               <td>
                 <input
+                  className={className}
                   name="imgURL"
                   type="text"
                   value={row.imgURL}
-                  className={className}
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].first_name = e.target.value;
+                    setTableData(updatedData);
+                  }}
                 />
               </td>
               <td>
                 <input
+                  className={className}
                   name="membership"
                   type="text"
                   value={row.membership}
-                  className={className}
+                  onChange={(e) => {
+                    const updatedData = [...tableData];
+                    updatedData[rowIndex].membership = e.target.value;
+                    setTableData(updatedData);
+                  }}
                 />
               </td>
-              <button
-                className=""
-                value="update"
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  handleClick(e, rowIndex);
-                }}
-              >
-                <AiOutlineEdit size={25} fill="green" />
-              </button>
-              <button
-                value="delete"
-                onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
-                  handleClick(e, rowIndex);
-                }}
-              >
-                <AiOutlineDelete size={25} fill="red" />
-              </button>
+
+              <div className="flex gap-3 justify-around">
+                <button
+                  value="update"
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    handleClick(e, rowIndex);
+                  }}
+                >
+                  <AiOutlineEdit size={25} fill="green" />
+                </button>
+                <button
+                  value="delete"
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    handleClick(e, rowIndex);
+                  }}
+                >
+                  <AiOutlineDelete size={25} fill="red" />
+                </button>
+              </div>
             </tr>
           ))}
         </tbody>
