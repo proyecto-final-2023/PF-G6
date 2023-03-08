@@ -15,8 +15,12 @@ import { SyntheticEvent } from "react";
 import { FiEdit } from "react-icons/fi";
 import moment from 'moment'
 import { loginHandler } from "@auth0/nextjs-auth0/dist/auth0-session";
+import WithPrivateRouter from "@/components/WithPrivateRoute";
 
-export default function Index() {
+
+
+
+function Index() {
   const [user, setUser] = useAuthState(auth);
   const photo = user?.photoURL;
   const name = user?.displayName;
@@ -325,3 +329,5 @@ const groupByDateExer = async (data : any) => {
     </div>
   );
 }
+
+export default WithPrivateRouter(Index)
