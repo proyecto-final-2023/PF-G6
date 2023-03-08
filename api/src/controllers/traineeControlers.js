@@ -104,7 +104,9 @@ const getRating = async (id) => {
     },
   });
 
+
   return { value: ratings.value, rating };
+
 };
 
 const addComment = async (id, comment) => {
