@@ -5,23 +5,95 @@ import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
 import axios from "axios";
 import CreatePlansTrainee from "@/components/CreatePlansTrainee";
-import WithPrivateRouter from '@/components/WithPrivateRoute';
+import WithPrivateRouter from "@/components/WithPrivateRoute";
+import { pl } from "date-fns/locale";
 
-interface Plan {
+// {plans?.plantrainer?.name}
+// {plans?.plantrainer?.category}
+// {plans?.plantrainer?.cantTrainees}
+
+// {plans?.startDate}
+// {plans.finishDate}
+// src={plans?.trainer?.logo}
+
+type PlanTrainer = {
   name: string;
   category: string;
   cantTrainees: number;
-  startDate: Date;
-  finishDate: Date;
+  startDate: string;
+  finishDate: string;
   trainer: {
     logo: string;
   };
+  plantrainer: {
+    name: string;
+    category: string;
+    cantTrainees: number;
+  };
+};
+
+function PlanHelp(props: { plan: PlanTrainer }) {
+  const { plan } = props;
+
+  return (
+    <div className="grid grid-cols-3 gap-4 mb-4">
+      <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+        <p className="text-2xl text-gray-400 dark:text-gray-500">
+          {plan.plantrainer.name}
+        </p>
+      </div>
+      <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+        <p className="text-2xl text-white dark:text-gray-500">
+          {plan.plantrainer.category}
+        </p>
+      </div>
+      <div className="flex items-center justify-center h-24 rounded bg-gray-50  dark:bg-gray-800">
+        <p className="text-2xl text-white dark:text-gray-500">
+          CantTrainees:{plan.plantrainer.cantTrainees}
+        </p>
+      </div>
+      <div className="flex items-center justify-center h-24 rounded bg-gray-50  dark:bg-gray-800">
+        <p className="text-2xl text-white dark:text-gray-500">
+          {plan.startDate}
+        </p>
+      </div>
+      <div className="flex items-center justify-center h-24 rounded bg-gray-50  dark:bg-gray-800">
+        <p className="text-2xl text-white dark:text-gray-500">
+          {plan.finishDate}
+        </p>
+      </div>
+      <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
+        <img
+          src={plan.trainer.logo}
+          className="rounded-full"
+          width={90}
+          height={90}
+        />
+      </div>
+    </div>
+  );
 }
 
- function Dashboard(): JSX.Element {
+function Dashboard(): JSX.Element {
   const key = getCookie("token");
 
-  const [plans, setPlans] = useState<Plan[]>([]);
+  const [plans, setPlans] = useState<PlanTrainer[]>([
+    {
+      name: "",
+      category: "",
+      cantTrainees: 0,
+      startDate: "",
+      finishDate: "",
+      trainer: {
+        logo: ""
+      },
+      plantrainer: {
+        name: "",
+        category: "",
+        cantTrainees: 0
+      }
+    }
+  ]);
 
   useEffect(() => {
     axios
@@ -44,41 +116,10 @@ interface Plan {
 
       <div className=" flex flex-col  bg-[url('/bgs/contact.jpg')]  bg-no-repeat bg-cover pt-20 h-screen m-auto sm:ml-64">
         <div className="p-4  ">
-          <div className="grid grid-cols-3 gap-4 mb-4">
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-              <p className="text-2xl text-gray-400 dark:text-gray-500">
-                {plans?.plantrainer?.name}
-              </p>
-            </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-              <p className="text-2xl text-white dark:text-gray-500">
-                {plans?.plantrainer?.category}
-              </p>
-            </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50  dark:bg-gray-800">
-              <p className="text-2xl text-white dark:text-gray-500">
-                CantTrainees:{plans?.plantrainer?.cantTrainees}
-              </p>
-            </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50  dark:bg-gray-800">
-              <p className="text-2xl text-white dark:text-gray-500">
-                {plans?.startDate}
-              </p>
-            </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50  dark:bg-gray-800">
-              <p className="text-2xl text-white dark:text-gray-500">
-                {plans.finishDate}
-              </p>
-            </div>
-            <div className="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-              <img
-                src={plans?.trainer?.logo}
-                className="rounded-full"
-                width={90}
-                height={90}
-              />
-            </div>
-          </div>
+          {plans.map((plan) => (
+            <PlanHelp plan={plan} key={plan.name} />
+          ))}
+
           <div className="flex items-center justify-center  h-60 mb-4 rounded bg-gray-50 dark:bg-gray-800">
             <div>
               <TablePlans />
@@ -101,4 +142,5 @@ interface Plan {
     </>
   );
 }
-export default WithPrivateRouter(Dashboard)
+
+export default WithPrivateRouter(Dashboard);

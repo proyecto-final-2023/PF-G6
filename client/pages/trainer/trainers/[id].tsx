@@ -12,17 +12,15 @@ type PlansType = {
   first_name: string;
   last_name: string;
   imgURL: string;
-
-  
 };
 type UserType = {
   first_name: string;
   last_name: string;
   role: string;
   membership: {
-  trainer: { logo: string;
-     planTrainees: PlansType[]; };};
+    trainer: { logo: string; planTrainees: PlansType[] };
   };
+};
 
 interface tUser {
   id: string;
@@ -34,11 +32,11 @@ interface tUser {
   gender: string;
   phone: string;
   imgURL: string;
-  membership:{
-    trainer:{
-      logo:string;
-    }
-  }
+  membership: {
+    trainer: {
+      logo: string;
+    };
+  };
 }
 
 interface tPlan {
@@ -49,73 +47,62 @@ interface tPlan {
   category: string;
 }
 
+type RatingRes = {
+  rating: 4.25;
+};
 
 export default function TraineeDetails() {
-  const key =getCookie('token')
- 
+  const key = getCookie("token");
 
   const [userData, setUserData] = useState<tUser>();
   const [plans, setPlan] = useState<tPlan[]>([]);
-  const[rating,setRating]=useState();
-  const[certificates,setCertificate]=useState([]);
-  const[dd,setDd]=useState();
+  const [rating, setRating] = useState(0);
+  const [certificates, setCertificate] = useState([]);
+  const [dd, setDd] = useState();
 
   const router = useRouter();
-  
+
   const id = router.query.id;
   useEffect(() => {
-
     // make call to backend to fetch user data
-    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
       .then(({ data }) => {
-      
         setUserData(data);
-        setDd(data.membership.trainerIdTrainer)
+        setDd(data.membership.trainerIdTrainer);
         setPlan(data.membership.trainer.planTrainees);
-        ratinn(data.membership.trainerIdTrainer)
+        ratinn(data.membership.trainerIdTrainer);
       })
       .catch((error) => console.error(error));
-
-     
-    
-    
   }, []);
 
+  const ratinn = (id: string) => {
+    try {
+      // set rating
 
-
- const ratinn=(id:any)=> {
-  try {
-    // set rating 
-   
-    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/rating/${id}`,{headers: { "x-access-token": key }})
-    .then(({ data }) => {
-     
-      setRating(data);
-  
-    })
-    
-  } catch (error) {
-    console.error(error)
-  }
- }
-    
-  
-  
-
-  
- 
-
-
-
-
-
-
+      axios
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/user/rating/${id}`, {
+          headers: { "x-access-token": key }
+        })
+        .then(({ data }: { data: RatingRes }) => {
+          setRating(data.rating);
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="flex flex-nowrap  bg-[url('/tail-imgs/trainer.jpg')] bg-no-repeat bg-cover  bg-bottom  ">
-    <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
         <div className=" flex justify-center ">
-            <img className="p-8  rounded-full" src={userData?.membership?.trainer?.logo} alt="product image" width={200}  height={100}/>
+          <img
+            className="p-8  rounded-full"
+            src={userData?.membership?.trainer?.logo}
+            alt="product image"
+            width={200}
+            height={100}
+          />
         </div>
         <div className="px-5 pb-5">
           <div>
@@ -127,7 +114,7 @@ export default function TraineeDetails() {
             </h5>
           </div>
           <div className="flex items-center mt-2.5 mb-5">
-            <ReactStars count={5} value={rating?.rating} size={20} color2={"#b96607"} />
+            <ReactStars count={5} value={rating} size={20} color2={"#b96607"} />
           </div>
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -144,33 +131,28 @@ export default function TraineeDetails() {
             Back
           </button>
           <h1>certificate</h1>
-          <div>
-             {
-
-             }
-          </div>
         </div>
       </div>
-       <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
-             <div className="flex  justify-center">
-              <span className="  text-3xl font-bold text-gray-900 dark:text-white">Plans</span>  
-          
-            </div>
+      <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
+        <div className="flex  justify-center">
+          <span className="  text-3xl font-bold text-gray-900 dark:text-white">
+            Plans
+          </span>
+        </div>
         <div className="px-10 pb-10 h-screen m-20 ">
-            <div className=" flex flex-row gap-2 m-20  w-40">
+          <div className=" flex flex-row gap-2 m-20  w-40">
             {plans &&
-            plans.map((e:any) => (
-              <CardPlans
-                key={e.name}
-                idPlans={e.id_PlanTrainee}
-                name={e.name}
-                cost={e.cost}
-                description={e.description}
-                category={e.category}
-              />
-            ))}
-            </div>
-  
+              plans.map((e: any) => (
+                <CardPlans
+                  key={e.name}
+                  idPlans={e.id_PlanTrainee}
+                  name={e.name}
+                  cost={e.cost}
+                  description={e.description}
+                  category={e.category}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </div>
