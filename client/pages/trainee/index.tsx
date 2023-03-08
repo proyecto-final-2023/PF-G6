@@ -15,11 +15,13 @@ import { SyntheticEvent } from "react";
 import { FiEdit } from "react-icons/fi";
 import moment from 'moment'
 import { loginHandler } from "@auth0/nextjs-auth0/dist/auth0-session";
-import ReactModal from "react-modal";
+import Modal from "react-modal";
 import { id } from "date-fns/locale";
 import { ExerciesResType } from "@/types/components/libraries";
 import { CardData } from "@/components/Food";
 import WithPrivateRouter from "@/components/WithPrivateRoute";
+import Image from "next/image";
+ 
 
 function Index() {
   const [user, setUser] = useAuthState(auth);
@@ -43,8 +45,12 @@ function Index() {
   const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
   const [rndFoods, setrndFoodsData] = useState<CardData[]>([]);
 
-  //console.log(modalIsOpen);
-  //console.log(rndFoods);
+  console.log(
+    modalIsOpen
+  );
+  console.log(rndFoods);
+  console.log(rndExercises);
+  
   
   
   interface selectedExers {
@@ -68,7 +74,7 @@ function Index() {
       comment: feedback
     };
 
-    //console.log(comment);
+    console.log(comment);
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/comment`, comment, {
         headers: { "x-access-token": key }
@@ -89,7 +95,6 @@ function Index() {
         headers: { "x-access-token": key }
       })
       .then((res) => {
-      console.log("perfil de user:",res.data);
         setUser1({
           display_name: ` ${res.data.first_name}  ${res.data.last_name}`,
           userImage: res.data.imgURL,
@@ -247,7 +252,8 @@ const groupByDateExer = async (data : any) => {
           .then((data) => exercisesArray.push(data.data));
           
         }
-
+        console.log(exercisesArray);
+        
         setRndExercises(exercisesArray)
       }  
 
@@ -258,11 +264,9 @@ const groupByDateExer = async (data : any) => {
           .then((data) => FoodArray.push(data.data))
         }
         setrndFoodsData(FoodArray)
-        
-        
+
       }
-      
-      
+          
     
     }
    catch (error) {
@@ -287,21 +291,19 @@ const groupByDateExer = async (data : any) => {
       const rutinaReturn = event.activities
       setUrl(true)
       setModalIsOpen(true)
-      
       setGetIdRoutines(rutinaReturn)
     } else if (event.title === 'Diet'){
       const ComidaReturn = event.meals
       console.log(ComidaReturn)
       setUrl(false)
-      setGetIdRoutines(ComidaReturn)
       setModalIsOpen(true)
+      setGetIdRoutines(ComidaReturn)
     }
   } 
-  console.log("esto es idExercises:",idExercise)
   
   return (
     <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed -z-20">
-      <div className="pt-20 bg-black/60 -z-10 border-transparent border-2">
+      <div className="mt-20 bg-black/60 -z-10 border-transparent border-2">
         <div>
           <Link
             href="/dataupdate"
@@ -332,7 +334,7 @@ const groupByDateExer = async (data : any) => {
             Click here to complete all your stats
           </Link>
           <div className="top-0 right-0 border-transparent flex flex-col items-center mt-10">
-            <h2 className="text-3xl font-medium text-center">Trainer: {user1?.trainer}</h2>
+            <h2 className="text-3xl font-medium ">Trainer: {user1?.trainer}</h2>
             <Rating />
             <div className="mb-4 bg-black/50 backdrop-blur-md rounded-lg p-6">
               <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
@@ -363,7 +365,7 @@ const groupByDateExer = async (data : any) => {
         <div className="flex flex-col mt-10">
           <Link
             href={`${process.env.NEXT_PUBLIC_API_URL}/food`}
-            className=" text-center mb-10 mt-20 text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300 "
+            className=" text-center mb-10 mt-10 text-xl hover:text-orange-500 border-4 bg-slate-600 items-center w-40 self-center rounded-xl hover:w-60 ease-in-out duration-300 "
           >
             Food Library
           </Link>
@@ -384,6 +386,75 @@ const groupByDateExer = async (data : any) => {
                 views={{ month: false, week: false, day: true, agenda: true }}
                 className="text-3xl text-white"
               />
+              <Modal ariaHideApp={false} isOpen={modalIsOpen} className='flex flex-col justify-center text-center h-[80vh]'>
+              <ul className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 mx-auto px-9">
+            {rndExercises.length > 1
+              ? rndExercises.slice(0, 30).map((ex) => {
+                  return (
+                    <li className="w-auto rounded-lg p-4 m-5 bg-black">
+                      <Image
+                        className="filter invert"
+                        src={ex.gifUrl}
+                        alt=""
+                        width={300}
+                        height={300}
+                      />
+                      <p>Name: {ex.name}</p>
+                      <p></p>
+                    </li>
+                  );
+                })
+              : rndFoods?.map((item) => {
+                  return (
+                    <li
+                      key={item.id}
+                      className="w-auto border border-white bg-black bg-opacity-50 backdrop-blur-md p-2 m-2"
+                    >
+                      <h2>{item.dataType}</h2>
+                      <p className="bg-stone-900 flex justify-center">
+                        {item.description}
+                      </p>
+                      <div className="flex w-[94%]  m-4">
+                        <div className=" w-[50%]">
+                          <p>
+                            Protein: {item.proteinAmount} {item.proteinUnit}
+                          </p>
+                          <p>
+                            Carbs: {item.carbohydrateAmount}{" "}
+                            {item.carbohydrateUnit}
+                          </p>
+                          <p>
+                            Fat: {item.fatTotalAmount} {item.fatTotalUnit}
+                          </p>
+                        </div>
+                        <div className=" w-[50%]">
+                          <p>
+                            Sugars: {item.sugarsAmount} {item.sugarsUnit}
+                          </p>
+                          <p>
+                            Sodium: {item.sodiumAmount} {item.sodiumUnit}
+                          </p>
+                        </div>
+                        <div className=" w-[50%]">
+                          <p>
+                            Cholesterol: {item.cholesterolAmount}{" "}
+                            {item.cholesterolUnit}
+                          </p>
+                          <p>
+                            Energy: {item.energyAmount} {item.energyUnit}
+                          </p>
+                        </div>
+                      </div>
+                     
+                    </li>
+                  );
+                })}
+          </ul>
+          <button className="text-lg hover:text-yellow-600 border-2 bg-slate-600 hover:border-none hover:bg-gray-800 items-center w-20 ml-2 self-center rounded-xl" onClick={() => (
+             setModalIsOpen(false),
+             setRndExercises([]),
+             setrndFoodsData([]))} >Close Details</button>
+              </Modal>
             </div>
           </div>
         </div>
