@@ -280,7 +280,7 @@ const addData = async (
 ) => {
   const user = await User.findByPk(id);
 
-  if (!User) {
+  if (!user) {
     throw new Error(`No se encontró al usuario con ID ${id}.`);
   }
   await user.update({
