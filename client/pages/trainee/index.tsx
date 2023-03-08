@@ -275,8 +275,10 @@ const groupByDateExer = async (data : any) => {
   }
   }
  useEffect(() => {
-
+  if(modalIsOpen === true){
     fetchDataModal()
+  }
+    
 
  }
      , [modalIsOpen === true])
