@@ -14,58 +14,98 @@ const {
 const moment = require("moment");
 
 const checkMembership = async (action) => {
-  action = "delete";
-  let member = [];
-  const memberships = await Membership.findAll({
-    include: [
-      {
-        model: User,
-        attributes: ["first_name", "last_name", "phone"],
-        include: [{ model: Logueo, attributes: ["email"] }],
-      },
-      {
-        model: Plantrainer,
-        attributes: ["name"],
-      },
-      {
-        model: PlanTrainee,
-        attributes: ["name"],
-      },
-    ],
-    attributes: ["userId", "id_membership", "startDate", "finishDate"],
-  });
+  try {
+    let member = [];
+    const memberships = await Membership.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ["first_name", "last_name", "phone"],
+          include: [{ model: Logueo, attributes: ["email"] }],
+        },
+        {
+          model: Plantrainer,
+          attributes: ["name"],
+        },
+        {
+          model: PlanTrainee,
+          attributes: ["name"],
+        },
+      ],
+      attributes: ["userId", "id_membership", "startDate", "finishDate"],
+    });
+    memberships.forEach(async (membership) => {
+      const membershipx = await Membership.findByPk(membership.id_membership, {
+        include: [
+          {
+            model: User,
+            attributes: ["first_name", "last_name", "phone"],
+            include: [{ model: Logueo, attributes: ["email"] }],
+          },
+          {
+            model: PlanTrainee,
+            attributes: ["name"],
+          },
+          {
+            model: Plantrainer,
+            attributes: ["name"],
+          },
+          {
+            model: Trainer,
+            include: [
+              {
+                model: PlanTrainee,
+              },
+            ],
+          },
+        ],
+        attributes: ["userId", "id_membership", "startDate", "finishDate"],
+      });
 
-  memberships.forEach(async (membership) => {
-    const { finishDate, id_membership } = membership;
-    const finalDate = new Date(finishDate);
-    const now = new Date();
-    if (action === "delete") {
-      if (finalDate && finalDate < now) {
-        console.log(`Se elimino ${id_membership}`);
-        const x = membership.userId;
-        const userM = await User.findByPk(x);
-        member.push(userM);
-        userM.role = "user";
-        await userM.save();
-        try {
-          await membership.destroy();
-        } catch (error) {
-          console.log(
-            `Error eliminando membership ${membership.id_membership}: ${error}`
-          );
+      const plansTrainerx =
+        membershipx.trainer && membershipx.trainer.planTrainees
+          ? membershipx.trainer.planTrainees
+          : [];
+
+      plansTrainerx.forEach(async (plan) => {
+        plan.status = false;
+        await plan.save();
+      });
+
+      const { finishDate, id_membership } = membership;
+      const finalDate = new Date(finishDate);
+      const now = new Date();
+      if (action === "delete") {
+        if (finalDate && finalDate < now) {
+          console.log(`Se elimino ${id_membership}`);
+          const x = membership.userId;
+          const userM = await User.findByPk(x);
+          member.push(userM);
+          userM.role = "user";
+          await userM.save();
+          try {
+            await membership.destroy();
+          } catch (error) {
+            console.log(
+              `Error eliminando membership ${membership.id_membership}: ${error}`
+            );
+          }
         }
       }
-    }
-    if (action === "view") {
-      if (finalDate && finalDate < now) {
-        member.push(membership);
+      if (action === "view") {
+        if (finalDate && finalDate < now) {
+          member.push(membership);
+        }
       }
-    }
-  });
-  if (member.length) return member;
+    });
+    if (member.length) return member;
 
-  return "Hoy no hay planes que terminen";
+    return "Hoy no hay planes que terminen";
+  } catch (error) {
+    return error;
+  }
 };
+
 //--------------------------------------------------------------------------------------------------------------------
 const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
   try {
@@ -107,7 +147,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
       const trainerE = await Trainer.findOne({ where: { userId: userM.id } });
 
       if (trainerE) {
-        console.log("renew membership");
         const membership = await Membership.create({
           startDate,
           finishDate,
@@ -126,7 +165,6 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
         });
         await membership.setVoucher(voucher);
       } else {
-        console.log("new membership");
         const membership = await Membership.create({
           startDate,
           finishDate,
@@ -174,12 +212,9 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
         const finishTrainee = start.add(7, "day");
         const finishDate = finishTrainee.format("YYYY-MM-DD");
 
-
         const trainerE = await Trainee.findOne({ where: { userId: userM.id } });
-        console.log(trainerE);
 
         if (trainerE) {
-          console.log("renew Trainee");
           const membership = await Membership.create({
             startDate,
             finishDate,
@@ -197,9 +232,7 @@ const generateMembership = async (idUser, idPlan, idPago, cost, fechaPago) => {
             cost: cost,
           });
           await membership.setVoucher(voucher);
-
         } else {
-          console.log("new Trainee");
           const membership = await Membership.create({
             startDate,
             finishDate,
