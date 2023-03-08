@@ -26,7 +26,7 @@ export default function EditableTablePlans() {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers`)
       .then((data) => setTableData(data.data))
-      .catch((error) => console.log(error));
+      .catch((error) => setTableData([]));
   }, [page]);
 
   const handleClick = (index: number, actionType: string) => {
@@ -36,7 +36,6 @@ export default function EditableTablePlans() {
       axios
       .put(`${process.env.NEXT_PUBLIC_API_URL}/plans/trainers/`, upd)
       .then((data) => {
-        console.log(data.data)
         router.reload()
       })
       .catch((error) => console.log(error));

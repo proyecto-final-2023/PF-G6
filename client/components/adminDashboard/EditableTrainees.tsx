@@ -47,7 +47,7 @@ export default function EditableTableTrainees() {
         console.log(data.data);
         setTableData(data.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setTableData([]));
   }, [page]);
 
   const handleClick = (index: number, actionType: string) => {

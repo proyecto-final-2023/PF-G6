@@ -28,7 +28,7 @@ export default function EditableTableTrainer() {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/trainers?page=${page}`)
       .then((data) => setTableData(data.data))
-      .catch((error) => console.log(error));
+      .catch((error) => setTableData([]));
   }, [page]);
 
   const handleClick = (index: number, actionType: string) => {
