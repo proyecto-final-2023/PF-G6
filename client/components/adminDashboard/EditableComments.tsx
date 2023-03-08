@@ -1,5 +1,6 @@
 import NavigationBtns from "@/components/trainterLibraries/NavigationBtns";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 // {
@@ -21,6 +22,7 @@ type UserFormData = {
 };
 
 export default function EditableTableComments() {
+  const router = useRouter();
   const [tableData, setTableData] = useState<UserFormData[]>([]);
   const [page, setPage] = useState(1);
 
@@ -44,6 +46,9 @@ export default function EditableTableComments() {
       //todo: add delete logic
       const id = tableData[index].id;
       console.log(id);
+      axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/admin/comment/${id}`)
+      .then(data=> router.reload())
+      .catch(error=> console.error(error));
     }
   };
 
@@ -68,13 +73,12 @@ export default function EditableTableComments() {
       <table>
         <thead>
           <tr>
-            <th>Status</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Nickname</th>
-            <th>Role</th>
-            <th>imgURL</th>
-            <th>membership</th>
+            <th>id</th>
+            <th>Trainee</th>
+            <th>fotoTrainee</th>
+            <th>Message</th>
+            <th>Trainer</th>
+            <th>fotoTrainer</th>
           </tr>
         </thead>
         <tbody>
@@ -83,12 +87,12 @@ export default function EditableTableComments() {
               <td>
                 <input
                   className={className}
-                  name="first_name"
+                  name="id"
                   type="text"
-                  value={row.first_name}
+                  value={row.id}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].first_name = e.target.value;
+                    updatedData[rowIndex].id = parseInt(e.target.value);
                     setTableData(updatedData);
                   }}
                 />
@@ -96,12 +100,12 @@ export default function EditableTableComments() {
               <td>
                 <input
                   className={className}
-                  name="last_name"
+                  name="Trainee"
                   type="text"
-                  value={row.last_name}
+                  value={row.trainee}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].last_name = e.target.value;
+                    updatedData[rowIndex].trainee = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
@@ -109,12 +113,12 @@ export default function EditableTableComments() {
               <td>
                 <input
                   className={className}
-                  name="nickname"
+                  name="Foto Trainee"
                   type="text"
-                  value={row.nickname}
+                  value={row.fotoTrainee}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].nickname = e.target.value;
+                    updatedData[rowIndex].fotoTrainee = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
@@ -122,12 +126,12 @@ export default function EditableTableComments() {
               <td>
                 <input
                   className={className}
-                  name="role"
+                  name="Message"
                   type="text"
-                  value={row.role}
+                  value={row.message}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].role = e.target.value;
+                    updatedData[rowIndex].message = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
@@ -135,12 +139,12 @@ export default function EditableTableComments() {
               <td>
                 <input
                   className={className}
-                  name="imgURL"
+                  name="Trainer"
                   type="text"
-                  value={row.imgURL}
+                  value={row.trainer}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].first_name = e.target.value;
+                    updatedData[rowIndex].trainer = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
@@ -148,26 +152,18 @@ export default function EditableTableComments() {
               <td>
                 <input
                   className={className}
-                  name="membership"
+                  name="Foto Trainer"
                   type="text"
-                  value={row.membership}
+                  value={row.fotoTrainer}
                   onChange={(e) => {
                     const updatedData = [...tableData];
-                    updatedData[rowIndex].membership = e.target.value;
+                    updatedData[rowIndex].fotoTrainer = e.target.value;
                     setTableData(updatedData);
                   }}
                 />
               </td>
 
               <div className="flex gap-3 justify-around">
-                <button
-                  value="update"
-                  onClick={() => {
-                    handleClick(rowIndex, "update");
-                  }}
-                >
-                  <AiOutlineEdit size={25} fill="green" />
-                </button>
                 <button
                   value="delete"
                   onClick={() => {
