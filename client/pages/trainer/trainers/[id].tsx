@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import CardPlans from "@/components/CardPlans";
 import ReactStars from "react-stars";
+import { getCookie } from "@/utils/cookieHandler";
+
 type PlansType = {
   id: number;
   name: string;
@@ -47,26 +49,68 @@ interface tPlan {
   category: string;
 }
 
+
 export default function TraineeDetails() {
+  const key =getCookie('token')
+ 
 
   const [userData, setUserData] = useState<tUser>();
   const [plans, setPlan] = useState<tPlan[]>([]);
-  
+  const[rating,setRating]=useState();
+  const[certificates,setCertificate]=useState([]);
+  const[dd,setDd]=useState();
+
   const router = useRouter();
   
   const id = router.query.id;
   useEffect(() => {
+
     // make call to backend to fetch user data
     axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/${id}`)
       .then(({ data }) => {
-        //console.log(data);
+      
         setUserData(data);
+        setDd(data.membership.trainerIdTrainer)
         setPlan(data.membership.trainer.planTrainees);
+        ratinn(data.membership.trainerIdTrainer)
       })
       .catch((error) => console.error(error));
+
+     
+    
+    
   }, []);
+
+
+
+ const ratinn=(id:any)=> {
+  try {
+    // set rating 
+   
+    axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/rating/${id}`,{headers: { "x-access-token": key }})
+    .then(({ data }) => {
+     
+      setRating(data);
+  
+    })
+    
+  } catch (error) {
+    console.error(error)
+  }
+ }
+    
+  
+  
+
+  
  
-  //console.log(userData)
+
+
+
+
+
+
+
   return (
     <div className="flex flex-nowrap  bg-[url('/tail-imgs/trainer.jpg')] bg-no-repeat bg-cover  bg-bottom  ">
     <div className="w-80 m-20 bg-white border opacity-60 hover:opacity-80    border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -83,7 +127,7 @@ export default function TraineeDetails() {
             </h5>
           </div>
           <div className="flex items-center mt-2.5 mb-5">
-            <ReactStars count={5} size={20} color2={"#b96607"} />
+            <ReactStars count={5} value={rating?.rating} size={20} color2={"#b96607"} />
           </div>
           <div className="flex items-center justify-between">
             <span className="text-3xl font-bold text-gray-900 dark:text-white">
@@ -99,6 +143,12 @@ export default function TraineeDetails() {
           >
             Back
           </button>
+          <h1>certificate</h1>
+          <div>
+             {
+
+             }
+          </div>
         </div>
       </div>
        <div className="w-px m-20   rounded-lg shadow   opacity-80 hover:opacity-90 ">
