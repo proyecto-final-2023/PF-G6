@@ -10,21 +10,23 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import Burger from "./Burger";
 import axios from "axios";
-import { getCookie, setCookie} from "@/utils/cookieHandler";
-export const linkStyles =
-  "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out inline-block p-1 ";
+import { getCookie, setCookie } from "@/utils/cookieHandler";
+export const className =
+  "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out p-1";
+
 // * uwu *//
 
-type User1info={
-  display_name:string
-}
+type User1info = {
+  display_name: string;
+};
 interface UserInfo {
   displayName: string | null;
   email: string | null;
   phoneNumber: string | null;
   photoURL: string | null;
   providerId: string;
-  uid: string;}
+  uid: string;
+}
 
 export default function Navbar() {
   const searchRef = useRef<HTMLInputElement>(null);
@@ -32,20 +34,14 @@ export default function Navbar() {
   const [isBurgerActive, setIsBurgerActive] = useState(false);
   const [user, setUser] = useAuthState(auth);
   const [user1, setUser1] = useState<User1info>();
-  const key =getCookie('token')
-  const photo=user?.photoURL||""
+  const key = getCookie("token");
+  const photo = user?.photoURL || "";
   const name = user?.displayName;
-  
-  useEffect(() => {
-    if(!key)
-    setCookie('token',null)
-    
-  
-   
-  }, [])
-  
 
-  
+  useEffect(() => {
+    if (!key) setCookie("token", null);
+  }, []);
+
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
     if (type === "enter") setHovers((prev) => ({ ...prev, [key]: true }));
@@ -57,37 +53,27 @@ export default function Navbar() {
     setIsBurgerActive((prev) => !prev);
   };
 
-  // aqui te manda
-  // useEffect(() => {
-  //   axios
-  //     .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
-  //       headers: { "x-access-token": key },
-  //     })
-  //     .then((data) => {
-  //       //console.log(data.data);
-  //       setUser1({
-  //         display_name: ` ${data.data.first_name}  ${data.data.last_name}`,
-  //       });
-  //     });
-  // }, []);
-  //console.log("@navbar/Navbar", user1);
   const [viewportWidth, setViewportWidth] = useState(0);
-    // aqui te manda  datos de user
-   
- useEffect(()=>{
-  if(key!=="null"&&key!==undefined)
-  axios.post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,null,{headers:{'x-access-token': key}})
-  .then((data) => {
-  
-   setUser1({
-     display_name:` ${data.data.first_name}  ${data.data.last_name}`
-   })
-  })
-  .catch((err)=>{
-    console.log(err)
-  })
- },[])
- 
+  const [role, setRole] = useState("");
+  // aqui te manda  datos de user
+
+  useEffect(() => {
+    if (key !== "null" && key !== undefined)
+      axios
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+          headers: { "x-access-token": key }
+        })
+        .then((data) => {
+          setUser1({
+            display_name: ` ${data.data.first_name}  ${data.data.last_name}`
+          });
+          setRole(data.data.role);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  }, []);
+
   useEffect(() => {
     function updateViewportWidth() {
       setViewportWidth(window.innerWidth);
@@ -113,7 +99,6 @@ export default function Navbar() {
   // }, [])
 
   return (
-    
     <div>
       <Burger isBurgerActive={isBurgerActive} burgerHandler={burgerHandler} />
       <nav
@@ -127,8 +112,8 @@ export default function Navbar() {
           <li className="inline-block align-bottom text-center w-[100px] h-[65px] p-1">
             <Link replace href="/" scroll>
               <Image
-              width={0}
-              height={0}
+                width={0}
+                height={0}
                 src={logoImg}
                 alt={`link of the whole app`}
                 className="inline-block  align-bottom sm:w-[100px] sm:h-[65px]"
@@ -136,35 +121,23 @@ export default function Navbar() {
             </Link>
           </li>
 
-          {/* <li className="inline-block align-bottom text-center pt-5 py-2 relative sm:-top-2">
-            <input
-              type="search"
-              ref={searchRef}
-              id="default-search"
-              className="inline-block w-[150px] p-1 bg-gray-600 focus:bg-gray-500 focus:outline-none focus:w-[300px] duration-300 border-[2px] border-gray-400 rounded-l-lg  placeholder-white text-white"
-              placeholder="Search..."
-              required
-            />
-            <button
-              type="submit"
-              className="absolute p-2 inline-block bg-gray-600 border-[2px] border-gray-400 rounded-r-lg uppercase text-xs font-medium"
-            >
-              Search
-            </button>
-          </li> */}
-
           <li className="flex justify-center items-center">
-            <Link replace href="/home" className={linkStyles}>
+            <Link replace href="/home" className={className}>
               Home
             </Link>
           </li>
 
           <li className="justify-center flex items-center">
-            <Link replace href="/plansTrainee" className={linkStyles}>
-              Trainers
-            </Link>
+            {role === "admin" ? (
+              <Link replace href="/admin" className={className}>
+                Admin
+              </Link>
+            ) : (
+              <Link replace href="/trainer/plansTrainee" className={className}>
+                Trainers
+              </Link>
+            )}
           </li>
-         
 
           <CustomHoverLi
             href="trainee/tools"
@@ -179,18 +152,15 @@ export default function Navbar() {
             {...{ hoverEventHandler }}
           />
 
-          {/* {user && <li className="m-5">Hello {user?.display_name}</li>} */}
           {user1 && <li className="m-5">Hello, {user1?.display_name}</li>}
           <HoverLi
-            imgUrl={photo||userImg}
+            imgUrl={photo || userImg}
             text="user"
             href="/"
             isHover={hovers.user}
             vw={viewportWidth}
             optionsList={
-              user1 
-                ? ["Dashboard", "Log out"]
-                : ["Register", "Log In"]
+              user1 ? ["Dashboard", "Log out"] : ["Register", "Log In"]
             }
             {...{ hoverEventHandler }}
           />

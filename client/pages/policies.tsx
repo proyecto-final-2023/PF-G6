@@ -2,7 +2,7 @@ import React from "react";
 
 export default function politicas() {
   return (
-    <div className=" flex flex-col bg-[url('/tail-imgs/logo1.jpeg')] bg-no-repeat bg-cover text-black text-text-2xl content-center text-justify m-20 h-[100vh] ">
+    <div className="text-[#fefefe] text-xl content-center text-justify m-20 text-l">
       <h3 className="m-20 text-center">TÉRMINOS Y CONDICIONES DE USO</h3>
       <p className="m-5">
         Bienvenido a Fit-U, una aplicación móvil que ofrece información y

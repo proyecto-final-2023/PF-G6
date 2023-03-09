@@ -9,8 +9,8 @@ function Home() {
   return (
     <>
       <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed  backdrop-blur-sm">
-        <div className="bg-[rgba(23,23,23,0.7)] opacity-90 flex justify-center items-center flex-col gap-10">
-          <h1 className="text-center font-bold text-yellow-700 opacity-70 sm:text-red-200">
+        <div className="bg-[rgba(23,23,23,0.7)] opacity-90 flex justify-center items-center flex-col gap-10 py-20">
+          <h1 className="text-center font-bold text-white opacity-70 z-90 text-lg py-10">
             WELCOME TO
           </h1>
           <div className="w-2/3 mx-auto py-12 flex justify-center align-items:center gap-5 m-4.">
@@ -21,18 +21,13 @@ function Home() {
               className="transition ease-in-out delay-550  hover:-translate-y-1 hover:scale-110 hover: duration-100 drop-shadow-2xl  "
             />
           </div>
-          <p className="text-center pb-10">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae
-            cumque eligendi illum iusto. ipsum dolor sit amet consectetur
-            adipisicing elit.
-          </p>
         </div>
       </div>
       <div className="text-center py-20 ">
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl ">
+        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-100 md:text-5xl lg:text-6xl ">
           Find the Best Plans For You!
         </h1>
-        <p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 ">
+        <p className="mb-6 text-lg font-normal text-gray-100 lg:text-xl sm:px-16 xl:px-48 ">
           Here at Fit-U we focus on tools where value and drive growth.
         </p>
 
@@ -63,9 +58,8 @@ function Home() {
           </Link>
         </div>
         <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom  h-[100vh]">
-        <SwiperCarousel slidesArr={homeSlides} />
+          <SwiperCarousel slidesArr={homeSlides} />
         </div>
-       
       </div>
     </>
   );
