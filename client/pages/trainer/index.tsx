@@ -103,7 +103,6 @@ function Dashboard(): JSX.Element {
       })
       .then((data) => {
         setPlans([data.data.membership]);
-        console.log("esto es plans",plans)
       })
       .catch((error) => console.log(error));
   }, []);
