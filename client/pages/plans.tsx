@@ -14,7 +14,7 @@ type PlansType = {
   description: string;
 };
 
- function plans() {
+function plans() {
   const [plans, setPlans] = useState<PlansType[]>([]);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
@@ -63,13 +63,12 @@ type PlansType = {
       </div>
 
       {promocion2 && (
-        <div className="bg-gradient-to-r from-yellow-200 via-orange-400 to-rose-500 text-center text-gray-800 h-40">
+        <div className="bg-gradient-to-b from-black to-slate-900 text-center h-40">
           <h2 className="pt-10 text-3xl text-white ">{promocion2}</h2>
-          <p className="text-xl  text-white  ">¡ bla bla bla ---!</p>
         </div>
       )}
 
-      <div className=" caja-plan   ">
+      <div className="caja-plan">
         {plans.map((e) => (
           <CardPlans
             key={e.id}
@@ -85,4 +84,4 @@ type PlansType = {
   );
 }
 
-export default WithPrivateRouter(plans)
+export default WithPrivateRouter(plans);
