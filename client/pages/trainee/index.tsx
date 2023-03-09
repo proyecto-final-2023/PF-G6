@@ -371,7 +371,7 @@ const groupByDateExer = async (data : any) => {
           >
             Food Library
           </Link>
-          <div className="bg-gradient-to-r from-gray-800 via-orange-500 to-gray-800">
+          <div className="bg-gradient-to-b from-white via-gray-700 to-black">
             <div className="bg-[url('/bgs/logoblack.png')] bg-contain bg-no-repeat bg-center ">
               <Calendar
                 localizer={localizer}

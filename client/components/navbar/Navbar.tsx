@@ -97,6 +97,13 @@ export default function Navbar() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   if(!key)
+  //   setCookie('token',null)
+
+
+  // }, [])
+
   return (
     
     <div>
