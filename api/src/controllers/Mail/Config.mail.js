@@ -51,11 +51,11 @@ const getTemplate = (name, token) => {
       </head>
       
       <div id="email___content">
-          <img src="https://img.freepik.com/vector-premium/verificacion-correo-electronico-icono-validacion-marca-verificacion-diseno-plano_614220-66.jpg?w=2000" alt="">
+          <img width="500" src="https://img.freepik.com/vector-premium/verificacion-correo-electronico-icono-validacion-marca-verificacion-diseno-plano_614220-66.jpg?w=2000" alt="">
           <h2>Hola ${name}</h2>
           <p>Para confirmar tu cuenta, ingresa al siguiente enlace</p>
           <a
-              href=${process.env.NEXT_PUBLIC_API_URL}/user/confirm/${token.token}
+              href=https://fp-server-cg2b.onrender.com/user/confirm/${token.token}
               target="_blank"
           >Confirmar Cuenta</a>
          
