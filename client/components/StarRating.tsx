@@ -48,7 +48,7 @@ const RatingComponent: React.FC<RatingComponentProps> = () => {
 
   return (
     <div>
-      <p>Rating: {rating?.actualRating}</p>
+      <p>Trainer Rating: {rating?.actualRating}</p>
       <Stars
         count={5}
         size={30}
