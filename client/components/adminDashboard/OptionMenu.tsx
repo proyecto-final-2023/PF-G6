@@ -3,7 +3,7 @@
 const buttonsMapping = [
   {
     text: "Users",
-    compareText: "users"
+    compareText: "user"
   },
   {
     text: "Trainers",
@@ -15,7 +15,7 @@ const buttonsMapping = [
   },
   {
     text: "Planes Trainer",
-    compareText: "planes trainer"
+    compareText: "planestrainer"
   },
   {
     text: "Comments",

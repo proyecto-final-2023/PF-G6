@@ -11,7 +11,7 @@ type UserFormData = {
   last_name: string;
   nickname: string;
   role: string;
-  imgURL: string | 'imagen';
+  imgURL: string | "imagen";
   membership: string;
 };
 
@@ -30,26 +30,26 @@ export default function EditableTableUser() {
       .catch((error) => setTableData([]));
   }, [page]);
 
-
   const handleClick = (index: number, actionType: string) => {
     if (actionType === "update") {
       //todo: add update logic
       const upd = { ...tableData[index] };
       console.log(upd);
-      axios.put(`${process.env.NEXT_PUBLIC_API_URL}/admin/users`,upd)
-      .then(data=> router.reload())
-      .catch(error=> console.error(error));
+      axios
+        .put(`${process.env.NEXT_PUBLIC_API_URL}/admin/users`, upd)
+        .then((data) => router.reload())
+        .catch((error) => console.error(error));
     }
     if (actionType === "delete") {
       //todo: add delete logic
       const id = tableData[index].id;
       axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/user/status/${id}`)
-      .then((data) => {
-        console.log(data.data);
-        router.reload();
-      })
-      .catch((error) => console.log(error));
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/user/status/${id}`)
+        .then((data) => {
+          console.log(data.data);
+          router.reload();
+        })
+        .catch((error) => console.log(error));
     }
   };
 
@@ -110,7 +110,7 @@ export default function EditableTableUser() {
                   className={className}
                   name="nickname"
                   type="text"
-                  value={row.nickname ?? 'nickname'}
+                  value={row.nickname ?? "nickname"}
                   onChange={(e) => {
                     const updatedData = [...tableData];
                     updatedData[rowIndex].nickname = e.target.value;
@@ -136,7 +136,7 @@ export default function EditableTableUser() {
                   className={className}
                   name="imgURL"
                   type="text"
-                  value={row.imgURL ?? 'imagen'}
+                  value={row.imgURL ?? "imagen"}
                   onChange={(e) => {
                     const updatedData = [...tableData];
                     updatedData[rowIndex].first_name = e.target.value;
@@ -144,7 +144,6 @@ export default function EditableTableUser() {
                   }}
                 />
               </td>
-             
 
               <div className="flex gap-3 justify-around">
                 <button
