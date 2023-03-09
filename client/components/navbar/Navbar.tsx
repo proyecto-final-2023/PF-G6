@@ -10,9 +10,10 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase";
 import Burger from "./Burger";
 import axios from "axios";
-import { getCookie } from "@/utils/cookieHandler";
+import { getCookie, setCookie } from "@/utils/cookieHandler";
 export const className =
   "inline-block font-medium text-xs leading-tight uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out p-1";
+
 // * uwu *//
 
 type User1info = {
@@ -36,6 +37,10 @@ export default function Navbar() {
   const key = getCookie("token");
   const photo = user?.photoURL || "";
   const name = user?.displayName;
+
+  useEffect(() => {
+    if (!key) setCookie("token", null);
+  }, []);
 
   const hoverEventHandler = ({ type, key }: NavbarStates["hovers"]) => {
     // if mouse enter then hover state of key => truepages-tools
