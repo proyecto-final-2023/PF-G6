@@ -3,7 +3,7 @@ import {
   ImInstagram,
   ImFacebook2,
   ImTwitter,
-  ImMail2,
+  ImMail2
 } from "react-icons/im";
 import Link from "next/link";
 import Image from "next/image";
@@ -11,7 +11,7 @@ import logoImg from "@/assets/images/placeholder-logo.png";
 
 export default function Footer() {
   return (
-    <div className="w-full text-amber-800 rounded-lg shadow flex items-center justify-between p-8 bg-gray-800 position relative bottom-0 min-h-max border-4 border-gray-800 border-t-yellow-900 flex-col lg:flex-row">
+    <div className="text-amber-800 rounded-lg shadow flex items-center justify-between p-8 bg-gray-800 border-4 border-gray-800 border-t-yellow-900 flex-col lg:flex-row">
       <div className="flex flex-row  space-x-4  text-sky-400/100">
         <Link href="/contact">
           <ImMail2 className=" text-sky-400/20 hover:text-yellow-900 " />
