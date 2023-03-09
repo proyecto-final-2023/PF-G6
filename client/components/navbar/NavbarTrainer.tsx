@@ -41,12 +41,12 @@ export default function Trainer() {
 
   return (
     <div className="  flex  flex-col z-40 w-60 max-sm:flex-row max-sm:w-[100vw] ">
-      <nav className="  bg-gray-50 dark:bg-gray-800">
-        <div className="flex items-center justify-center text-white font-bold m-20">
+      <nav className="  bg-gray-800">
+        <div className="flex items-center justify-center text-gray-400 font-bold m-20">
           Trainer
         </div>
         <div></div>
-        <div className="items-center justify-center text-white font-bold m-10">
+        <div className="items-center justify-center text-gray-400 font-bold m-10">
           <img
             className="rounded-lg justify-items-center"
             src={user?.membership?.trainer?.logo}
@@ -68,7 +68,7 @@ export default function Trainer() {
             <li>
               <Link
                 href="/trainer/exercises-library"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
                   aria-hidden="true"
@@ -85,7 +85,7 @@ export default function Trainer() {
             <li>
               <Link
                 href="/trainer/blog"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
                   aria-className="true"
@@ -103,11 +103,11 @@ export default function Trainer() {
             <li>
               <Link
                 href="/trainer/certificates"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
                   aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  className="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -127,11 +127,11 @@ export default function Trainer() {
             <li>
               <Link
                 href="/dataupdate"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
                   aria-hidden="true"
-                  className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
+                  className="flex-shrink-0 w-6 h-6 text-gray-400 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,7 @@ export default function Trainer() {
             <li>
               <Link
                 href="/dataupdate"
-                className="flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="flex items-center p-2 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
                 <svg
                   aria-hidden="true"
