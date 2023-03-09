@@ -1,5 +1,5 @@
-import cookie from "cookie";
-import { GetServerSideProps } from "next";
+import axios from "axios";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import DataViewContainer from "@/components/adminDashboard/DataViewContainer";
 import GraphContainer from "@/components/adminDashboard/GraphContainer";
@@ -10,8 +10,7 @@ import EditableTableUser from "@/components/adminDashboard/EditableUser";
 import EditableComments from "@/components/adminDashboard/EditableComments";
 import EditableTableTrainees from "@/components/adminDashboard/EditableTrainees";
 import EditableTableTrainer from "@/components/adminDashboard/EditableTrainers";
-import axios from "axios";
-import { useRouter } from "next/router";
+import { getCookie } from "@/utils/cookieHandler";
 
 const returnMapping = {
   user: <EditableTableUser />,
@@ -22,15 +21,39 @@ const returnMapping = {
   default: <EditableTableUser />
 };
 
-export default function AdminIndex(props: { isAdmin: boolean }) {
+export default function AdminIndex() {
+  const theCookie = getCookie("token");
   const router = useRouter();
-  if (!props.isAdmin) router.replace("/home");
 
   const [option, setOption] = useState("default");
 
   const changeOption = (option: string) => {
     setOption(option);
   };
+
+  // check if the user is admin, if not send him to landing page
+  useEffect(() => {
+    try {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,
+          {},
+          {
+            headers: {
+              "x-access-token": theCookie
+            }
+          }
+        )
+        .then((res) => {
+          if (res.data.role !== "admin") router.replace("/");
+        })
+        .catch((err) => {
+          router.replace("/");
+        });
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
 
   return (
     <div className="mt-20">
@@ -43,32 +66,3 @@ export default function AdminIndex(props: { isAdmin: boolean }) {
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  // Get cookie then api call to check if user is admin
-  const { req } = context;
-  const cookies = cookie.parse(req.headers.cookie || "1313");
-  const myCookie = cookies["token"];
-  let isAdmin = false;
-
-  try {
-    const res: { data: { role: string } } = await axios.post(
-      `${process.env.NEXT_PUBLIC_API_URL}/user/perfil`,
-      {},
-      {
-        headers: {
-          "x-access-token": myCookie
-        }
-      }
-    );
-    isAdmin = res.data.role === "admin";
-  } catch (error) {
-    console.error(error);
-  }
-
-  return {
-    props: {
-      isAdmin
-    }
-  };
-};
