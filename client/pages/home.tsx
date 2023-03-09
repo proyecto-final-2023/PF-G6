@@ -30,31 +30,40 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
         </div>
       </div>
       <div className="text-center py-20 ">
-        <h2 className="text-center font-bold text-yellow-700  ">
-          Find the Best Trainer For You!
-        </h2>
+     
+        
+<h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Find the Best Plans For You!</h1>
+<p className="mb-6 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">Here at Fit-U we focus on tools where  value and drive growth.</p>
+
+
+        <div className="  flex flex-row gap-20  m-10 h-60 justify-center align-items:center">
         <Link replace href="/plans">
-          <div className=" bg-gray-800 max-w-sm rounded overflow-hidden shadow-lg">
-            <div className="px-6 py-4">
-              <div className="text-yellow-800 font-bold text-xl mb-2">
-                Plans
-              </div>
-              <p className="text-white text-base">PLANS TRAINER</p>
+          <div className=" bg-black h-60 rounded-lg animate-pulse   shadow-yellow-900/50 bg-[url('/tail-imgs/1zLe.gif')] bg-no-repeat bg-cover bg-bottom   max-w-sm overflow-hidden shadow-lg">
+            <div className="px-6 py-4 "> 
+              <h1 className="flex items-center text-5xl font-extrabold dark:text-white">Trainer<span className="bg-blue-100 text-blue-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">Plans</span></h1>
             </div>
           </div>
         </Link>
         <Link replace href="/plansTrainee">
-          <div className=" bg-gray-800 max-w-sm rounded overflow-hidden shadow-lg">
+          <div className=" bg-gray-800 max-w-sm h-60 rounded-lg animate-pulse  shadow-yellow-900/50  bg-[url('/tail-imgs/1zLe.gif')] bg-no-repeat bg-cover bg-bottom  overflow-hidden shadow-lg">
             <div className="px-6 py-4">
-              <div className="text-yellow-800 font-bold text-xl mb-2">
-                Plans
-              </div>
-              <p className="text-white text-base">PLANS TRAINEE</p>
+              
+              <h1 className="flex items-center text-5xl font-extrabold dark:text-white">Trainee<span className="bg-blue-100 text-blue-800 text-2xl font-semibold mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-2">Plans</span></h1>
             </div>
           </div>
         </Link>
+     
+        </div >
+      <div className="bg-[url('/tail-imgs/gym-bg.jpg')] bg-no-repeat bg-cover bg-bottom bg-fixed  h-[100vh]">
+      
+      
+     
 
-        <SwiperCarousel slidesArr={homeSlides} />
+
+
+      </div>
+      <SwiperCarousel slidesArr={homeSlides} />
+       
       </div>
     </>
   );
