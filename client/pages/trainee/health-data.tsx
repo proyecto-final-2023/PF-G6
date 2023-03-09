@@ -7,10 +7,12 @@ import waist from "@/assets/imgMeasuresForm/waist.png";
 import arm from "@/assets/imgMeasuresForm/arm.png";
 import wrist from "@/assets/imgMeasuresForm/wrist.png";
 import hip from "@/assets/imgMeasuresForm/hip.png";
-// import glutes from "@/assets/imgMeasuresForm/glutes.png";
+import glutes from "@/assets/imgMeasuresForm/glutes.png";
 import thigh from "@/assets/imgMeasuresForm/thigh.png";
 import calf from "@/assets/imgMeasuresForm/calf.png";
 import fondo from "/public/bgs/contact.jpg";
+import axios from "axios"
+import { getCookie } from "@/utils/cookieHandler";
 
 interface BodyMeasurement {
   bodyPart: string;
@@ -31,94 +33,100 @@ type BodyMeasurementsAction = {
  type AdditionalInfo = {
   weight: number;
   height: number;
-  allergies: string[];
-  surgeries: string[];
+  allergies: string;
+  surgeries: string;
   smoking: boolean;
   alcoholConsumption: boolean;
   drugConsumption: boolean;
   steroidConsumption: boolean;
   waterConsumption: number;
-  injuries: string[];
+  injuries: string;
+  neck:number;
+  torso:0;
+  chest:0;
+  waist:0;
+  arm:0;
+  wrist:0;
+  hip:0;
+  thigh:0;
+  calf:0;
+  butt:0
+
 };
 
 // Define the reducer function to handle state updates
-function bodyMeasurementsReducer(
-  state: BodyMeasurement[],
-  action: BodyMeasurementsAction
-) {
-  const options = "ADD_MEASUREMENT";
 
-  switch (options) {
-    case "ADD_MEASUREMENT":
-      const existingMeasurementIndex = state.findIndex(
-        (measurement) => measurement.bodyPart === action.bodyPart
-      );
-      if (existingMeasurementIndex >= 0) {
-        // If a measurement for this body part already exists, update it
-        const updatedMeasurements = [...state];
-        updatedMeasurements[existingMeasurementIndex] = {
-          bodyPart: action.bodyPart,
-          measurement: action.measurement
-        };
-        return updatedMeasurements;
-      } else {
-        // If no measurement for this body part exists, add a new one
-        const newBodyMeasurement = {
-          bodyPart: action.bodyPart,
-          measurement: action.measurement
-        };
-        return [...state, newBodyMeasurement];
-      }
-    default:
-      throw new Error(`Unsupported action type: ${action.type}`);
-  }
-}
 
  export default function BodyMeasurements() {
   const [selectedBodyPart, setSelectedBodyPart] = useState<any>("");
   const [measurement, setMeasurement] = useState<number | null>(null);
-  const [bodyMeasurements, dispatch] = useReducer(
-    bodyMeasurementsReducer,
-    [] as BodyMeasurement[]
-  );
   const [additionalInfo, setAdditionalInfo] = useState<AdditionalInfo>({
+
     weight: 0,
     height: 0,
-    allergies: [],
-    surgeries: [],
+    allergies: "",
+    surgeries: "",
+    injuries: "",
     smoking: false,
     alcoholConsumption: false,
     drugConsumption: false,
     steroidConsumption: false,
     waterConsumption: 0,
-    injuries: []
+    neck:0,
+    torso:0,
+    chest:0,
+    waist:0,
+    arm:0,
+    wrist:0,
+    hip:0,
+    thigh:0,
+    calf:0,
+    butt:0
+
   });
+  const key=getCookie('token')
 
   const handleBodyPartClick = (bodyPart: string) => {
     setSelectedBodyPart(bodyPart);
   };
-  const handleMeasurementChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setMeasurement(Number(event.target.value));
-  };
+  // const handleMeasurementChange = (
+  //   selectedBodyPart: string,
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   setAdditionalInfo({
+  //     ...additionalInfo,
+  //     [selectedBodyPart]: event.target.value
+  //   });
+  // };
+  console.log(additionalInfo)
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+   event.preventDefault()
 
-    if (!selectedBodyPart || measurement === null) {
-      return;
-    }
+    if(key!=="null"&&key!==undefined)
+    axios.put(`${process.env.NEXT_PUBLIC_API_URL}/trainees/data`,additionalInfo,{headers:{'x-access-token': key}})
+    .then((data) => {
+      alert("Health data updated successfully ")
+    })
+    .catch((err)=>{
+      console.log(err)
+    })
 
-    dispatch({
-      type: "ADD_MEASUREMENT",
-      bodyPart: selectedBodyPart,
-      measurement: measurement
-    });
+        }
+    
+  
+  
 
-    setSelectedBodyPart("");
-    setMeasurement(null);
-  };
+  //   dispatch({
+  //     type: "ADD_MEASUREMENT",
+  //     bodyPart: selectedBodyPart,
+  //     measurement: measurement
+  //   });
+
+  //   setSelectedBodyPart("");
+  //   setMeasurement(null);
+  
+
   const bodyParts: BodyPart[] = [
     { name: "neck", img: neck },
     { name: "torso", img: torso },
@@ -127,7 +135,7 @@ function bodyMeasurementsReducer(
     { name: "arm", img: arm },
     { name: "wrist", img: wrist },
     { name: "hip", img: hip },
-    // { name: "glutes", img: glutes },
+    { name: "butt", img: glutes },
     { name: "thigh", img: thigh },
     { name: "calf", img: calf }
   ];
@@ -159,24 +167,24 @@ function bodyMeasurementsReducer(
   Allergies:
   <input type="text" 
   className="ml-2 h-[3vh] w-[20vw]"
-  value={additionalInfo.allergies.join(", ")} 
-  onChange={(e) => setAdditionalInfo({...additionalInfo, allergies: e.target.value.split(", ")})} />
+  value={additionalInfo.allergies} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, allergies: e.target.value})} />
 </label>
 
 <label className="flex flex-row items-center">
   Injuries:
   <input type="text" 
   className="ml-2 h-[3vh] w-[20vw]"
-  value={additionalInfo.injuries.join(", ")} 
-  onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value.split(", ")})} />
+  value={additionalInfo.injuries} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, injuries: e.target.value})} />
 </label>
 
 <label className="flex flex-row items-center">
   Surgeries:
   <input type="text" 
   className="ml-2 h-[3vh] w-[20vw]"
-  value={additionalInfo.surgeries.join(", ")} 
-  onChange={(e) => setAdditionalInfo({...additionalInfo, surgeries: e.target.value.split(", ")})} />
+  value={additionalInfo.surgeries} 
+  onChange={(e) => setAdditionalInfo({...additionalInfo, surgeries: e.target.value})} />
 </label>
 </div>
 <div className="flex flex-row max-sm:flex-col">
@@ -229,7 +237,7 @@ function bodyMeasurementsReducer(
       <div className="mt-2 flex   flex-wrap ">
         {bodyParts.map((bodyPart) => (
           <button
-            className="h-[5vh] justify-evenly border-2 ml-2  px-2 rounded-lg bg-gray-800 border-white"
+            className="h-[5vh] justify-evenly border-2 ml-2  px-2 rounded-lg bg-gray-800 border-white hover:text-orange-500"
             key={bodyPart.name}
             onClick={() => handleBodyPartClick(bodyPart.name)}
           >
@@ -237,41 +245,38 @@ function bodyMeasurementsReducer(
           </button>
         ))}
       </div>
-      {selectedBodyPart && (
-        <form
-          className="flex flex-col"
-          onSubmit={(event) => handleSubmit(event)}
-        >
+   
           <div>
           <label className=" h-[5vh]">
             Measurement for {selectedBodyPart}:
             <input
               className="ml-1 h-[3vh] w-[5ch]"
               type="number"
-              value={measurement || ""}
-              onChange={(event) => handleMeasurementChange(event)}
+              // value={measurement || ""}
+              onChange={(event) => setAdditionalInfo({...additionalInfo,[selectedBodyPart]:event.target.value})}
             />
           </label>
          
-          <button
+          {/* <button
             className="self-start text-xs justify-start border-2 ml-2 p-1 rounded-lg bg-gray-800 border-white w-fit "
             type="submit"
           >
             Save Measurement
-          </button>
+          </button> */}
           </div>
           <div>
             <div className="flex flex-row items-center h-[15vh] justify-center">
            <button
-            className=" border-2 -ml-[8vw] p-1 rounded-lg bg-gray-800 border-white w-fit "
+            className=" border-2 -ml-[8vw] p-1 rounded-lg bg-gray-800 border-white w-fit hover:text-orange-500 "
             type="submit"
+            onClick={(event)=>handleSubmit(event)}
           >
             Submit Form
           </button>
           </div>
           </div>
-        </form>
-      )}
+       
+   
       </div>
     </div>
     </div>
