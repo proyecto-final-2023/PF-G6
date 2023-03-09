@@ -68,10 +68,10 @@ export default function DynamicTrainee() {
           user.map((e: MembershipT) => (
             <CardTraineePlans
               key={e.traineeIdTrainee}
-              first_name={e.user.first_name}
-              last_name={e.user.last_name}
-              imgURL={e.user.imgURL}
-              trainee={e.user.membership.trainee}
+              first_name={e.user?.first_name}
+              last_name={e.user?.last_name}
+              imgURL={e.user?.imgURL}
+              trainee={e.user?.membership.trainee || {}}
             />
           ))}
       </div>
