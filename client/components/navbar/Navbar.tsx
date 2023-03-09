@@ -95,7 +95,6 @@ export default function Navbar() {
   //   if(!key)
   //   setCookie('token',null)
 
-
   // }, [])
 
   return (
@@ -133,7 +132,7 @@ export default function Navbar() {
                 Admin
               </Link>
             ) : (
-              <Link replace href="/trainer/plansTrainee" className={className}>
+              <Link replace href="/plansTrainee" className={className}>
                 Trainers
               </Link>
             )}
