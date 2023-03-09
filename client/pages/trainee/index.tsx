@@ -21,6 +21,7 @@ import { ExerciesResType } from "@/types/components/libraries";
 import { CardData } from "@/components/Food";
 import WithPrivateRouter from "@/components/WithPrivateRoute";
 import Image from "next/image";
+//comentario
 
 function Index() {
   const [user, setUser] = useAuthState(auth);
