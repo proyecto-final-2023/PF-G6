@@ -28,7 +28,6 @@ export default function EditableTableUser() {
       .get(`${process.env.NEXT_PUBLIC_API_URL}/user?page=${page}`)
       .then((data) => setTableData(data.data))
       .catch((error) => setTableData([]));
-    // console.log(tableData)
   }, [page]);
 
   const handleClick = (index: number, actionType: string) => {

@@ -8,25 +8,25 @@ export default [
   {
     title: "Tuturu",
     image: trainer1,
-    hoverText: "Trainer 1",
-    hoverText2:"Fat Loose and body recomposition Specialist"
+    hoverText: "",
+    hoverText2:""
   },
   {
     title: "Kya~",
     image: trainer2,
-    hoverText: "Trainer 2",
-    hoverText2:"Body Building Specialist"
+    hoverText: "",
+    hoverText2:""
   },
   {
     title: "Yamete",
     image: trainer3,
-    hoverText: "Trainer 3",
-    hoverText2: "Cross-Fit Certified Trainer",
+    hoverText: "",
+    hoverText2: "",
   },
   {
     title: "Oyasumimir",
     image: trainer4,
-    hoverText: "Trainer 4",
-    hoverText2: "Endurance Specialist",
+    hoverText: "",
+    hoverText2: "",
   },
 ];
