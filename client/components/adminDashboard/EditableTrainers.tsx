@@ -12,11 +12,10 @@ type UserFormData = {
   last_name: string;
   imgURL: string;
   email: string;
-  logo:string;
+  logo: string;
 };
 
 export default function EditableTableTrainer() {
-
   const router = useRouter();
   const [tableData, setTableData] = useState<UserFormData[]>([]);
   const [page, setPage] = useState(1);
@@ -35,19 +34,16 @@ export default function EditableTableTrainer() {
     if (actionType === "update") {
       //todo: add update logic
       const upd = { ...tableData[index] };
-      console.log(upd);
       axios
-      .put(`${process.env.NEXT_PUBLIC_API_URL}/admin/trainers`, upd)
-      .then((data) => {
-        console.log(data.data)
-        router.reload()
-      })
-      .catch((error) => console.log(error));
+        .put(`${process.env.NEXT_PUBLIC_API_URL}/admin/trainers`, upd)
+        .then((data) => {
+          router.reload();
+        })
+        .catch((error) => console.error(error));
     }
     if (actionType === "delete") {
       //todo: add delete logic
       const id = tableData[index].id;
-      console.log(id);
     }
   };
 
