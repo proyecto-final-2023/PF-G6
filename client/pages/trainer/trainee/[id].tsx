@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
-import CardTraineePlans, { Trainee } from "@/components/CardTraineePlans";
+import CardTraineePlans, { } from "@/components/CardTraineePlans";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -19,10 +19,45 @@ type MembershipT = {
   };
 };
 
+interface Trainee {
+  first_name: string | "";
+  imgURL: string | "";
+  last_name: string | "";
+  membership: {
+    trainee: {
+      allergies: string;
+      arm: string;
+      butt: string;
+      calf: string;
+      chest: string;
+      drinker: boolean;
+      drugs: boolean;
+      height: string;
+      hip: string;
+      id_trainee: string;
+      lesions: string;
+      neck: string;
+      roids: boolean;
+      smoke: boolean;
+      surgeries: string;
+      thig: string | null;
+      torso: string;
+      userId: string;
+      waist: string;
+      water: string | null;
+      weight: string;
+      wrist: string;
+    };
+    traineeIdTrainee: string;
+  };
+}
+
+type TraineeArray = Trainee[];
+
 export default function DynamicTrainee() {
   const router = useRouter();
   const { id } = router.query;
-  const [user, setUser] = useState<MembershipT[]>([]);
+  const [user, setUser] = useState<Trainee[]>([]);
   const [name, setName] = useState<{ first_name: string }>({ first_name: "" });
   const key = getCookie("token");
 
@@ -41,7 +76,8 @@ export default function DynamicTrainee() {
         idPlanTrainee: id
       })
       .then((data) => {
-        setUser(data?.data.memberships.map((e: any) => e.user));
+        setUser(data.data.memberships.map((e: any) => e.user));
+        console.log("user", user);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -64,16 +100,15 @@ export default function DynamicTrainee() {
       </div>
 
       <div className="flex flex-col m-20">
-        {user &&
-          user.map((e: MembershipT) => (
-            <CardTraineePlans
-              key={e.traineeIdTrainee}
-              first_name={e.user?.first_name}
-              last_name={e.user?.last_name}
-              imgURL={e.user?.imgURL}
-              trainee={e.user?.membership.trainee || {}}
-            />
-          ))}
+        {user?.map((e: Trainee) => (
+          <CardTraineePlans
+            key={e.membership.traineeIdTrainee}
+            first_name={e.first_name}
+            last_name={e.last_name}
+            imgURL={e.imgURL}
+            // trainee={e.membership.trainee}
+          />
+        ))}
       </div>
     </div>
   );
