@@ -3,14 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
-// {
-//   "id": 2,
-//   "trainee": "JP",
-//   "fotoTrainee": "https://res.cloudinary.com/dfixfnldt/image/upload/v1678251857/cpuzd4wrfrounvj9hego.jpg",
-//   "message": "Nice trainer!",
-//   "trainer": "redbird288",
-//   "fotoTrainer": "https://randomuser.me/api/portraits/women/21.jpg"
-// }
+
 
 type UserFormData = {
   id: number;
@@ -29,7 +22,7 @@ export default function EditableTableComments() {
   const nextPage = () => setPage((prev) => prev + 1);
   const prevPage = () => setPage((prev) => prev - 1);
 
-  useEffect(() => {///admin/comment?page=1
+  useEffect(() => {
     axios
       .get(`${process.env.NEXT_PUBLIC_API_URL}/admin/comment?page=${page}`)
       .then((data) => setTableData(data.data))
@@ -40,12 +33,10 @@ export default function EditableTableComments() {
     if (actionType === "update") {
       //todo: add update logic
       const upd = { ...tableData[index] };
-      console.log(upd);
     }
     if (actionType === "delete") {
       //todo: add delete logic
       const id = tableData[index].id;
-      console.log(id);
       axios.delete(`${process.env.NEXT_PUBLIC_API_URL}/admin/comment/${id}`)
       .then(data=> router.reload())
       .catch(error=> console.error(error));
@@ -53,12 +44,6 @@ export default function EditableTableComments() {
   };
 
   const className = "bg-gray-800 border-b-gray-200 text-white m-1 w-[9rem]";
-  // id: number;
-  // trainee: string;
-  // fotoTrainee: string;
-  // message: string;
-  // trainer: string;
-  // fotoTrainer: string;
 
   return (
     <>
