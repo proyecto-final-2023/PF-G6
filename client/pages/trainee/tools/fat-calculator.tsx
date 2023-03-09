@@ -38,9 +38,9 @@ const CalculateFatPercentage = () => {
  
 
   return (
-    <div className="h-[100vh] bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm">
-      <div className="flex flex-col h-[100vh]">
-        <div className="bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[22rem] md:w-[30rem] p-14 md:p-24 m-auto text-m">
+    <div className="h-[89.7vh] bg-[url('/bgs/imgCalculator.png')] bg-no-repeat bg-cover backdrop-blur-sm">
+      <div className="flex flex-col ">
+        <div className="bg-[#6f6f70]/80 rounded-lg focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 w-[22rem] md:w-[30rem] p-14 md:p-18 m-auto mt-32 text-m">
           <div className="text-center">
             <h1 className="text-4xl font-bold mt-4 text-center">
               Fat-Calculator
@@ -108,21 +108,10 @@ const CalculateFatPercentage = () => {
               Calculate
             </button>
             <div className="text-xl">Result: {result} %</div>
-
-            <Link
-              href="/trainee/tool/tools"
-              className="mb-4 inline-block px-6  font-medium text-xs leading-tight h-[20px] w-[115px] mx-auto uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out border text-center"
-            >
-              Go back
-            </Link>
           </div>
         </div>
       </div>
     </div>
   )}
-
-  
-
-
 
 export default WithPrivateRouter(CalculateFatPercentage)

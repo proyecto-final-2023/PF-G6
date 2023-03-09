@@ -119,12 +119,6 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
             Calculate
           </button>
           <div className="text-2xl">Result: {result} calories/day</div>
-          <Link
-            href="/trainee/tool/tools"
-            className="inline-block px-6  font-medium text-xs text-center leading-tight h-[20px] w-[115px] mx-auto uppercase rounded hover:text-orange-500 transition duration-300 ease-in-out border"
-          >
-            Go back
-          </Link>
         </div>
       </div>
     </div>
