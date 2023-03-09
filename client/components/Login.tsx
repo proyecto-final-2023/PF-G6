@@ -91,11 +91,11 @@ export const Login = () => {
                 console.log(error)
               });
           } else if (response.data.verify === false) {
-            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/createuser`, info)
+            axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/ext`, info)
               .then(response => {
-                auth.signOut();
+                window.location.reload()
                 // console.log(response)
-                alert('Account created successfully! Please confirm your e-mail before login')
+                alert('Account created successfully')
               })
               .catch(error => {
                 console.log(error)
