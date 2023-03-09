@@ -3,42 +3,42 @@ import logoImg from "@/assets/images/placeholder-logo.png";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import Image from "next/image";
 
-export type Trainee = {
-  weight: string;
-  height: string;
-  neck: string;
-  torso: string;
-  chest: string;
-  waist: string;
-  arm: string;
-  wrist: string;
-  hip: string;
-  butt: string;
-  thig: string;
-  calf: string;
-  allergies: string;
-  surgeries: string;
-  smoke: boolean;
-  drinker: boolean;
-  drugs: boolean;
-  roids: boolean;
-  water: string;
-  lesions: string;
-  userId: string;
-};
+// export type Trainee = {
+//   weight: string;
+//   height: string;
+//   neck: string;
+//   torso: string;
+//   chest: string;
+//   waist: string;
+//   arm: string;
+//   wrist: string;
+//   hip: string;
+//   butt: string;
+//   thig: string;
+//   calf: string;
+//   allergies: string;
+//   surgeries: string;
+//   smoke: boolean;
+//   drinker: boolean;
+//   drugs: boolean;
+//   roids: boolean;
+//   water: string;
+//   lesions: string;
+//   userId: string;
+// };
 
 type Props = {
   first_name: string;
   last_name: string;
   imgURL: string;
-  trainee: Trainee;
+  //trainee: Trainee;
 };
 
 export default function CardTraineePlans({
   first_name,
   last_name,
   imgURL,
-  trainee
+  //trainee
 }: Props): JSX.Element {
   const [Details, setDetails] = useState(false);
 
@@ -132,4 +132,3 @@ export default function CardTraineePlans({
     </div>
   );
 }
-
