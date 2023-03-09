@@ -169,7 +169,7 @@ const getId = async (id) => {
           {
             model: Trainer,
             attributes: ["logo"],
-            include: [{ model: PlanTrainee }],
+            include: [{ model: PlanTrainee, where:{status:true} }],
           },
         ],
       },
