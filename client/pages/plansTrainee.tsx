@@ -44,7 +44,7 @@ type PlansType = {
   };
 };
 
- function plansTrainee() {
+function plansTrainee() {
   const [plans, setPlans] = useState<PlansType[]>([]);
   const [promocion1, setPromocion1] = useState(
     "With your online subscription through Paypal, YOU SAVE MORE THAN 20% of tuition"
@@ -59,7 +59,6 @@ type PlansType = {
       .catch((error) => console.error(error));
     console.warn(plans);
   }, []);
-
 
   // plans
   return (
@@ -102,7 +101,7 @@ type PlansType = {
             />
           ))}
       </div>
-      <div className="bg-black  ">
+      <div className="bg-black">
         <h1 className="text-center text-3xl">Top 10</h1>
       </div>
       <SwiperCarousel slidesArr={homeSlides} />
@@ -110,11 +109,11 @@ type PlansType = {
         {plans &&
           plans.map((e: any) => (
             <CardTrainers
-            photo={e.logo}
-            first_name={e?.membership?.user?.first_name}
-            last_name={e?.membership?.user?.last_name}
-            id={e?.membership?.userId}
-            rating={5}
+              photo={e.logo}
+              first_name={e?.membership?.user?.first_name}
+              last_name={e?.membership?.user?.last_name}
+              id={e?.membership?.userId}
+              rating={5}
             />
           ))}
       </div>
@@ -128,7 +127,7 @@ type PlansType = {
         {plans &&
           plans.map((e: any) => (
             <CardTrainers
-            photo={e.logo}
+              photo={e.logo}
               first_name={e?.membership?.user?.first_name}
               last_name={e?.membership?.user?.last_name}
               id={e?.membership?.userId}
@@ -140,4 +139,4 @@ type PlansType = {
   );
 }
 
-export default WithPrivateRouter(plansTrainee)
+export default WithPrivateRouter(plansTrainee);
