@@ -13,115 +13,35 @@ import EditableTableTrainer from "@/components/adminDashboard/EditableTrainers";
 import axios from "axios";
 import { useRouter } from "next/router";
 
+const returnMapping = {
+  user: <EditableTableUser />,
+  comments: <EditableComments />,
+  planestrainer: <EditableTablePlans />,
+  trainees: <EditableTableTrainees />,
+  trainers: <EditableTableTrainer />,
+  default: <EditableTableUser />
+};
+
 export default function AdminIndex(props: { isAdmin: boolean }) {
   const router = useRouter();
   if (!props.isAdmin) router.replace("/home");
-  else console.log("Hewo sexy sir Admin uwu~");
 
-  // const [token, setToken] = useState("");
-  // const ticcAss = getCookie("token");
-  // console.log(ticcAss, "props.myCookie");
-
-  const [option, setOption] = useState("");
+  const [option, setOption] = useState("default");
 
   const changeOption = (option: string) => {
     setOption(option);
   };
 
-  // return (
-  //   <div className="mt-20">
-  //     <DataViewContainer />
-  //     <GraphContainer />
-  //     <div className="flex gap-10">
-  //       <OptionMenu optionChanger={changeOption} currSelection={option} />
-  //       <div>
-  //         <h1>User</h1>
-  //         <EditableTableUser />
-  //         <h1>Comentarios</h1>
-  //         <EditableComments />
-  //         <h1>Planes</h1>
-  //         <EditableTablePlans />
-  //         <h1>Trainers</h1>
-  //         <EditableTableTrainer />
-  //         <h1>Trainees</h1>
-  //         <EditableTableTrainees />
-  //       </div>
-  //     </div>
-  //   </div>
-  // );
-
-  switch (option) {
-    case "comments":
-      return (
-        <div className="mt-20">
-          <DataViewContainer />
-          <GraphContainer />
-          <div className="flex gap-10">
-            <OptionMenu optionChanger={changeOption} currSelection={option} />
-            <div>
-              <h1>Comentarios</h1>
-              <EditableComments />
-            </div>
-          </div>
-        </div>
-      );
-    case "planes trainer":
-      return (
-        <div className="mt-20">
-          <DataViewContainer />
-          <GraphContainer />
-          <div className="flex gap-10">
-            <OptionMenu optionChanger={changeOption} currSelection={option} />
-            <div>
-              <h1>Planes</h1>
-              <EditableTablePlans />
-            </div>
-          </div>
-        </div>
-      );
-    case "trainees":
-      return (
-        <div className="mt-20">
-          <DataViewContainer />
-          <GraphContainer />
-          <div className="flex gap-10">
-            <OptionMenu optionChanger={changeOption} currSelection={option} />
-            <div>
-              <h1>Trainees</h1>
-              <EditableTableTrainees />
-            </div>
-          </div>
-        </div>
-      );
-    case "trainers":
-      return (
-        <div className="mt-20">
-          <DataViewContainer />
-          <GraphContainer />
-          <div className="flex gap-10">
-            <OptionMenu optionChanger={changeOption} currSelection={option} />
-            <div>
-              <h1>Trainers</h1>
-              <EditableTableTrainer />
-            </div>
-          </div>
-        </div>
-      );
-    default:
-      return (
-        <div className="mt-20">
-          <DataViewContainer />
-          <GraphContainer />
-          <div className="flex gap-10">
-            <OptionMenu optionChanger={changeOption} currSelection={option} />
-            <div>
-              <h1>User</h1>
-              <EditableTableUser />
-            </div>
-          </div>
-        </div>
-      );
-  }
+  return (
+    <div className="mt-20">
+      <DataViewContainer />
+      <GraphContainer />
+      <div className="flex gap-10">
+        <OptionMenu optionChanger={changeOption} currSelection={option} />
+        <div>{returnMapping[option as keyof typeof returnMapping]}</div>
+      </div>
+    </div>
+  );
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
