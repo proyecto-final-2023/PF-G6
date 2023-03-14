@@ -4,7 +4,7 @@ import Navbar from "./navbar/Navbar";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="h-max">
+    <div className="h-max w-full">
       <Navbar />
       {children}
       <div className="footer">

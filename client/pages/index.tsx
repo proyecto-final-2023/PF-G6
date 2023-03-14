@@ -11,7 +11,7 @@ export default function LandingPage() {
           YOUR TRAINER & YOUR NUTRITIONAL PLAN IN THE SAME PLACE
         </h1>
         <Link href="login">
-          <button className="text-white w-max bg-gray-800 text-center hover:bg-orange-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+          <button className="text-white bg-gray-800 text-center hover:bg-orange-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
             Find a Trainer for you!
           </button>
         </Link>
@@ -23,7 +23,7 @@ export default function LandingPage() {
           FOR THE DIGITAL ERA
         </h1>
         <Link href="login">
-          <button className="w-max bg-gray-800 text-center hover:bg-orange-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+          <button className="bg-gray-800 text-center hover:bg-orange-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
             Find the Best Plan For You!
           </button>
         </Link>
