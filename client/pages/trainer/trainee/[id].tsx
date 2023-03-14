@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { getCookie, setCookie } from "@/utils/cookieHandler";
-import CardTraineePlans, { } from "@/components/CardTraineePlans";
+import CardTraineePlans from "@/components/CardTraineePlans";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -19,38 +19,40 @@ type MembershipT = {
   };
 };
 
-interface Trainee {
+export type HealthTrainee = {
+  allergies: string;
+  arm: string;
+  butt: string;
+  calf: string;
+  chest: string;
+  drinker: boolean;
+  drugs: boolean;
+  height: string;
+  hip: string;
+  id_trainee: string;
+  lesions: string;
+  neck: string;
+  roids: boolean;
+  smoke: boolean;
+  surgeries: string;
+  thig: string | null;
+  torso: string;
+  userId: string;
+  waist: string;
+  water: string | null;
+  weight: string;
+  wrist: string;
+};
+
+type Trainee = {
   first_name: string | "";
   imgURL: string | "";
   last_name: string | "";
   membership: {
-    trainee: {
-      allergies: string;
-      arm: string;
-      butt: string;
-      calf: string;
-      chest: string;
-      drinker: boolean;
-      drugs: boolean;
-      height: string;
-      hip: string;
-      id_trainee: string;
-      lesions: string;
-      neck: string;
-      roids: boolean;
-      smoke: boolean;
-      surgeries: string;
-      thig: string | null;
-      torso: string;
-      userId: string;
-      waist: string;
-      water: string | null;
-      weight: string;
-      wrist: string;
-    };
+    trainee: HealthTrainee;
     traineeIdTrainee: string;
   };
-}
+};
 
 type TraineeArray = Trainee[];
 
@@ -77,7 +79,7 @@ export default function DynamicTrainee() {
       })
       .then((data) => {
         setUser(data.data.memberships.map((e: any) => e.user));
-        console.log("user", user);
+        // console.log("user", user);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -106,7 +108,7 @@ export default function DynamicTrainee() {
             first_name={e.first_name}
             last_name={e.last_name}
             imgURL={e.imgURL}
-            // trainee={e.membership.trainee}
+            trainee={e.membership.trainee}
           />
         ))}
       </div>
