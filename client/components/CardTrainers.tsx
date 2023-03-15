@@ -13,7 +13,7 @@ type CardTrainersProps = {
 // card trainers
 const Card = ({ photo, first_name, last_name, id }: CardTrainersProps) => {
   return (
-    <div className="max-w-sm rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-center border-gray-300 border">
+    <div className="max-w-sm rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-center border-gray-300 border my-12">
       <div className="flex justify-center hover:drop-shadow-2xl">
         <img
           className="m-8 rounded-full w-60 h-60 object-cover"
