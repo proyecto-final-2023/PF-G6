@@ -34,7 +34,7 @@ const getPerfil = async (id) => {
       },
       {
         model: Membership,
-        attributes: ["id_membership", "startDate", "finishDate"],
+        attributes: ["id_membership", "startDate", "finishDate", "trainerIdTrainer"],
         include: [
           {
             model: Trainee,
@@ -169,7 +169,7 @@ const getId = async (id) => {
           {
             model: Trainer,
             attributes: ["logo"],
-            include: [{ model: PlanTrainee }],
+            include: [{ model: PlanTrainee, where:{status:true} }],
           },
         ],
       },

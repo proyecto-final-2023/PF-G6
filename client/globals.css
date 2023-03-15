@@ -6,9 +6,7 @@ html {
   background-color: #232323;
   color: #fff;
   display: flex;
-  /* min-height: calc(100vh (100px-100px)); */
-  height: fit-content;
-  /* width: 100vw; */
+  min-height: calc(100vh (100px-100px));
 }
 
 input {
@@ -25,9 +23,7 @@ textarea {
 }
 
 body {
-  /* width: 100vw; */
   min-height: 100vh;
-  height: fit-content;
 }
 
 .text-shadow {
@@ -51,7 +47,7 @@ body {
 } */
 
 .login {
-  width: 100vw;
+  /* width: 100vw; */
   height: 95vh;
   background-image: url("./assets/images/login.jpeg");
   background-repeat: no-repeat;
@@ -105,7 +101,7 @@ body {
 }
 
 .caja-form {
-  width: 100vw;
+  /* width: 100vw; */
   height: 95vh;
   background-image: url("./assets/images/register.jpeg");
   background-repeat: no-repeat;
@@ -178,3 +174,19 @@ body {
 .carouselLanding {
   margin-top: 20vh;
 }
+
+/* .divImg2 { */
+/* width: 100vw; */
+/* background-repeat: no-repeat;
+  background-position: top;
+  background-size: cover;
+  color: aliceblue;
+  margin-top: 20vh; */
+
+/* height: 95vh;
+  background-image: url("./assets/images/img_landing2.png");
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; */
+/* } */

@@ -1,45 +1,18 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import logoImg from "@/assets/images/placeholder-logo.png";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import Image from "next/image";
-
-export type Trainee = {
-  weight: string;
-  height: string;
-  neck: string;
-  torso: string;
-  chest: string;
-  waist: string;
-  arm: string;
-  wrist: string;
-  hip: string;
-  butt: string;
-  thig: string;
-  calf: string;
-  allergies: string;
-  surgeries: string;
-  smoke: boolean;
-  drinker: boolean;
-  drugs: boolean;
-  roids: boolean;
-  water: string;
-  lesions: string;
-  userId: string;
-};
+import { HealthTrainee } from "@/pages/trainer/trainee/[id]";
 
 type Props = {
   first_name: string;
   last_name: string;
   imgURL: string;
-  trainee: Trainee;
+  trainee: HealthTrainee;
 };
 
-export default function CardTraineePlans({
-  first_name,
-  last_name,
-  imgURL,
-  trainee
-}: Props): JSX.Element {
+export default function CardTraineePlans(props: Props): JSX.Element {
+  const { first_name, last_name, imgURL, trainee } = props;
   const [Details, setDetails] = useState(false);
 
   const {

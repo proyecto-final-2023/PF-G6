@@ -12,7 +12,7 @@ import "swiper/css/scrollbar";
 import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 // calendar
-//import "react-big-calendar/lib/css/react-big-calendar.css";
+import "react-big-calendar/lib/css/react-big-calendar.css";
 import "react-circular-progressbar/dist/styles.css";
 import "react-datepicker/dist/react-datepicker.css";
 

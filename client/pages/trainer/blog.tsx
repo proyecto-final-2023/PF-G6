@@ -30,7 +30,7 @@ export default function blog() {
 
   const fetchInfo = async () => {
     try {
-      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/user/comment/dd3a9601-b038-4604-a75c-d4e00b501e11?page=1`, {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/trainers/comment?page=1`, {
         headers: { "x-access-token": key }
       });
 
