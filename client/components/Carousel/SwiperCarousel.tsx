@@ -45,7 +45,7 @@ export default function SwiperCarousel({ slidesArr }: SwiperCarouselProps) {
             <Image
               src={slide.image}
               alt={slide.title}
-              className="rounded-md w-auto h-[450px] object-cover hover:opacity-95 transition duration-300 ease-in-out hover:scale-105"
+              className="rounded-md w-auto h-[450px] object-cover hover:opacity-20 transition duration-300 ease-in-out hover:scale-105"
             />
             <div className="flex flex-col justify-center items-center absolute top-0 w-full h-full gap-10 -z-10">
               <p className="uppercase font-bold text-center">
