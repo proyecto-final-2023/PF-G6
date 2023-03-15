@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <div className="h-full w-full">
       <Navbar />
       <div className="min-h-[calc(100% - 20rem)] pt-20">{children}</div>
-      <div className="footer absolute bottom-0 w-full">
+      <div className="footer fixed bottom-0 w-full z-50">
         <Footer />
       </div>
     </div>

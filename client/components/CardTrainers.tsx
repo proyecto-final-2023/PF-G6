@@ -13,10 +13,10 @@ type CardTrainersProps = {
 // card trainers
 const Card = ({ photo, first_name, last_name, id }: CardTrainersProps) => {
   return (
-    <div className="max-w-sm rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-      <div className="flex hover:drop-shadow-2xl  ">
+    <div className="max-w-sm rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 text-center border-gray-300 border">
+      <div className="flex justify-center hover:drop-shadow-2xl">
         <img
-          className=" justify-center m-8 rounded-full w-60  "
+          className="m-8 rounded-full w-60 h-60 object-cover"
           src={photo}
           alt=""
           width={80}
@@ -37,12 +37,15 @@ const Card = ({ photo, first_name, last_name, id }: CardTrainersProps) => {
           Change your life today. Don't gamble on the future, act now, without
           delay.
         </p>
-        <Link
-          href={`/trainer/trainers/${id}`}
-          className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-lg hover:bg-gray-700  "
-        >
-          Read more
-        </Link>
+
+        <div className="flex justify-center items-center">
+          <Link
+            href={`/trainer/trainers/${id}`}
+            className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-gray-500 rounded-lg hover:bg-gray-700"
+          >
+            Read more
+          </Link>
+        </div>
       </div>
     </div>
   );
