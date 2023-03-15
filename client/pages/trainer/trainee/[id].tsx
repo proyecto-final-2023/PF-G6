@@ -71,7 +71,7 @@ export default function DynamicTrainee() {
       .then((data) => {
         setName(data.data);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
 
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/trainees/byplan?page=1`, {
@@ -79,9 +79,8 @@ export default function DynamicTrainee() {
       })
       .then((data) => {
         setUser(data.data.memberships.map((e: any) => e.user));
-        // console.log("user", user);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.error(error));
   }, []);
 
   return (
