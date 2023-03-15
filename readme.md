@@ -1,8 +1,8 @@
+# [![Creative Commons License](https://creativecommons.org/images/deed/svg/cc_white.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode)
 
 # Fit U - Exercise app
 
 Given how hard has become to even get out of your house, let alone go to X place after a long day of work, we decided to make an app that allows every kind of user to have a personalized trainer in the comfort of their home
-
 
 ## Tech Stack
 
@@ -10,11 +10,7 @@ Given how hard has become to even get out of your house, let alone go to X place
 
 **Server:** Node, Express, Sequelize, PostgreSQL, axios, etc...
 
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-
 ## [Deploy](https://final-henry-g6.netlify.app/)
-
 
 ## Screenshots
 
@@ -33,9 +29,6 @@ Given how hard has become to even get out of your house, let alone go to X place
 - [@oscar](https://github.com/OssFit)
 - [@alex](https://github.com/alexsilverr)
 - [@teo](https://github.com/TeoG1menez)
-
-
-
 
 ## Run Locally
 
@@ -59,12 +52,14 @@ Install dependencies
 
 ## Start the server
 
-*api/*
+_api/_
+
 ```bash
   npm run start | yarn start
 ```
 
-*client/*
+_client/_
+
 ```bash
   npm run dev | yarn dev
 ```
