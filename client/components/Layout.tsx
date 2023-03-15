@@ -4,10 +4,10 @@ import Navbar from "./navbar/Navbar";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div className="h-max w-full">
+    <div className="h-full w-full">
       <Navbar />
-      {children}
-      <div className="footer">
+      <div className="min-h-full flex flex-col flex-1">{children}</div>
+      <div className="footer flex-shrink">
         <Footer />
       </div>
     </div>
