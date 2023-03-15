@@ -145,7 +145,7 @@ export default function Trainer() {
               </Link>
             </li>
             <li>
-              <Link
+              {/*<Link
                 href="/dataupdate"
                 className="flex items-center p-2 text-base font-normal text-gray-400 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
               >
@@ -165,7 +165,7 @@ export default function Trainer() {
                 <span className="flex-1 ml-3 whitespace-nowrap">
                   Redes add{" "}
                 </span>
-              </Link>
+              </Link>*/}
             </li>
           </ul>
         </div>
