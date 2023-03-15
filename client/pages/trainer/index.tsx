@@ -49,7 +49,7 @@ function PlanHelp(props: { plan: PlanTrainer }) {
       </div>
       <div className="flex items-center justify-center h-24 rounded bg-gray-800  ">
         <p className="text-2xl text-white dark:text-gray-500">
-          CantTrainees:{plan.plantrainer.cantTrainees}
+          Count Trainees:{plan.plantrainer.cantTrainees}
         </p>
       </div>
       <div className="flex items-center justify-center h-24 rounded bg-gray-800  ">
