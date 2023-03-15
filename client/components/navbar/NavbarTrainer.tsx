@@ -23,24 +23,23 @@ export default function Trainer() {
   const key = getCookie("token");
 
   useEffect(() => {
-    if(key!=="null")
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
-        headers: {
-          "x-access-token": key
-        }
-      })
-      .then((data) => {
-      
-        setUser(data.data);
-      })
-      .catch((err)=>{
-        console.log(err)
-      });
+    if (key !== "null")
+      axios
+        .post(`${process.env.NEXT_PUBLIC_API_URL}/user/perfil`, null, {
+          headers: {
+            "x-access-token": key
+          }
+        })
+        .then((data) => {
+          setUser(data.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   }, []);
 
   return (
-    <div className="  flex  flex-col z-40 w-60 max-sm:flex-row max-sm:w-[100vw] ">
+    <div className=" flex flex-col z-40 w-60 max-sm:flex-row max-sm:w-[100vw] ">
       <nav className="  bg-gray-800">
         <div className="flex items-center justify-center text-gray-400 font-bold m-20">
           Trainer
@@ -163,7 +162,9 @@ export default function Trainer() {
                     clip-rule="evenodd"
                   ></path>
                 </svg>
-                <span className="flex-1 ml-3 whitespace-nowrap">Redes add </span>
+                <span className="flex-1 ml-3 whitespace-nowrap">
+                  Redes add{" "}
+                </span>
               </Link>
             </li>
           </ul>

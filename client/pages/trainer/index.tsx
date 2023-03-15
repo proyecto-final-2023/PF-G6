@@ -108,31 +108,31 @@ function Dashboard(): JSX.Element {
   }, []);
 
   return (
-    <>
-      <nav className=" grid grid-cols-2  absolute  w-90 h-screen transition-transform -translate-x-0 sm:translate-x-0 max-sm:flex-row">
-        <div className="h-full px-3 py-4 overflow-y-auto bg-gray-800  max-sm:flex flex-row max-sm:w-[100vw] max-sm:h-[20vh]">
+    <div className="flex justify-between">
+      <nav className="">
+        <div className="p-3 bg-gray-800 flex-row">
           <NavbarTrainer />
         </div>
       </nav>
 
-      <div className=" flex flex-col  bg-[url('/bgs/contact.jpg')]  bg-no-repeat bg-cover pt-20 h-screen m-auto sm:ml-64">
-        <div className="p-4  ">
+      <div className="flex bg-[url('/bgs/contact.jpg')] bg-no-repeat bg-cover pt-20 grow">
+        <div className="p-4">
           {plans?.map((plan) => (
             <PlanHelp plan={plan} key={plan.name} />
           ))}
 
-          <div className="flex items-center justify-center  h-60 mb-4 rounded bg-gray-800 ">
+          <div className="flex items-center justify-center h-60 mb-4 rounded bg-gray-800 ">
             <div>
               <TablePlans />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4 ">
-            <div className="flex items-center justify-center rounded bg-gray-800 h-80  ">
+            <div className="flex items-center justify-center rounded bg-gray-800 h-80">
               <div>
                 <CreatePlansTrainee />
               </div>
             </div>
-            <div className="flex items-center justify-center rounded bg-gray-800 h-80 ">
+            <div className="flex items-center justify-center rounded bg-gray-800 h-80">
               <div>
                 <ProgressBar />
               </div>
@@ -140,7 +140,7 @@ function Dashboard(): JSX.Element {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -33,19 +33,19 @@ export default function SwiperCarousel({ slidesArr }: SwiperCarouselProps) {
         slidesPerView={viewportWidth > 700 ? 3 : 1}
         navigation={{
           nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
+          prevEl: ".swiper-button-prev"
         }}
         loop={true}
         pagination={{ clickable: true }}
         // onSwiper={(swiper) => console.log(swiper)}
         // onSlideChange={() => console.log("slide change")}
       >
-        {slidesArr.map((slide) => (
-          <SwiperSlide key={slide.hoverText}>
+        {slidesArr.map((slide, i) => (
+          <SwiperSlide key={i}>
             <Image
               src={slide.image}
               alt={slide.title}
-              className="rounded-md w-auto h-[450px] object-cover hover:opacity-20 transition duration-300 ease-in-out hover:scale-105"
+              className="rounded-md w-auto h-[450px] object-cover hover:opacity-95 transition duration-300 ease-in-out hover:scale-105"
             />
             <div className="flex flex-col justify-center items-center absolute top-0 w-full h-full gap-10 -z-10">
               <p className="uppercase font-bold text-center">
