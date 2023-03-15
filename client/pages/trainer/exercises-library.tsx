@@ -13,9 +13,9 @@ import { getCookie } from "@/utils/cookieHandler";
 import { access } from "fs";
 import WithPrivateRouter from "@/components/WithPrivateRoute";
 
- function ExercisesLibrary() {
-  const { setFirstParam, setSecondParam, firstParam, secondParam } = useParam1Store();
-
+function ExercisesLibrary() {
+  const { setFirstParam, setSecondParam, firstParam, secondParam } =
+    useParam1Store();
 
   const [rndExercises, setRndExercises] = useState<ExerciesResType[]>([]);
   const [data, setData] = useState<CardData[]>([]);
@@ -275,7 +275,7 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
       }
 
       const { data } = await axios(url);
-      console.log(data);
+      // console.log(data);
       let seted = isAlimentEndpoint
         ? (setData(data), setRndExercises([]))
         : setRndExercises(data);
@@ -862,4 +862,4 @@ import WithPrivateRouter from "@/components/WithPrivateRoute";
   );
 }
 
-export default WithPrivateRouter(ExercisesLibrary)
+export default WithPrivateRouter(ExercisesLibrary);

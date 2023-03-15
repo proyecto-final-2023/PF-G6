@@ -1,69 +1,42 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import logoImg from "@/assets/images/placeholder-logo.png";
 import { FaCheck, FaTimes } from "react-icons/fa";
 import Image from "next/image";
-
-// export type Trainee = {
-//   weight: string;
-//   height: string;
-//   neck: string;
-//   torso: string;
-//   chest: string;
-//   waist: string;
-//   arm: string;
-//   wrist: string;
-//   hip: string;
-//   butt: string;
-//   thig: string;
-//   calf: string;
-//   allergies: string;
-//   surgeries: string;
-//   smoke: boolean;
-//   drinker: boolean;
-//   drugs: boolean;
-//   roids: boolean;
-//   water: string;
-//   lesions: string;
-//   userId: string;
-// };
+import { HealthTrainee } from "@/pages/trainer/trainee/[id]";
 
 type Props = {
   first_name: string;
   last_name: string;
   imgURL: string;
-  //trainee: Trainee;
+  trainee: HealthTrainee;
 };
 
-export default function CardTraineePlans({
-  first_name,
-  last_name,
-  imgURL,
-  //trainee
-}: Props): JSX.Element {
+export default function CardTraineePlans(props: Props): JSX.Element {
+  const { first_name, last_name, imgURL, trainee } = props;
   const [Details, setDetails] = useState(false);
 
-  // const {
-  //   weight,
-  //   height,
-  //   neck,
-  //   torso,
-  //   chest,
-  //   waist,
-  //   arm,
-  //   wrist,
-  //   hip,
-  //   butt,
-  //   thig,
-  //   calf,
-  //   allergies,
-  //   surgeries,
-  //   smoke,
-  //   drinker,
-  //   drugs,
-  //   roids,
-  //   water,
-  //   lesions
-  // } = trainee;
+  const {
+    weight,
+    height,
+    neck,
+    torso,
+    chest,
+    waist,
+    arm,
+    wrist,
+    hip,
+    butt,
+    thig,
+    calf,
+    allergies,
+    surgeries,
+    smoke,
+    drinker,
+    drugs,
+    roids,
+    water,
+    lesions
+  } = trainee;
 
   const handleClick = () => {
     setDetails(!Details);
@@ -92,7 +65,7 @@ export default function CardTraineePlans({
             </div>
 
             <div className="bg-gray-50 border opacity-90 pr-10  flex flex-col border-gray-300 text-gray-900 text-sm rounded-lg    dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white ">
-              {/* {Details && (
+              {Details && (
                 <div className="p-5  items-center space-x-5 ">
                   <p>weight: {weight}</p>
                   <p>height: {height}</p>
@@ -115,7 +88,7 @@ export default function CardTraineePlans({
                   <p>water: {water}</p>
                   <p>lesions: {lesions}</p>
                 </div>
-              )} */}
+              )}
             </div>
 
             <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">

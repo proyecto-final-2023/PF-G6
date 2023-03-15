@@ -44,6 +44,8 @@ type PlansType = {
   };
 };
 
+const className = "flex justify-center items-center flex-wrap gap-4";
+
 function plansTrainee() {
   const [plans, setPlans] = useState<PlansType[]>([]);
   const [promocion1, setPromocion1] = useState(
@@ -89,7 +91,7 @@ function plansTrainee() {
         <h1 className="text-center text-5xl">Top</h1>
       </div>
 
-      <div className="   outline-offset-3 justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2">
+      <div className={className}>
         {plans &&
           plans.map((e: any) => (
             <CardTrainers
@@ -105,7 +107,7 @@ function plansTrainee() {
         <h1 className="text-center text-3xl">Top 10</h1>
       </div>
       <SwiperCarousel slidesArr={homeSlides} />
-      <div className=" justify-items-center grid grid-cols-4  m-20 gap-x-2 gap-y-2">
+      <div className={className}>
         {plans &&
           plans.map((e: any) => (
             <CardTrainers
@@ -120,10 +122,9 @@ function plansTrainee() {
       {promocion2 && (
         <div className="bg-gradient-to-r from-yellow-200 via-orange-400 to-rose-500 text-center text-gray-800 h-40">
           <h2 className="pt-10 text-3xl text-white ">{promocion2}</h2>
-          <p className="text-xl  text-white  ">¡ bla bla bla ---!</p>
         </div>
       )}
-      <div className=" justify-items-center  grid grid-cols-4  m-20 gap-x-2 gap-y-2 ">
+      <div className={className}>
         {plans &&
           plans.map((e: any) => (
             <CardTrainers
