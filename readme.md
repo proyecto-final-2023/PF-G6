@@ -25,7 +25,7 @@ Given how hard has become to even get out of your house, let alone go to X place
 - [@adan](https://github.com/Hachikoi-the-creator)
 - [@javier](https://github.com/JavGarb)
 - [@andrew](https://github.com/AndrewVel)
-- [@juan plablo JP](https://github.com/jpquinteros)
+- [@juan pablo JP](https://github.com/jpquinteros)
 - [@oscar](https://github.com/OssFit)
 - [@alex](https://github.com/alexsilverr)
 - [@teo](https://github.com/TeoG1menez)
